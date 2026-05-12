@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction – ACCT 2101</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    /* Page-specific styles */
+    .course-map {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      margin: 2rem auto;
+      max-width: 600px;
+    }
+    .course-map-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.4rem 0;
+    }
+    .course-map-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      width: 100px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .course-map-chapters {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .ch-badge {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.7rem;
+      border-radius: 20px;
+      text-align: center;
+      min-width: 50px;
+    }
+    .ch-badge.foundation {
+      background: var(--primary);
+      color: #fff;
+    }
+    .ch-badge.cycle {
+      background: var(--primary-light);
+      color: #fff;
+    }
+    .ch-badge.accounts {
+      background: var(--accent-gold);
+      color: #fff;
+    }
+    .course-map-connector {
+      text-align: center;
+      color: var(--text-light);
+      font-size: 1.2rem;
+      padding: 0.1rem 0;
+    }
+
+    .video-structure {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+    }
+    .video-block {
+      background: var(--bg-white);
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      min-width: 180px;
+      box-shadow: var(--shadow-sm);
+    }
+    .video-block h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .video-block ul {
+      list-style: none;
+      padding: 0;
+    }
+    .video-block li {
+      font-size: 0.85rem;
+      padding: 0.2rem 0;
+      color: var(--text-primary);
+    }
+    .video-block li::before {
+      content: "▸ ";
+      color: var(--primary-light);
+      font-weight: bold;
+    }
+
+    /* Communication flow diagram */
+    .comm-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    .comm-node {
+      background: var(--bg-white);
+      border: 2px solid var(--primary-light);
+      border-radius: 50px;
+      padding: 0.6rem 1.4rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .comm-node.emphasis {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      border-radius: var(--radius);
+      padding: 0.8rem 1.6rem;
+    }
+    .comm-arrow {
+      color: var(--text-light);
+      font-size: 1.4rem;
+    }
+    .comm-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.2;
+    }
+    .comm-arrow-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.1rem;
+    }
+
+    /* Learning path */
+    .learning-path {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 2rem 0;
+    }
+    .path-step {
+      background: var(--bg-white);
+      border: 2px solid var(--primary-light);
+      border-radius: var(--radius);
+      padding: 0.8rem 1.2rem;
+      text-align: center;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      box-shadow: var(--shadow-sm);
+      max-width: 220px;
+    }
+    .path-step .step-num {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 24px;
+      margin-bottom: 0.3rem;
+    }
+    .path-step .step-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .path-step .step-desc {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 0.2rem;
+    }
+    .path-step.goal {
+      border-color: var(--accent);
+      background: #fff5f5;
+    }
+    .path-step.goal .step-num {
+      background: var(--accent);
+    }
+    .path-arrow {
+      color: var(--text-light);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  </style>
+  <script src="nav.js" defer></script>
+</head>
+<body class="has-sidebar">
+<div class="chapter-container">
+
+  <!-- Chapter Header -->
+  <header class="chapter-header">
+    <div class="chapter-label">ACCT 2101 &mdash; Principles of Financial Accounting</div>
+    <h1 class="chapter-title">Introduction</h1>
+    <p class="chapter-subtitle">Welcome to the World of Accounting</p>
+  </header>
+
+  <!-- Learning Objectives -->
+  <div class="learning-objectives">
+    <h2>After studying this introduction, you should be able to:</h2>
+    <ol>
+      <li>Understand the structure and sequence of this course</li>
+      <li>Define accounting and explain why it is called the "language of business"</li>
+      <li>Distinguish between financial accounting and managerial accounting</li>
+      <li>Identify the two primary external users of financial information</li>
+      <li>Explain the ultimate goal of this course: analyzing financial statements</li>
+      <li>Describe the roadmap of topics covered from Chapter 1 through Chapter 13</li>
+    </ol>
+  </div>
+
+  <!-- Section 1: Course Overview -->
+  <h2 class="section-title">How This Course Is Organized</h2>
+
+  <p>
+    This textbook is designed as a companion to the ACCT 2101 video lecture series. Each chapter
+    in the textbook corresponds to a set of video lectures that break down the material into
+    manageable parts. For most chapters, the video lectures follow a consistent pattern:
+    first, the core concepts are introduced and explained in detail; then, the corresponding
+    PowerPoint slides are reviewed to reinforce and summarize those concepts.
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> HOW TO USE THIS RESOURCE</div>
+    <p>
+      Each chapter is divided into multiple parts for a reason. Some topics require deeper
+      explanation before moving on. We recommend studying the material <strong>sequentially</strong>&mdash;watch
+      the conceptual lecture first, then the PowerPoint review, and read the corresponding
+      chapter here alongside both. If a topic has been covered in the conceptual lecture,
+      the PowerPoint review may skip over it. It is your responsibility to ensure you
+      understand all the material, including any slides not explicitly discussed in the videos.
+    </p>
+  </div>
+
+  <p>
+    To give you a sense of the structure, here is how the lectures are typically organized
+    for each chapter:
+  </p>
+
+  <div class="video-structure">
+    <div class="video-block">
+      <h4>Example: Chapter 1</h4>
+      <ul>
+        <li>Part 1 &ndash; Core Concepts</li>
+        <li>Part 2 &ndash; PPT Review</li>
+        <li>Part 3 &ndash; Transaction Analysis</li>
+      </ul>
+    </div>
+    <div class="video-block">
+      <h4>Example: Chapter 2</h4>
+      <ul>
+        <li>Part 1 &ndash; Normal Balance</li>
+        <li>Part 2 &ndash; Journal Entries</li>
+        <li>Part 3 &ndash; Posting &amp; Trial Balance</li>
+        <li>Part 4 &ndash; PPT Review</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 2: What is Accounting? -->
+  <h2 class="section-title">What Is Accounting?</h2>
+
+  <p>
+    Accounting is often called <strong>the language of business</strong>. Just as a spoken language
+    enables people to communicate ideas, accounting enables market participants to communicate
+    financial information. Specifically, accounting is an information system that measures business
+    activities, processes that information into reports, and communicates the results to
+    decision-makers through <strong>financial statements</strong>.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128218;</span> KEY TERM</div>
+    <p>
+      <strong>Accounting</strong> &mdash; An information system that measures business activities,
+      processes data into reports, and communicates financial results to decision-makers.
+    </p>
+  </div>
+
+  <p>
+    Because accounting serves as the universal language of business, it is a foundational
+    subject for all business students&mdash;regardless of whether their major is marketing,
+    strategy, finance, or management. Understanding this language is essential to interpreting
+    the financial health and performance of any organization.
+  </p>
+
+  <!-- Communication Flow Diagram -->
+  <figure style="text-align:center; margin:2rem auto; max-width:750px;">
+    <img src="images/intro/accounting-communication-flow.png" alt="Accounting as a communication system: Business Activities flow through the Accounting System to Financial Statements used by Creditors and Investors" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure I-1. Accounting as the Language of Business</figcaption>
+  </figure>
+
+  <!-- Section 3: Two Branches -->
+  <h2 class="section-title">Two Branches of Accounting</h2>
+
+  <p>
+    Accounting is broadly divided into two branches, each serving a different set of users:
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Financial Accounting</th>
+        <th>Managerial Accounting</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Course</strong></td>
+        <td>ACCT 2101</td>
+        <td>ACCT 2102</td>
+      </tr>
+      <tr>
+        <td><strong>Users</strong></td>
+        <td>External (creditors, investors, taxing authorities)</td>
+        <td>Internal (managers, employees)</td>
+      </tr>
+      <tr>
+        <td><strong>Purpose</strong></td>
+        <td>Report financial position and performance to outsiders</td>
+        <td>Provide information for budgeting, planning, and strategy</td>
+      </tr>
+      <tr>
+        <td><strong>Focus</strong></td>
+        <td>Past performance (historical data)</td>
+        <td>Future planning (forecasts, budgets)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    This course&mdash;ACCT 2101&mdash;focuses exclusively on <strong>financial accounting</strong>.
+    Financial accounting examines the firm from the perspective of <em>external users</em>,
+    primarily creditors and investors. These external parties provide financing to the company,
+    and in return, they need reliable financial information to assess whether the firm can
+    repay its debts and generate returns on their investments.
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Why do creditors and investors need financial statements? Because people don't
+      just hand over their money for nothing. Before providing capital to a company,
+      they need to verify that the company has a solid financial record and good performance&mdash;so
+      they can be confident their money will be returned in the future.
+    </p>
+  </div>
+
+  <!-- Section 4: The Ultimate Goal -->
+  <h2 class="section-title">The Ultimate Goal: Analyzing Financial Statements</h2>
+
+  <p>
+    The ultimate goal of this course is to equip you with the ability to <strong>analyze
+    financial statements</strong>. However, meaningful analysis requires a deep understanding
+    of what financial statements contain and how they are constructed. For this reason,
+    the course begins with the <em>preparation</em> of financial statements before moving
+    to analysis.
+  </p>
+
+  <div class="learning-path">
+    <div class="path-step">
+      <span class="step-num">1</span>
+      <span class="step-label">Preparation of F/S</span>
+      <span class="step-desc">Learn how financial statements are put together</span>
+    </div>
+    <div class="path-arrow">&#10145;</div>
+    <div class="path-step goal">
+      <span class="step-num">2</span>
+      <span class="step-label">Analyzing F/S</span>
+      <span class="step-desc">The ultimate goal of this course</span>
+    </div>
+  </div>
+
+  <p>
+    By first learning how to prepare financial statements, you will understand exactly what
+    goes into them. This foundational knowledge then enables you to interpret and evaluate
+    those statements with confidence.
+  </p>
+
+  <!-- Section 5: Course Roadmap -->
+  <h2 class="section-title">Course Roadmap</h2>
+
+  <p>
+    The course is organized into three major phases, each building upon the previous one:
+  </p>
+
+  <div class="course-map">
+    <div class="course-map-row">
+      <div class="course-map-label">Foundation</div>
+      <div class="course-map-chapters">
+        <span class="ch-badge foundation">Ch 1</span>
+      </div>
+    </div>
+    <div class="course-map-connector">&#8595;</div>
+    <div class="course-map-row">
+      <div class="course-map-label">Accounting Cycle</div>
+      <div class="course-map-chapters">
+        <span class="ch-badge cycle">Ch 2</span>
+        <span class="ch-badge cycle">Ch 3</span>
+        <span class="ch-badge cycle">Ch 4</span>
+      </div>
+    </div>
+    <div class="course-map-connector">&#8595;</div>
+    <div class="course-map-row">
+      <div class="course-map-label">Specific Accounts</div>
+      <div class="course-map-chapters">
+        <span class="ch-badge accounts">Ch 5</span>
+        <span class="ch-badge accounts">Ch 6</span>
+        <span class="ch-badge accounts">Ch 7</span>
+        <span class="ch-badge accounts">Ch 8</span>
+        <span class="ch-badge accounts">Ch 9</span>
+        <span class="ch-badge accounts">Ch 11</span>
+        <span class="ch-badge accounts">Ch 12</span>
+        <span class="ch-badge accounts">Ch 13</span>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    <strong>Phase 1: Basic Concepts (Chapter 1).</strong> Chapter 1 introduces the fundamental
+    building blocks of accounting&mdash;the accounting equation, types of business organizations,
+    and the structure of financial statements. This chapter lays the conceptual groundwork
+    for everything that follows.
+  </p>
+
+  <p>
+    <strong>Phase 2: The Accounting Cycle (Chapters 2&ndash;4).</strong> Chapters 2, 3, and 4
+    walk through the complete accounting cycle: recording transactions, making adjusting entries,
+    and preparing financial statements. These chapters are the <em>heart</em> of the course.
+  </p>
+
+  <p>
+    <strong>Phase 3: Specific Accounts (Chapters 5&ndash;13).</strong> The remaining chapters
+    examine specific accounts within <strong>Assets</strong>, <strong>Liabilities</strong>,
+    and <strong>Stockholders' Equity</strong>. Each chapter addresses the unique issues that
+    arise when recording, reporting, and analyzing these individual items.
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#9888;&#65039;</span> IMPORTANT</div>
+    <p>
+      Chapters 1 through 4 are your <strong>foundational chapters</strong>. This material is
+      highly sequential&mdash;much like mathematics. If you do not study these chapters thoroughly,
+      there is no way to understand the topics that come after Chapter 4. You must master
+      Chapter 1 before moving to Chapter 2, and Chapters 1 and 2 before Chapter 3, and so on.
+      Take the time to build a strong foundation here.
+    </p>
+  </div>
+
+  <!-- Chapter Summary -->
+  <div class="chapter-summary">
+    <h2>Introduction Summary</h2>
+    <ul>
+      <li><strong>Accounting</strong> is the language of business&mdash;an information system that measures, processes, and communicates financial information.</li>
+      <li><strong>Financial accounting</strong> (ACCT 2101) serves external users such as creditors and investors; <strong>managerial accounting</strong> (ACCT 2102) serves internal users such as managers.</li>
+      <li>The course follows a two-step learning path: first <strong>preparing</strong> financial statements, then <strong>analyzing</strong> them.</li>
+      <li>Chapters 1&ndash;4 form the <strong>foundation</strong>; the remaining chapters cover specific accounts in Assets, Liabilities, and Stockholders' Equity.</li>
+      <li>The material is <strong>sequential</strong>&mdash;each chapter builds directly on the previous one.</li>
+    </ul>
+  </div>
+
+  <!-- Key Terms -->
+  <div class="glossary">
+    <h2>Key Terms</h2>
+    <dl>
+      <dt>Accounting</dt>
+      <dd>An information system that measures business activities, processes data into reports, and communicates financial results to decision-makers.</dd>
+
+      <dt>Financial Accounting</dt>
+      <dd>The branch of accounting that provides financial information to external decision-makers, such as investors, creditors, and taxing authorities.</dd>
+
+      <dt>Managerial Accounting</dt>
+      <dd>The branch of accounting that provides financial information to internal decision-makers for budgeting, planning, and strategy.</dd>
+
+      <dt>Financial Statements</dt>
+      <dd>Formal reports that summarize the financial activities and position of a business, used by external parties to make informed decisions.</dd>
+
+      <dt>External Users</dt>
+      <dd>Individuals or organizations outside the company&mdash;primarily creditors and investors&mdash;who rely on financial statements to evaluate the firm.</dd>
+    </dl>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="chapter-nav">
+    <span></span>
+    <a href="ch01.html">Chapter 1: Accounting and the Business Environment &rarr;</a>
+  </nav>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 4 – Completing the Accounting Cycle</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    /* ===== Ch04 Page-specific styles ===== */
+
+    /* T-Account visual */
+    .t-account {
+      display: inline-block;
+      min-width: 240px;
+      margin: 0.5rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.88rem;
+      vertical-align: top;
+    }
+    .t-account-title {
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary);
+      padding: 0.3rem 0.5rem;
+      margin-bottom: 0;
+    }
+    .t-account-body {
+      display: flex;
+      border-top: 2px solid var(--primary);
+      min-height: 60px;
+    }
+    .t-left, .t-right {
+      flex: 1;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.82rem;
+    }
+    .t-left { border-right: 2px solid var(--primary); }
+    .t-left-label, .t-right-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 0.3rem;
+    }
+    .t-entry { padding: 0.15rem 0; }
+    .t-entry.bal {
+      font-weight: 700;
+      border-top: 1px solid var(--border-light);
+      margin-top: 0.3rem;
+      padding-top: 0.3rem;
+    }
+    .t-entry.highlight-green { color: #2e7d32; }
+    .t-entry.highlight-red { color: #c62828; }
+
+    /* Journal Entry visual */
+    .journal-entry {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .journal-entry .je-date {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem;
+    }
+    .journal-entry .je-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.15rem 0;
+    }
+    .journal-entry .je-line.credit .je-acct { padding-left: 2rem; }
+    .journal-entry .je-dr, .journal-entry .je-cr {
+      min-width: 70px;
+      text-align: right;
+      font-weight: 600;
+    }
+    .journal-entry .je-dr { color: #1565c0; }
+    .journal-entry .je-cr { color: #c62828; }
+    .journal-entry .je-narration {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-style: italic;
+      padding-left: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    /* Comparison columns */
+    .compare-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .compare-col {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .compare-col h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+    .compare-col.temp-col h4 { color: var(--accent); }
+    .compare-col.perm-col h4 { color: var(--primary); }
+
+    /* Step cards for closing process */
+    .closing-steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .step-card {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow-sm);
+      border-top: 4px solid var(--primary);
+    }
+    .step-card .step-num {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary-light);
+      float: left;
+      margin-right: 0.6rem;
+      line-height: 1;
+    }
+    .step-card h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .step-card p {
+      font-size: 0.88rem;
+      text-align: left;
+      margin-bottom: 0;
+    }
+    .step-card.step-revenue { border-top-color: #1976d2; }
+    .step-card.step-expense { border-top-color: #c62828; }
+    .step-card.step-summary { border-top-color: #2e7d32; }
+    .step-card.step-dividends { border-top-color: #e65100; }
+
+    /* Financial statement display */
+    .fin-stmt {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.5rem;
+      margin: 1rem 0;
+      box-shadow: var(--shadow-sm);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.88rem;
+    }
+    .fin-stmt .stmt-header {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .fin-stmt .stmt-header .company-name {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.95rem;
+    }
+    .fin-stmt .stmt-header .stmt-name {
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+    }
+    .fin-stmt .stmt-header .stmt-date {
+      font-size: 0.82rem;
+      color: var(--text-light);
+    }
+    .fin-stmt .stmt-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.2rem 0;
+    }
+    .fin-stmt .stmt-line.indent { padding-left: 1.5rem; }
+    .fin-stmt .stmt-line.indent2 { padding-left: 3rem; }
+    .fin-stmt .stmt-line.total {
+      font-weight: 700;
+      border-top: 1px solid var(--border-light);
+      margin-top: 0.3rem;
+      padding-top: 0.3rem;
+    }
+    .fin-stmt .stmt-line.double-total {
+      font-weight: 700;
+      border-top: 3px double var(--primary);
+      margin-top: 0.3rem;
+      padding-top: 0.3rem;
+    }
+    .fin-stmt .stmt-line .label { flex: 1; }
+    .fin-stmt .stmt-line .amount {
+      min-width: 80px;
+      text-align: right;
+      font-weight: 600;
+    }
+    .fin-stmt .section-label {
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 0.8rem;
+      margin-bottom: 0.2rem;
+    }
+
+    /* Accounting cycle step list */
+    .cycle-steps {
+      counter-reset: cycle;
+      list-style: none;
+      padding: 0;
+    }
+    .cycle-steps li {
+      counter-increment: cycle;
+      padding: 0.6rem 0 0.6rem 3rem;
+      position: relative;
+      border-left: 2px solid var(--border-light);
+      margin-left: 1rem;
+    }
+    .cycle-steps li::before {
+      content: counter(cycle);
+      position: absolute;
+      left: -1rem;
+      top: 0.5rem;
+      width: 2rem;
+      height: 2rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 2rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .cycle-steps li:last-child { border-left: none; }
+    .cycle-steps li.ch-highlight::before {
+      background: var(--accent);
+    }
+
+    /* Warning callout */
+    .callout.warning {
+      background: #fff3e0;
+      border-left: 4px solid #e65100;
+    }
+    .callout.warning .callout-label { color: #e65100; }
+
+    /* Classified B/S category cards */
+    .bs-categories {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .bs-card {
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .bs-card h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .bs-card.current-asset { background: #e3f2fd; border-left: 4px solid #1976d2; }
+    .bs-card.current-asset h4 { color: #1565c0; }
+    .bs-card.longterm-asset { background: #e8f5e9; border-left: 4px solid #388e3c; }
+    .bs-card.longterm-asset h4 { color: #2e7d32; }
+    .bs-card.current-liab { background: #fff3e0; border-left: 4px solid #e65100; }
+    .bs-card.current-liab h4 { color: #e65100; }
+    .bs-card.longterm-liab { background: #fce4ec; border-left: 4px solid #c62828; }
+    .bs-card.longterm-liab h4 { color: #c62828; }
+
+    @media (max-width: 768px) {
+      .compare-cols, .closing-steps, .bs-categories { grid-template-columns: 1fr; }
+    }
+  </style>
+  <script src="nav.js" defer></script>
+</head>
+<body class="has-sidebar">
+
+<div class="chapter-container">
+
+  <!-- ===== CHAPTER HEADER ===== -->
+  <header class="chapter-header">
+    <div class="chapter-label">Chapter 4</div>
+    <h1 class="chapter-title">Completing the Accounting Cycle</h1>
+    <p class="chapter-subtitle">Financial Statements, Closing Entries, and the Post-Closing Trial Balance</p>
+  </header>
+
+  <!-- ===== LEARNING OBJECTIVES ===== -->
+  <div class="learning-objectives">
+    <h2>Learning Objectives</h2>
+    <ol>
+      <li>Prepare financial statements from the adjusted trial balance, including the classified balance sheet.</li>
+      <li>Explain the purpose of the worksheet and use it to organize financial statement preparation.</li>
+      <li>Distinguish between temporary and permanent accounts.</li>
+      <li>Explain the purpose of closing entries, and journalize and post the four closing entries.</li>
+      <li>Prepare a post-closing trial balance.</li>
+      <li>Describe the complete accounting cycle.</li>
+      <li>Use the current ratio to evaluate a company&rsquo;s ability to pay current liabilities.</li>
+    </ol>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: PREPARING FINANCIAL STATEMENTS                    -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">1. Preparing Financial Statements from the Adjusted Trial Balance</h2>
+
+  <p>
+    In Chapter 3, the adjusting process concluded with the preparation of an <strong>adjusted trial balance</strong>.
+    This adjusted trial balance contains the updated balances of every account&mdash;assets, liabilities,
+    stockholders&rsquo; equity, revenues, and expenses&mdash;all of which have been corrected through adjusting
+    entries. The adjusted trial balance serves as the direct source from which the three primary financial
+    statements are prepared.
+  </p>
+
+  <p>
+    The three financial statements are prepared in a specific sequence because they are <strong>interrelated</strong>.
+    Information flows from one statement to the next in a precise order:
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128278;</span> FINANCIAL STATEMENT PREPARATION ORDER</div>
+    <div class="diagram">
+      <div class="diagram-box">Adjusted<br>Trial Balance</div>
+      <div class="diagram-arrow">&rarr;</div>
+      <div class="diagram-box highlight">Income<br>Statement</div>
+      <div class="diagram-arrow">&rarr;</div>
+      <div class="diagram-box highlight">Statement of<br>Retained Earnings</div>
+      <div class="diagram-arrow">&rarr;</div>
+      <div class="diagram-box accent">Balance<br>Sheet</div>
+    </div>
+    <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:1rem; text-align:center;">
+      Each statement must be completed before the next can be prepared.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">1.1 The Income Statement</h3>
+
+  <p>
+    The <strong>income statement</strong> reports revenues and expenses and calculates net income (or net loss)
+    for the period. To prepare it, extract all revenue and expense accounts from the adjusted trial balance.
+    Revenue accounts carry credit balances; expense accounts carry debit balances. The difference between
+    total revenues and total expenses yields net income (if revenues exceed expenses) or net loss (if
+    expenses exceed revenues).
+  </p>
+
+  <div class="fin-stmt">
+    <div class="stmt-header">
+      <div class="company-name">Smart Touch Learning</div>
+      <div class="stmt-name">Income Statement</div>
+      <div class="stmt-date">For the Month Ended December 31, 2018</div>
+    </div>
+    <div class="section-label">Revenue:</div>
+    <div class="stmt-line indent">
+      <span class="label">Service Revenue</span>
+      <span class="amount">$17,500</span>
+    </div>
+    <div class="section-label">Expenses:</div>
+    <div class="stmt-line indent">
+      <span class="label">Rent Expense</span>
+      <span class="amount">$3,000</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Salaries Expense</span>
+      <span class="amount">2,400</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Depreciation Expense&mdash;Furniture</span>
+      <span class="amount">300</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Depreciation Expense&mdash;Building</span>
+      <span class="amount">250</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Utilities Expense</span>
+      <span class="amount">400</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Supplies Expense</span>
+      <span class="amount">100</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Insurance Expense</span>
+      <span class="amount">200</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Interest Expense</span>
+      <span class="amount">100</span>
+    </div>
+    <div class="stmt-line indent total">
+      <span class="label">Total Expenses</span>
+      <span class="amount">8,950</span>
+    </div>
+    <div class="stmt-line double-total">
+      <span class="label">Net Income</span>
+      <span class="amount">$ 8,550</span>
+    </div>
+  </div>
+
+  <h3 class="subsection-title">1.2 The Statement of Retained Earnings</h3>
+
+  <p>
+    The <strong>statement of retained earnings</strong> shows how retained earnings changed during the period.
+    It begins with the beginning balance of Retained Earnings (carried over from the previous period), adds
+    net income (from the income statement), and subtracts dividends declared during the period. The result
+    is the ending balance of Retained Earnings.
+  </p>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#128290;</span> STATEMENT OF RETAINED EARNINGS</div>
+    \[\text{Ending R/E} = \text{Beginning R/E} + \text{Net Income} - \text{Dividends}\]
+    <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem;">
+      If the company incurred a net loss, the formula becomes: Beginning R/E &minus; Net Loss &minus; Dividends.
+    </p>
+  </div>
+
+  <div class="fin-stmt">
+    <div class="stmt-header">
+      <div class="company-name">Smart Touch Learning</div>
+      <div class="stmt-name">Statement of Retained Earnings</div>
+      <div class="stmt-date">For the Month Ended December 31, 2018</div>
+    </div>
+    <div class="stmt-line">
+      <span class="label">Retained Earnings, December 1</span>
+      <span class="amount">$ 0</span>
+    </div>
+    <div class="stmt-line">
+      <span class="label">Add: Net Income</span>
+      <span class="amount">8,550</span>
+    </div>
+    <div class="stmt-line total">
+      <span class="label"></span>
+      <span class="amount">8,550</span>
+    </div>
+    <div class="stmt-line">
+      <span class="label">Less: Dividends</span>
+      <span class="amount">(5,000)</span>
+    </div>
+    <div class="stmt-line double-total">
+      <span class="label">Retained Earnings, December 31</span>
+      <span class="amount">$ 3,550</span>
+    </div>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Notice that the Retained Earnings figure shown on the adjusted trial balance is the
+      <em>beginning</em> balance. It has not yet been updated for the current period&rsquo;s net income or
+      dividends. That update occurs only after the closing process (covered later in this chapter). This is
+      precisely why we need the Statement of Retained Earnings&mdash;to bridge the gap between the beginning
+      balance on the adjusted trial balance and the ending balance that appears on the balance sheet.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">1.3 The Balance Sheet</h3>
+
+  <p>
+    The <strong>balance sheet</strong> reports assets, liabilities, and stockholders&rsquo; equity as of the
+    last day of the period. The ending Retained Earnings figure from the statement of retained earnings flows
+    directly into the equity section of the balance sheet&mdash;this is why the income statement and
+    statement of retained earnings must be prepared first.
+  </p>
+
+  <p>
+    Note that in this example, Smart Touch Learning began operations on December 1, so the beginning
+    Retained Earnings was zero. In subsequent periods, the ending balance from one period becomes the
+    beginning balance of the next.
+  </p>
+
+  <!-- Financial Statement Flow Diagram -->
+  <figure style="text-align:center; margin:2rem auto; max-width:750px;">
+    <img src="images/ch04/financial-statement-flow.png" alt="Diagram showing how Net Income flows from the Income Statement to the Statement of Retained Earnings, and how Ending Retained Earnings then flows to the Balance Sheet" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure 4-1. Flow of Information Among Financial Statements</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: THE CLASSIFIED BALANCE SHEET                      -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">2. The Classified Balance Sheet</h2>
+
+  <p>
+    A <strong>classified balance sheet</strong> organizes assets and liabilities into specific categories.
+    Assets are listed in order of <strong>liquidity</strong>&mdash;the speed and ease with which they can be
+    converted to cash. Liabilities are classified by <strong>maturity</strong>&mdash;whether they must be
+    settled within the near term or over the long term.
+  </p>
+
+  <h3 class="subsection-title">2.1 Current Assets</h3>
+
+  <p>
+    <strong>Current assets</strong> are assets that will be converted to cash, sold, or used up during the
+    next 12 months <em>or within the business&rsquo;s operating cycle</em>, whichever is longer. The
+    <strong>operating cycle</strong> is the time span during which a company uses cash to acquire goods and
+    services, sells those goods and services to customers, and collects cash from those customers. It is
+    sometimes called the &ldquo;cash-to-cash&rdquo; cycle.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Why the Operating Cycle Matters</div>
+    <p>
+      Consider the Boeing Company. Boeing manufactures airplanes, which can take well over a year to build.
+      These airplanes are Boeing&rsquo;s <em>inventory</em>&mdash;and inventory is a current asset.
+      If the threshold were strictly 12 months, Boeing&rsquo;s work-in-progress aircraft could not be
+      classified as current assets. However, because the operating cycle definition extends beyond 12 months
+      when the business cycle requires it, these inventories are correctly classified as current assets.
+    </p>
+  </div>
+
+  <p>
+    Common examples of current assets include Cash, Accounts Receivable, Inventory, Prepaid Expenses, and
+    Supplies. They are listed on the balance sheet from <em>most liquid</em> (Cash) to <em>least liquid</em>.
+  </p>
+
+  <h3 class="subsection-title">2.2 Long-Term Assets</h3>
+
+  <p>
+    <strong>Long-term assets</strong> encompass all assets that are <em>not</em> classified as current.
+    They fall into three main subcategories:
+  </p>
+
+  <div class="bs-categories">
+    <div class="bs-card longterm-asset">
+      <h4>Property, Plant &amp; Equipment (PP&amp;E)</h4>
+      <p style="font-size:0.88rem; text-align:left;">
+        Long-lived, tangible assets <strong>used in operations</strong>. Examples: land, buildings,
+        equipment, furniture. Must meet all three criteria: long-lived, tangible, and used in operations.
+      </p>
+    </div>
+    <div class="bs-card longterm-asset">
+      <h4>Long-Term Investments</h4>
+      <p style="font-size:0.88rem; text-align:left;">
+        Investments in stocks, bonds, or other assets that the company intends to hold for longer than
+        one year. Also includes tangible assets held for investment purposes (not used in operations).
+      </p>
+    </div>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Suppose a company owns a parcel of land. If the company uses the land for its daily business
+      operations&mdash;say, as a parking lot for its headquarters&mdash;it is classified as PP&amp;E. However,
+      if the company purchased the land purely for speculation (buy low, sell high later), that same land is
+      classified as a <em>long-term investment</em>. The <strong>intent</strong> behind holding the asset
+      determines its classification, not its physical nature.
+    </p>
+  </div>
+
+  <p>
+    <strong>Intangible assets</strong> are assets with no physical form that hold value because of the special
+    rights they grant. Examples include patents, copyrights, trademarks, and goodwill.
+  </p>
+
+  <h3 class="subsection-title">2.3 Current Liabilities</h3>
+
+  <p>
+    <strong>Current liabilities</strong> must be paid with cash, or settled with goods and services, within
+    one year or within the entity&rsquo;s operating cycle, whichever is longer. Common examples include
+    Accounts Payable, Salaries Payable, Interest Payable, and Unearned Revenue. Note that Unearned Revenue
+    is a current liability that is settled not by paying cash but by <em>providing services</em>.
+  </p>
+
+  <h3 class="subsection-title">2.4 Long-Term Liabilities</h3>
+
+  <p>
+    <strong>Long-term liabilities</strong> are obligations that do <em>not</em> need to be paid within one
+    year or the operating cycle. Examples include long-term Notes Payable, Bonds Payable, and Mortgage Payable.
+  </p>
+
+  <h3 class="subsection-title">2.5 Stockholders&rsquo; Equity</h3>
+
+  <p>
+    <strong>Stockholders&rsquo; equity</strong> represents the stockholders&rsquo; residual claims to the
+    assets of the business after all liabilities have been paid. There is no current versus long-term
+    classification within equity. It consists of two main components:
+  </p>
+  <ul>
+    <li><strong>Contributed Capital</strong> (Common Stock)&mdash;amounts invested by stockholders.</li>
+    <li><strong>Earned Capital</strong> (Retained Earnings)&mdash;cumulative net income retained in the business, minus dividends distributed over time.</li>
+  </ul>
+
+  <div class="fin-stmt">
+    <div class="stmt-header">
+      <div class="company-name">Smart Touch Learning</div>
+      <div class="stmt-name">Balance Sheet (Classified)</div>
+      <div class="stmt-date">December 31, 2018</div>
+    </div>
+    <div class="section-label">Assets</div>
+    <div class="section-label" style="font-size:0.85rem; color:var(--primary-light);">Current Assets:</div>
+    <div class="stmt-line indent">
+      <span class="label">Cash</span>
+      <span class="amount">$14,900</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Accounts Receivable</span>
+      <span class="amount">2,800</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Prepaid Rent</span>
+      <span class="amount">2,000</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Prepaid Insurance</span>
+      <span class="amount">1,000</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Supplies</span>
+      <span class="amount">600</span>
+    </div>
+    <div class="stmt-line indent total">
+      <span class="label">Total Current Assets</span>
+      <span class="amount">21,300</span>
+    </div>
+    <div class="section-label" style="font-size:0.85rem; color:var(--primary-light);">Property, Plant &amp; Equipment:</div>
+    <div class="stmt-line indent">
+      <span class="label">Furniture &mdash; Net ($18,000 &minus; $300)</span>
+      <span class="amount">17,700</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Building &mdash; Net ($60,000 &minus; $250)</span>
+      <span class="amount">59,750</span>
+    </div>
+    <div class="stmt-line indent total">
+      <span class="label">Total PP&amp;E</span>
+      <span class="amount">77,450</span>
+    </div>
+    <div class="stmt-line double-total">
+      <span class="label">Total Assets</span>
+      <span class="amount">$98,750</span>
+    </div>
+    <div class="section-label" style="margin-top:1rem;">Liabilities</div>
+    <div class="section-label" style="font-size:0.85rem; color:var(--primary-light);">Current Liabilities:</div>
+    <div class="stmt-line indent">
+      <span class="label">Accounts Payable</span>
+      <span class="amount">$18,200</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Salaries Payable</span>
+      <span class="amount">1,200</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Interest Payable</span>
+      <span class="amount">100</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Unearned Revenue</span>
+      <span class="amount">600</span>
+    </div>
+    <div class="stmt-line indent total">
+      <span class="label">Total Current Liabilities</span>
+      <span class="amount">20,100</span>
+    </div>
+    <div class="section-label" style="font-size:0.85rem; color:var(--primary-light);">Long-Term Liabilities:</div>
+    <div class="stmt-line indent">
+      <span class="label">Notes Payable</span>
+      <span class="amount">60,000</span>
+    </div>
+    <div class="stmt-line indent total">
+      <span class="label">Total Liabilities</span>
+      <span class="amount">80,100</span>
+    </div>
+    <div class="section-label" style="margin-top:1rem;">Stockholders&rsquo; Equity</div>
+    <div class="stmt-line indent">
+      <span class="label">Common Stock</span>
+      <span class="amount">15,100</span>
+    </div>
+    <div class="stmt-line indent">
+      <span class="label">Retained Earnings</span>
+      <span class="amount">3,550</span>
+    </div>
+    <div class="stmt-line indent total">
+      <span class="label">Total Stockholders&rsquo; Equity</span>
+      <span class="amount">18,650</span>
+    </div>
+    <div class="stmt-line double-total">
+      <span class="label">Total Liabilities &amp; Stockholders&rsquo; Equity</span>
+      <span class="amount">$98,750</span>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: THE WORKSHEET                                     -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">3. Using a Worksheet to Prepare Financial Statements</h2>
+
+  <p>
+    A <strong>worksheet</strong> is an internal document (not a financial statement itself) that accountants
+    use to organize the preparation of financial statements. It is a continuation of the worksheet introduced
+    in Chapter 3 for the adjusting process. Beyond the first four sections already discussed (Account Names,
+    Unadjusted Trial Balance, Adjustments, and Adjusted Trial Balance), the worksheet adds three more
+    sections:
+  </p>
+  <ol>
+    <li><strong>Section 5&mdash;Income Statement:</strong> Revenue and expense accounts are extended from the adjusted trial balance into separate debit and credit columns for the income statement.</li>
+    <li><strong>Section 6&mdash;Balance Sheet:</strong> Asset, liability, and equity accounts (including Dividends) are extended into balance sheet debit and credit columns.</li>
+    <li><strong>Section 7&mdash;Net Income or Net Loss:</strong> The balancing amount between the income statement columns and the balance sheet columns, which represents net income or net loss.</li>
+  </ol>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      When you extract revenues and expenses into the Income Statement columns, the debits and credits in
+      those columns will <em>not</em> be equal&mdash;this is expected, because you are only pulling part of
+      the trial balance. The difference between the income statement debits and credits represents the
+      <strong>net income</strong> (or net loss). This same difference also appears as the balancing amount
+      in the balance sheet columns.
+    </p>
+    <p>
+      In the Smart Touch Learning example, the income statement debit total is $8,950 (total expenses) and
+      the credit total is $17,500 (total revenue). The difference of $8,550 is the net income. This figure
+      is placed in the income statement debit column and the balance sheet credit column so that both sections
+      balance to $17,500.
+    </p>
+  </div>
+
+  <p>
+    The worksheet is an <em>optional</em> tool. It is not a required part of the accounting cycle and is
+    never distributed to external users. Its sole purpose is to help the accountant organize information
+    and reduce errors when preparing the formal financial statements.
+  </p>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: TEMPORARY VS. PERMANENT ACCOUNTS                  -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">4. Temporary Accounts vs. Permanent Accounts</h2>
+
+  <p>
+    Before discussing closing entries, it is essential to understand the distinction between two
+    classifications of accounts: <strong>temporary accounts</strong> and <strong>permanent accounts</strong>.
+  </p>
+
+  <div class="compare-cols">
+    <div class="compare-col temp-col">
+      <h4>Temporary Accounts</h4>
+      <ul>
+        <li><strong>Revenues</strong> (Income Statement)</li>
+        <li><strong>Expenses</strong> (Income Statement)</li>
+        <li><strong>Dividends</strong> (Statement of Retained Earnings)</li>
+        <li><strong>Income Summary</strong> (used only during closing)</li>
+      </ul>
+      <p style="font-size:0.85rem; margin-top:0.5rem;">
+        Balances are <strong>reset to zero</strong> at the end of each period. They measure activity
+        for a single reporting period only.
+      </p>
+    </div>
+    <div class="compare-col perm-col">
+      <h4>Permanent Accounts</h4>
+      <ul>
+        <li><strong>Assets</strong> (Balance Sheet)</li>
+        <li><strong>Liabilities</strong> (Balance Sheet)</li>
+        <li><strong>Common Stock</strong> (Balance Sheet)</li>
+        <li><strong>Retained Earnings</strong> (Balance Sheet)</li>
+      </ul>
+      <p style="font-size:0.85rem; margin-top:0.5rem;">
+        Balances <strong>carry over</strong> from one period to the next. The ending balance becomes
+        the beginning balance of the following period. They are never closed.
+      </p>
+    </div>
+  </div>
+
+  <p>
+    The income statement covers a <em>specific</em> reporting period&mdash;a month, a quarter, or a year.
+    To accurately depict the activity for that period alone, revenue and expense accounts must begin each
+    new period with a zero balance. If balances carried over from a previous period, they would reflect an
+    <em>accumulation</em> of activities across multiple periods rather than the activity of just the current
+    period. The process of resetting these balances to zero is called <strong>closing</strong>.
+  </p>
+
+  <p>
+    The dividends account is also temporary because dividends represent distributions made <em>during</em> a
+    specific period. Like revenues and expenses, dividends must be tracked on a period-by-period basis and
+    then closed.
+  </p>
+
+  <div class="callout warning">
+    <div class="callout-label"><span class="icon">&#9888;&#65039;</span> KEY DISTINCTION</div>
+    <p>
+      <strong>Retained Earnings is a permanent account</strong>&mdash;it is never closed. The closing process
+      <em>updates</em> Retained Earnings by transferring the period&rsquo;s net income and dividends into it,
+      but the account itself is never reset to zero. It accumulates all operating results and dividend
+      distributions since the company&rsquo;s inception.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: THE CLOSING PROCESS                               -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">5. The Closing Process</h2>
+
+  <p>
+    <strong>Closing entries</strong> are journal entries made at the end of each accounting period to transfer
+    the balances of temporary accounts to Retained Earnings and to reset those temporary accounts to zero.
+    The closing process accomplishes two objectives: (1) it ensures that temporary accounts begin the next
+    period with zero balances, and (2) it updates Retained Earnings to reflect the period&rsquo;s net income
+    and dividends.
+  </p>
+
+  <p>
+    The closing process uses a temporary &ldquo;holding&rdquo; account called the <strong>Income Summary</strong>
+    account. This account exists solely during the closing process; it has no normal balance and does not
+    appear on any financial statement.
+  </p>
+
+  <p>
+    The closing process consists of <strong>four steps</strong>:
+  </p>
+
+  <div class="closing-steps">
+    <div class="step-card step-revenue">
+      <span class="step-num">1</span>
+      <h4>Close Revenue to Income Summary</h4>
+      <p>Debit each revenue account for its balance; credit Income Summary for the total.</p>
+    </div>
+    <div class="step-card step-expense">
+      <span class="step-num">2</span>
+      <h4>Close Expenses to Income Summary</h4>
+      <p>Credit each expense account for its balance; debit Income Summary for the total.</p>
+    </div>
+    <div class="step-card step-summary">
+      <span class="step-num">3</span>
+      <h4>Close Income Summary to Retained Earnings</h4>
+      <p>Transfer the net income (or net loss) to Retained Earnings.</p>
+    </div>
+    <div class="step-card step-dividends">
+      <span class="step-num">4</span>
+      <h4>Close Dividends to Retained Earnings</h4>
+      <p>Transfer the dividends balance directly to Retained Earnings (bypasses Income Summary).</p>
+    </div>
+  </div>
+
+  <!-- Closing Process Flow Diagram -->
+  <figure style="text-align:center; margin:2rem auto; max-width:750px;">
+    <img src="images/ch04/closing-process-flow.png" alt="Flowchart showing the four-step closing process: Revenues and Expenses flow into Income Summary, then Income Summary and Dividends flow into Retained Earnings" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure 4-2. The Four-Step Closing Process</figcaption>
+  </figure>
+
+  <h3 class="subsection-title">5.1 Step 1: Close Revenue Accounts</h3>
+
+  <p>
+    Revenue accounts have a normal <strong>credit</strong> balance. To bring a revenue account to zero, an
+    equal <strong>debit</strong> must be applied. The offsetting credit is made to Income Summary.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Closing Revenue</div>
+    <p>
+      Smart Touch Learning has a $17,500 credit balance in Service Revenue at the end of December. To close
+      this account:
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Closing Entry (Step 1)</div>
+      <div class="je-line"><span class="je-acct">Service Revenue</span><span class="je-dr">17,500</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Income Summary</span><span class="je-dr"></span><span class="je-cr">17,500</span></div>
+      <div class="je-narration">Close revenue to Income Summary</div>
+    </div>
+
+    <div style="text-align:center; margin:1rem 0;">
+      <div class="t-account">
+        <div class="t-account-title">Service Revenue</div>
+        <div class="t-account-body">
+          <div class="t-left">
+            <div class="t-left-label">Debit</div>
+            <div class="t-entry highlight-red">Closing &nbsp; 17,500</div>
+          </div>
+          <div class="t-right">
+            <div class="t-right-label">Credit</div>
+            <div class="t-entry">Adj. Bal. &nbsp; 17,500</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>
+      After posting, Service Revenue has a zero balance. The $17,500 has been transferred to the Income
+      Summary account.
+    </p>
+  </div>
+
+  <p>
+    If a company has multiple revenue accounts, each one is debited individually, and Income Summary is
+    credited for the combined total.
+  </p>
+
+  <h3 class="subsection-title">5.2 Step 2: Close Expense Accounts</h3>
+
+  <p>
+    Expense accounts have a normal <strong>debit</strong> balance. To bring each expense account to zero,
+    an equal <strong>credit</strong> must be applied. The offsetting debit is made to Income Summary. In
+    practice, rather than closing each expense account with a separate journal entry, a single
+    <strong>compound journal entry</strong> credits all expense accounts simultaneously and debits Income
+    Summary for the total.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Closing Expenses (Compound Entry)</div>
+    <p>
+      Smart Touch Learning has eight expense accounts with the following adjusted balances:
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Closing Entry (Step 2)</div>
+      <div class="je-line"><span class="je-acct">Income Summary</span><span class="je-dr">8,950</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Rent Expense</span><span class="je-dr"></span><span class="je-cr">3,000</span></div>
+      <div class="je-line credit"><span class="je-acct">Salaries Expense</span><span class="je-dr"></span><span class="je-cr">2,400</span></div>
+      <div class="je-line credit"><span class="je-acct">Depreciation Expense&mdash;Furniture</span><span class="je-dr"></span><span class="je-cr">300</span></div>
+      <div class="je-line credit"><span class="je-acct">Depreciation Expense&mdash;Building</span><span class="je-dr"></span><span class="je-cr">250</span></div>
+      <div class="je-line credit"><span class="je-acct">Utilities Expense</span><span class="je-dr"></span><span class="je-cr">400</span></div>
+      <div class="je-line credit"><span class="je-acct">Supplies Expense</span><span class="je-dr"></span><span class="je-cr">100</span></div>
+      <div class="je-line credit"><span class="je-acct">Insurance Expense</span><span class="je-dr"></span><span class="je-cr">200</span></div>
+      <div class="je-line credit"><span class="je-acct">Interest Expense</span><span class="je-dr"></span><span class="je-cr">100</span></div>
+      <div class="je-narration">Close all expense accounts to Income Summary</div>
+    </div>
+    <p>
+      After posting, every individual expense account has a zero balance. The total expenses of $8,950 have
+      been transferred as a debit to Income Summary.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">5.3 The Income Summary Account After Steps 1 and 2</h3>
+
+  <p>
+    After closing revenues (Step 1) and expenses (Step 2), the Income Summary account contains the following:
+  </p>
+
+  <div style="text-align:center; margin:1.5rem 0;">
+    <div class="t-account" style="min-width:300px;">
+      <div class="t-account-title">Income Summary</div>
+      <div class="t-account-body">
+        <div class="t-left">
+          <div class="t-left-label">Debit</div>
+          <div class="t-entry">Expenses &nbsp; 8,950</div>
+        </div>
+        <div class="t-right">
+          <div class="t-right-label">Credit</div>
+          <div class="t-entry">Revenue &nbsp; 17,500</div>
+          <div class="t-entry bal">Bal. &nbsp; 8,550</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    The credit balance of $8,550 in Income Summary represents the <strong>net income</strong> for the
+    period&mdash;exactly the same figure reported on the income statement ($17,500 revenue &minus; $8,950
+    expenses = $8,550). This is not a coincidence; it is by design. The Income Summary account aggregates
+    all revenues and expenses in one place before transferring the net result to Retained Earnings.
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      If total expenses exceeded total revenues, the Income Summary account would have a <em>debit</em>
+      balance after Steps 1 and 2, representing a <strong>net loss</strong>. The closing entry in Step 3
+      would then be reversed: credit Income Summary and debit Retained Earnings. A net loss
+      <em>decreases</em> Retained Earnings.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">5.4 Step 3: Close Income Summary to Retained Earnings</h3>
+
+  <p>
+    The Income Summary account is itself a temporary account, so it must also be closed. Its balance
+    (net income or net loss) is transferred to Retained Earnings. This step reflects the fundamental
+    reality that a company&rsquo;s operating profits accumulate in Retained Earnings over time.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Closing Income Summary (Net Income)</div>
+    <p>
+      The Income Summary account has a credit balance of $8,550 (net income). To close it:
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Closing Entry (Step 3)</div>
+      <div class="je-line"><span class="je-acct">Income Summary</span><span class="je-dr">8,550</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Retained Earnings</span><span class="je-dr"></span><span class="je-cr">8,550</span></div>
+      <div class="je-narration">Close Income Summary (net income) to Retained Earnings</div>
+    </div>
+    <p>
+      After posting, Income Summary has a zero balance. Retained Earnings has been credited for $8,550,
+      increasing its balance by the period&rsquo;s net income.
+    </p>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Closing Income Summary (Net Loss)</div>
+    <p>
+      If a company had a net loss of $2,000 (Income Summary has a debit balance of $2,000), the closing
+      entry would be:
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Closing Entry (Step 3 &mdash; Net Loss)</div>
+      <div class="je-line"><span class="je-acct">Retained Earnings</span><span class="je-dr">2,000</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Income Summary</span><span class="je-dr"></span><span class="je-cr">2,000</span></div>
+      <div class="je-narration">Close Income Summary (net loss) to Retained Earnings</div>
+    </div>
+    <p>
+      A net loss <em>debits</em> (decreases) Retained Earnings.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">5.5 Step 4: Close Dividends to Retained Earnings</h3>
+
+  <p>
+    The final closing step addresses the <strong>Dividends</strong> account. Dividends are <em>not</em>
+    expenses&mdash;they are distributions of accumulated profits to stockholders. Therefore, dividends are
+    <em>not</em> routed through Income Summary. Instead, the Dividends account is closed
+    <strong>directly</strong> to Retained Earnings.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Closing Dividends</div>
+    <p>
+      Smart Touch Learning declared $5,000 in dividends during December. The Dividends account has a debit
+      balance of $5,000. To close it:
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Closing Entry (Step 4)</div>
+      <div class="je-line"><span class="je-acct">Retained Earnings</span><span class="je-dr">5,000</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Dividends</span><span class="je-dr"></span><span class="je-cr">5,000</span></div>
+      <div class="je-narration">Close Dividends to Retained Earnings</div>
+    </div>
+    <p>
+      After posting, the Dividends account has a zero balance. Retained Earnings has been debited for
+      $5,000, reducing its balance to reflect the distributions made to stockholders.
+    </p>
+  </div>
+
+  <div class="callout warning">
+    <div class="callout-label"><span class="icon">&#9888;&#65039;</span> WHY NOT THROUGH INCOME SUMMARY?</div>
+    <p>
+      Dividends bypass Income Summary because dividends are <strong>not</strong> part of the income
+      statement. They do not affect the calculation of net income. Dividends are distributions of
+      <em>already-earned</em> profits, not operating activities. Including them in Income Summary would
+      distort the net income figure.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">5.6 Retained Earnings After Closing</h3>
+
+  <p>
+    After all four closing entries have been posted, the Retained Earnings T-account summarizes the entire
+    closing process:
+  </p>
+
+  <div style="text-align:center; margin:1.5rem 0;">
+    <div class="t-account" style="min-width:320px;">
+      <div class="t-account-title">Retained Earnings</div>
+      <div class="t-account-body">
+        <div class="t-left">
+          <div class="t-left-label">Debit</div>
+          <div class="t-entry">Step 4: Div. &nbsp; 5,000</div>
+        </div>
+        <div class="t-right">
+          <div class="t-right-label">Credit</div>
+          <div class="t-entry">Beg. Bal. &nbsp; 0</div>
+          <div class="t-entry">Step 3: N.I. &nbsp; 8,550</div>
+          <div class="t-entry bal">End. Bal. &nbsp; 3,550</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    The ending balance of Retained Earnings is $0 + $8,550 &minus; $5,000 = <strong>$3,550</strong>. Notice
+    that this is exactly the same figure that appears on the statement of retained earnings and on the
+    balance sheet. The closing entries have formally updated the Retained Earnings account to reflect the
+    period&rsquo;s operating results and dividend distributions.
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      The Retained Earnings T-account after closing mathematically mirrors the <strong>statement of retained
+      earnings formula</strong>:
+    </p>
+    <p style="text-align:center;">
+      \(\text{Beginning R/E} + \text{Net Income} - \text{Dividends} = \text{Ending R/E}\)
+    </p>
+    <p>
+      \(\$0 + \$8{,}550 - \$5{,}000 = \$3{,}550\)
+    </p>
+    <p>
+      All these activities&mdash;adding net income and subtracting dividends&mdash;are summarized within a
+      single account. The closing process is the mechanical means by which the formula is executed in the
+      accounting system.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">5.7 A Simplified Closing Example</h3>
+
+  <p>
+    To reinforce the four-step closing process with simpler numbers, consider the following scenario:
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Complete Closing Process</div>
+    <p>
+      A company has the following adjusted balances at year-end: Revenue = $1,000 (Cr.); Total Expenses =
+      $300 (Dr.); Dividends = $30 (Dr.); Beginning Retained Earnings = $50 (Cr.).
+    </p>
+
+    <p><strong>Step 1: Close Revenue</strong></p>
+    <div class="journal-entry">
+      <div class="je-line"><span class="je-acct">Revenue</span><span class="je-dr">1,000</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Income Summary</span><span class="je-dr"></span><span class="je-cr">1,000</span></div>
+    </div>
+
+    <p><strong>Step 2: Close Expenses</strong></p>
+    <div class="journal-entry">
+      <div class="je-line"><span class="je-acct">Income Summary</span><span class="je-dr">300</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Expenses</span><span class="je-dr"></span><span class="je-cr">300</span></div>
+    </div>
+
+    <p>Income Summary now has a credit balance of $700 ($1,000 &minus; $300 = net income).</p>
+
+    <p><strong>Step 3: Close Income Summary</strong></p>
+    <div class="journal-entry">
+      <div class="je-line"><span class="je-acct">Income Summary</span><span class="je-dr">700</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Retained Earnings</span><span class="je-dr"></span><span class="je-cr">700</span></div>
+    </div>
+
+    <p><strong>Step 4: Close Dividends</strong></p>
+    <div class="journal-entry">
+      <div class="je-line"><span class="je-acct">Retained Earnings</span><span class="je-dr">30</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Dividends</span><span class="je-dr"></span><span class="je-cr">30</span></div>
+    </div>
+
+    <p><strong>Retained Earnings after closing:</strong></p>
+    <div style="text-align:center; margin:1rem 0;">
+      <div class="t-account" style="min-width:280px;">
+        <div class="t-account-title">Retained Earnings</div>
+        <div class="t-account-body">
+          <div class="t-left">
+            <div class="t-left-label">Debit</div>
+            <div class="t-entry">Div. &nbsp; 30</div>
+          </div>
+          <div class="t-right">
+            <div class="t-right-label">Credit</div>
+            <div class="t-entry">Beg. &nbsp; 50</div>
+            <div class="t-entry">N.I. &nbsp; 700</div>
+            <div class="t-entry bal">End. &nbsp; 720</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>
+      Ending Retained Earnings = $50 + $700 &minus; $30 = <strong>$720</strong>.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: THE POST-CLOSING TRIAL BALANCE                    -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">6. The Post-Closing Trial Balance</h2>
+
+  <p>
+    After all closing entries have been journalized and posted, the final step of the accounting cycle is to
+    prepare a <strong>post-closing trial balance</strong>. This is a list of all accounts and their balances
+    at the end of the period, <em>after</em> the closing entries have been processed.
+  </p>
+
+  <p>
+    The post-closing trial balance has two defining characteristics:
+  </p>
+
+  <ol>
+    <li>It includes <strong>only permanent accounts</strong>&mdash;assets, liabilities, and stockholders&rsquo; equity (Common Stock and the <em>updated</em> Retained Earnings).</li>
+    <li>All temporary accounts (revenues, expenses, dividends, and Income Summary) have been closed to zero and therefore <strong>do not appear</strong>.</li>
+  </ol>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128278;</span> ADJUSTED T/B vs. POST-CLOSING T/B</div>
+    <div class="diagram">
+      <div class="diagram-box">Adjusted<br>Trial Balance</div>
+      <div class="diagram-arrow">&rarr;</div>
+      <div class="diagram-box highlight">Closing<br>Entries</div>
+      <div class="diagram-arrow">&rarr;</div>
+      <div class="diagram-box accent">Post-Closing<br>Trial Balance</div>
+    </div>
+  </div>
+
+  <!-- Adjusted vs Post-Closing T/B Diagram -->
+  <figure style="text-align:center; margin:2rem auto; max-width:750px;">
+    <img src="images/ch04/adjusted-vs-postclosing-tb.png" alt="Comparison of Adjusted Trial Balance (includes all accounts, R/E shows beginning balance) versus Post-Closing Trial Balance (permanent accounts only, R/E shows ending balance)" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure 4-3. Adjusted Trial Balance vs. Post-Closing Trial Balance</figcaption>
+  </figure>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      On the <em>adjusted</em> trial balance, the Retained Earnings figure represents the <strong>beginning</strong>
+      balance&mdash;it has not yet been updated for net income or dividends. On the <em>post-closing</em>
+      trial balance, Retained Earnings shows the <strong>ending</strong> balance, which now incorporates
+      the period&rsquo;s net income and subtracts the period&rsquo;s dividends.
+    </p>
+    <p>
+      This distinction is critical. When preparing financial statements from the adjusted trial balance,
+      you cannot simply copy the Retained Earnings figure onto the balance sheet&mdash;you must first
+      prepare the statement of retained earnings to calculate the ending balance.
+    </p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th colspan="3" style="text-align:center;">Post-Closing Trial Balance &mdash; Smart Touch Learning &mdash; December 31, 2018</th>
+      </tr>
+      <tr>
+        <th>Account</th>
+        <th style="text-align:right;">Debit</th>
+        <th style="text-align:right;">Credit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Cash</td><td style="text-align:right;">$14,900</td><td></td></tr>
+      <tr><td>Accounts Receivable</td><td style="text-align:right;">2,800</td><td></td></tr>
+      <tr><td>Prepaid Rent</td><td style="text-align:right;">2,000</td><td></td></tr>
+      <tr><td>Prepaid Insurance</td><td style="text-align:right;">1,000</td><td></td></tr>
+      <tr><td>Supplies</td><td style="text-align:right;">600</td><td></td></tr>
+      <tr><td>Furniture</td><td style="text-align:right;">18,000</td><td></td></tr>
+      <tr><td>Accumulated Depreciation&mdash;Furniture</td><td></td><td style="text-align:right;">$300</td></tr>
+      <tr><td>Building</td><td style="text-align:right;">60,000</td><td></td></tr>
+      <tr><td>Accumulated Depreciation&mdash;Building</td><td></td><td style="text-align:right;">250</td></tr>
+      <tr><td>Accounts Payable</td><td></td><td style="text-align:right;">18,200</td></tr>
+      <tr><td>Salaries Payable</td><td></td><td style="text-align:right;">1,200</td></tr>
+      <tr><td>Interest Payable</td><td></td><td style="text-align:right;">100</td></tr>
+      <tr><td>Unearned Revenue</td><td></td><td style="text-align:right;">600</td></tr>
+      <tr><td>Notes Payable</td><td></td><td style="text-align:right;">60,000</td></tr>
+      <tr><td>Common Stock</td><td></td><td style="text-align:right;">15,100</td></tr>
+      <tr><td>Retained Earnings</td><td></td><td style="text-align:right;">3,550</td></tr>
+      <tr style="font-weight:700; border-top:3px double var(--primary);">
+        <td>Total</td>
+        <td style="text-align:right;">$99,300</td>
+        <td style="text-align:right;">$99,300</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Notice the absence of any revenue, expense, dividends, or Income Summary accounts. Every temporary
+    account has been successfully closed to zero. The Retained Earnings balance of $3,550 reflects the
+    ending balance after absorbing the period&rsquo;s net income ($8,550) and dividends ($5,000).
+  </p>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: THE COMPLETE ACCOUNTING CYCLE                     -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">7. The Complete Accounting Cycle</h2>
+
+  <p>
+    The <strong>accounting cycle</strong> is the process by which companies produce their financial statements
+    for a specific period. It begins with the beginning account balances left over from the preceding period
+    and ends with the post-closing trial balance. Chapters 1 through 4 cover the entire cycle.
+  </p>
+
+  <ol class="cycle-steps">
+    <li>
+      <strong>Begin with the beginning balances</strong> of permanent accounts from the preceding period.
+    </li>
+    <li>
+      <strong>Analyze and journalize transactions</strong> as they occur throughout the period. Determine which accounts are affected and record the appropriate journal entries.
+    </li>
+    <li>
+      <strong>Post journal entries</strong> to the general ledger (T-accounts).
+    </li>
+    <li>
+      <strong>Prepare the unadjusted trial balance</strong> to verify that total debits equal total credits.
+    </li>
+    <li>
+      <strong>Journalize and post adjusting entries</strong> at the end of the period to update account balances for deferrals and accruals.
+    </li>
+    <li>
+      <strong>Prepare the adjusted trial balance</strong> to confirm that debits still equal credits after adjustments.
+    </li>
+    <li class="ch-highlight">
+      <strong>Prepare the financial statements</strong> from the adjusted trial balance: Income Statement, Statement of Retained Earnings, and Balance Sheet.
+    </li>
+    <li class="ch-highlight">
+      <strong>Journalize and post closing entries</strong> to close all temporary accounts (revenues, expenses, dividends) to Retained Earnings.
+    </li>
+    <li class="ch-highlight">
+      <strong>Prepare the post-closing trial balance</strong> to verify the accuracy of the ledger after closing.
+    </li>
+  </ol>
+
+  <p>
+    Steps 1&ndash;4 were covered in Chapters 1 and 2. Steps 5&ndash;6 were covered in Chapter 3. Steps
+    7&ndash;9 (highlighted above) are the focus of this chapter. Together, these nine steps form the
+    complete foundation of financial accounting.
+  </p>
+
+  <!-- Accounting Cycle Diagram -->
+  <figure style="text-align:center; margin:2rem auto; max-width:750px;">
+    <img src="images/ch04/accounting-cycle.png" alt="Circular diagram showing all nine steps of the accounting cycle, with steps 7-9 highlighted as Chapter 4 content" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure 4-4. The Complete Accounting Cycle</figcaption>
+  </figure>
+
+  <div class="callout warning">
+    <div class="callout-label"><span class="icon">&#9888;&#65039;</span> FOUNDATION ALERT</div>
+    <p>
+      Chapters 1 through 4 form the <strong>foundational basis</strong> for the entire course. Every
+      subsequent topic builds on the accounting cycle. Before moving forward, make sure you can
+      confidently perform every step&mdash;from analyzing a transaction to preparing a post-closing
+      trial balance. If any step is unclear, revisit it now.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: THE CURRENT RATIO                                 -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">8. Evaluating Business Performance: The Current Ratio</h2>
+
+  <p>
+    Financial ratios allow analysts, investors, and managers to evaluate a company&rsquo;s financial health.
+    The <strong>current ratio</strong> measures a company&rsquo;s ability to pay its <em>current</em>
+    liabilities using its <em>current</em> assets. It provides a snapshot of short-term liquidity.
+  </p>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#128290;</span> CURRENT RATIO</div>
+    \[\text{Current Ratio} = \frac{\text{Total Current Assets}}{\text{Total Current Liabilities}}\]
+  </div>
+
+  <p>
+    A company strongly prefers to have a <strong>high</strong> current ratio. As a general benchmark, the
+    current ratio should be <strong>greater than 1.0</strong>. A ratio below 1.0 indicates that current
+    liabilities exceed current assets, which may signal a liquidity concern&mdash;the company might struggle
+    to pay its near-term obligations. However, a ratio below 1.0 does not automatically mean the company is
+    at risk of bankruptcy; the company may still generate strong cash flows from operations that enable it
+    to meet its obligations.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Calculating the Current Ratio</div>
+    <p>
+      Using Smart Touch Learning&rsquo;s classified balance sheet from Section 2:
+    </p>
+    <p style="text-align:center;">
+      \(\text{Current Ratio} = \frac{\$21{,}300}{\$20{,}100} = 1.06\)
+    </p>
+    <p>
+      Smart Touch Learning&rsquo;s current ratio of 1.06 means that for every $1 of current liabilities, the
+      company has $1.06 of current assets available to pay them. This is just barely above 1.0, suggesting
+      the company has adequate&mdash;but not abundant&mdash;short-term liquidity.
+    </p>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Unlike Return on Assets (ROA), which requires calculating <em>average</em> total assets (because
+      net income is earned <em>over a period</em> while assets are measured <em>at a point in time</em>),
+      the current ratio uses two figures that are both from the <strong>balance sheet</strong>&mdash;both
+      measured at the same point in time. Therefore, there is no need to calculate an average. You simply
+      use the figures as of that specific date.
+    </p>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Trend Analysis</div>
+    <p>
+      Kohl&rsquo;s Corporation reported the following:
+    </p>
+    <table style="max-width:500px; margin:0.5rem auto;">
+      <thead>
+        <tr><th></th><th style="text-align:right;">Jan. 30, 2016</th><th style="text-align:right;">Jan. 30, 2015</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Total Current Assets</td><td style="text-align:right;">$5,117M</td><td style="text-align:right;">$5,638M</td></tr>
+        <tr><td>Total Current Liabilities</td><td style="text-align:right;">$2,928M</td><td style="text-align:right;">$2,846M</td></tr>
+        <tr style="font-weight:700;"><td>Current Ratio</td><td style="text-align:right;">1.75</td><td style="text-align:right;">1.98</td></tr>
+      </tbody>
+    </table>
+    <p>
+      Kohl&rsquo;s current ratio declined from 1.98 in 2015 to 1.75 in 2016. This suggests a slight
+      deterioration in Kohl&rsquo;s ability to pay current debts, though both ratios remain well above 1.0.
+      An increase in current liabilities combined with a decrease in current assets drove the decline.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 9: APPENDIX - REVERSING ENTRIES                      -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">9. Appendix: Reversing Entries (Optional)</h2>
+
+  <p>
+    <strong>Reversing entries</strong> are special journal entries made on the <em>first day</em> of a new
+    accounting period. They exactly reverse certain adjusting entries made at the end of the previous period.
+    Reversing entries are entirely <em>optional</em>&mdash;they do not change the final financial results.
+    Their sole purpose is <strong>bookkeeping convenience</strong>.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Why Reversing Entries Are Convenient</div>
+    <p>
+      At December 31, a company accrues $1,200 of Salaries Expense:
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Adjusting Entry</div>
+      <div class="je-line"><span class="je-acct">Salaries Expense</span><span class="je-dr">1,200</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Salaries Payable</span><span class="je-dr"></span><span class="je-cr">1,200</span></div>
+    </div>
+
+    <p><strong>Without a reversing entry:</strong></p>
+    <p>
+      When payday arrives in January and the total payroll is $2,400 (covering Dec. 16&ndash;Jan. 15), the
+      accountant must carefully split the payment:
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Jan. 15 &mdash; Payment (No Reversing Entry)</div>
+      <div class="je-line"><span class="je-acct">Salaries Payable</span><span class="je-dr">1,200</span><span class="je-cr"></span></div>
+      <div class="je-line"><span class="je-acct">Salaries Expense</span><span class="je-dr">1,200</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Cash</span><span class="je-dr"></span><span class="je-cr">2,400</span></div>
+      <div class="je-narration">Must remember to split: $1,200 clears prior period payable, $1,200 is current period expense</div>
+    </div>
+
+    <p><strong>With a reversing entry:</strong></p>
+    <p>On January 1, the accountant reverses the December 31 adjusting entry:</p>
+    <div class="journal-entry">
+      <div class="je-date">Jan. 1 &mdash; Reversing Entry</div>
+      <div class="je-line"><span class="je-acct">Salaries Payable</span><span class="je-dr">1,200</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Salaries Expense</span><span class="je-dr"></span><span class="je-cr">1,200</span></div>
+      <div class="je-narration">Reverse the Dec. 31 accrual</div>
+    </div>
+
+    <p>
+      This creates a temporary $1,200 <em>credit</em> balance in Salaries Expense (which looks unusual,
+      but it is intentional). Now, on payday, the accountant simply records the full payment:
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Jan. 15 &mdash; Payment (With Reversing Entry)</div>
+      <div class="je-line"><span class="je-acct">Salaries Expense</span><span class="je-dr">2,400</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Cash</span><span class="je-dr"></span><span class="je-cr">2,400</span></div>
+      <div class="je-narration">Simple entry &mdash; no need to split or think about prior period</div>
+    </div>
+
+    <p>
+      After posting the $2,400 debit against the existing $1,200 credit, Salaries Expense shows a net
+      debit of $1,200&mdash;exactly the expense that belongs to January. The mathematical result is
+      <strong>identical</strong> to the approach without reversing entries, but the payment entry is
+      much simpler.
+    </p>
+  </div>
+
+  <p>
+    Reversing entries are a tool of convenience, not a requirement. They are most commonly used for
+    accrued expenses and accrued revenues. The key takeaway is that regardless of whether reversing entries
+    are used, the final account balances&mdash;and therefore the financial statements&mdash;are the same.
+  </p>
+
+
+  <!-- ============================================================ -->
+  <!-- CHAPTER SUMMARY                                               -->
+  <!-- ============================================================ -->
+  <div class="chapter-summary">
+    <h2>Chapter Summary</h2>
+    <ul>
+      <li>Financial statements are prepared from the <strong>adjusted trial balance</strong> in a specific order: Income Statement &rarr; Statement of Retained Earnings &rarr; Balance Sheet. Net income flows to the statement of retained earnings; ending Retained Earnings flows to the balance sheet.</li>
+      <li>A <strong>classified balance sheet</strong> organizes assets by liquidity and liabilities by maturity. Current assets and liabilities are those expected to be converted, used, or settled within 12 months or the operating cycle, whichever is longer.</li>
+      <li><strong>Temporary accounts</strong> (revenues, expenses, dividends, Income Summary) are closed at the end of each period. <strong>Permanent accounts</strong> (assets, liabilities, Common Stock, Retained Earnings) carry their balances forward.</li>
+      <li>The <strong>closing process</strong> consists of four steps: (1) close revenues to Income Summary, (2) close expenses to Income Summary, (3) close Income Summary to Retained Earnings, (4) close Dividends directly to Retained Earnings.</li>
+      <li>The <strong>Income Summary</strong> account is a temporary holding account used exclusively during closing. Its balance after Steps 1 and 2 equals net income (credit balance) or net loss (debit balance).</li>
+      <li>Dividends are <strong>not</strong> routed through Income Summary because they are not expenses&mdash;they are distributions of profits and do not affect net income.</li>
+      <li>The <strong>post-closing trial balance</strong> contains only permanent accounts. Retained Earnings now reflects the ending balance (beginning + net income &minus; dividends).</li>
+      <li>The <strong>accounting cycle</strong> consists of nine steps, from analyzing transactions through preparing the post-closing trial balance. Chapters 1&ndash;4 cover the complete cycle.</li>
+      <li>The <strong>current ratio</strong> (Current Assets &divide; Current Liabilities) measures short-term liquidity. A ratio above 1.0 is generally preferred.</li>
+      <li><strong>Reversing entries</strong> (optional) reverse certain accrual adjusting entries on the first day of the new period for bookkeeping convenience. They do not change financial results.</li>
+    </ul>
+  </div>
+
+
+  <!-- ===== KEY TERMS GLOSSARY ===== -->
+  <div class="glossary">
+    <h2>Key Terms</h2>
+    <dl>
+      <dt>Temporary Account</dt>
+      <dd>An account whose balance is reset to zero at the end of each period through closing entries. Includes revenues, expenses, dividends, and Income Summary.</dd>
+
+      <dt>Permanent Account</dt>
+      <dd>An account whose balance carries over from one period to the next. Includes assets, liabilities, Common Stock, and Retained Earnings.</dd>
+
+      <dt>Closing Entries</dt>
+      <dd>Journal entries made at the end of the period to transfer the balances of temporary accounts to Retained Earnings and reset those accounts to zero.</dd>
+
+      <dt>Income Summary</dt>
+      <dd>A temporary account used exclusively during the closing process to aggregate revenues and expenses before transferring net income (or net loss) to Retained Earnings.</dd>
+
+      <dt>Post-Closing Trial Balance</dt>
+      <dd>A trial balance prepared after all closing entries have been posted. Contains only permanent accounts with their updated balances.</dd>
+
+      <dt>Classified Balance Sheet</dt>
+      <dd>A balance sheet that organizes assets and liabilities into specific categories (current vs. long-term).</dd>
+
+      <dt>Liquidity</dt>
+      <dd>A measure of how quickly and easily an asset can be converted to cash.</dd>
+
+      <dt>Current Assets</dt>
+      <dd>Assets that will be converted to cash, sold, or used up within 12 months or the operating cycle, whichever is longer.</dd>
+
+      <dt>Operating Cycle</dt>
+      <dd>The time span during which cash is used to acquire goods and services, those goods and services are sold, and cash is collected from customers. Also called the &ldquo;cash-to-cash&rdquo; cycle.</dd>
+
+      <dt>Long-Term Assets</dt>
+      <dd>All assets not classified as current, including PP&amp;E, long-term investments, and intangible assets.</dd>
+
+      <dt>Property, Plant &amp; Equipment</dt>
+      <dd>Long-lived, tangible assets used in the operations of a business. Examples include land, buildings, equipment, and furniture.</dd>
+
+      <dt>Intangible Assets</dt>
+      <dd>Assets with no physical form that hold value because of special rights they grant, such as patents, copyrights, and trademarks.</dd>
+
+      <dt>Current Liabilities</dt>
+      <dd>Obligations that must be paid with cash or settled with goods/services within one year or the operating cycle, whichever is longer.</dd>
+
+      <dt>Long-Term Liabilities</dt>
+      <dd>Obligations that do not need to be settled within one year or the operating cycle.</dd>
+
+      <dt>Current Ratio</dt>
+      <dd>A financial ratio measuring short-term liquidity, calculated as Total Current Assets &divide; Total Current Liabilities.</dd>
+
+      <dt>Accounting Cycle</dt>
+      <dd>The nine-step process by which companies produce their financial statements for a specific period, from beginning balances through the post-closing trial balance.</dd>
+
+      <dt>Reversing Entry</dt>
+      <dd>An optional journal entry made on the first day of a new period that exactly reverses a previous adjusting entry, done for bookkeeping convenience.</dd>
+
+      <dt>Worksheet</dt>
+      <dd>An internal document used to organize the adjusting and financial statement preparation process. Not a formal financial statement.</dd>
+    </dl>
+  </div>
+
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="chapter-nav">
+    <a href="ch03.html">&larr; Chapter 3: The Adjusting Process</a>
+    <a href="ch05.html">Chapter 5: Merchandising Operations &rarr;</a>
+  </nav>
+
+</div>
+
+</body>
+</html>

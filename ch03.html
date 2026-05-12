@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 3 – The Adjusting Process</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    /* ===== Ch03 Page-specific styles ===== */
+
+    /* T-Account visual */
+    .t-account {
+      display: inline-block;
+      min-width: 220px;
+      margin: 0.5rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.88rem;
+      vertical-align: top;
+    }
+    .t-account-title {
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary);
+      padding: 0.3rem 0.5rem;
+      margin-bottom: 0;
+    }
+    .t-account-body {
+      display: flex;
+      border-top: 2px solid var(--primary);
+      min-height: 60px;
+    }
+    .t-left, .t-right {
+      flex: 1;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.82rem;
+    }
+    .t-left { border-right: 2px solid var(--primary); }
+    .t-left-label, .t-right-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 0.3rem;
+    }
+    .t-entry { padding: 0.15rem 0; }
+    .t-entry.bal {
+      font-weight: 700;
+      border-top: 1px solid var(--border-light);
+      margin-top: 0.3rem;
+      padding-top: 0.3rem;
+    }
+
+    /* Journal Entry visual */
+    .journal-entry {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .journal-entry .je-date {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem;
+    }
+    .journal-entry .je-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.15rem 0;
+    }
+    .journal-entry .je-line.credit .je-acct { padding-left: 2rem; }
+    .journal-entry .je-dr, .journal-entry .je-cr {
+      min-width: 70px;
+      text-align: right;
+      font-weight: 600;
+    }
+    .journal-entry .je-dr { color: #1565c0; }
+    .journal-entry .je-cr { color: #c62828; }
+    .journal-entry .je-narration {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-style: italic;
+      padding-left: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    /* Comparison columns */
+    .compare-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .compare-col {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .compare-col h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+    .compare-col.cash-col h4 { color: var(--text-secondary); }
+    .compare-col.accrual-col h4 { color: var(--primary); }
+
+    /* Category card for deferrals/accruals */
+    .adj-category {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .adj-card {
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .adj-card h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .adj-card.deferral { background: #e3f2fd; border-left: 4px solid #1976d2; }
+    .adj-card.deferral h4 { color: #1565c0; }
+    .adj-card.accrual { background: #fce4ec; border-left: 4px solid #c62828; }
+    .adj-card.accrual h4 { color: #c62828; }
+
+    /* Warning callout */
+    .callout.warning {
+      background: #fff3e0;
+      border-left: 4px solid #e65100;
+    }
+    .callout.warning .callout-label { color: #e65100; }
+
+    /* Impact analysis table */
+    .impact-table th, .impact-table td {
+      text-align: center;
+      padding: 0.6rem 0.8rem;
+    }
+    .impact-table .over { color: #c62828; font-weight: 600; }
+    .impact-table .under { color: #1565c0; font-weight: 600; }
+    .impact-table .correct { color: #2e7d32; font-weight: 600; }
+
+    /* Timeline */
+    .timeline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin: 1.5rem 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem;
+      position: relative;
+    }
+    .timeline-line {
+      flex: 1;
+      height: 3px;
+      background: var(--border-light);
+      max-width: 200px;
+    }
+    .timeline-point {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      z-index: 1;
+    }
+    .timeline-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+    .timeline-dot.accent { background: var(--accent); }
+    .timeline-label {
+      font-weight: 600;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+    .timeline-sub {
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+
+    @media (max-width: 768px) {
+      .compare-cols, .adj-category { grid-template-columns: 1fr; }
+      .timeline { flex-wrap: wrap; }
+    }
+  </style>
+  <script src="nav.js" defer></script>
+</head>
+<body class="has-sidebar">
+
+<div class="chapter-container">
+
+  <!-- ===== CHAPTER HEADER ===== -->
+  <header class="chapter-header">
+    <div class="chapter-label">Chapter 3</div>
+    <h1 class="chapter-title">The Adjusting Process</h1>
+    <p class="chapter-subtitle">Deferrals, Accruals, and the Adjusted Trial Balance</p>
+  </header>
+
+  <!-- ===== LEARNING OBJECTIVES ===== -->
+  <div class="learning-objectives">
+    <h2>Learning Objectives</h2>
+    <ol>
+      <li>Differentiate between cash-basis accounting and accrual-basis accounting.</li>
+      <li>Define and apply the time period concept, revenue recognition principle, and matching principle.</li>
+      <li>Explain the purpose of adjusting entries and journalize them for deferrals and accruals.</li>
+      <li>Explain the purpose of and prepare an adjusted trial balance.</li>
+      <li>Identify the impact of adjusting entries on the financial statements.</li>
+    </ol>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: ACCRUAL VS. CASH-BASIS ACCOUNTING                 -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">1. Accrual-Basis Accounting vs. Cash-Basis Accounting</h2>
+
+  <p>
+    In Chapter 2, we journalized transactions, posted them to the ledger, and prepared a trial balance.
+    That trial balance, however, is technically called an <strong>unadjusted trial balance</strong>&mdash;it is
+    prepared <em>before</em> any end-of-period adjustments. Chapter 3 introduces the adjustments that transform
+    the unadjusted trial balance into an <strong>adjusted trial balance</strong>, which is the basis for
+    preparing accurate financial statements.
+  </p>
+
+  <p>
+    To understand why adjustments are needed, we must first understand the difference between two accounting
+    methods: <strong>accrual-basis accounting</strong> and <strong>cash-basis accounting</strong>.
+  </p>
+
+  <div class="compare-cols">
+    <div class="compare-col accrual-col">
+      <h4>Accrual-Basis Accounting</h4>
+      <ul>
+        <li>Revenue is recognized when <strong>earned</strong></li>
+        <li>Expenses are recognized when <strong>incurred</strong></li>
+        <li><strong>Required by GAAP</strong> for all public companies</li>
+        <li>Provides a more accurate picture of a company&rsquo;s financial performance</li>
+      </ul>
+    </div>
+    <div class="compare-col cash-col">
+      <h4>Cash-Basis Accounting</h4>
+      <ul>
+        <li>Revenue is recognized when <strong>cash is received</strong></li>
+        <li>Expenses are recognized when <strong>cash is paid</strong></li>
+        <li>Not allowed under GAAP</li>
+        <li>Simpler method; used by some small private businesses</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>
+    Under accrual-basis accounting, the actual timing of cash flows does <em>not</em> dictate when revenues
+    or expenses are recognized. Cash-basis accounting is simpler and may be used by small private
+    companies&mdash;such as sole proprietorships or local retailers&mdash;but it does not conform to GAAP.
+    Because this course teaches GAAP-compliant financial accounting, you must thoroughly understand and apply
+    the accrual method.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE</div>
+    <p>
+      <strong>Prepaid Insurance (Expense Recognition):</strong> On May 1, Smart Touch Learning pays $1,200
+      for insurance covering the next six months ($200 per month).
+    </p>
+    <ul>
+      <li><strong>Cash-basis:</strong> The entire $1,200 expense is recorded on May 1 when cash is paid.</li>
+      <li><strong>Accrual-basis:</strong> Only $200 of expense is recognized each month (May through October)
+        as the insurance coverage is actually consumed.</li>
+    </ul>
+    <p>
+      <strong>Revenue Recognition:</strong> On April 30, the company receives $600 for services to be
+      performed over the next six months (May through October).
+    </p>
+    <ul>
+      <li><strong>Cash-basis:</strong> The entire $600 revenue is recorded on April 30 when cash is received.</li>
+      <li><strong>Accrual-basis:</strong> Only $100 of revenue is recognized each month as the service is actually provided.</li>
+    </ul>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Over a long enough timeline, the total revenue (or expense) recorded is <em>identical</em> under both
+      methods. Cash-basis records the full $600 on April 30, while accrual-basis gradually records it so that
+      by the end of October the total also equals $600. However, because businesses must report financial
+      statements on a <em>periodic</em> basis (quarterly, annually), the exact timing of recognition within
+      each reporting window matters enormously. That is precisely why the <strong>time period concept</strong>
+      exists&mdash;and why GAAP requires accrual-basis accounting.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: KEY PRINCIPLES                                     -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">2. Key Accounting Principles</h2>
+
+  <h3 class="subsection-title">The Time Period Concept</h3>
+
+  <p>
+    The <strong>time period concept</strong> (also called the <em>periodicity assumption</em>) assumes that
+    the life of a business can be divided into specific time periods&mdash;months, quarters, or years&mdash;and
+    that meaningful financial statements can be prepared for each period. A <strong>fiscal year</strong> is
+    any 12 consecutive months chosen as the accounting year; it may or may not coincide with the calendar year.
+  </p>
+
+  <p>
+    Without the time period concept, there would be virtually no need to differentiate between cash-basis
+    and accrual-basis accounting. Knowing your reporting period allows you to determine how much revenue
+    to recognize and how much expense to record within that specific window.
+  </p>
+
+  <h3 class="subsection-title">The Revenue Recognition Principle (ASC 606)</h3>
+
+  <p>
+    Since 2018, GAAP has followed <strong>ASC 606</strong>, which prescribes a detailed five-step process for
+    recognizing revenue. Before this standard, the rule was simply &ldquo;recognize revenue when earned.&rdquo;
+    Now, the process is more structured&mdash;but highly logical.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128278;</span> THE FIVE-STEP REVENUE RECOGNITION PROCESS</div>
+    <ol>
+      <li><strong>Identify the contract</strong> with the customer&mdash;a formal agreement creating enforceable rights and obligations.</li>
+      <li><strong>Identify the performance obligations</strong> in the contract&mdash;what specific goods or services must be delivered.</li>
+      <li><strong>Determine the transaction price</strong>&mdash;the amount the company expects to receive.</li>
+      <li><strong>Allocate the transaction price</strong> to each performance obligation.</li>
+      <li><strong>Recognize revenue</strong> when (or as) each performance obligation is satisfied.</li>
+    </ol>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Step 4 Allocation</div>
+    <p>
+      Suppose you provide two services: Service A (standalone price $100) and Service B (standalone price $50).
+      In the contract, both are bundled for a discounted lump-sum price of $120.
+    </p>
+    <p>
+      If only Service A&rsquo;s performance obligation is satisfied, how much revenue do you recognize?
+      The total standalone value is $150. Service A represents $100 / $150 = 66.7% of the total.
+      Therefore, you recognize 66.7% &times; $120 = <strong>$80</strong>&mdash;not $100.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">The Matching Principle (Expense Recognition Principle)</h3>
+
+  <p>
+    The <strong>matching principle</strong> dictates that expenses must be matched to the specific accounting
+    period in which those expenses helped generate revenue. &ldquo;Matching&rdquo; does not mean matching
+    exact dollar amounts of revenues and expenses directly to each other; rather, it means matching the
+    <em>timing</em>. You must record an expense in the same period that it contributed to generating revenue.
+    The ultimate goal is to compute an accurate net income or net loss for each reporting period.
+  </p>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: ADJUSTING ENTRIES — OVERVIEW                      -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">3. Adjusting Entries: Why They Are Needed</h2>
+
+  <p>
+    The unadjusted trial balance from Chapter 2 lists revenues and expenses, but these amounts are
+    <em>incomplete</em>. Some economic events&mdash;such as the gradual expiration of insurance coverage or
+    the earning of revenue over time&mdash;are not triggered by a visible daily transaction or an invoice.
+    By the end of the period, we must update our records through <strong>adjusting entries</strong> to
+    accurately reflect revenues earned and expenses incurred.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> WHY ADJUSTMENTS ARE NEEDED &mdash; Prepaid Insurance</div>
+    <p>
+      On October 1, you purchase a one-year insurance policy for $1,200. The initial transaction records
+      a debit to Prepaid Insurance and a credit to Cash for $1,200. At this moment, the entire amount is
+      an asset&mdash;you haven&rsquo;t used any coverage yet.
+    </p>
+    <p>
+      As time passes from October 1 to December 31, three months of coverage are consumed. This consumption
+      does not generate an invoice or a visible transaction, but the reality is that a portion of your asset
+      has expired. You must recognize this with an adjusting entry: debit Insurance Expense $300, credit
+      Prepaid Insurance $300. After posting, the Prepaid Insurance T-account correctly shows $900&mdash;the
+      remaining nine months of coverage.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Three Defining Characteristics of Adjusting Entries</h3>
+
+  <p>
+    Every adjusting entry shares three characteristics. Whenever you prepare an adjusting entry, double-check
+    that it meets all three:
+  </p>
+
+  <div class="callout warning">
+    <div class="callout-label"><span class="icon">&#9888;&#65039;</span> THREE RULES FOR ADJUSTING ENTRIES</div>
+    <ol>
+      <li><strong>Timing:</strong> Adjusting entries are recorded at the <em>end</em> of each accounting period, right before preparing financial statements.</li>
+      <li><strong>Accounts involved:</strong> Every adjusting entry includes exactly <strong>one income statement account</strong> (revenue or expense) and exactly <strong>one balance sheet account</strong> (asset or liability).</li>
+      <li><strong>No Cash:</strong> Adjusting entries <strong>never</strong> involve the Cash account. If your adjusting entry includes Cash, it is incorrect.</li>
+    </ol>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: CATEGORIES — DEFERRALS & ACCRUALS                 -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">4. Categories of Adjusting Entries</h2>
+
+  <p>
+    Adjusting entries fall into two major categories: <strong>deferrals</strong> and <strong>accruals</strong>.
+    Each category has two subcategories. The easiest way to remember the difference is by looking at the
+    timing of the cash flow relative to revenue/expense recognition:
+  </p>
+
+  <!-- Four Types of Adjusting Entries Diagram -->
+  <figure style="text-align:center; margin:2rem auto; max-width:750px;">
+    <img src="images/ch03/four-types-adjusting-entries.png" alt="2x2 matrix showing four types of adjusting entries: Deferred Revenue, Deferred Expense, Accrued Revenue, and Accrued Expense with their journal entries and cash timing" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure 3-1. Four Types of Adjusting Entries</figcaption>
+  </figure>
+
+
+  <!-- Deferral vs. Accrual Cash Timing Diagram -->
+  <figure style="text-align:center; margin:2rem auto; max-width:750px;">
+    <img src="images/ch03/deferral-accrual-timeline.png" alt="Timeline comparing deferrals (cash first, recognize later) versus accruals (recognize first, cash later)" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure 3-2. Cash Timing: Deferrals vs. Accruals</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: DEFERRED REVENUE                                  -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">5. Deferred Revenue (Unearned Revenue)</h2>
+
+  <p>
+    <strong>Deferred revenue</strong> arises when a company receives cash <em>before</em> it has earned the
+    revenue. At the time of receipt, the company records a <em>liability</em>&mdash;it owes the customer
+    a product, a service, or a refund. As the company fulfills its obligation over time, the liability
+    decreases and revenue is recognized.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Unearned Service Revenue</div>
+    <p>
+      Suppose you run a magazine company and receive a one-year subscription fee of $1,200 on October 1
+      (Year 1). The subscriber gains the right to receive your service from October 1 (Year 1) through
+      September 30 (Year 2).
+    </p>
+
+    <p><strong>Initial Transaction (Oct. 1):</strong></p>
+    <div class="journal-entry">
+      <div class="je-date">Oct. 1</div>
+      <div class="je-line"><span class="je-acct">Cash</span><span class="je-dr">1,200</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Unearned Service Revenue</span><span class="je-dr"></span><span class="je-cr">1,200</span></div>
+      <div class="je-narration">Received one-year subscription in advance</div>
+    </div>
+
+    <p>
+      On October 1, the cash is received, but the revenue is <em>unearned</em>&mdash;the company is obligated
+      to provide the service over the coming year. Unearned Service Revenue is a <strong>liability</strong>.
+      Unlike most liabilities that are settled through cash payment, this liability is settled by
+      <em>performing the required services</em>.
+    </p>
+
+    <p><strong>Adjusting Entry (Dec. 31):</strong></p>
+    <p>
+      By December 31, three months of service have been provided. At $1,200 / 12 months = $100/month,
+      three months = $300 of revenue has been earned.
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Adjusting Entry</div>
+      <div class="je-line"><span class="je-acct">Unearned Service Revenue</span><span class="je-dr">300</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Service Revenue</span><span class="je-dr"></span><span class="je-cr">300</span></div>
+      <div class="je-narration">To recognize three months of earned revenue</div>
+    </div>
+
+    <p>
+      <strong>Why debit Unearned Service Revenue?</strong> Because the company has fulfilled three months
+      of its obligation, reducing the liability. The remaining $900 liability represents the nine months
+      of service still owed to the subscriber.
+    </p>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Notice that the adjusting entry on December 31 involves <em>recognizing revenue</em>. Because this
+      is a &ldquo;deferred revenue&rdquo; adjustment, the entry inherently involves a revenue account.
+      The initial transaction (Oct. 1) is a standard journal entry based on visible transaction data.
+      The adjusting entry (Dec. 31) is recorded at the end of the period to reflect economic activity
+      that occurred over time without a triggering event.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: DEFERRED EXPENSES                                 -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">6. Deferred Expenses (Prepaid Expenses)</h2>
+
+  <p>
+    <strong>Deferred expenses</strong> arise when a company pays cash <em>before</em> the expense is incurred.
+    At the time of payment, the item is recorded as an <em>asset</em>. As time passes and the asset is consumed,
+    it transitions into an expense. Common examples include prepaid rent, prepaid insurance, supplies, and
+    equipment (PPE).
+  </p>
+
+  <h3 class="subsection-title">6.1 Prepaid Rent</h3>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Prepaid Rent</div>
+    <p>
+      On December 1, 2018, Smart Touch Learning prepays three months of office rent for $3,000.
+    </p>
+    <p><strong>Initial Transaction (Dec. 1):</strong></p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 1</div>
+      <div class="je-line"><span class="je-acct">Prepaid Rent</span><span class="je-dr">3,000</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Cash</span><span class="je-dr"></span><span class="je-cr">3,000</span></div>
+      <div class="je-narration">Prepaid three months of office rent</div>
+    </div>
+    <p>
+      This is <em>not</em> an adjusting entry&mdash;it is a standard transaction recorded on the date
+      the cash is paid. Adjusting entries are made only at the <em>end</em> of the accounting period.
+    </p>
+
+    <p><strong>Adjusting Entry (Dec. 31):</strong></p>
+    <p>
+      By December 31, one month has passed. One-third of the three-month prepayment ($1,000) has been
+      consumed.
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Adjusting Entry</div>
+      <div class="je-line"><span class="je-acct">Rent Expense</span><span class="je-dr">1,000</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Prepaid Rent</span><span class="je-dr"></span><span class="je-cr">1,000</span></div>
+      <div class="je-narration">To recognize one month of rent expense</div>
+    </div>
+    <p>After this adjustment, Prepaid Rent shows a $2,000 balance&mdash;the two months of rent remaining.</p>
+  </div>
+
+  <h3 class="subsection-title">6.2 Prepaid Insurance</h3>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Prepaid Insurance</div>
+    <p>
+      On October 1, a company purchases a one-year insurance policy for $1,200, providing coverage
+      through September 30 of the following year.
+    </p>
+    <p><strong>Initial Transaction (Oct. 1):</strong></p>
+    <div class="journal-entry">
+      <div class="je-date">Oct. 1</div>
+      <div class="je-line"><span class="je-acct">Prepaid Insurance</span><span class="je-dr">1,200</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Cash</span><span class="je-dr"></span><span class="je-cr">1,200</span></div>
+    </div>
+
+    <p><strong>Adjusting Entry (Dec. 31):</strong></p>
+    <p>
+      Three months have elapsed (Oct, Nov, Dec). At $1,200 &divide; 12 = $100/month, the expense is $300.
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Adjusting Entry</div>
+      <div class="je-line"><span class="je-acct">Insurance Expense</span><span class="je-dr">300</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Prepaid Insurance</span><span class="je-dr"></span><span class="je-cr">300</span></div>
+      <div class="je-narration">To recognize three months of expired insurance</div>
+    </div>
+
+    <div style="text-align:center; margin:1rem 0;">
+      <div class="t-account">
+        <div class="t-account-title">Prepaid Insurance</div>
+        <div class="t-account-body">
+          <div class="t-left">
+            <div class="t-left-label">Debit</div>
+            <div class="t-entry">Oct. 1 &nbsp; 1,200</div>
+            <div class="t-entry bal">Bal. &nbsp; 900</div>
+          </div>
+          <div class="t-right">
+            <div class="t-right-label">Credit</div>
+            <div class="t-entry">Dec. 31 &nbsp; 300</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>
+      The ending balance of $900 accurately reflects the remaining nine months of coverage.
+    </p>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Be very careful with the naming of accounts in your journal entries. You cannot simply write
+      &ldquo;Insurance&rdquo; for both the debit and the credit. You must clearly designate which account
+      is the <em>expense</em> (Insurance Expense&mdash;income statement) and which is the <em>asset</em>
+      (Prepaid Insurance&mdash;balance sheet) so that it properly reflects on your financial statements.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">6.3 Supplies</h3>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Supplies</div>
+    <p>
+      At the beginning of the period, a company has $50 of supplies on hand. During the period, it purchases
+      an additional $100 of supplies with cash. The Supplies account now shows a $150 debit balance in the
+      unadjusted trial balance.
+    </p>
+    <p>
+      On December 31, a physical count reveals only <strong>$30</strong> of supplies remain. The difference&mdash;$120&mdash;represents
+      supplies consumed during the period.
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Adjusting Entry</div>
+      <div class="je-line"><span class="je-acct">Supplies Expense</span><span class="je-dr">120</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Supplies</span><span class="je-dr"></span><span class="je-cr">120</span></div>
+      <div class="je-narration">To record supplies used during the period</div>
+    </div>
+
+    <div style="text-align:center; margin:1rem 0;">
+      <div class="t-account">
+        <div class="t-account-title">Supplies</div>
+        <div class="t-account-body">
+          <div class="t-left">
+            <div class="t-left-label">Debit</div>
+            <div class="t-entry">Beg. &nbsp; 50</div>
+            <div class="t-entry">Purch. &nbsp; 100</div>
+            <div class="t-entry bal">Bal. &nbsp; 30</div>
+          </div>
+          <div class="t-right">
+            <div class="t-right-label">Credit</div>
+            <div class="t-entry">Adj. &nbsp; 120</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>
+      The adjusted ending balance ($30) now matches the physical count of supplies on hand.
+    </p>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      In practice, the company conducts a physical count of supplies at year-end. Your books say $150,
+      but you only physically have $30. The difference ($120) is what you have <em>used up</em>&mdash;and
+      that becomes Supplies Expense. The key is: <strong>Supplies Expense = Beginning balance + Purchases
+      &minus; Ending physical count</strong>.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">6.4 Depreciation (Property, Plant &amp; Equipment)</h3>
+
+  <p>
+    When a company purchases equipment, the cost is recorded as an asset. Unlike prepaid expenses or supplies,
+    equipment is not credited directly when recognizing the expense. Instead, we use a special
+    <strong>contra-asset account</strong> called <strong>Accumulated Depreciation</strong>.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128278;</span> KEY TERMS</div>
+    <dl style="margin:0;">
+      <dt style="font-weight:700;">Depreciation</dt>
+      <dd>The allocation of a plant asset&rsquo;s cost over its useful life.</dd>
+      <dt style="font-weight:700; margin-top:0.5rem;">Salvage Value (Residual Value)</dt>
+      <dd>The expected value of the asset at the end of its useful life.</dd>
+      <dt style="font-weight:700; margin-top:0.5rem;">Book Value (Carrying Value)</dt>
+      <dd>Cost &minus; Accumulated Depreciation. This is the net value reported on the balance sheet.</dd>
+      <dt style="font-weight:700; margin-top:0.5rem;">Contra-Asset Account</dt>
+      <dd>An account paired with a related asset whose normal balance is the <em>opposite</em> (credit) of the asset&rsquo;s normal balance (debit). Accumulated Depreciation is the primary example.</dd>
+    </dl>
+  </div>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#128290;</span> STRAIGHT-LINE DEPRECIATION</div>
+    \[\text{Annual Depreciation} = \frac{\text{Cost} - \text{Salvage Value}}{\text{Useful Life}}\]
+    <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem;">
+      The numerator (Cost &minus; Salvage Value) is called the <strong>Depreciation Base</strong>.
+      Do not confuse it with Book Value&mdash;they are entirely different concepts.
+    </p>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Equipment Depreciation</div>
+    <p>
+      On January 1 (Year 1), a company purchases equipment for $10,000 cash. The expected useful life
+      is 10 years with $0 salvage value.
+    </p>
+    <p>
+      Annual depreciation = ($10,000 &minus; $0) &divide; 10 = <strong>$1,000 per year</strong>.
+    </p>
+
+    <p><strong>Adjusting Entry (Dec. 31, Year 1):</strong></p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Adjusting Entry</div>
+      <div class="je-line"><span class="je-acct">Depreciation Expense</span><span class="je-dr">1,000</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Accumulated Depreciation</span><span class="je-dr"></span><span class="je-cr">1,000</span></div>
+    </div>
+
+    <p><strong>Book Value over time:</strong></p>
+    <!-- Book Value Decline Chart -->
+    <figure style="text-align:center; margin:1rem auto; max-width:700px;">
+      <img src="images/ch03/book-value-decline.png" alt="Chart showing book value declining from $10,000 to $0 over 10 years under straight-line depreciation, with accumulated depreciation growing inversely" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+      <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure 3-3. Decline in Book Value Under Straight-Line Depreciation</figcaption>
+    </figure>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      <strong>Why not credit Equipment directly?</strong> Because the original cost recorded in the Equipment
+      account <em>never changes</em>. By maintaining separate accounts for the asset (historical cost) and
+      its Accumulated Depreciation, financial statement users can transparently see both the original
+      investment and how much has been allocated as expense to date. The only way the book value decreases
+      is through the increase in Accumulated Depreciation.
+    </p>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Partial-Year Depreciation</div>
+    <p>
+      On December 2, Smart Touch Learning receives furniture (market value $18,000) from an investor in
+      exchange for shares of common stock. The furniture has a 5-year useful life and $0 salvage value.
+    </p>
+    <p>
+      Annual depreciation = $18,000 &divide; 5 = $3,600 per year. But the furniture was acquired on
+      December 2, and we need the adjustment for just <strong>one month</strong> (December):
+    </p>
+    <p style="text-align:center;">\(\$3{,}600 \div 12 = \$300 \text{ per month}\)</p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Adjusting Entry</div>
+      <div class="je-line"><span class="je-acct">Depreciation Expense&mdash;Furniture</span><span class="je-dr">300</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Accumulated Depreciation&mdash;Furniture</span><span class="je-dr"></span><span class="je-cr">300</span></div>
+    </div>
+    <p>
+      Book Value on Dec. 31 = $18,000 &minus; $300 = <strong>$17,700</strong>.
+    </p>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT &mdash; Balance Sheet Presentation</div>
+    <p>
+      On the balance sheet, Property, Plant &amp; Equipment is presented with both the original cost
+      and accumulated depreciation visible:
+    </p>
+    <table style="max-width:450px; margin:0.5rem auto;">
+      <tbody>
+        <tr><td>Building</td><td style="text-align:right;">$60,000</td></tr>
+        <tr><td>&nbsp;&nbsp;Less: Accumulated Depreciation</td><td style="text-align:right;">(250)</td></tr>
+        <tr style="font-weight:700;"><td>&nbsp;&nbsp;Net Building</td><td style="text-align:right;">$59,750</td></tr>
+        <tr><td>Furniture</td><td style="text-align:right;">$18,000</td></tr>
+        <tr><td>&nbsp;&nbsp;Less: Accumulated Depreciation</td><td style="text-align:right;">(300)</td></tr>
+        <tr style="font-weight:700;"><td>&nbsp;&nbsp;Net Furniture</td><td style="text-align:right;">$17,700</td></tr>
+        <tr style="font-weight:700; border-top:2px solid var(--primary);"><td>Total Net PP&amp;E</td><td style="text-align:right;">$97,450</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout warning">
+    <div class="callout-label"><span class="icon">&#9888;&#65039;</span> STRUCTURAL DIFFERENCE</div>
+    <p>
+      Notice the difference in how deferred expenses are adjusted:
+    </p>
+    <ul>
+      <li><strong>Supplies:</strong> Credit the asset account <em>directly</em> (Supplies Expense / Supplies).</li>
+      <li><strong>Equipment:</strong> Credit a <em>contra-asset account</em> (Depreciation Expense / Accumulated Depreciation)&mdash;the Equipment account itself is never reduced.</li>
+    </ul>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: ACCRUED REVENUE                                   -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">7. Accrued Revenue</h2>
+
+  <p>
+    <strong>Accrued revenue</strong> arises when a company has performed a service (or delivered a product)
+    but has <em>not yet received cash</em>. Because the revenue has been earned, it must be recognized at the
+    end of the period even though no cash has been collected.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Accrued Service Revenue</div>
+    <p>
+      Smart Touch Learning is hired on December 15 to provide e-learning services beginning December 16.
+      The company will earn $1,600 per month, with payment due on January 15.
+    </p>
+    <p>
+      By December 31, half a month of service has been provided. Half of $1,600 = <strong>$800</strong>
+      has been earned.
+    </p>
+
+    <p><strong>Adjusting Entry (Dec. 31):</strong></p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Adjusting Entry</div>
+      <div class="je-line"><span class="je-acct">Accounts Receivable</span><span class="je-dr">800</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Service Revenue</span><span class="je-dr"></span><span class="je-cr">800</span></div>
+      <div class="je-narration">To recognize half-month of earned revenue</div>
+    </div>
+
+    <p>
+      Check: End of period? Yes. One income statement account (Service Revenue)? Yes. One balance sheet
+      account (Accounts Receivable, an asset)? Yes. No Cash? Correct.
+    </p>
+
+    <p><strong>Cash Collection (Jan. 15):</strong></p>
+    <div class="journal-entry">
+      <div class="je-date">Jan. 15</div>
+      <div class="je-line"><span class="je-acct">Cash</span><span class="je-dr">1,600</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Accounts Receivable</span><span class="je-dr"></span><span class="je-cr">800</span></div>
+      <div class="je-line credit"><span class="je-acct">Service Revenue</span><span class="je-dr"></span><span class="je-cr">800</span></div>
+      <div class="je-narration">Received payment: $800 clears Dec. receivable, $800 recognizes Jan. 1–15 revenue</div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: ACCRUED EXPENSE                                   -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">8. Accrued Expenses</h2>
+
+  <p>
+    <strong>Accrued expenses</strong> are expenses that a business has incurred but has <em>not yet paid</em>.
+    Common examples include salaries and wages, interest, and utilities.
+  </p>
+
+  <h3 class="subsection-title">8.1 Accrued Salaries Expense</h3>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Accrued Salaries</div>
+    <p>
+      Smart Touch Learning pays its employee a monthly salary of $2,400&mdash;half ($1,200) on the 15th,
+      and half ($1,200) on the first day of the next month.
+    </p>
+
+    <p><strong>Regular Payment (Dec. 15):</strong></p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 15</div>
+      <div class="je-line"><span class="je-acct">Salaries Expense</span><span class="je-dr">1,200</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Cash</span><span class="je-dr"></span><span class="je-cr">1,200</span></div>
+    </div>
+
+    <p>
+      By December 31, employees have worked from December 16 through December 31&mdash;another $1,200
+      of salary expense has been incurred but will not be paid until January 1.
+    </p>
+
+    <p><strong>Adjusting Entry (Dec. 31):</strong></p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Adjusting Entry</div>
+      <div class="je-line"><span class="je-acct">Salaries Expense</span><span class="je-dr">1,200</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Salaries Payable</span><span class="je-dr"></span><span class="je-cr">1,200</span></div>
+      <div class="je-narration">To accrue salaries for Dec. 16–31</div>
+    </div>
+
+    <p><strong>Payment (Jan. 1):</strong></p>
+    <div class="journal-entry">
+      <div class="je-date">Jan. 1</div>
+      <div class="je-line"><span class="je-acct">Salaries Payable</span><span class="je-dr">1,200</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Cash</span><span class="je-dr"></span><span class="je-cr">1,200</span></div>
+      <div class="je-narration">Paid accrued salaries from December</div>
+    </div>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      What if the company only has <em>one payday per month</em> on the 15th? Suppose a $2,400 payment
+      is made on January 15 covering December 16 through January 15. Does the December 31 adjusting entry
+      change? <strong>No.</strong> By December 31, the employees have still worked half the pay period
+      (Dec. 16&ndash;31). Regardless of when the exact payday falls in January, you must still accrue
+      $1,200 of salary expense in December to reflect the expense incurred in the current period.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">8.2 Accrued Interest Expense</h3>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE &mdash; Accrued Interest</div>
+    <p>
+      On December 1, Smart Touch Learning purchases a $60,000 building in exchange for a one-year loan
+      at 2% annual interest.
+    </p>
+
+    <div class="callout formula">
+      <div class="callout-label"><span class="icon">&#128290;</span> INTEREST FORMULA</div>
+      \[\text{Interest} = \text{Principal} \times \text{Rate} \times \text{Time}\]
+    </div>
+
+    <p>
+      The interest rate given in problems is always an <em>annual</em> rate. For one month:
+    </p>
+    <p style="text-align:center;">
+      \(\$60{,}000 \times 2\% \times \frac{1}{12} = \$100\)
+    </p>
+
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31 &mdash; Adjusting Entry</div>
+      <div class="je-line"><span class="je-acct">Interest Expense</span><span class="je-dr">100</span><span class="je-cr"></span></div>
+      <div class="je-line credit"><span class="je-acct">Interest Payable</span><span class="je-dr"></span><span class="je-cr">100</span></div>
+      <div class="je-narration">To accrue one month of interest on building loan</div>
+    </div>
+
+    <p>
+      Even though the actual interest payment won&rsquo;t occur until the loan matures, the expense was
+      incurred in December and must be recognized now.
+    </p>
+  </div>
+
+  <div class="callout warning">
+    <div class="callout-label"><span class="icon">&#9888;&#65039;</span> COMMON MISTAKE</div>
+    <p>
+      The interest rate given in a problem is <strong>always annual</strong>. If you need to calculate
+      interest for a partial year (one month, three months, etc.), you <em>must</em> multiply by the
+      appropriate fraction of the year. Forgetting to divide by 12 is one of the most common errors
+      on exams.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 9: SUMMARY TABLE — ALL FOUR TYPES                    -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">9. Summary of All Adjusting Entry Types</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Type</th>
+        <th>Cash Timing</th>
+        <th>Adjusting Entry</th>
+        <th>Balance Sheet Account</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="2"><strong>Deferrals</strong><br><em>(Cash first)</em></td>
+        <td>Deferred Revenue</td>
+        <td>Cash received first</td>
+        <td>Dr. Unearned Revenue<br>Cr. Revenue</td>
+        <td>Liability &darr;</td>
+      </tr>
+      <tr>
+        <td>Deferred Expense</td>
+        <td>Cash paid first</td>
+        <td>Dr. Expense<br>Cr. Asset (or Contra-Asset)</td>
+        <td>Asset &darr;</td>
+      </tr>
+      <tr>
+        <td rowspan="2"><strong>Accruals</strong><br><em>(Recognize first)</em></td>
+        <td>Accrued Revenue</td>
+        <td>Cash received later</td>
+        <td>Dr. Accounts Receivable<br>Cr. Revenue</td>
+        <td>Asset &uarr;</td>
+      </tr>
+      <tr>
+        <td>Accrued Expense</td>
+        <td>Cash paid later</td>
+        <td>Dr. Expense<br>Cr. Payable</td>
+        <td>Liability &uarr;</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 10: THE ADJUSTED TRIAL BALANCE                       -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">10. The Adjusted Trial Balance</h2>
+
+  <p>
+    After all adjusting entries have been journalized and posted to the general ledger, the company prepares
+    an <strong>adjusted trial balance</strong>. Its purpose is to:
+  </p>
+  <ul>
+    <li>Confirm that total debits still equal total credits after all adjustments.</li>
+    <li>Ensure that balance sheet items are properly valued.</li>
+    <li>Serve as the basis for preparing accurate financial statements.</li>
+  </ul>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128278;</span> FROM UNADJUSTED TO ADJUSTED</div>
+    <div class="diagram">
+      <div class="diagram-box">Unadjusted<br>Trial Balance</div>
+      <div class="diagram-arrow">&rarr;</div>
+      <div class="diagram-box highlight">Adjusting<br>Entries</div>
+      <div class="diagram-arrow">&rarr;</div>
+      <div class="diagram-box">Adjusted<br>Trial Balance</div>
+      <div class="diagram-arrow">&rarr;</div>
+      <div class="diagram-box accent">Financial<br>Statements</div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 11: IMPACT ON FINANCIAL STATEMENTS                   -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">11. The Impact of Adjusting Entries on Financial Statements</h2>
+
+  <p>
+    Failing to record adjusting entries results in <strong>incorrect financial statements</strong>. To analyze
+    the impact, compare what happens when an adjusting entry is correctly recorded versus when it is
+    erroneously omitted.
+  </p>
+
+  <h3 class="subsection-title">Example: Omitting a Deferred Expense Adjustment</h3>
+
+  <p>
+    The correct adjusting entry for a deferred expense is: debit Expense, credit Asset. Suppose the
+    required adjustment is $100.
+  </p>
+
+  <div class="compare-cols">
+    <div class="compare-col accrual-col">
+      <h4>If Correctly Recorded</h4>
+      <p><strong>Balance Sheet:</strong></p>
+      <ul>
+        <li>Assets decrease by $100 (credit to asset)</li>
+        <li>SE decreases by $100 (expense reduces net income &rarr; retained earnings)</li>
+      </ul>
+      <p><strong>Income Statement:</strong></p>
+      <ul>
+        <li>Expenses increase by $100</li>
+        <li>Net Income = $300 &minus; $200 = <strong>$100</strong></li>
+      </ul>
+    </div>
+    <div class="compare-col cash-col">
+      <h4>If Erroneously Omitted</h4>
+      <p><strong>Balance Sheet:</strong></p>
+      <ul>
+        <li>Assets remain $100 too high (<span style="color:#c62828;">overstated</span>)</li>
+        <li>SE remains $100 too high (<span style="color:#c62828;">overstated</span>)</li>
+      </ul>
+      <p><strong>Income Statement:</strong></p>
+      <ul>
+        <li>Expenses are $100 too low (<span style="color:#1565c0;">understated</span>)</li>
+        <li>Net Income = $300 &minus; $100 = $200 (<span style="color:#c62828;">overstated by $100</span>)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> NUMERICAL WALKTHROUGH</div>
+    <p>
+      Before adjustment: Assets = $500, Liabilities = $100, SE = $400. Revenue = $300, Expenses = $100.
+    </p>
+    <table class="impact-table">
+      <thead>
+        <tr><th></th><th>Assets</th><th>Liabilities</th><th>SE</th><th>Expenses</th><th>Net Income</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align:left;">Before adjustment</td>
+          <td>$500</td><td>$100</td><td>$400</td><td>$100</td><td>$200</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;" class="correct">Correctly adjusted</td>
+          <td class="correct">$400</td><td>$100</td><td class="correct">$300</td>
+          <td class="correct">$200</td><td class="correct">$100</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;" class="over">If omitted (error)</td>
+          <td class="over">$500 &uarr;</td><td>$100</td><td class="over">$400 &uarr;</td>
+          <td class="under">$100 &darr;</td><td class="over">$200 &uarr;</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      The takeaway: omitting any adjusting entry distorts <em>both</em> the balance sheet and the income
+      statement. Assets and SE are overstated, expenses are understated, and net income is artificially inflated.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 12: THE WORKSHEET                                     -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">12. The Accounting Worksheet</h2>
+
+  <p>
+    In practice, accountants often use a <strong>worksheet</strong>&mdash;an internal document&mdash;to
+    organize the adjusting process. A worksheet has four sections:
+  </p>
+  <ol>
+    <li><strong>Account Names</strong></li>
+    <li><strong>Unadjusted Trial Balance</strong> (Dr. and Cr. columns)</li>
+    <li><strong>Adjustments</strong> (Dr. and Cr. columns)</li>
+    <li><strong>Adjusted Trial Balance</strong> (Dr. and Cr. columns)</li>
+  </ol>
+
+  <p>
+    To trace an entry through the worksheet: take the unadjusted balance for an account, apply the
+    adjustment in the appropriate column, and compute the adjusted balance. For example, if Prepaid Rent
+    has a $3,000 debit balance in the unadjusted columns and a $1,000 credit adjustment, the adjusted
+    balance is $2,000 debit. This is the same mechanic as calculating ending balances in a T-account.
+  </p>
+
+  <p>
+    Once the adjusted trial balance columns are complete, revenue and expense accounts are extended
+    to Income Statement columns, and asset, liability, and equity accounts are extended to Balance Sheet columns.
+  </p>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 13: APPENDIX — ALTERNATIVE TREATMENT                 -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">13. Appendix: Alternative Treatment of Deferrals</h2>
+
+  <p>
+    The standard method records the initial payment as an <em>asset</em> (deferred expense) or the
+    initial receipt as a <em>liability</em> (deferred revenue), then adjusts at period-end. An
+    <strong>alternative method</strong> reverses the initial recording approach:
+  </p>
+
+  <div class="compare-cols">
+    <div class="compare-col accrual-col">
+      <h4>Standard Method (Prepaid Rent)</h4>
+      <p><strong>Dec. 1 (Initial):</strong></p>
+      <p>Dr. Prepaid Rent 3,000<br>Cr. Cash 3,000</p>
+      <p><strong>Dec. 31 (Adjusting):</strong></p>
+      <p>Dr. Rent Expense 1,000<br>Cr. Prepaid Rent 1,000</p>
+      <p>Result: Rent Expense = $1,000, Prepaid Rent = $2,000</p>
+    </div>
+    <div class="compare-col cash-col">
+      <h4>Alternative Method</h4>
+      <p><strong>Dec. 1 (Initial):</strong></p>
+      <p>Dr. Rent Expense 3,000<br>Cr. Cash 3,000</p>
+      <p><strong>Dec. 31 (Adjusting):</strong></p>
+      <p>Dr. Prepaid Rent 2,000<br>Cr. Rent Expense 2,000</p>
+      <p>Result: Rent Expense = $1,000, Prepaid Rent = $2,000</p>
+    </div>
+  </div>
+
+  <p>
+    The ending balances are <strong>identical</strong> regardless of which method is used. The alternative
+    method initially records the entire payment as an expense, then reverses the unused portion back to
+    an asset at period-end. The same logic applies to deferred revenues: the alternative method initially
+    records the full receipt as revenue, then adjusts the unearned portion into a liability.
+  </p>
+
+
+  <!-- ============================================================ -->
+  <!-- CHAPTER SUMMARY                                               -->
+  <!-- ============================================================ -->
+  <div class="chapter-summary">
+    <h2>Chapter Summary</h2>
+    <ul>
+      <li><strong>Accrual-basis accounting</strong> recognizes revenue when earned and expenses when incurred, regardless of cash flows. GAAP requires accrual-basis accounting.</li>
+      <li>The <strong>revenue recognition principle</strong> (ASC 606) follows a five-step process; the <strong>matching principle</strong> requires expenses to be recorded in the period they help generate revenue.</li>
+      <li><strong>Adjusting entries</strong> are made at the end of each period, always involve one income statement account and one balance sheet account, and never involve Cash.</li>
+      <li><strong>Deferrals</strong> = cash first, recognize later. <strong>Accruals</strong> = recognize first, cash later.</li>
+      <li><strong>Deferred expenses</strong> (prepaid expenses, supplies, depreciation) convert assets to expenses over time.</li>
+      <li><strong>Deferred revenues</strong> (unearned revenue) convert liabilities to revenue as services are performed.</li>
+      <li><strong>Accrued revenues</strong> recognize earned revenue before cash is received (Dr. A/R, Cr. Revenue).</li>
+      <li><strong>Accrued expenses</strong> recognize incurred expenses before cash is paid (Dr. Expense, Cr. Payable).</li>
+      <li>The <strong>adjusted trial balance</strong> confirms debits equal credits after all adjustments and serves as the basis for financial statements.</li>
+      <li>Omitting adjusting entries results in <strong>misstated</strong> financial statements&mdash;overstated or understated assets, liabilities, revenues, expenses, and net income.</li>
+    </ul>
+  </div>
+
+
+  <!-- ===== KEY TERMS GLOSSARY ===== -->
+  <div class="glossary">
+    <h2>Key Terms</h2>
+    <dl>
+      <dt>Accrual-Basis Accounting</dt>
+      <dd>Revenue is recognized when earned; expenses are recognized when incurred, regardless of cash flows.</dd>
+
+      <dt>Cash-Basis Accounting</dt>
+      <dd>Revenue is recognized when cash is received; expenses are recognized when cash is paid. Not GAAP-compliant.</dd>
+
+      <dt>Time Period Concept</dt>
+      <dd>The assumption that a business&rsquo;s life can be divided into specific periods for reporting purposes.</dd>
+
+      <dt>Revenue Recognition Principle</dt>
+      <dd>Revenue is recognized when (or as) a performance obligation is satisfied (ASC 606 five-step process).</dd>
+
+      <dt>Matching Principle</dt>
+      <dd>Expenses must be recorded in the same period as the revenues they help generate.</dd>
+
+      <dt>Adjusting Entry</dt>
+      <dd>An entry made at the end of the period to recognize revenues earned or expenses incurred; always involves one I/S account and one B/S account; never involves Cash.</dd>
+
+      <dt>Deferral</dt>
+      <dd>A situation where cash is received or paid before the related revenue or expense is recognized.</dd>
+
+      <dt>Accrual</dt>
+      <dd>A situation where revenue is earned or expense is incurred before cash changes hands.</dd>
+
+      <dt>Deferred Revenue</dt>
+      <dd>Cash received before revenue is earned; recorded as a liability (Unearned Revenue).</dd>
+
+      <dt>Deferred Expense</dt>
+      <dd>Cash paid before expense is incurred; recorded as an asset (Prepaid Expense, Supplies, etc.).</dd>
+
+      <dt>Depreciation</dt>
+      <dd>The systematic allocation of a plant asset&rsquo;s cost over its useful life.</dd>
+
+      <dt>Accumulated Depreciation</dt>
+      <dd>A contra-asset account that accumulates total depreciation expense recorded to date.</dd>
+
+      <dt>Book Value</dt>
+      <dd>Cost minus Accumulated Depreciation; the net amount reported on the balance sheet.</dd>
+
+      <dt>Salvage Value</dt>
+      <dd>The expected value of an asset at the end of its useful life; also called residual value.</dd>
+
+      <dt>Contra-Asset Account</dt>
+      <dd>An account paired with a related asset that has the opposite normal balance (credit instead of debit).</dd>
+
+      <dt>Unadjusted Trial Balance</dt>
+      <dd>A trial balance prepared before end-of-period adjustments.</dd>
+
+      <dt>Adjusted Trial Balance</dt>
+      <dd>A trial balance prepared after all adjusting entries have been posted; used to prepare financial statements.</dd>
+    </dl>
+  </div>
+
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="chapter-nav">
+    <a href="ch02.html">&larr; Chapter 2: Recording Business Transactions</a>
+    <a href="ch04.html">Chapter 4: Closing Entries &amp; Financial Statements &rarr;</a>
+  </nav>
+
+</div><!-- /chapter-container -->
+
+</body>
+</html>

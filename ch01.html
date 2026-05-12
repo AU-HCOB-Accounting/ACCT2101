@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 1 – Accounting and the Business Environment</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    /* ===== Ch01 Page-specific styles ===== */
+
+    /* Qualitative Characteristics Tree */
+    .qual-tree { margin: 2rem auto; max-width: 720px; }
+    .qual-branch {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .qual-card {
+      background: var(--bg-white);
+      border: 2px solid var(--primary-light);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      min-width: 280px;
+      max-width: 340px;
+      box-shadow: var(--shadow-sm);
+    }
+    .qual-card h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px solid var(--border-section);
+    }
+    .qual-card ul { list-style: none; padding: 0; }
+    .qual-card li {
+      font-size: 0.9rem;
+      padding: 0.3rem 0;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .qual-card li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--primary-light);
+      font-weight: bold;
+    }
+
+    /* Enhancing characteristics row */
+    .enhance-row {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+    }
+    .enhance-chip {
+      background: var(--bg-light);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 0.4rem 1rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary-light);
+    }
+
+    /* Governing body flow */
+    .gov-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    .gov-box {
+      text-align: center;
+      padding: 0.8rem 1.2rem;
+      border-radius: var(--radius);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 700;
+      box-shadow: var(--shadow-sm);
+      min-width: 100px;
+    }
+    .gov-box.govt {
+      background: #e8eaf6;
+      border: 2px solid #3f51b5;
+      color: #283593;
+    }
+    .gov-box.private {
+      background: #e0f2f1;
+      border: 2px solid #00897b;
+      color: #00695c;
+    }
+    .gov-box.output {
+      background: #fff3e0;
+      border: 2px solid #ef6c00;
+      color: #e65100;
+    }
+    .gov-box small {
+      display: block;
+      font-weight: 400;
+      font-size: 0.7rem;
+      margin-top: 0.2rem;
+    }
+    .gov-arrow {
+      font-size: 1.3rem;
+      color: var(--text-light);
+    }
+    .gov-label {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+    .gov-arrow-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* Business organization comparison */
+    .biz-org-table td:first-child {
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    /* Accounting equation visual */
+    .acct-eq {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 0;
+      margin: 2rem auto;
+      max-width: 700px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    .eq-side {
+      flex: 1;
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .eq-left {
+      background: #e3f2fd;
+      border: 2px solid #1976d2;
+    }
+    .eq-right {
+      background: #fce4ec;
+      border: 2px solid #c62828;
+    }
+    .eq-equals {
+      display: flex;
+      align-items: center;
+      padding: 0 0.8rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+    .eq-plus {
+      display: flex;
+      align-items: center;
+      padding: 0 0.4rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+    .eq-label {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .eq-sub {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+    .eq-left .eq-label { color: #1565c0; }
+    .eq-right .eq-label { color: #b71c1c; }
+
+    /* Balance Sheet diagram */
+    .bs-diagram {
+      display: flex;
+      gap: 0;
+      margin: 2rem auto;
+      max-width: 650px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .bs-left, .bs-right { flex: 1; }
+    .bs-left { border-right: 2px solid var(--primary); }
+    .bs-cell {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .bs-cell:last-child { border-bottom: none; }
+    .bs-cell strong { color: var(--primary); }
+    .bs-activity {
+      float: right;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 10px;
+      color: #fff;
+    }
+    .act-operating { background: #4caf50; }
+    .act-investing { background: #ff9800; }
+    .act-financing { background: #2196f3; }
+
+    /* Financial statement flow */
+    .fs-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      margin: 2rem auto;
+      max-width: 500px;
+    }
+    .fs-box {
+      width: 100%;
+      background: var(--bg-white);
+      border: 2px solid var(--primary-light);
+      border-radius: var(--radius);
+      padding: 0.8rem 1.2rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      box-shadow: var(--shadow-sm);
+    }
+    .fs-box h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+    .fs-box .fs-detail {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .fs-box .fs-output {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 0.2rem;
+    }
+    .fs-connector {
+      font-size: 1.2rem;
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .fs-box.highlight-box {
+      border-color: var(--accent);
+      background: #fff5f5;
+    }
+
+    /* Transaction table */
+    .txn-table { font-size: 0.85rem; }
+    .txn-table th { font-size: 0.75rem; padding: 0.5rem 0.4rem; text-align: center; }
+    .txn-table td { text-align: center; padding: 0.4rem; font-size: 0.8rem; }
+    .txn-table td:first-child { text-align: left; font-weight: 600; min-width: 90px; }
+    .txn-num {
+      background: var(--primary); color: #fff; border-radius: 50%;
+      display: inline-block; width: 20px; height: 20px; line-height: 20px;
+      text-align: center; font-size: 0.7rem; font-weight: 700; margin-right: 0.3rem;
+    }
+    .txn-pos { color: #2e7d32; font-weight: 600; }
+    .txn-neg { color: #c62828; font-weight: 600; }
+    .txn-table .total-row {
+      font-weight: 700; border-top: 2px solid var(--primary);
+      background: var(--bg-light);
+    }
+
+    /* RE example */
+    .re-example {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+    }
+    .re-year {
+      background: var(--bg-white);
+      border: 2px solid var(--primary-light);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      min-width: 220px;
+      box-shadow: var(--shadow-sm);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    .re-year h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+      text-align: center;
+    }
+    .re-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      padding: 0.2rem 0;
+    }
+    .re-line.total {
+      border-top: 2px solid var(--primary);
+      font-weight: 700;
+      margin-top: 0.3rem;
+      padding-top: 0.4rem;
+    }
+  </style>
+  <script src="nav.js" defer></script>
+</head>
+<body class="has-sidebar">
+<div class="chapter-container">
+
+  <!-- ============================================================ -->
+  <!-- CHAPTER HEADER -->
+  <!-- ============================================================ -->
+  <header class="chapter-header">
+    <div class="chapter-label">Chapter 1</div>
+    <h1 class="chapter-title">Accounting and the Business Environment</h1>
+    <p class="chapter-subtitle">The Foundation of Financial Accounting</p>
+  </header>
+
+  <!-- Learning Objectives -->
+  <div class="learning-objectives">
+    <h2>Learning Objectives</h2>
+    <ol>
+      <li>Explain the objective of financial accounting and identify the primary external users</li>
+      <li>Describe the qualitative characteristics that make accounting information useful</li>
+      <li>Identify the governing bodies that set accounting standards (SEC, FASB, IASB)</li>
+      <li>List and explain the four basic assumptions underlying financial reporting</li>
+      <li>Compare the four forms of business organization</li>
+      <li>State the accounting equation and define its components</li>
+      <li>Describe the three types of business activities and how they appear on the balance sheet</li>
+      <li>Analyze business transactions using the accounting equation</li>
+      <li>Prepare the four financial statements and explain how they connect</li>
+      <li>Calculate and interpret Return on Assets (ROA)</li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: OBJECTIVE OF FINANCIAL ACCOUNTING -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">The Objective of Financial Accounting</h2>
+
+  <p>
+    The core objective of financial accounting is straightforward: <strong>to provide useful
+    information to external users to aid in their decision-making</strong>. While there are
+    various types of external users, the two most important groups are <em>creditors</em> and
+    <em>investors</em>. Both provide capital to the company, but their goals and expectations
+    differ significantly.
+  </p>
+
+  <h3 class="subsection-title">Creditors vs. Investors</h3>
+
+  <p>
+    <strong>Creditors</strong> lend money to a company with the expectation of earning interest
+    and eventually collecting the principal at maturity. Before extending credit, they must
+    evaluate the firm's financial health to ensure the company can repay its obligations.
+  </p>
+
+  <p>
+    <strong>Investors</strong>, on the other hand, provide capital in exchange for ownership
+    in the company. Unlike creditors, investors do not receive guaranteed interest payments.
+    Instead, they benefit in two ways: (1) as the company grows, the stock price rises,
+    allowing them to sell shares at a profit; and (2) if the company earns sufficient profit,
+    it may distribute <em>dividends</em> to its shareholders.
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Both creditors and investors are putting their money at risk. Creditors ask:
+      "Can this company pay me back with interest?" Investors ask: "Will this company
+      grow and avoid bankruptcy?" Both questions can only be answered by analyzing the
+      company's financial statements&mdash;which is exactly what financial accounting provides.
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: QUALITATIVE CHARACTERISTICS -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Qualitative Characteristics of Useful Information</h2>
+
+  <p>
+    Since the objective of financial accounting is to provide "useful information," the
+    Financial Accounting Standards Board (FASB) has established specific criteria that
+    define what makes information useful. These criteria are divided into two levels:
+    <em>primary qualitative characteristics</em> and <em>enhancing qualitative characteristics</em>.
+  </p>
+
+  <h3 class="subsection-title">Primary Qualitative Characteristics</h3>
+
+  <p>
+    For accounting information to be considered useful, it must possess two fundamental
+    qualities: <strong>relevance</strong> and <strong>faithful representation</strong>.
+  </p>
+
+  <!-- Qualitative Characteristics Diagram -->
+  <figure style="text-align:center; margin:2rem auto; max-width:750px;">
+    <img src="images/ch01/qualitative-characteristics.png" alt="Hierarchy diagram of qualitative characteristics of useful accounting information" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure 1-1. Qualitative Characteristics of Useful Accounting Information</figcaption>
+  </figure>
+
+  <p>
+    <strong>Relevance</strong> means the information must relate to the company's economic
+    events and be capable of making a difference in a user's decision. It has two components.
+    <em>Predictive value</em> allows users to form expectations about the future based on
+    current data. <em>Confirmatory value</em> enables users to verify or correct their prior
+    predictions. Additionally, <em>materiality</em> is a related consideration&mdash;information
+    is material if omitting or misstating it could influence users' decisions. A $10 error in a
+    billion-dollar company's records, for instance, would not alter an investor's decision and
+    is therefore immaterial.
+  </p>
+
+  <p>
+    <strong>Faithful representation</strong> requires that financial information accurately
+    depicts the economic events it purports to represent. Information must be <em>complete</em>
+    (nothing important is omitted), <em>neutral</em> (not biased or manipulated to favor one
+    group over another), and <em>free from error</em> (reasonably accurate in its depiction
+    of financial reality).
+  </p>
+
+  <h3 class="subsection-title">Enhancing Qualitative Characteristics</h3>
+
+  <p>
+    Beyond the primary characteristics, four enhancing qualities further improve the
+    usefulness of accounting information:
+  </p>
+
+  <div class="enhance-row">
+    <span class="enhance-chip">Comparability</span>
+    <span class="enhance-chip">Verifiability</span>
+    <span class="enhance-chip">Timeliness</span>
+    <span class="enhance-chip">Understandability</span>
+  </div>
+
+  <p>
+    <strong>Comparability</strong> allows users to compare the financial statements of
+    different companies. This is precisely why standardized rules such as GAAP exist.
+    Closely related is <strong>consistency</strong>, which requires a single company to apply
+    the same accounting methods from period to period, enabling meaningful comparisons over time.
+  </p>
+
+  <p>
+    <strong>Verifiability</strong> means that independent parties examining the same data
+    should reach the same conclusions. <strong>Timeliness</strong> requires that information
+    be delivered quickly enough to be relevant&mdash;financial data from a decade ago has
+    little value for current decisions. Finally, <strong>understandability</strong> means
+    that reports should be presented clearly enough for anyone with a reasonable knowledge
+    of business to comprehend.
+  </p>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: GOVERNING BODIES -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Governing Bodies and Accounting Standards</h2>
+
+  <h3 class="subsection-title">Accounting Professions</h3>
+
+  <p>
+    Two major professional certifications exist in accounting. <strong>Certified Public
+    Accountants (CPAs)</strong> serve the general public, performing audits, tax preparation,
+    and consulting for various clients. <strong>Certified Management Accountants (CMAs)</strong>
+    specialize in financial management and typically work within a single company, supporting
+    internal decision-making.
+  </p>
+
+  <h3 class="subsection-title">SEC, FASB, and GAAP</h3>
+
+  <p>
+    In the United States, accounting standards are established through a system of oversight
+    involving both government and private-sector organizations:
+  </p>
+
+  <!-- Governing Body Flow Diagram -->
+  <div class="gov-flow">
+    <div class="gov-box govt">
+      SEC
+      <small>Securities &amp; Exchange Commission</small>
+    </div>
+    <div class="gov-arrow-group">
+      <div class="gov-arrow">&xrarr;</div>
+      <div class="gov-label">delegates to</div>
+    </div>
+    <div class="gov-box private">
+      FASB
+      <small>Financial Accounting Standards Board</small>
+    </div>
+    <div class="gov-arrow-group">
+      <div class="gov-arrow">&xrarr;</div>
+      <div class="gov-label">creates</div>
+    </div>
+    <div class="gov-box output">
+      GAAP
+      <small>Generally Accepted Accounting Principles</small>
+    </div>
+  </div>
+
+  <p>
+    The <strong>SEC</strong> is the government agency that oversees the U.S. financial markets.
+    Although the SEC holds the legal authority to set accounting standards, it has largely
+    delegated this responsibility to the <strong>FASB</strong>, a private-sector organization.
+    The FASB is the body that actually creates and updates <strong>GAAP</strong>&mdash;the set
+    of rules and guidelines that all U.S. companies must follow when preparing financial statements.
+  </p>
+
+  <h3 class="subsection-title">International Standards: IASB and IFRS</h3>
+
+  <div class="gov-flow">
+    <div class="gov-box private">
+      IASB
+      <small>International Accounting Standards Board</small>
+    </div>
+    <div class="gov-arrow-group">
+      <div class="gov-arrow">&xrarr;</div>
+      <div class="gov-label">creates</div>
+    </div>
+    <div class="gov-box output">
+      IFRS
+      <small>International Financial Reporting Standards</small>
+    </div>
+  </div>
+
+  <p>
+    On the international level, the <strong>IASB</strong> publishes the <strong>International
+    Financial Reporting Standards (IFRS)</strong>, which are used by many countries outside
+    the United States. While this course focuses primarily on U.S. GAAP, awareness of IFRS
+    is increasingly important in a globalized business environment.
+  </p>
+
+  <h3 class="subsection-title">The Sarbanes-Oxley Act (SOX)</h3>
+
+  <p>
+    In the early 2000s, massive accounting scandals&mdash;most notably involving Enron and
+    WorldCom&mdash;shook public confidence in the financial markets. In response, the U.S.
+    Congress passed the <strong>Sarbanes-Oxley Act (SOX)</strong> in 2002. SOX led to the
+    creation of the <strong>PCAOB (Public Company Accounting Oversight Board)</strong>,
+    an independent body that monitors the auditors of public companies. The Act also
+    significantly enhanced penalties for white-collar crimes and strengthened the independence
+    of external auditors by prohibiting them from providing certain consulting services to
+    the same clients they audit.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128200;</span> CASE STUDY &mdash; Arthur Andersen and Enron</div>
+    <p>
+      <strong>Arthur Andersen</strong>, one of the largest accounting firms in the world at the
+      time, served as Enron's external auditor. However, Arthur Andersen was simultaneously
+      providing lucrative <strong>consulting services</strong> to Enron&mdash;earning millions
+      of dollars in consulting fees on top of its audit fees.
+    </p>
+    <p>
+      This created a severe <strong>conflict of interest</strong>. As auditors, Arthur Andersen
+      was supposed to independently verify the accuracy and fairness of Enron's financial
+      statements. But as consultants, the firm had a powerful financial incentive to keep Enron
+      happy as a client&mdash;undermining the very <strong>auditor independence</strong> that
+      the public relies on. When Enron's fraudulent accounting was finally exposed, Arthur
+      Andersen was found to have shredded audit documents and was convicted of obstruction of
+      justice. The firm collapsed, and roughly 85,000 employees lost their jobs.
+    </p>
+    <p style="font-size:0.85rem;">
+      This case is the primary reason SOX now <strong>prohibits</strong> accounting firms from
+      providing both audit and consulting services to the same client&mdash;a rule designed to
+      protect auditor independence and restore public trust.
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: BASIC ASSUMPTIONS -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Basic Assumptions in Financial Reporting</h2>
+
+  <p>
+    Financial reporting rests on four fundamental assumptions that serve as the bedrock
+    of accounting practice:
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Assumption</th>
+        <th>Description</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Monetary Unit</strong></td>
+        <td>Only transactions that can be expressed in monetary terms are recorded.</td>
+        <td>A CEO's leadership skills, however valuable, cannot be recorded as an asset because they cannot be objectively measured in dollars.</td>
+      </tr>
+      <tr>
+        <td><strong>Economic Entity</strong></td>
+        <td>A business is a separate entity, distinct from its owners and other businesses.</td>
+        <td>An owner's personal car payment must not be recorded in the company's accounting records.</td>
+      </tr>
+      <tr>
+        <td><strong>Periodicity</strong></td>
+        <td>The economic life of a business can be divided into artificial time periods (months, quarters, years).</td>
+        <td>Companies report financial results on an annual and quarterly basis.</td>
+      </tr>
+      <tr>
+        <td><strong>Going Concern</strong></td>
+        <td>The business is assumed to continue operating for the foreseeable future.</td>
+        <td>Assets are recorded at cost rather than liquidation value because the company is not expected to go bankrupt.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: FORMS OF BUSINESS ORGANIZATION -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Forms of Business Organization</h2>
+
+  <p>
+    Businesses can be organized in several different legal structures. The four primary
+    forms are sole proprietorships, partnerships, corporations, and limited liability
+    companies (LLCs). Each form has distinct characteristics regarding ownership, liability,
+    taxation, and lifespan.
+  </p>
+
+  <h3 class="subsection-title">Sole Proprietorship</h3>
+
+  <p>
+    A sole proprietorship has a single owner, known as the <em>proprietor</em>. This is the
+    simplest form of business to establish. However, the owner bears <strong>unlimited
+    liability</strong>&mdash;meaning the owner is personally responsible for all of the
+    business's debts. If the business goes bankrupt, the owner's personal assets can be
+    seized to satisfy outstanding obligations. For tax purposes, the business is not a
+    separate taxable entity; all income passes through to the owner's personal tax return.
+    The life of the business terminates at the owner's choice or upon death.
+  </p>
+
+  <h3 class="subsection-title">Partnership</h3>
+
+  <p>
+    A partnership is a business owned by two or more individuals (or entities) that is not
+    organized as a corporation. Like sole proprietorships, partners face <strong>unlimited
+    liability</strong>&mdash;each partner is personally liable for the partnership's debts.
+    Taxation also passes through to the individual partners based on their ownership share.
+    The partnership terminates at any partner's choice or death.
+  </p>
+
+  <h3 class="subsection-title">Corporation</h3>
+
+  <p>
+    A corporation is a business organized under state law as a <strong>separate legal
+    entity</strong>. It can have thousands of owners, called <em>stockholders</em> (or
+    shareholders). The most significant advantage of a corporation is <strong>limited
+    liability</strong>: stockholders are not personally liable for the corporation's debts.
+    Their risk is limited to the amount they invested.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128200;</span> EXAMPLE</div>
+    <p>
+      Suppose you invest $1,000 in a corporation by purchasing its stock. If the company
+      later goes bankrupt with millions of dollars in debt, you simply lose your $1,000
+      investment. The company's creditors cannot come after your personal bank accounts,
+      home, or car. That is the power of limited liability.
+    </p>
+  </div>
+
+  <p>
+    Although stockholders are the <strong>owners</strong> of a corporation, they do not directly
+    manage the company. Instead, stockholders exercise their <strong>voting rights</strong> to
+    elect a <strong>Board of Directors</strong>, which oversees the company's strategic direction.
+    The Board, in turn, appoints the top executives&mdash;such as the <strong>CEO</strong>
+    (Chief Executive Officer) and <strong>CFO</strong> (Chief Financial Officer)&mdash;who handle
+    day-to-day operations. This separation of ownership and management is a defining feature
+    of the corporate form.
+  </p>
+
+  <div class="gov-flow">
+    <div class="gov-box govt">
+      Stockholders
+      <small>Owners of the corporation</small>
+    </div>
+    <div class="gov-arrow-group">
+      <div class="gov-arrow">&xrarr;</div>
+      <div class="gov-label">elect (voting rights)</div>
+    </div>
+    <div class="gov-box govt">
+      Board of Directors
+      <small>Oversees strategy &amp; governance</small>
+    </div>
+    <div class="gov-arrow-group">
+      <div class="gov-arrow">&xrarr;</div>
+      <div class="gov-label">appoints</div>
+    </div>
+    <div class="gov-box govt">
+      CEO / CFO
+      <small>Run day-to-day operations</small>
+    </div>
+  </div>
+
+  <p style="font-size:0.85rem; text-align:center; color:var(--text-secondary); margin-top:-0.5rem; margin-bottom:1.5rem;">
+    Buying stock makes you an owner, but you don't directly run the company&mdash;you vote to elect the Board, who then hires the management team.
+  </p>
+
+  <p>
+    However, corporations face a notable disadvantage: <strong>double taxation</strong>.
+    The corporation itself pays corporate income tax on its earnings. When those earnings
+    are then distributed to stockholders as dividends, the stockholders must pay personal
+    income tax on those dividends. The same income is effectively taxed twice.
+  </p>
+
+  <p>
+    Despite this tax disadvantage, the ability to raise massive amounts of capital&mdash;by
+    issuing <em>corporate bonds</em> and <em>shares of stock</em> to the public&mdash;makes
+    the corporate form the most common structure for large businesses. The life of a
+    corporation is <em>indefinite</em>; it continues regardless of changes in ownership.
+  </p>
+
+  <h3 class="subsection-title">Limited Liability Company (LLC)</h3>
+
+  <p>
+    An LLC is a hybrid structure that combines the most attractive features of partnerships
+    and corporations. Like a partnership, income passes through directly to the individual
+    members, avoiding double taxation. Like a corporation, members enjoy <strong>limited
+    liability</strong>. While LLCs can be more complex to establish and may face certain
+    state-specific restrictions, they offer an appealing balance of tax efficiency and
+    liability protection.
+  </p>
+
+  <!-- Comparison Table -->
+  <figure style="text-align:center; margin:2rem auto; max-width:750px;">
+    <img src="images/ch01/business-organizations.png" alt="Visual comparison of four business organization types" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure 1-2. Four Types of Business Organizations</figcaption>
+  </figure>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: THE ACCOUNTING EQUATION -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">The Accounting Equation</h2>
+
+  <p>
+    The accounting equation is the most fundamental tool in all of accounting. Every
+    transaction a business engages in can be expressed through this equation, which must
+    <em>always</em> remain in balance:
+  </p>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#128270;</span> THE ACCOUNTING EQUATION</div>
+    <p style="font-size: 1.3rem; font-weight: 700; color: var(--primary); margin: 0.5rem 0;">
+      \[ \text{Assets} = \text{Liabilities} + \text{Stockholders' Equity} \]
+    </p>
+  </div>
+
+  <!-- Visual Accounting Equation -->
+  <div class="acct-eq">
+    <div class="eq-side eq-left">
+      <div class="eq-label">Assets</div>
+      <div class="eq-sub">How the money<br>is <strong>used</strong></div>
+    </div>
+    <div class="eq-equals">=</div>
+    <div class="eq-side eq-right" style="flex:0.7;">
+      <div class="eq-label">Liabilities</div>
+      <div class="eq-sub">Money from<br><strong>creditors</strong></div>
+    </div>
+    <div class="eq-plus">+</div>
+    <div class="eq-side eq-right" style="flex:1;">
+      <div class="eq-label">Stockholders' Equity</div>
+      <div class="eq-sub">Money from<br><strong>investors</strong></div>
+    </div>
+  </div>
+
+  <p>
+    The left side of the equation represents the company's <strong>resources</strong>&mdash;its
+    assets. The right side represents the <strong>claims</strong> to those resources: liabilities
+    are claims by creditors, and stockholders' equity represents the owners' residual claim.
+    A helpful way to think about it: the left side shows <em>how</em> the money is used,
+    while the right side shows <em>where</em> the money came from.
+  </p>
+
+  <h3 class="subsection-title">Assets</h3>
+
+  <p>
+    An <strong>asset</strong> is an economic resource that is expected to benefit the business
+    in the future. Common examples include:
+  </p>
+
+  <div class="enhance-row">
+    <span class="enhance-chip">Cash</span>
+    <span class="enhance-chip">Accounts Receivable</span>
+    <span class="enhance-chip">Merchandise Inventory</span>
+    <span class="enhance-chip">Office Supplies</span>
+    <span class="enhance-chip">Furniture</span>
+    <span class="enhance-chip">Land</span>
+  </div>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128218;</span> KEY TERM</div>
+    <p>
+      Whenever you see the word <strong>"receivable"</strong> in an account name (e.g., Accounts
+      Receivable, Notes Receivable), it indicates an <strong>asset</strong>&mdash;the company
+      has the right to receive money in the future.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Liabilities</h3>
+
+  <p>
+    <strong>Liabilities</strong> are debts or obligations owed to creditors. Many liability
+    accounts contain the word "payable" in their name.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128218;</span> KEY TERM</div>
+    <p>
+      Whenever you see the word <strong>"payable"</strong> in an account name (e.g., Accounts
+      Payable, Notes Payable, Salaries Payable), it indicates a <strong>liability</strong>&mdash;the
+      company has an obligation to pay in the future.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Stockholders' Equity: Contributed Capital and Retained Earnings</h3>
+
+  <p>
+    Stockholders' equity has two primary components:
+  </p>
+
+  <p>
+    <strong>Contributed Capital</strong> represents the funds invested directly by owners
+    when the company issues stock. The primary account is <em>Common Stock</em>.
+  </p>
+
+  <p>
+    <strong>Earned Capital (Retained Earnings)</strong> represents the profits that the
+    company has generated and retained over its lifetime. Retained earnings are affected by
+    three factors:
+  </p>
+
+  <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+    <li><strong>Revenues</strong> &mdash; increase retained earnings</li>
+    <li><strong>Expenses</strong> &mdash; decrease retained earnings</li>
+    <li><strong>Dividends</strong> &mdash; decrease retained earnings (distributions to owners)</li>
+  </ul>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#9888;&#65039;</span> IMPORTANT</div>
+    <p>
+      <strong>Dividends are NOT expenses.</strong> Dividends are distributions of earnings to
+      owners. They do not appear on the Income Statement. Instead, they appear on the
+      Statement of Retained Earnings. This distinction is critical.
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: THREE TYPES OF BUSINESS ACTIVITIES -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Three Types of Business Activities</h2>
+
+  <p>
+    All business activities fall into one of three categories: <strong>operating</strong>,
+    <strong>investing</strong>, and <strong>financing</strong> activities. These categories
+    are directly reflected in the structure of the balance sheet.
+  </p>
+
+  <!-- Balance Sheet Diagram -->
+  <figure style="text-align:center; margin:2rem auto; max-width:750px;">
+    <img src="images/ch01/business-activities-balance-sheet.png" alt="How the three types of business activities map onto the Balance Sheet" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure 1-3. How Business Activities Map onto the Balance Sheet</figcaption>
+  </figure>
+
+  <p>
+    <strong>Operating activities</strong> involve the day-to-day running of the business.
+    These include generating revenue, paying salaries, purchasing inventory, and collecting
+    receivables. On the balance sheet, operating activities are reflected primarily in
+    current assets and current liabilities.
+  </p>
+
+  <p>
+    <strong>Investing activities</strong> involve acquiring or disposing of long-term assets.
+    When a company buys land, buildings, or equipment to support its operations, these
+    are classified as investing activities and appear as non-current assets.
+  </p>
+
+  <p>
+    <strong>Financing activities</strong> involve raising capital from creditors and investors.
+    Issuing long-term bonds creates non-current liabilities; issuing stock increases
+    stockholders' equity. Both are financing activities. Paying dividends to stockholders
+    is also a financing activity because it represents a return of capital to owners.
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Notice that <strong>Stockholders' Equity</strong> is not purely a financing item.
+      Common Stock is financing&mdash;it represents capital raised from investors. But
+      Retained Earnings is a mix: the <strong>Net Income</strong> component (revenues minus
+      expenses) comes from <em>operating</em> activities, while <strong>dividends</strong>
+      are a <em>financing</em> activity. This is exactly why the Statement of Cash Flows
+      separates operating, investing, and financing cash flows&mdash;even though these
+      activities may all end up affecting the same balance sheet line items.
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: FINANCIAL STATEMENTS -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">The Four Financial Statements</h2>
+
+  <p>
+    Financial accounting communicates a company's financial information through four primary
+    financial statements. These statements are interconnected&mdash;the output of one
+    flows directly into the next.
+  </p>
+
+  <!-- Financial Statement Flow Diagram -->
+  <figure style="text-align:center; margin:2rem auto; max-width:750px;">
+    <img src="images/ch01/financial-statement-flow.png" alt="Flow diagram showing how four financial statements connect" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure 1-4. How the Four Financial Statements Connect</figcaption>
+  </figure>
+
+  <h3 class="subsection-title">The Income Statement</h3>
+
+  <p>
+    The <strong>Income Statement</strong> reports the operating results of a company for a
+    specific period of time (e.g., "for the month ended January 31, 2026"). It lists
+    the company's revenues and expenses, and the difference between them is <strong>Net
+    Income</strong> (if revenues exceed expenses) or <strong>Net Loss</strong> (if expenses
+    exceed revenues). Preparation of financial statements always begins with the Income Statement.
+  </p>
+
+  <h3 class="subsection-title">The Statement of Retained Earnings</h3>
+
+  <p>
+    The <strong>Statement of Retained Earnings</strong> serves as the bridge between the
+    Income Statement and the Balance Sheet. It shows how retained earnings changed during
+    the period:
+  </p>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#128270;</span> RETAINED EARNINGS FORMULA</div>
+    <p style="font-size:1rem; font-weight:600; color:var(--primary); margin:0.3rem 0;">
+      \[ \text{Beginning R/E} + \text{Net Income} - \text{Dividends} = \text{Ending R/E} \]
+    </p>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128200;</span> EXAMPLE &mdash; Retained Earnings Over Two Years</div>
+    <div class="re-example">
+      <div class="re-year">
+        <h4>Year 1 (2025)</h4>
+        <div class="re-line"><span>Beginning R/E</span><span>$0</span></div>
+        <div class="re-line"><span>+ Net Income</span><span>$100</span></div>
+        <div class="re-line"><span>&minus; Dividends</span><span>($0)</span></div>
+        <div class="re-line total"><span>Ending R/E</span><span>$100</span></div>
+      </div>
+      <div class="re-year">
+        <h4>Year 2 (2026)</h4>
+        <div class="re-line"><span>Beginning R/E</span><span>$100</span></div>
+        <div class="re-line"><span>+ Net Income</span><span>$150</span></div>
+        <div class="re-line"><span>&minus; Dividends</span><span>($0)</span></div>
+        <div class="re-line total"><span>Ending R/E</span><span>$250</span></div>
+      </div>
+    </div>
+    <p style="font-size:0.85rem; margin-top:0.5rem;">
+      Notice how Year 1's ending balance becomes Year 2's beginning balance. Retained Earnings
+      is the cumulative total of all net income earned minus all dividends paid over the
+      company's entire life.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">The Balance Sheet</h3>
+
+  <p>
+    The <strong>Balance Sheet</strong> reports the financial position of a business <em>as of</em>
+    a specific date (e.g., "as of January 31, 2026"). Unlike the other three statements,
+    which cover a <em>period</em> of time, the Balance Sheet captures a single <em>point</em>
+    in time. It presents the accounting equation: Assets = Liabilities + Stockholders' Equity.
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      The Income Statement, Statement of Retained Earnings, and Statement of Cash Flows all
+      report activities <strong>"for"</strong> a period (e.g., "for the month ended...").
+      The Balance Sheet reports the financial position <strong>"as of"</strong> a specific date.
+      This distinction matters&mdash;the cash balance on a Balance Sheet is the exact amount
+      on hand at that one moment, not the total cash earned during the period.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">The Statement of Cash Flows</h3>
+
+  <p>
+    The <strong>Statement of Cash Flows</strong> reports cash inflows and outflows, organized
+    into three categories that mirror the three types of business activities: operating,
+    investing, and financing. The net result explains the change in cash from the beginning
+    to the end of the period, tying directly to the cash balance shown on the Balance Sheet.
+    Detailed preparation of this statement is covered in later chapters.
+  </p>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 9: TRANSACTION ANALYSIS -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Transaction Analysis</h2>
+
+  <p>
+    A <strong>transaction</strong> is any event that affects the financial position of the
+    business and can be reliably measured. Purchasing equipment for cash is a transaction;
+    merely hiring a new employee is not (until the employee performs work and earns wages).
+    Every transaction must be analyzed in terms of its effect on the accounting equation,
+    and the equation must remain in balance after every transaction.
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      You must always analyze transactions <strong>from the perspective of the company</strong>&mdash;not
+      from your personal perspective. When Sheena Bright contributes cash to Smart Touch Learning,
+      students sometimes think "she lost money." But from the <em>company's</em> perspective,
+      it <strong>received</strong> cash and <strong>issued</strong> stock. Every transaction in
+      this course is analyzed from the company's viewpoint.
+    </p>
+  </div>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128218;</span> KEY TERM</div>
+    <p>
+      <strong>"On account"</strong> means a transaction is completed on credit. If a company
+      buys supplies "on account," it creates an <em>Accounts Payable</em> (liability). If a
+      company performs services "on account," it creates an <em>Accounts Receivable</em> (asset).
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Example: Smart Touch Learning&mdash;January 2026</h3>
+
+  <p>
+    Let's walk through a series of nine transactions for <strong>Smart Touch Learning</strong>,
+    a company that provides educational training services. The company begins operations in
+    January 2026. Each transaction is analyzed for its effect on the accounting equation.
+  </p>
+
+  <!-- Transaction 1 -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon"><span class="txn-num">1</span></span> OWNER CONTRIBUTION</div>
+    <p>
+      Sheena Bright contributes <strong>$30,000 cash</strong> to Smart Touch Learning in
+      exchange for common stock.
+    </p>
+    <p style="font-size:0.9rem;">
+      <strong>Analysis:</strong> The company receives cash (asset &#8593; $30,000) and issues
+      common stock (equity &#8593; $30,000). Both sides of the equation increase equally.
+    </p>
+  </div>
+
+  <!-- Transaction 2 -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon"><span class="txn-num">2</span></span> PURCHASE OF LAND FOR CASH</div>
+    <p>
+      Smart Touch Learning purchases land for <strong>$20,000 cash</strong>.
+    </p>
+    <p style="font-size:0.9rem;">
+      <strong>Analysis:</strong> Cash decreases by $20,000 and Land increases by $20,000.
+      This is a shift within assets&mdash;total assets remain unchanged, and the equation
+      stays in balance.
+    </p>
+  </div>
+
+  <!-- Transaction 3 -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon"><span class="txn-num">3</span></span> PURCHASE OF SUPPLIES ON ACCOUNT</div>
+    <p>
+      The company buys <strong>$500 of office supplies on account</strong>, agreeing to pay
+      within 30 days.
+    </p>
+    <p style="font-size:0.9rem;">
+      <strong>Analysis:</strong> Office Supplies (asset) increases by $500, and Accounts
+      Payable (liability) increases by $500. The equation remains in balance.
+    </p>
+  </div>
+
+  <!-- Transaction 4 -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon"><span class="txn-num">4</span></span> SERVICE REVENUE FOR CASH</div>
+    <p>
+      Smart Touch Learning earns <strong>$5,500</strong> by providing training services,
+      collecting cash immediately.
+    </p>
+    <p style="font-size:0.9rem;">
+      <strong>Analysis:</strong> Cash (asset) increases by $5,500. Service Revenue increases
+      Retained Earnings (equity &#8593; $5,500). Both sides increase equally.
+    </p>
+  </div>
+
+  <!-- Transaction 5 -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon"><span class="txn-num">5</span></span> SERVICE REVENUE ON ACCOUNT</div>
+    <p>
+      The company performs services worth <strong>$3,000</strong> for clients who promise to
+      pay within one month.
+    </p>
+    <p style="font-size:0.9rem;">
+      <strong>Analysis:</strong> Accounts Receivable (asset) increases by $3,000. Service
+      Revenue increases Retained Earnings (equity &#8593; $3,000). Revenue is recognized
+      when the service is performed, regardless of when cash is collected.
+    </p>
+  </div>
+
+  <!-- Transaction 6 -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon"><span class="txn-num">6</span></span> PAYMENT OF EXPENSES</div>
+    <p>
+      Smart Touch Learning pays <strong>$3,200</strong> in cash: $2,000 for rent and
+      $1,200 for salaries.
+    </p>
+    <p style="font-size:0.9rem;">
+      <strong>Analysis:</strong> Cash (asset) decreases by $3,200. Rent Expense and Salaries
+      Expense reduce Retained Earnings (equity &#8595; $3,200). Both sides decrease equally.
+    </p>
+  </div>
+
+  <!-- Transaction 7 -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon"><span class="txn-num">7</span></span> PAYMENT ON ACCOUNT</div>
+    <p>
+      The company pays <strong>$300</strong> toward the office supplies purchased in
+      Transaction 3.
+    </p>
+    <p style="font-size:0.9rem;">
+      <strong>Analysis:</strong> Cash (asset) decreases by $300, and Accounts Payable
+      (liability) decreases by $300. Both sides decrease equally.
+    </p>
+  </div>
+
+  <!-- Transaction 8 -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon"><span class="txn-num">8</span></span> COLLECTION ON ACCOUNT</div>
+    <p>
+      Smart Touch Learning collects <strong>$2,000</strong> from the client in Transaction 5.
+    </p>
+    <p style="font-size:0.9rem;">
+      <strong>Analysis:</strong> Cash (asset) increases by $2,000, and Accounts Receivable
+      (asset) decreases by $2,000. This is a shift within assets&mdash;total assets are
+      unchanged, and the equation remains in balance. Note: this is <em>not</em> new revenue.
+      The revenue was already recorded in Transaction 5 when the service was performed.
+    </p>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Collecting cash from a customer who already owes you is <strong>NOT</strong> new revenue.
+      The revenue was already recorded when the service was performed (Transaction 5). This is
+      one of the most common mistakes students make&mdash;confusing <strong>cash collection</strong>
+      with <strong>revenue recognition</strong>. Cash and revenue are two different things.
+      Revenue is recorded when the service is performed, regardless of when cash is received.
+    </p>
+  </div>
+
+  <!-- Transaction 9 -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon"><span class="txn-num">9</span></span> PAYMENT OF DIVIDEND</div>
+    <p>
+      The company distributes a <strong>$5,000 cash dividend</strong> to stockholder
+      Sheena Bright.
+    </p>
+    <p style="font-size:0.9rem;">
+      <strong>Analysis:</strong> Cash (asset) decreases by $5,000, and Dividends reduce
+      Retained Earnings (equity &#8595; $5,000). Remember: <strong>dividends are not
+      expenses</strong>&mdash;they are distributions of earnings to owners.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Transaction Summary</h3>
+
+  <p>
+    The following table summarizes the effect of all nine transactions on Smart Touch
+    Learning's accounting equation. Notice that after every transaction, total assets
+    equal total liabilities plus stockholders' equity.
+  </p>
+
+  <div style="overflow-x: auto;">
+  <table class="txn-table">
+    <thead>
+      <tr>
+        <th>Transaction</th>
+        <th>Cash</th>
+        <th>A/R</th>
+        <th>Supplies</th>
+        <th>Land</th>
+        <th>=</th>
+        <th>A/P</th>
+        <th>+</th>
+        <th>Common Stock</th>
+        <th>R/E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="txn-num">1</span> Owner contribution</td>
+        <td class="txn-pos">+30,000</td><td></td><td></td><td></td>
+        <td>=</td><td></td><td>+</td>
+        <td class="txn-pos">+30,000</td><td></td>
+      </tr>
+      <tr>
+        <td><span class="txn-num">2</span> Purchase land</td>
+        <td class="txn-neg">&minus;20,000</td><td></td><td></td><td class="txn-pos">+20,000</td>
+        <td>=</td><td></td><td>+</td>
+        <td></td><td></td>
+      </tr>
+      <tr>
+        <td><span class="txn-num">3</span> Supplies on acct</td>
+        <td></td><td></td><td class="txn-pos">+500</td><td></td>
+        <td>=</td><td class="txn-pos">+500</td><td>+</td>
+        <td></td><td></td>
+      </tr>
+      <tr>
+        <td><span class="txn-num">4</span> Revenue (cash)</td>
+        <td class="txn-pos">+5,500</td><td></td><td></td><td></td>
+        <td>=</td><td></td><td>+</td>
+        <td></td><td class="txn-pos">+5,500</td>
+      </tr>
+      <tr>
+        <td><span class="txn-num">5</span> Revenue (on acct)</td>
+        <td></td><td class="txn-pos">+3,000</td><td></td><td></td>
+        <td>=</td><td></td><td>+</td>
+        <td></td><td class="txn-pos">+3,000</td>
+      </tr>
+      <tr>
+        <td><span class="txn-num">6</span> Pay expenses</td>
+        <td class="txn-neg">&minus;3,200</td><td></td><td></td><td></td>
+        <td>=</td><td></td><td>+</td>
+        <td></td><td class="txn-neg">&minus;3,200</td>
+      </tr>
+      <tr>
+        <td><span class="txn-num">7</span> Pay on account</td>
+        <td class="txn-neg">&minus;300</td><td></td><td></td><td></td>
+        <td>=</td><td class="txn-neg">&minus;300</td><td>+</td>
+        <td></td><td></td>
+      </tr>
+      <tr>
+        <td><span class="txn-num">8</span> Collect on acct</td>
+        <td class="txn-pos">+2,000</td><td class="txn-neg">&minus;2,000</td><td></td><td></td>
+        <td>=</td><td></td><td>+</td>
+        <td></td><td></td>
+      </tr>
+      <tr>
+        <td><span class="txn-num">9</span> Pay dividend</td>
+        <td class="txn-neg">&minus;5,000</td><td></td><td></td><td></td>
+        <td>=</td><td></td><td>+</td>
+        <td></td><td class="txn-neg">&minus;5,000</td>
+      </tr>
+      <tr class="total-row">
+        <td>Totals</td>
+        <td>$9,000</td><td>$1,000</td><td>$500</td><td>$20,000</td>
+        <td>=</td><td>$200</td><td>+</td>
+        <td>$30,000</td><td>$300</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p style="text-align:center; font-size:0.9rem; margin-top:0.5rem;">
+    Total Assets: $9,000 + $1,000 + $500 + $20,000 = <strong>$30,500</strong> &nbsp;&nbsp;|&nbsp;&nbsp;
+    Total L + SE: $200 + $30,000 + $300 = <strong>$30,500</strong> &nbsp; &#10004;
+  </p>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 10: PREPARING THE FINANCIAL STATEMENTS -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Preparing the Financial Statements</h2>
+
+  <p>
+    Using the transaction data from Smart Touch Learning, we can now prepare all four
+    financial statements. Remember: the statements are prepared in a specific order because
+    each one feeds into the next.
+  </p>
+
+  <h3 class="subsection-title">Step 1: Income Statement</h3>
+
+  <div style="max-width:420px; margin:1.5rem auto; background:var(--bg-white); border:2px solid var(--primary); border-radius:var(--radius); padding:1.2rem 1.5rem; box-shadow:var(--shadow-sm); font-family:'Helvetica Neue',Arial,sans-serif; font-size:0.9rem;">
+    <div style="text-align:center; font-weight:700; color:var(--primary);">Smart Touch Learning</div>
+    <div style="text-align:center; font-weight:600; color:var(--primary-light);">Income Statement</div>
+    <div style="text-align:center; font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.8rem;">For the Month Ended January 31, 2026</div>
+    <div style="display:flex; justify-content:space-between; padding:0.2rem 0;"><span>Service Revenue</span><span>$8,500</span></div>
+    <div style="display:flex; justify-content:space-between; padding:0.2rem 0;"><span>Expenses:</span><span></span></div>
+    <div style="display:flex; justify-content:space-between; padding:0.2rem 0 0.2rem 1rem;"><span>Rent Expense</span><span>$2,000</span></div>
+    <div style="display:flex; justify-content:space-between; padding:0.2rem 0 0.2rem 1rem; border-bottom:1px solid var(--border-light);"><span>Salaries Expense</span><span>$1,200</span></div>
+    <div style="display:flex; justify-content:space-between; padding:0.2rem 0 0.2rem 1rem;"><span>Total Expenses</span><span>($3,200)</span></div>
+    <div style="display:flex; justify-content:space-between; padding:0.4rem 0 0; border-top:2px solid var(--primary); font-weight:700; margin-top:0.3rem;"><span>Net Income</span><span>$5,300</span></div>
+  </div>
+
+  <h3 class="subsection-title">Step 2: Statement of Retained Earnings</h3>
+
+  <div style="max-width:420px; margin:1.5rem auto; background:var(--bg-white); border:2px solid var(--primary); border-radius:var(--radius); padding:1.2rem 1.5rem; box-shadow:var(--shadow-sm); font-family:'Helvetica Neue',Arial,sans-serif; font-size:0.9rem;">
+    <div style="text-align:center; font-weight:700; color:var(--primary);">Smart Touch Learning</div>
+    <div style="text-align:center; font-weight:600; color:var(--primary-light);">Statement of Retained Earnings</div>
+    <div style="text-align:center; font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.8rem;">For the Month Ended January 31, 2026</div>
+    <div style="display:flex; justify-content:space-between; padding:0.2rem 0;"><span>Beginning Retained Earnings</span><span>$0</span></div>
+    <div style="display:flex; justify-content:space-between; padding:0.2rem 0;"><span>+ Net Income</span><span>$5,300</span></div>
+    <div style="display:flex; justify-content:space-between; padding:0.2rem 0; border-bottom:1px solid var(--border-light);"><span>&minus; Dividends</span><span>($5,000)</span></div>
+    <div style="display:flex; justify-content:space-between; padding:0.4rem 0 0; border-top:2px solid var(--primary); font-weight:700; margin-top:0.3rem;"><span>Ending Retained Earnings</span><span>$300</span></div>
+  </div>
+
+  <h3 class="subsection-title">Step 3: Balance Sheet</h3>
+
+  <div style="max-width:520px; margin:1.5rem auto; background:var(--bg-white); border:2px solid var(--primary); border-radius:var(--radius); padding:1.2rem 1.5rem; box-shadow:var(--shadow-sm); font-family:'Helvetica Neue',Arial,sans-serif; font-size:0.9rem;">
+    <div style="text-align:center; font-weight:700; color:var(--primary);">Smart Touch Learning</div>
+    <div style="text-align:center; font-weight:600; color:var(--primary-light);">Balance Sheet</div>
+    <div style="text-align:center; font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.8rem;">As of January 31, 2026</div>
+    <div style="display:flex; gap:2rem;">
+      <div style="flex:1;">
+        <div style="font-weight:700; color:var(--primary); margin-bottom:0.4rem; border-bottom:1px solid var(--border-light); padding-bottom:0.2rem;">Assets</div>
+        <div style="display:flex; justify-content:space-between; padding:0.15rem 0;"><span>Cash</span><span>$9,000</span></div>
+        <div style="display:flex; justify-content:space-between; padding:0.15rem 0;"><span>Accounts Receivable</span><span>$1,000</span></div>
+        <div style="display:flex; justify-content:space-between; padding:0.15rem 0;"><span>Office Supplies</span><span>$500</span></div>
+        <div style="display:flex; justify-content:space-between; padding:0.15rem 0;"><span>Land</span><span>$20,000</span></div>
+        <div style="display:flex; justify-content:space-between; padding:0.4rem 0 0; border-top:2px solid var(--primary); font-weight:700; margin-top:0.3rem;"><span>Total Assets</span><span>$30,500</span></div>
+      </div>
+      <div style="flex:1;">
+        <div style="font-weight:700; color:var(--primary); margin-bottom:0.4rem; border-bottom:1px solid var(--border-light); padding-bottom:0.2rem;">Liabilities</div>
+        <div style="display:flex; justify-content:space-between; padding:0.15rem 0;"><span>Accounts Payable</span><span>$200</span></div>
+        <div style="display:flex; justify-content:space-between; padding:0.15rem 0; border-bottom:1px solid var(--border-light);"><span>Total Liabilities</span><span>$200</span></div>
+        <div style="font-weight:700; color:var(--primary); margin:0.4rem 0 0.4rem; padding-bottom:0.2rem;">Stockholders' Equity</div>
+        <div style="display:flex; justify-content:space-between; padding:0.15rem 0;"><span>Common Stock</span><span>$30,000</span></div>
+        <div style="display:flex; justify-content:space-between; padding:0.15rem 0;"><span>Retained Earnings</span><span>$300</span></div>
+        <div style="display:flex; justify-content:space-between; padding:0.15rem 0; border-bottom:1px solid var(--border-light);"><span>Total SE</span><span>$30,300</span></div>
+        <div style="display:flex; justify-content:space-between; padding:0.4rem 0 0; border-top:2px solid var(--primary); font-weight:700; margin-top:0.3rem;"><span>Total L + SE</span><span>$30,500</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 11: RETURN ON ASSETS -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Financial Ratio: Return on Assets (ROA)</h2>
+
+  <p>
+    At the conclusion of each chapter, a financial ratio is introduced to connect the
+    accounting concepts learned to real-world financial analysis. For Chapter 1, that
+    ratio is <strong>Return on Assets (ROA)</strong>.
+  </p>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#128270;</span> RETURN ON ASSETS</div>
+    <p style="font-size:1.1rem; font-weight:600; color:var(--primary); margin:0.3rem 0;">
+      \[ \text{ROA} = \frac{\text{Net Income}}{\text{Average Total Assets}} \]
+    </p>
+  </div>
+
+  <p>
+    ROA measures how profitably a company uses its assets. Because Net Income covers a
+    <em>period</em> of time while Total Assets are reported at a <em>point</em> in time,
+    we use the average of beginning and ending total assets to align the timeframes:
+  </p>
+
+  <p style="text-align:center; font-family:'Helvetica Neue',Arial,sans-serif; font-size:0.9rem; color:var(--text-secondary);">
+    Average Total Assets = (Beginning Total Assets + Ending Total Assets) &divide; 2
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128200;</span> EXAMPLE</div>
+    <p>
+      Suppose a company reports Net Income of $50,000 for the year ended December 31, 2026.
+      Its Total Assets were $400,000 at the beginning of the year and $600,000 at year-end.
+    </p>
+    <p style="font-size:0.9rem;">
+      Average Total Assets = ($400,000 + $600,000) &divide; 2 = $500,000<br>
+      ROA = $50,000 &divide; $500,000 = <strong>10%</strong>
+    </p>
+    <p style="font-size:0.9rem;">
+      This means the company generated 10 cents of profit for every dollar invested in assets.
+      A higher ROA indicates more efficient and profitable use of resources.
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CHAPTER SUMMARY -->
+  <!-- ============================================================ -->
+  <div class="chapter-summary">
+    <h2>Chapter 1 Summary</h2>
+    <ul>
+      <li>The objective of financial accounting is to provide <strong>useful information</strong> to external users (primarily creditors and investors) for decision-making.</li>
+      <li>Useful information must be <strong>relevant</strong> (predictive value, confirmatory value; materiality is a related consideration) and <strong>faithfully represented</strong> (complete, neutral, free from error).</li>
+      <li>Enhancing characteristics include <strong>comparability, verifiability, timeliness,</strong> and <strong>understandability</strong>.</li>
+      <li>The <strong>SEC</strong> oversees U.S. financial markets; the <strong>FASB</strong> creates <strong>GAAP</strong>; the <strong>IASB</strong> creates <strong>IFRS</strong>.</li>
+      <li>Four basic assumptions: <strong>monetary unit, economic entity, periodicity,</strong> and <strong>going concern</strong>.</li>
+      <li>Four business forms differ by liability and taxation: sole proprietorships and partnerships have <strong>unlimited liability</strong>; corporations and LLCs have <strong>limited liability</strong>.</li>
+      <li>The accounting equation&mdash;<strong>Assets = Liabilities + Stockholders' Equity</strong>&mdash;must always balance.</li>
+      <li>Three business activities: <strong>operating, investing, financing</strong>.</li>
+      <li>Four financial statements connect in sequence: <strong>Income Statement → Statement of Retained Earnings → Balance Sheet → Statement of Cash Flows</strong>.</li>
+      <li><strong>ROA</strong> = Net Income &divide; Average Total Assets&mdash;measures how profitably a company uses its assets.</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- KEY TERMS GLOSSARY -->
+  <!-- ============================================================ -->
+  <div class="glossary">
+    <h2>Key Terms</h2>
+    <dl>
+      <dt>Relevance</dt>
+      <dd>Information that has predictive value and confirmatory value, making it capable of influencing a user's decision. Materiality is a related consideration.</dd>
+
+      <dt>Faithful Representation</dt>
+      <dd>Information that is complete, neutral, and free from error&mdash;accurately depicting the economic events it claims to represent.</dd>
+
+      <dt>GAAP</dt>
+      <dd>Generally Accepted Accounting Principles&mdash;the standardized accounting rules established by the FASB for U.S. companies.</dd>
+
+      <dt>IFRS</dt>
+      <dd>International Financial Reporting Standards&mdash;global accounting guidelines published by the IASB.</dd>
+
+      <dt>Sarbanes-Oxley Act (SOX)</dt>
+      <dd>A 2002 U.S. law that established the PCAOB, enhanced penalties for accounting fraud, and strengthened auditor independence.</dd>
+
+      <dt>Corporation</dt>
+      <dd>A business organized under state law as a separate legal entity, offering limited liability to its stockholders.</dd>
+
+      <dt>Double Taxation</dt>
+      <dd>The taxation of corporate income at the corporate level, followed by taxation of dividends at the individual stockholder level.</dd>
+
+      <dt>LLC</dt>
+      <dd>Limited Liability Company&mdash;a hybrid business form offering pass-through taxation (like partnerships) and limited liability (like corporations).</dd>
+
+      <dt>Assets</dt>
+      <dd>Economic resources owned by a business that are expected to provide future benefits.</dd>
+
+      <dt>Liabilities</dt>
+      <dd>Debts or obligations owed to creditors.</dd>
+
+      <dt>Stockholders' Equity</dt>
+      <dd>The owners' residual claim on the company's assets after all liabilities are settled. Comprises contributed capital and retained earnings.</dd>
+
+      <dt>Retained Earnings</dt>
+      <dd>The cumulative net income earned by the company over its lifetime, minus dividends distributed to owners.</dd>
+
+      <dt>Dividends</dt>
+      <dd>Distributions of earnings to stockholders. Not an expense&mdash;reported on the Statement of Retained Earnings.</dd>
+
+      <dt>Net Income</dt>
+      <dd>The difference between total revenues and total expenses for a period (Revenue &minus; Expenses).</dd>
+
+      <dt>Return on Assets (ROA)</dt>
+      <dd>A profitability ratio calculated as Net Income &divide; Average Total Assets, measuring how efficiently a company uses its assets to generate profit.</dd>
+    </dl>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="chapter-nav">
+    <a href="intro.html">&larr; Introduction</a>
+    <a href="ch02.html">Chapter 2: Recording Business Transactions &rarr;</a>
+  </nav>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 2 – Recording Business Transactions</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    /* ===== Ch02 Page-specific styles ===== */
+
+    /* T-Account visual */
+    .t-account {
+      display: inline-block;
+      min-width: 200px;
+      margin: 0.5rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.88rem;
+      vertical-align: top;
+    }
+    .t-account-title {
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary);
+      padding: 0.3rem 0.5rem;
+      margin-bottom: 0;
+    }
+    .t-account-body {
+      display: flex;
+      border-top: 2px solid var(--primary);
+      min-height: 60px;
+    }
+    .t-left, .t-right {
+      flex: 1;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.82rem;
+    }
+    .t-left {
+      border-right: 2px solid var(--primary);
+    }
+    .t-left-label, .t-right-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 0.3rem;
+    }
+    .t-entry { padding: 0.15rem 0; }
+    .t-balance {
+      font-weight: 700;
+      border-top: 1px solid var(--border-light);
+      margin-top: 0.3rem;
+      padding-top: 0.3rem;
+    }
+    .t-accounts-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    /* Normal balance summary table */
+    .nb-table td:first-child { font-weight: 700; color: var(--primary); white-space: nowrap; }
+    .nb-table .dr { color: #1565c0; font-weight: 700; }
+    .nb-table .cr { color: #c62828; font-weight: 700; }
+
+    /* Journal entry table */
+    .journal {
+      max-width: 560px;
+      margin: 1.5rem auto;
+      border-collapse: collapse;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.88rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .journal caption {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+    }
+    .journal th {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.78rem;
+      padding: 0.5rem 0.8rem;
+      text-align: center;
+    }
+    .journal th:first-child { text-align: left; }
+    .journal td {
+      padding: 0.4rem 0.8rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .journal td:nth-child(2),
+    .journal td:nth-child(3) { text-align: right; width: 80px; }
+    .journal .indent { padding-left: 2rem; }
+    .journal .journal-total td {
+      border-top: 2px solid var(--primary);
+      font-weight: 700;
+      background: var(--bg-light);
+    }
+
+    /* Accounting cycle flow */
+    .cycle-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    .cycle-step {
+      background: var(--bg-white);
+      border: 2px solid var(--primary-light);
+      border-radius: var(--radius);
+      padding: 0.8rem 1.2rem;
+      text-align: center;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+      min-width: 130px;
+    }
+    .cycle-step.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .cycle-step small {
+      display: block;
+      font-weight: 400;
+      font-size: 0.72rem;
+      margin-top: 0.2rem;
+    }
+    .cycle-arrow {
+      font-size: 1.3rem;
+      color: var(--text-light);
+      font-weight: bold;
+    }
+
+    /* Normal balance hierarchy tree */
+    .nb-tree {
+      margin: 2rem auto;
+      max-width: 750px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    .nb-root {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .nb-root span {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--bg-light);
+      padding: 0.5rem 1.5rem;
+      border-radius: 20px;
+      border: 2px solid var(--primary);
+      display: inline-block;
+    }
+    .nb-branches {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .nb-branch {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      min-width: 220px;
+      max-width: 340px;
+      box-shadow: var(--shadow-sm);
+    }
+    .nb-branch.left-side {
+      border: 2px solid #1976d2;
+    }
+    .nb-branch.right-side {
+      border: 2px solid #c62828;
+    }
+    .nb-branch h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.3rem;
+    }
+    .nb-branch.left-side h4 {
+      color: #1565c0;
+      border-bottom: 2px solid #bbdefb;
+    }
+    .nb-branch.right-side h4 {
+      color: #b71c1c;
+      border-bottom: 2px solid #ffcdd2;
+    }
+    .nb-branch ul { list-style: none; padding: 0; }
+    .nb-branch li {
+      font-size: 0.85rem;
+      padding: 0.25rem 0 0.25rem 1rem;
+      position: relative;
+    }
+    .nb-branch li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+    .nb-branch.left-side li::before { color: #1976d2; }
+    .nb-branch.right-side li::before { color: #c62828; }
+    .nb-sub {
+      margin-top: 0.4rem;
+      padding-left: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      border-left: 2px solid var(--border-light);
+    }
+
+    /* Trial balance table */
+    .tb-table { max-width: 500px; margin: 1.5rem auto; }
+    .tb-table td:first-child { text-align: left; font-weight: 600; }
+    .tb-table td:nth-child(2),
+    .tb-table td:nth-child(3) { text-align: right; width: 90px; }
+    .tb-table .tb-total td {
+      border-top: 3px double var(--primary);
+      font-weight: 700;
+      background: var(--bg-light);
+    }
+
+    /* Financial statement flow */
+    .fs-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      margin: 2rem auto;
+      max-width: 520px;
+    }
+    .fs-box {
+      width: 100%;
+      background: var(--bg-white);
+      border: 2px solid var(--primary-light);
+      border-radius: var(--radius);
+      padding: 0.8rem 1.2rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      box-shadow: var(--shadow-sm);
+    }
+    .fs-box h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+    .fs-box .fs-detail {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .fs-box .fs-output {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 0.2rem;
+    }
+    .fs-connector {
+      font-size: 1.2rem;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    /* Error detection table */
+    .error-table td:first-child { font-weight: 700; color: var(--primary); white-space: nowrap; }
+
+    /* Ledger posting visual */
+    .posting-flow {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    .posting-journal, .posting-ledger {
+      background: var(--bg-white);
+      border: 2px solid var(--primary-light);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      box-shadow: var(--shadow-sm);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+      min-width: 220px;
+    }
+    .posting-journal h4, .posting-ledger h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .posting-arrow {
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      color: var(--accent);
+      font-weight: bold;
+      padding-top: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .nb-branches { flex-direction: column; align-items: center; }
+      .posting-flow { flex-direction: column; align-items: center; }
+      .posting-arrow { transform: rotate(90deg); padding-top: 0; }
+      .cycle-flow { flex-direction: column; }
+      .cycle-arrow { transform: rotate(90deg); }
+    }
+  </style>
+  <script src="nav.js" defer></script>
+</head>
+<body class="has-sidebar">
+<div class="chapter-container">
+
+  <!-- ============================================================ -->
+  <!-- CHAPTER HEADER -->
+  <!-- ============================================================ -->
+  <header class="chapter-header">
+    <div class="chapter-label">Chapter 2</div>
+    <h1 class="chapter-title">Recording Business Transactions</h1>
+    <p class="chapter-subtitle">The Double-Entry System: Debits, Credits, and the Journal</p>
+  </header>
+
+  <!-- Learning Objectives -->
+  <div class="learning-objectives">
+    <h2>Learning Objectives</h2>
+    <ol>
+      <li>Explain accounts as they relate to the accounting equation and describe common accounts</li>
+      <li>Define debits, credits, and normal account balances using double-entry accounting and T-accounts</li>
+      <li>Record transactions in a journal and post journal entries to the ledger</li>
+      <li>Prepare the trial balance and illustrate how to use it to prepare financial statements</li>
+      <li>Use the debt ratio to evaluate business performance</li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- OPENING SCENARIO -->
+  <!-- ============================================================ -->
+  <p>
+    In Chapter 1, we analyzed transactions using the accounting equation and recorded the
+    results in a tabular format. That approach works well for a handful of transactions,
+    but imagine a real company processing hundreds or thousands of transactions every day.
+    A simple table would quickly become unmanageable. Accountants need a more organized,
+    scalable system&mdash;and that system is the <strong>double-entry accounting method</strong>.
+  </p>
+
+  <p>
+    This chapter introduces the tools and procedures that form the backbone of every
+    accounting system: <em>accounts</em>, <em>T-accounts</em>, <em>debits and credits</em>,
+    <em>journal entries</em>, <em>the ledger</em>, and <em>the trial balance</em>. By the
+    end of this chapter, you will be able to take any business transaction, analyze it,
+    record it properly, and verify that your books are in balance.
+  </p>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: ACCOUNTS AND THE ACCOUNTING EQUATION -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Accounts and the Accounting Equation</h2>
+
+  <p>
+    The accounting equation&mdash;Assets = Liabilities + Stockholders' Equity&mdash;is
+    the foundation of every accounting system. Each category in this equation is broken
+    down into individual <strong>accounts</strong>. An account is a detailed record of
+    all increases and decreases that have occurred in a particular item during a specified
+    period. For example, "Cash" is an account that tracks every dollar received and paid out.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <p>
+      <strong>Account</strong> &mdash; A detailed record of all increases and decreases
+      in a specific asset, liability, or equity item during a given period.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Common Asset Accounts</h3>
+
+  <p>
+    Asset accounts represent economic resources owned by the company. The most common
+    asset accounts include:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Account</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Cash</td><td>Money held in bank accounts or on hand</td></tr>
+      <tr><td>Accounts Receivable</td><td>Amounts owed to the company by customers for services or goods provided on account</td></tr>
+      <tr><td>Office Supplies</td><td>Supplies purchased for use in operations; an asset until consumed</td></tr>
+      <tr><td>Prepaid Expenses</td><td>Payments made in advance for future services (e.g., prepaid rent, prepaid insurance)</td></tr>
+      <tr><td>Land</td><td>Real property owned by the company</td></tr>
+      <tr><td>Building</td><td>Structures owned and used in operations</td></tr>
+      <tr><td>Equipment / Furniture</td><td>Tangible assets used in the business over multiple periods</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      When you see the prefix "prepaid" attached to any item, you should immediately
+      recognize it as an asset. Think about it this way: you have paid cash for something,
+      but you haven't used it yet. Because you paid in advance, you have the right to use
+      that service or item in the future. At this point, it represents an asset. It becomes
+      an expense only later, when it is actually consumed. Office supplies share this same
+      nature&mdash;cash is paid upfront, and the item becomes an expense only as it is used.
+      However, supplies are typically reported in their own separate account on the balance
+      sheet rather than grouped under Prepaid Expenses.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Common Liability Accounts</h3>
+
+  <table>
+    <thead>
+      <tr><th>Account</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Accounts Payable</td><td>Amounts the company owes to suppliers for goods or services purchased on account</td></tr>
+      <tr><td>Notes Payable</td><td>Formal written promises to pay a specified amount, often with interest, at a future date</td></tr>
+      <tr><td>Utilities Payable</td><td>Amounts owed for utility services (electricity, water, etc.) already consumed</td></tr>
+      <tr><td>Unearned Revenue</td><td>Cash received from customers for services not yet performed; an obligation to deliver in the future</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      <strong>Unearned Revenue</strong> is one of the most commonly misunderstood accounts.
+      When a company receives cash for a service it has not yet provided, it cannot record
+      revenue&mdash;because the service hasn't been performed. Instead, the company has an
+      obligation to provide that service in the future, creating a <em>liability</em>. Once
+      the service is eventually provided, the liability decreases and revenue is officially
+      recognized. Think of it as the mirror image of a prepaid expense, but from the opposite
+      perspective.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Stockholders' Equity Accounts</h3>
+
+  <p>
+    Stockholders' Equity represents the owners' residual claim on the company's assets.
+    It consists of two main categories:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Category</th><th>Account</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="1"><strong>Contributed Capital</strong></td>
+        <td>Common Stock</td>
+        <td>Ownership shares issued to investors in exchange for their investment</td>
+      </tr>
+      <tr>
+        <td rowspan="3"><strong>Earned Capital</strong></td>
+        <td>Retained Earnings</td>
+        <td>Cumulative net income minus dividends; carried forward from prior periods</td>
+      </tr>
+      <tr>
+        <td>Revenues</td>
+        <td>Amounts earned from providing goods or services (e.g., Service Revenue)</td>
+      </tr>
+      <tr>
+        <td>Expenses</td>
+        <td>Costs incurred in generating revenue (e.g., Rent Expense, Salaries Expense)</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Dividends</td>
+        <td>Distributions of earnings to stockholders; reduces Retained Earnings</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#9888;&#65039;</span> IMPORTANT</div>
+    <p>
+      Dividends reduce <strong>Retained Earnings</strong> (Earned Capital), <em>not</em>
+      Contributed Capital. Students sometimes confuse the two because dividends are distributed
+      to stockholders. But Contributed Capital represents what investors originally paid in
+      when they purchased shares&mdash;it does not change when dividends are declared.
+      Dividends come out of accumulated earnings (Retained Earnings), which is the company's
+      cumulative net income that has not been distributed. Always remember: dividends reduce
+      Earned Capital, not Contributed Capital.
+    </p>
+  </div>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <p>
+      <strong>Chart of Accounts</strong> &mdash; A categorized list of all account names
+      used by a company. It serves as a reference directory, while the <em>ledger</em>
+      contains the actual T-accounts with their balances.
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: DOUBLE-ENTRY ACCOUNTING, DEBITS & CREDITS -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Double-Entry Accounting: Debits and Credits</h2>
+
+  <p>
+    Every transaction affects at least two accounts. This is the essence of the
+    <strong>double-entry accounting system</strong>: for every transaction, at least one
+    account is debited and at least one account is credited. The total amount debited must
+    always equal the total amount credited. This dual-effect recording ensures that the
+    accounting equation remains in balance after every transaction.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <p>
+      <strong>Double-Entry System</strong> &mdash; An accounting method in which every
+      transaction is recorded with at least one debit and one credit, and total debits
+      must always equal total credits.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">The T-Account</h3>
+
+  <p>
+    A <strong>T-account</strong> is a simplified visual representation of a ledger account.
+    It takes its name from its shape: a horizontal line with a vertical line beneath it,
+    forming the letter "T." Every T-account has two sides:
+  </p>
+
+  <ul>
+    <li>The <strong>left side</strong> is the <strong>debit</strong> side (abbreviated <strong>Dr.</strong>)</li>
+    <li>The <strong>right side</strong> is the <strong>credit</strong> side (abbreviated <strong>Cr.</strong>)</li>
+  </ul>
+
+  <div class="t-accounts-row">
+    <div class="t-account">
+      <div class="t-account-title">Account Name</div>
+      <div class="t-account-body">
+        <div class="t-left">
+          <div class="t-left-label">Debit (Dr.)</div>
+          <div class="t-entry" style="color:var(--text-light); font-style:italic;">Left side</div>
+        </div>
+        <div class="t-right">
+          <div class="t-right-label">Credit (Cr.)</div>
+          <div class="t-entry" style="color:var(--text-light); font-style:italic;">Right side</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Do not overcomplicate debit and credit. Left simply means debit, and right simply
+      means credit. Many students get confused because they link the term "credit" to
+      their personal bank accounts or credit cards. Avoid doing that here. In accounting,
+      these are directional labels&mdash;nothing more.
+    </p>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#9888;&#65039;</span> IMPORTANT</div>
+    <p>
+      Never use + or &minus; signs inside a T-account. Students sometimes write "+5,000"
+      on the debit side to mean an increase, but this creates confusion. In accounting,
+      we only use Dr. and Cr.&mdash;the position (left or right) already tells you whether
+      it is a debit or credit. Adding +/&minus; signs is redundant and error-prone.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Normal Balances</h3>
+
+  <p>
+    The <strong>normal balance</strong> of an account is the side on which the account's
+    balance increases. This concept is derived directly from the accounting equation:
+  </p>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#128203;</span> THE RULE</div>
+    <p style="font-size:1.1rem;">
+      \(\text{Assets} = \text{Liabilities} + \text{Stockholders' Equity}\)
+    </p>
+    <p style="font-size:0.88rem; color:var(--text-secondary); margin-top:0.5rem;">
+      Left side of the equation &rarr; Normal balance is <strong style="color:#1565c0;">Debit</strong><br>
+      Right side of the equation &rarr; Normal balance is <strong style="color:#c62828;">Credit</strong>
+    </p>
+  </div>
+
+  <p>
+    Where an account sits in the accounting equation determines its normal balance.
+    <strong>Assets</strong> are on the left side of the equation, so their normal balance
+    is a debit (the left side of the T-account). <strong>Liabilities</strong> and
+    <strong>Stockholders' Equity</strong> are on the right side of the equation, so their
+    normal balance is a credit (the right side of the T-account).
+  </p>
+
+  <!-- Normal Balance Hierarchy Diagram -->
+  <figure style="text-align:center; margin:2rem auto; max-width:750px;">
+    <img src="images/ch02/normal-balance-hierarchy.png" alt="Normal balance hierarchy showing debit and credit sides derived from the accounting equation" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure 2-1. Normal Balance Hierarchy — Derived from the Accounting Equation</figcaption>
+  </figure>
+
+  <h3 class="subsection-title">Why Do Expenses and Dividends Have Debit Normal Balances?</h3>
+
+  <p>
+    This is the part that trips up many students. Stockholders' Equity has a credit normal
+    balance. Revenue <em>increases</em> Retained Earnings, which increases SE, so Revenue
+    shares that credit normal balance. But Expenses and Dividends <em>decrease</em> Retained
+    Earnings. Since a decrease to a credit-balance account is recorded on the opposite
+    side, the normal balance for Expenses and Dividends must be a <strong>debit</strong>.
+  </p>
+
+  <p>
+    In other words: when an expense is recorded, it is debited. That debit ultimately
+    causes Retained Earnings (and therefore SE) to go down, maintaining the balance of
+    the equation.
+  </p>
+
+  <!-- Normal Balance Summary Table -->
+  <table class="nb-table">
+    <thead>
+      <tr><th>Account Type</th><th>Normal Balance</th><th>Increase</th><th>Decrease</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Assets</td><td class="dr">Debit</td><td class="dr">Debit</td><td class="cr">Credit</td></tr>
+      <tr><td>Liabilities</td><td class="cr">Credit</td><td class="cr">Credit</td><td class="dr">Debit</td></tr>
+      <tr><td>Common Stock</td><td class="cr">Credit</td><td class="cr">Credit</td><td class="dr">Debit</td></tr>
+      <tr><td>Retained Earnings</td><td class="cr">Credit</td><td class="cr">Credit</td><td class="dr">Debit</td></tr>
+      <tr><td>Revenue</td><td class="cr">Credit</td><td class="cr">Credit</td><td class="dr">Debit</td></tr>
+      <tr><td>Expenses</td><td class="dr">Debit</td><td class="dr">Debit</td><td class="cr">Credit</td></tr>
+      <tr><td>Dividends</td><td class="dr">Debit</td><td class="dr">Debit</td><td class="cr">Credit</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: JOURNAL ENTRIES -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Recording Transactions: The Journal Entry</h2>
+
+  <h3 class="subsection-title">The Accounting Cycle So Far</h3>
+
+  <p>
+    Before we dive into journal entries, let us see where they fit in the overall
+    accounting process:
+  </p>
+
+  <!-- Accounting Cycle Flow -->
+  <figure style="text-align:center; margin:2rem auto; max-width:750px;">
+    <img src="images/ch02/accounting-cycle-flow.png" alt="The accounting cycle: six steps from transaction to financial statements" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure 2-2. The Accounting Cycle</figcaption>
+  </figure>
+
+  <p>
+    Whenever a transaction occurs, it generates a <strong>source document</strong>&mdash;a
+    purchase invoice, bank check, sales receipt, or billing statement. The company analyzes
+    this document to determine the financial impact of the transaction (<em>transaction
+    analysis</em>). Once analyzed, the transaction is recorded in the <strong>journal</strong>,
+    a chronological record of all the company's transactions.
+  </p>
+
+  <h3 class="subsection-title">Formatting Rules</h3>
+
+  <p>
+    When writing a journal entry, follow these rules:
+  </p>
+
+  <ol>
+    <li>Always write the <strong>date</strong> of the transaction.</li>
+    <li>Record the <strong>debited account first</strong>.</li>
+    <li>Write the <strong>credited account underneath</strong>, indented to the right.</li>
+    <li>Include a brief <strong>explanation</strong> of the transaction (optional in practice).</li>
+    <li>The golden rule: <strong>Total Debits = Total Credits</strong> for every entry.</li>
+  </ol>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <p>
+      <strong>Compound Journal Entry</strong> &mdash; A journal entry that involves more
+      than one debit and/or more than one credit. Regardless of how many accounts are
+      involved, total debits must always equal total credits.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">The Five-Step Process</h3>
+
+  <p>
+    For each transaction, follow this systematic approach:
+  </p>
+
+  <ol>
+    <li><strong>Identify</strong> the accounts involved and their types (asset, liability, or equity).</li>
+    <li><strong>Determine</strong> whether each account increases or decreases, then apply the debit/credit rules.</li>
+    <li><strong>Record</strong> the transaction in the journal.</li>
+    <li><strong>Post</strong> the journal entry to the ledger.</li>
+    <li><strong>Verify</strong> that the accounting equation remains in balance.</li>
+  </ol>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: JOURNAL ENTRY EXAMPLES -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Journal Entry Examples</h2>
+
+  <p>
+    Let us work through a series of transactions for a company during the month of April.
+    Each example demonstrates the full analysis: identify the accounts, determine the
+    direction, apply debits and credits, and record the journal entry.
+  </p>
+
+  <!-- Example 1: Borrowing Cash -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128214;</span> EXAMPLE 1</div>
+    <p><strong>April 2:</strong> The company borrowed $45,000 from the bank and signed a note payable.</p>
+    <p>
+      <em>Analysis:</em> The company received cash, so the asset <strong>Cash</strong>
+      increases. The company signed a note, creating an obligation, so the liability
+      <strong>Notes Payable</strong> increases. An increase to an asset is a debit; an
+      increase to a liability is a credit.
+    </p>
+    <table class="journal">
+      <thead><tr><th>Account</th><th>Debit</th><th>Credit</th></tr></thead>
+      <tbody>
+        <tr><td>Cash</td><td>45,000</td><td></td></tr>
+        <tr><td class="indent">Notes Payable</td><td></td><td>45,000</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Example 2: Purchasing Land -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128214;</span> EXAMPLE 2</div>
+    <p><strong>April 4:</strong> The company paid $40,000 cash to acquire land.</p>
+    <p>
+      <em>Analysis:</em> <strong>Land</strong> (asset) increases&mdash;debit.
+      <strong>Cash</strong> (asset) decreases&mdash;credit. Notice that both sides
+      involve assets: one goes up, one goes down. The equation stays in balance.
+    </p>
+    <table class="journal">
+      <thead><tr><th>Account</th><th>Debit</th><th>Credit</th></tr></thead>
+      <tbody>
+        <tr><td>Land</td><td>40,000</td><td></td></tr>
+        <tr><td class="indent">Cash</td><td></td><td>40,000</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Example 3: Service Revenue for Cash -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128214;</span> EXAMPLE 3</div>
+    <p><strong>April 9:</strong> The company performed services for a customer and received $5,000 in cash.</p>
+    <p>
+      <em>Analysis:</em> <strong>Cash</strong> (asset) increases&mdash;debit. The company
+      earned revenue from operations, so <strong>Service Revenue</strong> increases. Revenue
+      increases Stockholders' Equity, and since SE has a credit normal balance, revenue
+      is recorded as a credit. Here is a useful way to think through unfamiliar transactions:
+      Cash increased, so one side is clear. Now ask&mdash;did any other Asset decrease? No.
+      Did a Liability increase? No. By elimination, the only remaining possibility is that
+      Stockholders' Equity increased. Since the company earned this money by providing
+      services, the increase is classified as Service Revenue.
+    </p>
+    <table class="journal">
+      <thead><tr><th>Account</th><th>Debit</th><th>Credit</th></tr></thead>
+      <tbody>
+        <tr><td>Cash</td><td>5,000</td><td></td></tr>
+        <tr><td class="indent">Service Revenue</td><td></td><td>5,000</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Example 4: Purchasing Supplies on Account -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128214;</span> EXAMPLE 4</div>
+    <p><strong>April 13:</strong> The company purchased office supplies on account for $300.</p>
+    <p>
+      <em>Analysis:</em> <strong>Office Supplies</strong> (asset) increases&mdash;debit.
+      The company did not pay cash but purchased "on account," creating an obligation.
+      <strong>Accounts Payable</strong> (liability) increases&mdash;credit.
+    </p>
+    <table class="journal">
+      <thead><tr><th>Account</th><th>Debit</th><th>Credit</th></tr></thead>
+      <tbody>
+        <tr><td>Office Supplies</td><td>300</td><td></td></tr>
+        <tr><td class="indent">Accounts Payable</td><td></td><td>300</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      When you see the phrase "on account," ask yourself: is the company <em>owed</em>
+      money or does it <em>owe</em> money? If the company performed services and will be
+      paid later &rarr; <strong>Accounts Receivable</strong> (asset). If the company
+      purchased something and will pay later &rarr; <strong>Accounts Payable</strong>
+      (liability).
+    </p>
+  </div>
+
+  <!-- Example 5: Service Revenue on Account -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128214;</span> EXAMPLE 5</div>
+    <p><strong>April 15:</strong> The company performed services for a customer on account for $2,600.</p>
+    <p>
+      <em>Analysis:</em> Even though cash was not received, the company has earned the
+      revenue by providing services. <strong>Accounts Receivable</strong> (asset) increases
+      &mdash;debit. <strong>Service Revenue</strong> increases&mdash;credit.
+    </p>
+    <table class="journal">
+      <thead><tr><th>Account</th><th>Debit</th><th>Credit</th></tr></thead>
+      <tbody>
+        <tr><td>Accounts Receivable</td><td>2,600</td><td></td></tr>
+        <tr><td class="indent">Service Revenue</td><td></td><td>2,600</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Example 6: Payment on Account -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128214;</span> EXAMPLE 6</div>
+    <p><strong>April 18:</strong> The company paid $1,200 on account.</p>
+    <p>
+      <em>Analysis:</em> Paying "on account" means settling a previously existing liability.
+      <strong>Accounts Payable</strong> (liability) decreases&mdash;debit (opposite of its
+      credit normal balance). <strong>Cash</strong> (asset) decreases&mdash;credit.
+    </p>
+    <table class="journal">
+      <thead><tr><th>Account</th><th>Debit</th><th>Credit</th></tr></thead>
+      <tbody>
+        <tr><td>Accounts Payable</td><td>1,200</td><td></td></tr>
+        <tr><td class="indent">Cash</td><td></td><td>1,200</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Example 7: Compound Entry - Multiple Expenses -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128214;</span> EXAMPLE 7 &mdash; Compound Journal Entry</div>
+    <p>
+      <strong>April 21:</strong> The company paid several cash expenses: salaries $3,000,
+      rent $1,500, and interest $400.
+    </p>
+    <p>
+      <em>Analysis:</em> All three are expense accounts. The normal balance for expenses
+      is a debit, so each expense increases with a debit. Cash decreases by the total
+      ($4,900)&mdash;credit. This is a <strong>compound journal entry</strong> with
+      multiple debits and one credit.
+    </p>
+    <table class="journal">
+      <thead><tr><th>Account</th><th>Debit</th><th>Credit</th></tr></thead>
+      <tbody>
+        <tr><td>Salaries &amp; Wages Expense</td><td>3,000</td><td></td></tr>
+        <tr><td>Rent Expense</td><td>1,500</td><td></td></tr>
+        <tr><td>Interest Expense</td><td>400</td><td></td></tr>
+        <tr><td class="indent">Cash</td><td></td><td>4,900</td></tr>
+        <tr class="journal-total"><td>Total</td><td>4,900</td><td>4,900</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Example 8: Collecting on Account -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128214;</span> EXAMPLE 8</div>
+    <p><strong>April 25:</strong> The company received $3,100 from a customer on account.</p>
+    <p>
+      <em>Analysis:</em> Cash was collected from a customer who previously owed money.
+      <strong>Cash</strong> (asset) increases&mdash;debit. <strong>Accounts Receivable</strong>
+      (asset) decreases&mdash;credit. Note: no revenue is recorded here because the revenue
+      was already earned when the service was originally performed.
+    </p>
+    <table class="journal">
+      <thead><tr><th>Account</th><th>Debit</th><th>Credit</th></tr></thead>
+      <tbody>
+        <tr><td>Cash</td><td>3,100</td><td></td></tr>
+        <tr><td class="indent">Accounts Receivable</td><td></td><td>3,100</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Example 9: Accrued Liability -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128214;</span> EXAMPLE 9</div>
+    <p><strong>April 27:</strong> The company received a $200 utility bill to be paid next month.</p>
+    <p>
+      <em>Analysis:</em> The company used utilities, so <strong>Utilities Expense</strong>
+      increases&mdash;debit. The bill has not been paid, creating a liability.
+      <strong>Utilities Payable</strong> increases&mdash;credit. Notice that no cash is
+      involved in this transaction.
+    </p>
+    <table class="journal">
+      <thead><tr><th>Account</th><th>Debit</th><th>Credit</th></tr></thead>
+      <tbody>
+        <tr><td>Utilities Expense</td><td>200</td><td></td></tr>
+        <tr><td class="indent">Utilities Payable</td><td></td><td>200</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Example 10: Unearned Revenue -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128214;</span> EXAMPLE 10</div>
+    <p><strong>April 29:</strong> The company received $1,500 for services to be performed next month.</p>
+    <p>
+      <em>Analysis:</em> Cash was received, so <strong>Cash</strong> (asset) increases&mdash;debit.
+      Can we record revenue? <em>No</em>&mdash;the services have not yet been provided. The
+      company now has an obligation to perform these services, creating a liability called
+      <strong>Unearned Service Revenue</strong>&mdash;credit.
+    </p>
+    <table class="journal">
+      <thead><tr><th>Account</th><th>Debit</th><th>Credit</th></tr></thead>
+      <tbody>
+        <tr><td>Cash</td><td>1,500</td><td></td></tr>
+        <tr><td class="indent">Unearned Service Revenue</td><td></td><td>1,500</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Example 11: Dividends -->
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128214;</span> EXAMPLE 11</div>
+    <p><strong>April 30:</strong> The company paid $1,800 in cash dividends to stockholders.</p>
+    <p>
+      <em>Analysis:</em> Paying dividends reduces Stockholders' Equity. Since SE has a
+      credit normal balance, a decrease is recorded as a debit. <strong>Dividends</strong>
+      increases&mdash;debit. <strong>Cash</strong> (asset) decreases&mdash;credit.
+    </p>
+    <table class="journal">
+      <thead><tr><th>Account</th><th>Debit</th><th>Credit</th></tr></thead>
+      <tbody>
+        <tr><td>Dividends</td><td>1,800</td><td></td></tr>
+        <tr><td class="indent">Cash</td><td></td><td>1,800</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: POSTING TO THE LEDGER -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Posting to the Ledger</h2>
+
+  <p>
+    After recording transactions in the journal, the next step is <strong>posting</strong>&mdash;
+    transferring the dollar amounts from the journal to the corresponding T-accounts in the
+    <strong>ledger</strong>. The ledger is simply a comprehensive collection of all the
+    company's T-accounts.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <p>
+      <strong>Ledger</strong> &mdash; A record holding all the accounts of a business,
+      the changes in those accounts, and their balances. It is a collection of all
+      individual T-accounts.
+    </p>
+  </div>
+
+  <p>
+    Posting follows a simple rule: if the journal entry debits an account, transfer that
+    amount to the <em>debit side</em> (left) of that account's T-account in the ledger.
+    If the journal entry credits an account, transfer the amount to the <em>credit side</em>
+    (right).
+  </p>
+
+  <!-- Posting Visual -->
+  <figure style="text-align:center; margin:2rem auto; max-width:750px;">
+    <img src="images/ch02/journal-to-ledger-posting.png" alt="Diagram showing how a journal entry is posted to ledger T-accounts with cross-references" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <figcaption style="font-size:0.8rem; color:#666; margin-top:0.5rem; font-style:italic;">Figure 2-3. Posting from the Journal to the Ledger</figcaption>
+  </figure>
+
+  <h3 class="subsection-title">Posting References</h3>
+
+  <p>
+    To maintain an audit trail, accountants use <strong>posting references</strong>. In
+    the journal, a "Post Ref." column records the account number to which the entry was
+    posted (e.g., "101" for Cash). In the ledger, a posting reference like "J1" indicates
+    that the transaction originated from Journal Page 1. This cross-referencing system
+    allows accountants to trace any transaction in either direction.
+  </p>
+
+  <h3 class="subsection-title">Calculating Ending Balances</h3>
+
+  <p>
+    At the end of the period, after all transactions have been posted, the ending balance
+    for each T-account is calculated. Simply find the difference between total debits and
+    total credits within the account. The ending balance is always recorded on the side of
+    the account's <em>normal balance</em>. To find the ending balance, total the debit side
+    and total the credit side separately. The larger total determines which side the balance
+    falls on. Then subtract the smaller total from the larger total to get the ending balance
+    amount. For example, if a Cash account has total debits of $54,600 and total credits of
+    $47,900, the debit side is larger, so the ending balance is on the debit side:
+    $54,600 &minus; $47,900 = $6,700 (Dr.).
+  </p>
+
+  <div class="t-accounts-row">
+    <div class="t-account">
+      <div class="t-account-title">Cash</div>
+      <div class="t-account-body">
+        <div class="t-left">
+          <div class="t-left-label">Dr.</div>
+          <div class="t-entry">45,000</div>
+          <div class="t-entry">5,000</div>
+          <div class="t-entry">3,100</div>
+          <div class="t-entry">1,500</div>
+        </div>
+        <div class="t-right">
+          <div class="t-right-label">Cr.</div>
+          <div class="t-entry">40,000</div>
+          <div class="t-entry">1,200</div>
+          <div class="t-entry">4,900</div>
+          <div class="t-entry">1,800</div>
+        </div>
+      </div>
+      <div style="text-align:left; padding:0.3rem 0.6rem; font-size:0.78rem; font-weight:700; color:var(--primary); border-top:2px solid var(--primary);">
+        Bal. 6,700
+      </div>
+    </div>
+  </div>
+
+  <p style="text-align:center; font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem;">
+    Total debits: 54,600 &minus; Total credits: 47,900 = Ending balance: <strong>6,700 (Dr.)</strong>
+  </p>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: THE TRIAL BALANCE -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">The Trial Balance</h2>
+
+  <p>
+    Once ending balances have been calculated for every account, the next step is to compile
+    them into a <strong>trial balance</strong>. The trial balance is a list of all ledger
+    accounts alongside their ending balances, organized into debit and credit columns.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <p>
+      <strong>Trial Balance</strong> &mdash; A list of all accounts and their balances at
+      a point in time, used to verify the mathematical equality of total debits and total
+      credits. It is an internal working document, not a financial statement.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Order of Accounts</h3>
+
+  <p>
+    Accounts on the trial balance are always listed in a specific order: <strong>Assets</strong>
+    first, followed by <strong>Liabilities</strong>, then <strong>Stockholders' Equity</strong>
+    (including Common Stock, Retained Earnings, Dividends, Revenues, and Expenses).
+  </p>
+
+  <table class="tb-table">
+    <caption style="font-family:'Helvetica Neue',Arial,sans-serif; font-weight:700; color:var(--primary); font-size:0.95rem; margin-bottom:0.5rem;">
+      Sample Trial Balance &mdash; April 30
+    </caption>
+    <thead>
+      <tr><th>Account</th><th>Debit</th><th>Credit</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Cash</td><td>6,700</td><td></td></tr>
+      <tr><td>Accounts Receivable</td><td>—</td><td></td></tr>
+      <tr><td>Office Supplies</td><td>300</td><td></td></tr>
+      <tr><td>Land</td><td>40,000</td><td></td></tr>
+      <tr><td>Accounts Payable</td><td></td><td>—</td></tr>
+      <tr><td>Notes Payable</td><td></td><td>45,000</td></tr>
+      <tr><td>Utilities Payable</td><td></td><td>200</td></tr>
+      <tr><td>Unearned Service Revenue</td><td></td><td>1,500</td></tr>
+      <tr><td>Common Stock</td><td></td><td>—</td></tr>
+      <tr><td>Dividends</td><td>1,800</td><td></td></tr>
+      <tr><td>Service Revenue</td><td></td><td>7,600</td></tr>
+      <tr><td>Salaries &amp; Wages Expense</td><td>3,000</td><td></td></tr>
+      <tr><td>Rent Expense</td><td>1,500</td><td></td></tr>
+      <tr><td>Interest Expense</td><td>400</td><td></td></tr>
+      <tr><td>Utilities Expense</td><td>200</td><td></td></tr>
+      <tr class="tb-total"><td><strong>Total</strong></td><td><strong>53,900</strong></td><td><strong>54,300</strong></td></tr>
+    </tbody>
+  </table>
+
+  <p style="text-align:center; font-size:0.82rem; color:var(--text-secondary);">
+    <em>Note: Some accounts show "—" because their balances netted to zero from the examples
+    above. In a real scenario, the opening balances from stock issuance and prior A/R activity
+    would appear. The key point is that total debits must equal total credits.</em>
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      The trial balance is <em>not</em> a Balance Sheet. It is merely an internal working
+      document used to verify mathematical accuracy. A Balance Sheet would not include
+      income statement items (revenues and expenses) or dividends. The trial balance
+      includes <strong>all</strong> accounts&mdash;it is just a raw list of every account's
+      ending balance before financial statements are prepared. You may notice that Revenue,
+      Expense, and Dividend accounts appear on the trial balance even though they do not
+      appear as separate line items on the Balance Sheet. These are <em>temporary accounts</em>
+      &mdash;they exist only to track activity during the current period. At the end of the
+      period, their balances are transferred (or "closed") into Retained Earnings. The next
+      section explains exactly how these accounts flow from the trial balance into the
+      financial statements.
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: FROM TRIAL BALANCE TO FINANCIAL STATEMENTS -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">From the Trial Balance to Financial Statements</h2>
+
+  <p>
+    The trial balance serves as the starting point for preparing financial statements.
+    The statements must be prepared in a specific order because each one builds on the
+    previous:
+  </p>
+
+  <div class="fs-flow">
+    <div class="fs-box">
+      <h4>1. Income Statement</h4>
+      <div class="fs-detail">Take Revenue and Expense accounts from the trial balance</div>
+      <div class="fs-output">&rarr; Produces Net Income (or Net Loss)</div>
+    </div>
+    <div class="fs-connector">&darr;</div>
+    <div class="fs-box">
+      <h4>2. Statement of Retained Earnings</h4>
+      <div class="fs-detail">Beginning R/E + Net Income &minus; Dividends</div>
+      <div class="fs-output">&rarr; Produces Ending Retained Earnings</div>
+    </div>
+    <div class="fs-connector">&darr;</div>
+    <div class="fs-box">
+      <h4>3. Balance Sheet</h4>
+      <div class="fs-detail">Assets = Liabilities + Stockholders' Equity (using ending R/E)</div>
+      <div class="fs-output">&rarr; Shows financial position at a point in time</div>
+    </div>
+  </div>
+
+  <p>
+    On the trial balance, you will see revenue, expense, and dividend accounts listed
+    individually. These are temporary accounts that ultimately flow into Retained Earnings.
+    The only equity accounts that appear on the final Balance Sheet are <strong>Common
+    Stock</strong> and the summarized ending balance of <strong>Retained Earnings</strong>.
+  </p>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: CORRECTING TRIAL BALANCE ERRORS -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Correcting Trial Balance Errors</h2>
+
+  <p>
+    A balanced trial balance is necessary, but it does <em>not</em> guarantee error-free
+    records. You could still have errors such as recording a transaction to the wrong
+    account or recording an incorrect amount for both the debit and credit. However, if
+    total debits do <em>not</em> equal total credits, you know for certain an error exists.
+  </p>
+
+  <h3 class="subsection-title">Three Methods to Locate Errors</h3>
+
+  <table class="error-table">
+    <thead>
+      <tr><th>Method</th><th>How It Works</th><th>What It Finds</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Search for Missing Account</td>
+        <td>Compare the trial balance to the chart of accounts</td>
+        <td>An account that was accidentally omitted</td>
+      </tr>
+      <tr>
+        <td>Divide by 2</td>
+        <td>Take the difference between total debits and total credits and divide by 2</td>
+        <td>An amount that was recorded as a debit when it should have been a credit (or vice versa), causing a double-sized discrepancy</td>
+      </tr>
+      <tr>
+        <td>Divide by 9</td>
+        <td>Divide the out-of-balance amount by 9; if it divides evenly, suspect a <em>slide error</em> or <em>transposition error</em></td>
+        <td><strong>Slide error:</strong> writing $10 instead of $100 (difference = $90; 90 &divide; 9 = 10)<br>
+            <strong>Transposition error:</strong> writing $21 instead of $12 (difference = $9; 9 &divide; 9 = 1)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 9: DEBT RATIO -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Evaluating Performance: The Debt Ratio</h2>
+
+  <p>
+    Each chapter in this course introduces a key financial ratio. Chapter 2 introduces the
+    <strong>Debt Ratio</strong>, which measures the proportion of a company's total assets
+    that are financed through debt.
+  </p>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#128203;</span> FORMULA</div>
+    <p>\[\text{Debt Ratio} = \frac{\text{Total Liabilities}}{\text{Total Assets}}\]</p>
+  </div>
+
+  <p>
+    A higher debt ratio indicates that a larger portion of the company's assets is financed
+    by creditors rather than owners. Generally, this means greater pressure to make interest
+    payments. However, a high debt ratio is not automatically negative&mdash;if a company
+    has sufficient cash flow to comfortably service its debt, leveraging debt can help
+    finance growth and improve returns for stockholders.
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Never judge a company's financial health based on a single ratio. A debt ratio of
+      0.80 might be perfectly healthy for a utility company with stable, predictable cash
+      flows, but dangerously high for a startup with volatile revenues. Context and
+      comprehensive analysis are always required.
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CHAPTER SUMMARY -->
+  <!-- ============================================================ -->
+  <div class="chapter-summary">
+    <h2>Chapter Summary</h2>
+    <ul>
+      <li>An <strong>account</strong> is the detailed record of increases and decreases in a specific asset, liability, or equity item. The <strong>chart of accounts</strong> is a categorized list of all account names.</li>
+      <li>The <strong>double-entry system</strong> requires every transaction to have at least one debit and one credit, with total debits always equaling total credits.</li>
+      <li>A <strong>T-account</strong> is a visual representation of a ledger account: the left side is the <strong>debit</strong> side, the right side is the <strong>credit</strong> side.</li>
+      <li>The <strong>normal balance</strong> is the side that increases the account. Assets, Expenses, and Dividends have debit normal balances. Liabilities, Common Stock, Retained Earnings, and Revenues have credit normal balances.</li>
+      <li><strong>Journal entries</strong> record transactions in chronological order, always listing debits first. The credited account is indented below.</li>
+      <li>A <strong>compound journal entry</strong> involves more than one debit and/or credit, but total debits must still equal total credits.</li>
+      <li><strong>Posting</strong> transfers journal entry amounts to the corresponding T-accounts in the <strong>ledger</strong>.</li>
+      <li>The <strong>trial balance</strong> is an internal document listing all accounts and their balances to verify the equality of debits and credits. It is <em>not</em> a financial statement.</li>
+      <li>Financial statements are prepared from the trial balance in order: Income Statement &rarr; Statement of Retained Earnings &rarr; Balance Sheet.</li>
+      <li>The <strong>debt ratio</strong> (Total Liabilities &divide; Total Assets) measures the proportion of assets financed through debt.</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- KEY TERMS GLOSSARY -->
+  <!-- ============================================================ -->
+  <div class="glossary">
+    <h2>Key Terms</h2>
+    <dl>
+      <dt>Account</dt>
+      <dd>A detailed record of all increases and decreases in a specific asset, liability, or equity item during a given period.</dd>
+
+      <dt>Chart of Accounts</dt>
+      <dd>A categorized list of all account names used by a company, serving as a reference directory for the ledger.</dd>
+
+      <dt>T-Account</dt>
+      <dd>A simplified visual representation of a ledger account shaped like the letter "T," with a debit (left) side and a credit (right) side.</dd>
+
+      <dt>Debit (Dr.)</dt>
+      <dd>The left side of a T-account. An entry recorded on the left side of an account.</dd>
+
+      <dt>Credit (Cr.)</dt>
+      <dd>The right side of a T-account. An entry recorded on the right side of an account.</dd>
+
+      <dt>Normal Balance</dt>
+      <dd>The side of a T-account on which the account's balance increases. Determined by the account's position in the accounting equation.</dd>
+
+      <dt>Double-Entry System</dt>
+      <dd>The accounting method requiring every transaction to be recorded with at least one debit and one credit, ensuring total debits equal total credits.</dd>
+
+      <dt>Journal</dt>
+      <dd>A chronological record of a company's transactions, listing the accounts affected along with their debit and credit amounts.</dd>
+
+      <dt>Journal Entry</dt>
+      <dd>The record of a single transaction in the journal, showing the date, accounts, and amounts debited and credited.</dd>
+
+      <dt>Compound Journal Entry</dt>
+      <dd>A journal entry that involves more than one debit and/or more than one credit.</dd>
+
+      <dt>Posting</dt>
+      <dd>The process of transferring amounts from the journal to the corresponding T-accounts in the ledger.</dd>
+
+      <dt>Ledger</dt>
+      <dd>A record holding all the accounts of a business, the changes in those accounts, and their balances. A collection of all T-accounts.</dd>
+
+      <dt>Posting Reference</dt>
+      <dd>A cross-referencing notation linking journal entries to their corresponding ledger accounts, creating an audit trail.</dd>
+
+      <dt>Trial Balance</dt>
+      <dd>A list of all ledger accounts and their ending balances at a point in time, used to verify that total debits equal total credits.</dd>
+
+      <dt>Prepaid Expense</dt>
+      <dd>An asset representing payments made in advance for goods or services to be received in the future. Becomes an expense when consumed.</dd>
+
+      <dt>Unearned Revenue</dt>
+      <dd>A liability representing cash received from customers for services not yet performed. Becomes revenue when the service is provided.</dd>
+
+      <dt>Source Document</dt>
+      <dd>A document (invoice, receipt, check, etc.) that provides evidence and data for recording a business transaction.</dd>
+
+      <dt>Debt Ratio</dt>
+      <dd>A financial ratio calculated as Total Liabilities &divide; Total Assets, measuring the proportion of assets financed through debt.</dd>
+
+      <dt>Slide Error</dt>
+      <dd>An error caused by incorrectly placing a decimal point (e.g., recording $100 as $10). The difference is always divisible by 9.</dd>
+
+      <dt>Transposition Error</dt>
+      <dd>An error caused by reversing the order of digits (e.g., recording $12 as $21). The difference is always divisible by 9.</dd>
+    </dl>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="chapter-nav">
+    <a href="ch01.html">&larr; Chapter 1: Accounting and the Business Environment</a>
+    <a href="ch03.html">Chapter 3: Adjusting Entries &rarr;</a>
+  </nav>
+
+</div>
+</body>
+</html>
