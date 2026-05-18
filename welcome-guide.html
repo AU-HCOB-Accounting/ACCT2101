@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACCT 2101CO1 — Welcome Guide (Summer 2026)</title>
+<style>
+  :root {
+    --navy: #003366;
+    --red: #c41230;
+    --gold: #f0ad00;
+    --light-bg: #f7f8fa;
+    --card-bg: #ffffff;
+    --text: #2c3e50;
+    --muted: #6c757d;
+    --green: #28a745;
+    --blue-accent: #0070c0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    color: var(--text);
+    line-height: 1.65;
+    background: var(--light-bg);
+    padding: 0;
+  }
+  .container { max-width: 780px; margin: 0 auto; padding: 24px 20px; }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--navy) 0%, #004a8f 100%);
+    color: white;
+    padding: 40px 20px 32px;
+    text-align: center;
+  }
+  .header h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .header .subtitle { font-size: 15px; opacity: 0.85; margin-bottom: 16px; }
+  .header .course-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 6px 18px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Urgency Banner */
+  .urgency-banner {
+    background: var(--red);
+    color: white;
+    padding: 14px 20px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .urgency-banner span { font-size: 18px; }
+
+  /* Sections */
+  .section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .icon { font-size: 24px; }
+
+  /* Cards */
+  .card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-left: 4px solid var(--navy);
+  }
+  .card.red-border { border-left-color: var(--red); }
+  .card.gold-border { border-left-color: var(--gold); }
+  .card.green-border { border-left-color: var(--green); }
+  .card.blue-border { border-left-color: var(--blue-accent); }
+  .card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--navy);
+  }
+  .card p { font-size: 14.5px; margin-bottom: 8px; }
+  .card ul { padding-left: 20px; font-size: 14.5px; }
+  .card li { margin-bottom: 5px; }
+
+  /* Highlight boxes */
+  .highlight-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 14.5px;
+  }
+  .highlight-box.red {
+    background: #fde8ec;
+    border-color: var(--red);
+  }
+  .highlight-box.blue {
+    background: #e8f4fd;
+    border-color: var(--blue-accent);
+  }
+
+  /* Points badge */
+  .points-badge {
+    display: inline-block;
+    background: var(--red);
+    color: white;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 15px;
+    font-size: 15px;
+    margin: 4px 0;
+  }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    bottom: 8px;
+    width: 3px;
+    background: var(--navy);
+    border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 18px;
+    padding: 12px 16px;
+    background: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 16px;
+    width: 12px;
+    height: 12px;
+    background: var(--navy);
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px var(--navy);
+  }
+  .timeline-item.urgent::before { background: var(--red); box-shadow: 0 0 0 2px var(--red); }
+  .timeline-date {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .timeline-item.urgent .timeline-date { color: var(--red); }
+  .timeline-desc { font-size: 14px; }
+
+  /* Study method cards */
+  .method-grid { display: grid; gap: 14px; }
+  .method-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-top: 4px solid var(--navy);
+  }
+  .method-card.recommended { border-top-color: var(--green); }
+  .method-card .method-num {
+    display: inline-block;
+    background: var(--navy);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    font-weight: 700;
+    font-size: 14px;
+    margin-right: 8px;
+  }
+  .method-card.recommended .method-num { background: var(--green); }
+  .method-card h4 { display: inline; font-size: 16px; color: var(--navy); }
+  .method-card.recommended h4 { color: var(--green); }
+  .method-card p { font-size: 14px; margin-top: 8px; color: #555; }
+  .rec-badge {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+    vertical-align: middle;
+    font-weight: 600;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  th {
+    background: var(--navy);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid #e9ecef; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) { background: #f8f9fa; }
+  tr.highlight-row { background: #fde8ec; font-weight: 600; }
+  tr.highlight-row td { color: var(--red); }
+
+  /* Checklist */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 12px 16px 12px 44px;
+    margin-bottom: 8px;
+    background: var(--card-bg);
+    border-radius: 8px;
+    position: relative;
+    font-size: 14.5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .checklist li::before {
+    content: attr(data-num);
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    width: 24px;
+    height: 24px;
+    background: var(--navy);
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .checklist li.critical::before { background: var(--red); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 28px 20px;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid #dee2e6;
+    margin-top: 16px;
+  }
+  .sig { text-align: left; margin-top: 20px; }
+  .sig .name { font-size: 17px; font-weight: 700; color: var(--navy); }
+  .sig .title { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container { padding: 14px 12px; }
+    .header h1 { font-size: 21px; }
+    .section-title { font-size: 17px; }
+    .card { padding: 16px; }
+    th, td { padding: 8px 10px; font-size: 13px; }
+  }
+
+  /* Intro paragraph */
+  .intro-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 8px;
+  }
+
+  /* Link style */
+  a { color: var(--blue-accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .bold { font-weight: 700; }
+  .red-text { color: var(--red); font-weight: 700; }
+  .small-note { font-size: 13px; color: var(--muted); margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>Welcome to ACCT 2101CO1</h1>
+  <div class="subtitle">Principles of Accounting I &mdash; Summer 2026</div>
+  <div class="course-badge">Augusta University &bull; Hull College of Business &bull; 8-Week Accelerated Course</div>
+</div>
+
+<!-- URGENCY BANNER -->
+<div class="urgency-banner">
+  <span>&#9200;</span>&ensp;First Exam is May 28 &mdash; only <strong>10 days from today</strong>. Start studying now.
+</div>
+
+<div class="container">
+
+  <!-- INTRO -->
+  <div class="section">
+    <p class="intro-text">
+      Dear ACCT2101CO1 Students,
+    </p>
+    <p class="intro-text">
+      Welcome to <strong>Principles of Accounting I</strong>. Today, <strong>May 18</strong>, is the official start of our course. Some of you may have received emails from me last week&mdash;if so, <strong>please re-read this message carefully</strong>, as it contains updated information and important new resources.
+    </p>
+    <p class="intro-text">
+      If you are newly enrolled, this guide contains everything you need to get started. <strong>This is an accelerated 8-week summer course</strong> that covers material typically taught over 16 weeks. There is no time to waste.
+    </p>
+  </div>
+
+  <!-- WHY CHAPTERS 1-4 MATTER -->
+  <div class="section">
+    <div class="section-title"><span class="icon">&#9888;&#65039;</span> Why the First Four Chapters Are Everything</div>
+
+    <div class="card red-border">
+      <h3>Chapters 1 through 4 Are the Foundation of This Entire Course</h3>
+      <p>
+        Every topic in this course builds on the concepts introduced in the first four chapters. If you struggle with Chapters 1&ndash;4, you will struggle with every chapter that follows. There is no way to catch up later&mdash;these concepts are cumulative.
+      </p>
+      <div class="highlight-box red">
+        <strong>Chapters 1 &amp; 2 are especially critical.</strong> They introduce the Accounting Equation (A = L + E), double-entry bookkeeping, debits &amp; credits, journal entries, and T-accounts. These are the building blocks of <em>everything</em> in accounting.
+        <br><br>
+        Your <strong>1st Exam on May 28</strong> covers Chapters 1 &amp; 2 plus the <strong>Ch1-2 Practice Test</strong>. That is <strong>only 10 days away</strong>.
+      </div>
+      <p>
+        I am not exaggerating: students who invest serious time in Chapters 1&ndash;2 in the first week almost always perform well for the rest of the course. Those who delay usually fall behind and cannot recover in an 8-week format.
+      </p>
+    </div>
+  </div>
+
+  <!-- YOUR FIRST 10 DAYS -->
+  <div class="section">
+    <div class="section-title"><span class="icon">&#128197;</span> Your First 10 Days — A Critical Window</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">Today &mdash; May 18 (Sun)</div>
+        <div class="timeline-desc">Course officially begins. D2L &amp; MyAccountingLab now accessible. <strong>Log in today.</strong></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">By May 25 (Sun)</div>
+        <div class="timeline-desc">You <strong>must</strong> log in to D2L and visit the <strong>Syllabus tab</strong>. If you do not log in by this date, you will be marked as <span class="red-text">"not attended"</span> and may be administratively dropped.</div>
+      </div>
+      <div class="timeline-item urgent">
+        <div class="timeline-date">May 27 (Wed) &mdash; 11:59 PM</div>
+        <div class="timeline-desc"><strong>Ch. 1 &amp; Ch. 2 Graded Assignments</strong> (MyAccountingLab) + <strong>Quiz #1 &amp; Quiz #2</strong> (D2L) all due.</div>
+      </div>
+      <div class="timeline-item urgent">
+        <div class="timeline-date">May 28 (Thu)</div>
+        <div class="timeline-desc"><strong class="red-text">1st Exam: Chapters 1 &amp; 2</strong> (MyAccountingLab, 120 min, timed) + <strong class="red-text">Ch1-2-Practice-Test</strong> (see detailed instructions below)</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">June 1 (Sun)</div>
+        <div class="timeline-desc"><strong>Day-One Quiz</strong> due on D2L for <strong>20 bonus points</strong>. Also: <strong>MyAccountingLab registration deadline</strong>.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THREE WAYS TO STUDY -->
+  <div class="section">
+    <div class="section-title"><span class="icon">&#128218;</span> Three Ways to Study the Lectures</div>
+    <p class="intro-text" style="margin-bottom: 14px;">
+      I want every student to succeed, regardless of your preferred learning style. That is why I am providing <strong>three different ways</strong> to learn the material. Choose the one that works best for you&mdash;or combine them.
+    </p>
+
+    <div class="method-grid">
+      <div class="method-card recommended">
+        <span class="method-num">1</span>
+        <h4>Video Lectures on D2L</h4>
+        <span class="rec-badge">BEST OPTION</span>
+        <p>
+          Pre-recorded video lectures are available for every chapter under <em>"Online Lectures with Lecture PPT"</em> on D2L. This is the most thorough way to learn, as I explain each concept in detail with examples. I recommend watching at 1.5x&ndash;2x speed before attempting any quizzes or assignments. <strong>All quizzes, exams, and assignments are based on topics covered in these videos.</strong>
+        </p>
+      </div>
+
+      <div class="method-card">
+        <span class="method-num">2</span>
+        <h4>Lecture Transcripts</h4>
+        <p>
+          If the videos feel too long or you prefer reading, I have attached <strong>Lecture_Transcripts.zip</strong> to this email. These are full written transcripts of my video lectures. You can read through them at your own pace, highlight key points, and use them as a reference alongside the video lectures.
+        </p>
+      </div>
+
+      <div class="method-card">
+        <span class="method-num">3</span>
+        <h4>Interactive Online Study Guide (Textbook)</h4>
+        <p>
+          I have developed an interactive web-based study guide based entirely on my video lectures. It is available here:
+        </p>
+        <p style="text-align:center; margin: 10px 0;">
+          <a href="https://au-hcob-accounting.github.io/ACCT2101/" style="font-size:16px; font-weight:700; color:var(--blue-accent);">
+            &#128279; https://au-hcob-accounting.github.io/ACCT2101/
+          </a>
+        </p>
+        <div class="highlight-box blue">
+          <strong>Why this resource matters:</strong> This study guide is written based on my video lectures, so it captures <em>all</em> of my teaching style, emphasis points, and examples. The material on your exams comes directly from the content in my lectures&mdash;and this guide covers that content in a readable, organized format. It currently covers the Introduction through Chapter 5, and <strong>will be updated gradually throughout the semester</strong> to include additional chapters. If you prefer reading over watching videos, this is your go-to resource.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CH1-2 PRACTICE TEST -->
+  <div class="section">
+    <div class="section-title"><span class="icon">&#127919;</span> Ch1-2-Practice-Test — Your Most Important Preparation Tool</div>
+
+    <div class="card red-border">
+      <h3>What Is It?</h3>
+      <p>
+        The <strong>Ch1-2-Practice-Test</strong> is an interactive HTML file (attached to this email) that tests your mastery of the core concepts from Chapters 1 and 2. It has <strong>three modules</strong>:
+      </p>
+      <ul>
+        <li><strong>Module 1 — Account Classification:</strong> Classify 28 accounts as Asset, Liability, or Stockholders' Equity</li>
+        <li><strong>Module 2 — Transaction Effects:</strong> Analyze 28 transactions and determine which accounts Increase or Decrease</li>
+        <li><strong>Module 3 — Normal Balances:</strong> Identify whether each of 28 accounts has a normal Debit or Credit balance</li>
+      </ul>
+    </div>
+
+    <div class="card red-border">
+      <h3>How Much Is It Worth?</h3>
+      <div style="text-align:center; margin: 10px 0;">
+        <span class="points-badge">200 Points &mdash; 20% of Your Total Grade</span>
+      </div>
+      <p>
+        The Ch1-2-Practice-Test is worth the same as your Comprehensive Final Exam. It is not optional. It is not just "practice." Your Test mode score from this tool is a <strong>major part of your 1st Exam grade on May 28</strong>.
+      </p>
+    </div>
+
+    <div class="card gold-border">
+      <h3>How to Use It</h3>
+      <ol style="padding-left: 20px; font-size: 14.5px;">
+        <li style="margin-bottom:8px;"><strong>Open the file</strong> (<code>ch1-2-practice-test.html</code>) in <strong>Google Chrome</strong> or <strong>Microsoft Edge</strong>.</li>
+        <li style="margin-bottom:8px;"><strong>Enter your name and Student ID</strong> (your 9-digit ID starting with 912).</li>
+        <li style="margin-bottom:8px;"><strong>Practice mode first (unlimited)</strong>: Use Practice mode as many times as you want. Each wrong answer shows you a detailed explanation. There is no time pressure. <em>This is where you learn.</em></li>
+        <li style="margin-bottom:8px;"><strong>Practice with Timer (unlimited)</strong>: Once you feel confident, try Practice+Timer mode. Each question has a time limit (4 seconds for Modules 1 &amp; 3, 16 seconds for Module 2). This prepares you for the real test.</li>
+        <li style="margin-bottom:8px;"><strong>Test mode (ONE attempt only)</strong>: When you are ready, take the Test. It is timed and you get <strong>only one chance</strong>. Your results will be encrypted automatically.</li>
+        <li style="margin-bottom:8px;"><strong>Copy &amp; Email</strong>: After completing all three modules in Test mode, an encrypted result will be generated. Click the copy button to copy the encrypted text. Then <strong>send an email to <a href="mailto:sapark@augusta.edu">sapark@augusta.edu</a></strong> with your <strong>name and Student ID in the subject line</strong>. In the email body, paste <strong>only the encrypted text</strong>&mdash;nothing else. Do not modify the encrypted text in any way.</li>
+      </ol>
+      <div class="highlight-box red">
+        <strong>&#9888; Do NOT rush into Test mode.</strong> You only get one attempt. Practice extensively first. Once you can consistently score 90%+ in Practice+Timer mode, you are ready for the real Test.
+      </div>
+    </div>
+
+    <div class="card green-border">
+      <h3>How to Prepare</h3>
+      <p>Here is my recommended preparation strategy:</p>
+      <ol style="padding-left: 20px; font-size: 14.5px;">
+        <li style="margin-bottom:6px;">Study Chapters 1 &amp; 2 using the lecture videos, transcripts, or study guide.</li>
+        <li style="margin-bottom:6px;">Use the <strong>Accounting Equation Simulator</strong> (see below) to build intuition about how transactions work.</li>
+        <li style="margin-bottom:6px;">Start the Practice Test in <strong>Practice mode</strong>. Read every explanation for questions you get wrong.</li>
+        <li style="margin-bottom:6px;">Repeat Practice mode until you understand <em>why</em> each answer is correct, not just <em>which</em> answer is correct.</li>
+        <li style="margin-bottom:6px;">Move to <strong>Practice+Timer</strong> mode and aim for 90%+ consistently.</li>
+        <li style="margin-bottom:6px;">Take the <strong>Test</strong> when you are confident.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ACCOUNTING EQUATION SIMULATOR -->
+  <div class="section">
+    <div class="section-title"><span class="icon">&#9878;&#65039;</span> Accounting Equation Simulator — Learn by Doing</div>
+
+    <div class="card blue-border">
+      <h3>What Is It?</h3>
+      <p>
+        The <strong>Accounting Equation Simulator</strong> is an interactive tool I built specifically for this course. It lets you enter business transactions and <strong>see in real time</strong> how each transaction affects the accounting equation (Assets = Liabilities + Stockholders' Equity).
+      </p>
+      <p>
+        Instead of just reading about how transactions work in a textbook, you can <em>experience</em> them. This is one of the most effective ways to understand the foundation of double-entry bookkeeping. The Simulator covers transactions through <strong>Chapter 4 (Completing the Accounting Cycle)</strong>, including closing entries. I strongly recommend using it repeatedly as you progress through Chapters 1&ndash;4 to build and reinforce your intuition.
+      </p>
+    </div>
+
+    <div class="card blue-border">
+      <h3>How to Use It</h3>
+      <ol style="padding-left: 20px; font-size: 14.5px;">
+        <li style="margin-bottom:8px;">Open the attached file (<code>Accounting-Equation-Simulator.html</code>) in Chrome or Edge.</li>
+        <li style="margin-bottom:8px;">Enter the password: <strong style="font-size:16px; color:var(--navy); letter-spacing:1px;">ACCT2101CO1</strong></li>
+        <li style="margin-bottom:8px;">Work through the guided transactions and observe how each one changes the equation.</li>
+        <li style="margin-bottom:8px;">Pay attention to which accounts are affected and whether they increase or decrease.</li>
+      </ol>
+      <div class="highlight-box blue">
+        <strong>Note:</strong> This tool is available <strong>only during the Summer 2026 semester</strong>. After the semester ends, the file will no longer be accessible. Take advantage of it now while you can.
+      </div>
+      <p class="small-note">
+        Tip: Use the Simulator alongside your Chapter 1 &amp; 2 study. After watching a lecture or reading about a concept, try it in the Simulator to reinforce your understanding.
+      </p>
+    </div>
+  </div>
+
+  <!-- WHAT'S ATTACHED -->
+  <div class="section">
+    <div class="section-title"><span class="icon">&#128206;</span> Files Attached to This Email</div>
+    <table>
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>Description</th>
+          <th>When to Use</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ch1-2-practice-test.html</strong></td>
+          <td>Practice &amp; Test tool for Ch 1&ndash;2 (200 pts)</td>
+          <td>While studying Ch 1 &amp; 2</td>
+        </tr>
+        <tr>
+          <td><strong>Accounting-Equation-Simulator.html</strong></td>
+          <td>Interactive A = L + E visualizer (through Ch 4)</td>
+          <td>While studying Ch 1 through 4</td>
+        </tr>
+        <tr>
+          <td><strong>Lecture_Transcripts.zip</strong></td>
+          <td>Full written transcripts of all video lectures</td>
+          <td>Alternative/supplement to videos</td>
+        </tr>
+        <tr>
+          <td><strong>Syllabus.zip</strong></td>
+          <td>Syllabus, Course Schedule, Instructional Method, MyAccountingLab Registration Handout</td>
+          <td>Review immediately</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="small-note" style="margin-top:8px;">All HTML files should be opened in <strong>Google Chrome</strong> or <strong>Microsoft Edge</strong>. Firefox may have compatibility issues.</p>
+  </div>
+
+  <!-- KEY DATES -->
+  <div class="section">
+    <div class="section-title"><span class="icon">&#128198;</span> Key Dates &amp; Grading at a Glance</div>
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Item</th><th>Points</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>May 25</td><td>Log in to D2L + visit Syllabus tab (mandatory attendance)</td><td>&mdash;</td></tr>
+        <tr class="highlight-row"><td>May 27</td><td>Ch 1 &amp; 2 Assignments + Quiz #1 &amp; #2 due</td><td>See below</td></tr>
+        <tr class="highlight-row"><td>May 28</td><td>1st Exam (Ch 1 &amp; 2) + Ch1-2-Practice-Test</td><td>100 + 200</td></tr>
+        <tr><td>June 1</td><td>Day-One Quiz (bonus) + MyAccountingLab registration deadline</td><td>20 bonus</td></tr>
+        <tr><td>June 10</td><td>Ch 3 &amp; 4 Assignments + Quiz #3 &amp; #4 due</td><td>&mdash;</td></tr>
+        <tr><td>June 11</td><td>2nd Exam (Ch 3 &amp; 4)</td><td>100</td></tr>
+        <tr><td>June 15</td><td>Last day to withdraw with a "W"</td><td>&mdash;</td></tr>
+        <tr><td>June 29</td><td>Ch 5&ndash;8 Assignments + Quizzes due</td><td>&mdash;</td></tr>
+        <tr><td>June 30</td><td>3rd Exam (Ch 5, 6, 7, &amp; 8)</td><td>100</td></tr>
+        <tr><td>Jul 13</td><td>Ch 9, 11, 12, 13 Assignments + Quizzes due</td><td>&mdash;</td></tr>
+        <tr><td>Jul 14</td><td>Comprehensive Final Exam (All Chapters)</td><td>200</td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:16px;">
+      <table>
+        <thead>
+          <tr><th>Component</th><th>Points</th><th>% of Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Day-One Quiz (bonus)</td><td>20 max</td><td>Bonus</td></tr>
+          <tr><td>Graded Assignments (MyAccountingLab)</td><td>200</td><td>20%</td></tr>
+          <tr><td>Quizzes (D2L, 2 lowest dropped)</td><td>100</td><td>10%</td></tr>
+          <tr class="highlight-row"><td>Ch1-2-Practice-Test</td><td>200</td><td>20%</td></tr>
+          <tr><td>1st Exam (Ch 1 &amp; 2)</td><td>100</td><td>10%</td></tr>
+          <tr><td>2nd Exam (Ch 3 &amp; 4)</td><td>100</td><td>10%</td></tr>
+          <tr><td>3rd Exam (Ch 5&ndash;8)</td><td>100</td><td>10%</td></tr>
+          <tr><td>Comprehensive Final Exam</td><td>200</td><td>20%</td></tr>
+          <tr style="font-weight:700; background:#e9ecef;"><td>Total</td><td>1,000</td><td>100%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ACTION ITEMS -->
+  <div class="section">
+    <div class="section-title"><span class="icon">&#9989;</span> Your Action Items — Start Today</div>
+    <ul class="checklist">
+      <li data-num="1" class="critical"><strong>Log in to D2L</strong> (<a href="https://lms.augusta.edu/">lms.augusta.edu</a>) and <strong>visit the Syllabus tab</strong>. This counts as your attendance. Do this immediately.</li>
+      <li data-num="2" class="critical"><strong>Access MyAccountingLab through D2L</strong> and complete your registration. You must enroll before June 1. (This course uses Inclusive Access, so you do not need to purchase a separate access code.)</li>
+      <li data-num="3"><strong>Start Chapter 1</strong>. Watch the video lectures (Lectures 1&ndash;4 on D2L), or read the transcript, or use the online study guide. Do not wait.</li>
+      <li data-num="4"><strong>Open the Accounting Equation Simulator</strong> and work through the transactions while studying Chapters 1 through 4. Revisit it often&mdash;it is designed to be used repeatedly.</li>
+      <li data-num="5"><strong>Use the Ch1-2-Practice-Test in Practice mode</strong> after studying both chapters. Practice until you consistently score 90%+.</li>
+      <li data-num="6" class="critical"><strong>Complete Ch 1 &amp; 2 Graded Assignments + Quizzes by May 27</strong> (11:59 PM).</li>
+      <li data-num="7" class="critical"><strong>Take the Ch1-2-Practice-Test in Test mode and email your encrypted result before May 28.</strong> Your 1st Exam is also on May 28&mdash;the Practice Test must be completed and submitted <em>before</em> the exam.</li>
+      <li data-num="8"><strong>Complete the Day-One Quiz on D2L by June 1</strong> for 20 bonus points.</li>
+    </ul>
+  </div>
+
+  <!-- RESOURCES REMINDER -->
+  <div class="section">
+    <div class="card green-border">
+      <h3>&#128172; Questions? I'm Here to Help.</h3>
+      <p>
+        If you have any questions, email me at <a href="mailto:sapark@augusta.edu">sapark@augusta.edu</a>. I am happy to set up a 1-on-1 meeting via MS Teams upon request.
+      </p>
+      <p>
+        <strong>Important:</strong> Before emailing questions about the course material, please make sure you have watched the relevant video lectures first. Most questions I receive are already answered in the lectures.
+      </p>
+      <p>
+        I have also attached <strong>Syllabus.zip</strong>, which contains the following documents&mdash;please review them carefully:
+      </p>
+      <ul style="font-size:14.5px; padding-left:20px; margin-top:4px;">
+        <li><strong>Syllabus</strong> &mdash; Course objectives, policies, grading, and resources</li>
+        <li><strong>Course Schedule</strong> &mdash; Due dates for assignments, quizzes, and exams</li>
+        <li><strong>Instructional Method</strong> &mdash; How to access and use D2L and MyAccountingLab</li>
+        <li><strong>MyAccountingLab Registration Handout</strong> &mdash; Step-by-step guide to register for MyAccountingLab</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="section">
+    <p class="intro-text">
+      This is a demanding course, but I have designed every tool and resource you see here to help you succeed. The students who start today and stay consistent will do well. Let's have a great summer semester.
+    </p>
+    <div class="sig">
+      <div class="name">Sang Hyun (Sam) Park, Ph.D., EA.</div>
+      <div class="title">
+        Professor of Accounting<br>
+        <em>Knox School of Accountancy</em><br>
+        Hull College of Business<br>
+        AUGUSTA UNIVERSITY<br>
+        <a href="mailto:sapark@augusta.edu">sapark@augusta.edu</a><br>
+        t: 706-729-2172
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  ACCT 2101CO1 &bull; Summer 2026 &bull; Augusta University
+</div>
+
+</body>
+</html>
