@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accounting Practice &amp; Test</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f0f2f5;--card:#fff;--text:#1a1a2e;--text2:#64748b;--border:#e2e8f0;
+  --shadow:0 2px 12px rgba(0,0,0,.08);--radius:12px;
+  --asset:#3b82f6;--asset-lt:#eff6ff;
+  --liab:#f59e0b;--liab-lt:#fffbeb;
+  --eq:#10b981;--eq-lt:#ecfdf5;
+  --correct:#22c55e;--correct-lt:#f0fdf4;
+  --wrong:#ef4444;--wrong-lt:#fef2f2;
+  --debit:#3b82f6;--credit:#f59e0b;
+  --m1:#3b82f6;--m2:#8b5cf6;--m3:#f59e0b;
+  --timer-ok:#22c55e;--timer-warn:#f59e0b;--timer-danger:#ef4444;
+}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:20px}
+.screen{display:none;width:100%;max-width:720px}
+.screen.active{display:block}
+
+/* Login */
+.login-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:40px;margin-top:60px;text-align:center}
+.login-card h1{font-size:1.6rem;margin-bottom:6px;color:var(--text)}
+.login-card .subtitle{color:var(--text2);margin-bottom:28px;font-size:.95rem}
+.login-card input{display:block;width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:8px;font-size:1rem;margin-bottom:14px;transition:border-color .2s}
+.login-card input:focus{outline:none;border-color:var(--m1)}
+.login-card .btn-begin{width:100%;padding:14px;background:var(--m1);color:#fff;border:none;border-radius:8px;font-size:1.1rem;font-weight:600;cursor:pointer;transition:opacity .2s}
+.login-card .btn-begin:hover{opacity:.9}
+.login-card .btn-begin:disabled{opacity:.5;cursor:not-allowed}
+.warning-box{background:#fffbeb;border:1px solid #fbbf24;border-radius:8px;padding:12px 16px;margin-top:20px;font-size:.85rem;color:#92400e;text-align:left;line-height:1.5}
+.info-box{background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:.85rem;color:#1e40af;text-align:left;line-height:1.5}
+.deadline-box{background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:.85rem;color:#991b1b;text-align:left;line-height:1.5;font-weight:500}
+
+/* Header */
+.header{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 24px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.header .student-info{font-size:.9rem;color:var(--text2)}
+.header .student-info strong{color:var(--text)}
+.header .time-display{font-size:.85rem;color:var(--m2);font-weight:600}
+
+/* Tabs */
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tab{flex:1;padding:12px 8px;background:var(--card);border:2px solid var(--border);border-radius:var(--radius);text-align:center;cursor:pointer;transition:all .2s;font-size:.85rem;font-weight:500;position:relative}
+.tab:hover{border-color:#cbd5e1}
+.tab.active-tab{border-color:var(--m1);background:var(--asset-lt)}
+.tab[data-mod="2"].active-tab{border-color:var(--m2);background:#f5f3ff}
+.tab[data-mod="3"].active-tab{border-color:var(--m3);background:var(--liab-lt)}
+.tab .tab-badge{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:10px;margin-top:4px;background:var(--border);color:var(--text2)}
+.tab .tab-badge.done{background:var(--correct-lt);color:#166534}
+.tab .tab-badge.locked{background:var(--wrong-lt);color:#991b1b}
+
+/* Mode selector */
+.mode-bar{display:flex;gap:8px;margin-bottom:16px}
+.mode-btn{flex:1;padding:10px;border:2px solid var(--border);border-radius:8px;background:var(--card);cursor:pointer;text-align:center;font-size:.85rem;font-weight:500;transition:all .2s}
+.mode-btn:hover{border-color:#cbd5e1}
+.mode-btn.active-mode{color:#fff}
+.mode-btn.active-mode[data-mode="practice"]{background:var(--correct);border-color:var(--correct)}
+.mode-btn.active-mode[data-mode="practice-timer"]{background:var(--m3);border-color:var(--m3)}
+.mode-btn.active-mode[data-mode="test"]{background:var(--wrong);border-color:var(--wrong)}
+.mode-btn.disabled{opacity:.45;cursor:not-allowed;pointer-events:none}
+.mode-btn small{display:block;font-weight:400;color:var(--text2);margin-top:2px;font-size:.75rem}
+.mode-btn.active-mode small{color:rgba(255,255,255,.8)}
+
+/* Module description */
+.mod-desc{background:var(--card);border-radius:var(--radius);padding:16px 20px;margin-bottom:16px;box-shadow:var(--shadow);font-size:.9rem;line-height:1.6}
+.mod-desc h3{margin-bottom:6px;font-size:1rem}
+
+/* Question card */
+.q-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;min-height:200px}
+.q-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:.85rem;color:var(--text2)}
+.q-header .q-num{font-weight:600}
+.q-header .q-score{font-weight:500}
+
+/* Timer */
+.timer-wrap{margin-bottom:16px}
+.timer-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.timer-fill{height:100%;border-radius:4px;transition:width .1s linear;background:var(--timer-ok)}
+.timer-text{text-align:center;font-size:.8rem;font-weight:600;margin-top:4px;color:var(--text2)}
+.timer-wrap.hidden{display:none}
+
+/* Question display */
+.q-prompt{font-size:1.4rem;font-weight:700;text-align:center;padding:20px 0;color:var(--text)}
+.q-transaction{font-size:1.1rem;text-align:center;padding:16px 20px;background:var(--bg);border-radius:8px;margin-bottom:20px;line-height:1.5}
+
+/* Answer buttons */
+.ans-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.ans-btn{padding:14px 28px;border:2px solid var(--border);border-radius:10px;background:var(--card);font-size:1rem;font-weight:600;cursor:pointer;transition:all .15s;min-width:140px;text-align:center}
+.ans-btn:hover:not(.disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.ans-btn.sel{color:#fff}
+.ans-btn[data-ans="Asset"]{color:var(--asset);border-color:var(--asset)}
+.ans-btn[data-ans="Asset"]:hover,.ans-btn[data-ans="Asset"].sel{background:var(--asset);color:#fff}
+.ans-btn[data-ans="Liability"]{color:var(--liab);border-color:var(--liab)}
+.ans-btn[data-ans="Liability"]:hover,.ans-btn[data-ans="Liability"].sel{background:var(--liab);color:#fff}
+.ans-btn[data-ans="Stockholders' Equity"]{color:var(--eq);border-color:var(--eq)}
+.ans-btn[data-ans="Stockholders' Equity"]:hover,.ans-btn[data-ans="Stockholders' Equity"].sel{background:var(--eq);color:#fff}
+.ans-btn[data-ans="Debit"]{color:var(--debit);border-color:var(--debit)}
+.ans-btn[data-ans="Debit"]:hover,.ans-btn[data-ans="Debit"].sel{background:var(--debit);color:#fff}
+.ans-btn[data-ans="Credit"]{color:var(--credit);border-color:var(--credit)}
+.ans-btn[data-ans="Credit"]:hover,.ans-btn[data-ans="Credit"].sel{background:var(--credit);color:#fff}
+.ans-btn.disabled{pointer-events:none;opacity:.5}
+
+/* Transaction effect UI */
+.txn-accounts{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.txn-acct-card{flex:1;min-width:200px;max-width:300px;border:2px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.txn-acct-card .acct-name{font-weight:700;font-size:1.1rem;margin-bottom:12px}
+.txn-acct-card .effect-btns{display:flex;gap:8px;justify-content:center}
+.effect-btn{padding:10px 20px;border:2px solid var(--border);border-radius:8px;background:var(--card);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .15s}
+.effect-btn[data-eff="Increase"]{color:var(--correct);border-color:var(--correct)}
+.effect-btn[data-eff="Increase"]:hover,.effect-btn[data-eff="Increase"].sel{background:var(--correct);color:#fff}
+.effect-btn[data-eff="Decrease"]{color:var(--wrong);border-color:var(--wrong)}
+.effect-btn[data-eff="Decrease"]:hover,.effect-btn[data-eff="Decrease"].sel{background:var(--wrong);color:#fff}
+.effect-btn.disabled{pointer-events:none;opacity:.5}
+
+/* Feedback */
+.feedback{margin-top:20px;padding:16px 20px;border-radius:10px;font-size:.95rem;line-height:1.6;display:none}
+.feedback.show{display:block;animation:fadeIn .3s}
+.feedback.correct{background:var(--correct-lt);border:1px solid #86efac}
+.feedback.wrong{background:var(--wrong-lt);border:1px solid #fca5a5}
+.feedback .fb-icon{font-size:1.3rem;font-weight:700;margin-bottom:4px}
+.feedback.correct .fb-icon{color:var(--correct)}
+.feedback.wrong .fb-icon{color:var(--wrong)}
+.btn-next{display:none;margin:20px auto 0;padding:12px 32px;background:var(--m1);color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:opacity .2s}
+.btn-next:hover{opacity:.85}
+.btn-next.show{display:block}
+
+/* Start screen */
+.start-screen{text-align:center;padding:40px 20px}
+.start-screen h2{margin-bottom:12px}
+.start-screen p{color:var(--text2);margin-bottom:24px;font-size:.95rem}
+.btn-start{padding:14px 40px;background:var(--m1);color:#fff;border:none;border-radius:8px;font-size:1.05rem;font-weight:600;cursor:pointer;transition:opacity .2s}
+.btn-start:hover{opacity:.85}
+
+/* Session summary */
+.summary-card{text-align:center;padding:30px}
+.summary-card h2{margin-bottom:16px}
+.summary-score{font-size:2.5rem;font-weight:800;margin-bottom:8px}
+.summary-score.great{color:var(--correct)}
+.summary-score.ok{color:var(--m3)}
+.summary-score.low{color:var(--wrong)}
+.summary-detail{color:var(--text2);margin-bottom:24px;font-size:.95rem}
+.summary-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.summary-btns button{padding:12px 28px;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer}
+
+/* Results screen */
+.results-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:30px;text-align:center}
+.results-card h2{margin-bottom:20px;font-size:1.4rem}
+.results-table{width:100%;border-collapse:collapse;margin-bottom:20px;text-align:left}
+.results-table th{background:var(--bg);padding:10px 12px;font-size:.85rem;color:var(--text2);border-bottom:2px solid var(--border)}
+.results-table td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:.9rem}
+.results-table .score-cell{font-weight:700}
+.results-table .score-cell.great{color:var(--correct)}
+.results-table .score-cell.ok{color:var(--m3)}
+.results-table .score-cell.low{color:var(--wrong)}
+.total-time-display{font-size:1.1rem;color:var(--m2);font-weight:700;margin-bottom:20px}
+.encrypted-area{width:100%;height:120px;font-family:'Courier New',monospace;font-size:.8rem;padding:12px;border:2px solid var(--border);border-radius:8px;resize:none;margin-bottom:16px;background:var(--bg)}
+.btn-copy{padding:12px 32px;background:var(--correct);color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:opacity .2s}
+.btn-copy:hover{opacity:.85}
+.btn-copy.copied{background:var(--m2)}
+.email-info{margin-top:20px;padding:14px;background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;font-size:.9rem;color:#991b1b;line-height:1.6}
+
+/* Confirm modal */
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:100;justify-content:center;align-items:center}
+.modal-overlay.show{display:flex}
+.modal{background:var(--card);border-radius:var(--radius);padding:30px;max-width:420px;width:90%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.modal h3{margin-bottom:12px}
+.modal p{color:var(--text2);margin-bottom:20px;font-size:.95rem;line-height:1.5}
+.modal-btns{display:flex;gap:12px;justify-content:center}
+.modal-btns button{padding:10px 24px;border:none;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+.shake{animation:shake .4s}
+.pulse{animation:pulse .3s}
+
+@media(max-width:600px){
+  body{padding:10px}
+  .tabs{flex-direction:column}
+  .ans-row{flex-direction:column;align-items:center}
+  .ans-btn{width:100%;max-width:300px}
+  .txn-accounts{flex-direction:column;align-items:center}
+  .txn-acct-card{max-width:100%;width:100%}
+  .mode-bar{flex-direction:column}
+  .header{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== SCREEN: LOGIN ===== -->
+<div id="screen-login" class="screen active">
+  <div class="login-card">
+    <h1>Accounting Practice &amp; Test</h1>
+    <p class="subtitle">Account Classification, Transaction Effects &amp; Normal Balances</p>
+    <input type="text" id="inp-name" placeholder="Full Name (e.g., John Smith)" autocomplete="off">
+    <input type="text" id="inp-id" placeholder="Student ID (9 digits, e.g., 912345678)" autocomplete="off" maxlength="9">
+    <button class="btn-begin" id="btn-begin" disabled onclick="handleLogin()">Begin</button>
+    <div id="id-hint" style="font-size:.8rem;color:var(--text2);text-align:left;margin-bottom:14px;min-height:1.2em"></div>
+    <div class="warning-box">
+      <strong>Important:</strong> Your progress and total practice time are saved on THIS device and browser only.
+      Use the same device and browser throughout. Do not use incognito/private mode.
+      Switching devices will reset your practice time.
+    </div>
+    <div class="info-box">
+      <strong>How it works:</strong> 3 modules — practice as much as you want (unlimited), then take each test ONCE.
+      Your total practice time is tracked and included in your submission.
+      <strong>More practice = better results!</strong>
+    </div>
+    <div class="deadline-box">
+      <strong>Deadline:</strong> Complete all 3 tests and email your encrypted result to
+      <strong>sapark@augusta.edu</strong> by <strong>May 28, 2026 midnight</strong> (before Exam #1).
+      Only ONE submission per student will be accepted.
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCREEN: MAIN ===== -->
+<div id="screen-main" class="screen">
+  <div class="header">
+    <div class="student-info"><strong id="disp-name"></strong> &middot; <span id="disp-id"></span></div>
+    <div class="time-display">Practice Time: <span id="disp-time">0m 0s</span></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active-tab" data-mod="1" onclick="selectModule(1)">
+      <div>Module 1</div><div style="font-weight:700">A / L / SE</div>
+      <div class="tab-badge" id="badge-1">Not tested</div>
+    </div>
+    <div class="tab" data-mod="2" onclick="selectModule(2)">
+      <div>Module 2</div><div style="font-weight:700">Transaction Effects</div>
+      <div class="tab-badge" id="badge-2">Not tested</div>
+    </div>
+    <div class="tab" data-mod="3" onclick="selectModule(3)">
+      <div>Module 3</div><div style="font-weight:700">Normal Balance</div>
+      <div class="tab-badge" id="badge-3">Not tested</div>
+    </div>
+  </div>
+
+  <div class="mode-bar" id="mode-bar">
+    <div class="mode-btn active-mode" data-mode="practice" onclick="selectMode('practice')">
+      Practice<small>No timer</small>
+    </div>
+    <div class="mode-btn" data-mode="practice-timer" onclick="selectMode('practice-timer')">
+      Practice + Timer<small id="timer-label">4 sec</small>
+    </div>
+    <div class="mode-btn" data-mode="test" id="btn-mode-test" onclick="selectMode('test')">
+      Test<small>One attempt only</small>
+    </div>
+  </div>
+
+  <div id="mod-desc" class="mod-desc"></div>
+
+  <div id="content-area">
+    <div class="q-card" id="start-area">
+      <div class="start-screen">
+        <h2 id="start-title">Ready to practice?</h2>
+        <p id="start-desc"></p>
+        <button class="btn-start" id="btn-go" onclick="startSession()">Start</button>
+      </div>
+    </div>
+    <div class="q-card" id="q-area" style="display:none">
+      <div class="q-header">
+        <span class="q-num" id="q-num">Q 1 / 28</span>
+        <span class="q-score" id="q-score">Score: 0 / 0</span>
+      </div>
+      <div class="timer-wrap hidden" id="timer-wrap">
+        <div class="timer-bar"><div class="timer-fill" id="timer-fill"></div></div>
+        <div class="timer-text" id="timer-text"></div>
+      </div>
+      <div id="q-body"></div>
+      <div class="feedback" id="feedback">
+        <div class="fb-icon" id="fb-icon"></div>
+        <div id="fb-text"></div>
+      </div>
+      <button class="btn-next" id="btn-next" onclick="nextQuestion()">Next</button>
+    </div>
+    <div class="q-card" id="summary-area" style="display:none">
+      <div class="summary-card">
+        <h2>Session Complete!</h2>
+        <div class="summary-score" id="sum-score"></div>
+        <div class="summary-detail" id="sum-detail"></div>
+        <div class="summary-btns" id="sum-btns"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCREEN: RESULTS ===== -->
+<div id="screen-results" class="screen">
+  <div class="results-card">
+    <h2>All Tests Complete!</h2>
+    <table class="results-table">
+      <thead><tr><th>Module</th><th>Score</th><th>%</th><th>Start</th><th>End</th></tr></thead>
+      <tbody id="results-tbody"></tbody>
+    </table>
+    <div class="total-time-display" id="results-time"></div>
+    <p style="font-size:.9rem;color:var(--text2);margin-bottom:12px">Copy the encrypted text below and email it to your professor:</p>
+    <textarea class="encrypted-area" id="encrypted-text" readonly></textarea>
+    <button class="btn-copy" id="btn-copy" onclick="copyResult()">Copy to Clipboard</button>
+    <div class="email-info">
+      <strong>Email to:</strong> sapark@augusta.edu<br>
+      <strong>Subject:</strong> Accounting Practice Test - [Your Name]<br>
+      <strong>Deadline:</strong> May 28, 2026 midnight (before Exam #1)<br>
+      <strong>Only ONE submission per student will be accepted.</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONFIRM MODAL ===== -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3>Start Test?</h3>
+    <p>You can only take this test <strong>ONCE</strong>. Each question has a time limit.
+    Make sure you have practiced enough before proceeding.</p>
+    <div class="modal-btns">
+      <button style="background:var(--border);color:var(--text)" onclick="closeModal()">Cancel</button>
+      <button style="background:var(--wrong);color:#fff" onclick="confirmTest()">Start Test</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ====================== DATA ======================
+const ACCOUNTS = [
+  {name:"Cash",cls:"Asset",nb:"Debit",sub:"asset",hint:"money the company has in bank or on hand"},
+  {name:"Accounts Receivable",cls:"Asset",nb:"Debit",sub:"asset",hint:"amounts customers owe the company"},
+  {name:"Office Supplies",cls:"Asset",nb:"Debit",sub:"asset",hint:"supplies purchased for office use"},
+  {name:"Supplies",cls:"Asset",nb:"Debit",sub:"asset",hint:"materials available for use in operations"},
+  {name:"Prepaid Insurance",cls:"Asset",nb:"Debit",sub:"asset",hint:"insurance paid in advance, not yet expired"},
+  {name:"Prepaid Rent",cls:"Asset",nb:"Debit",sub:"asset",hint:"rent paid in advance, not yet consumed"},
+  {name:"Merchandise Inventory",cls:"Asset",nb:"Debit",sub:"asset",hint:"goods purchased for resale to customers"},
+  {name:"Furniture",cls:"Asset",nb:"Debit",sub:"asset",hint:"tables, chairs, and furnishings owned by the company"},
+  {name:"Equipment",cls:"Asset",nb:"Debit",sub:"asset",hint:"machinery and tools used in operations"},
+  {name:"Building",cls:"Asset",nb:"Debit",sub:"asset",hint:"structures owned and used by the company"},
+  {name:"Land",cls:"Asset",nb:"Debit",sub:"asset",hint:"property owned by the company"},
+  {name:"Notes Receivable",cls:"Asset",nb:"Debit",sub:"asset",hint:"formal written promises from others to pay the company"},
+  {name:"Accounts Payable",cls:"Liability",nb:"Credit",sub:"liability",hint:"amounts the company owes to suppliers"},
+  {name:"Notes Payable",cls:"Liability",nb:"Credit",sub:"liability",hint:"formal written promises the company made to pay others"},
+  {name:"Salaries Payable",cls:"Liability",nb:"Credit",sub:"liability",hint:"salaries owed to employees but not yet paid"},
+  {name:"Interest Payable",cls:"Liability",nb:"Credit",sub:"liability",hint:"interest owed on loans but not yet paid"},
+  {name:"Utilities Payable",cls:"Liability",nb:"Credit",sub:"liability",hint:"utility bills received but not yet paid"},
+  {name:"Unearned Revenue",cls:"Liability",nb:"Credit",sub:"liability",hint:"cash received for services not yet performed — the company still owes the service"},
+  {name:"Common Stock",cls:"Stockholders' Equity",nb:"Credit",sub:"equity",hint:"owners' investment in the company"},
+  {name:"Retained Earnings",cls:"Stockholders' Equity",nb:"Credit",sub:"equity",hint:"accumulated net income kept in the business"},
+  {name:"Dividends",cls:"Stockholders' Equity",nb:"Debit",sub:"dividend",hint:"distributions of earnings to stockholders"},
+  {name:"Service Revenue",cls:"Stockholders' Equity",nb:"Credit",sub:"revenue",hint:"income earned from providing services"},
+  {name:"Rent Expense",cls:"Stockholders' Equity",nb:"Debit",sub:"expense",hint:"cost of renting space"},
+  {name:"Salaries Expense",cls:"Stockholders' Equity",nb:"Debit",sub:"expense",hint:"cost of employee compensation"},
+  {name:"Utilities Expense",cls:"Stockholders' Equity",nb:"Debit",sub:"expense",hint:"cost of electricity, water, gas, etc."},
+  {name:"Interest Expense",cls:"Stockholders' Equity",nb:"Debit",sub:"expense",hint:"cost of borrowing money"},
+  {name:"Insurance Expense",cls:"Stockholders' Equity",nb:"Debit",sub:"expense",hint:"cost of insurance coverage that has been used up"},
+  {name:"Supplies Expense",cls:"Stockholders' Equity",nb:"Debit",sub:"expense",hint:"cost of supplies consumed in operations"},
+];
+
+const TRANSACTIONS = [
+  {desc:"Owner contributes $30,000 cash in exchange for common stock.",a1:"Cash",e1:"Increase",a2:"Common Stock",e2:"Increase",
+   expl:"The company received cash (Asset ↑) and issued ownership shares (SE ↑)."},
+  {desc:"Purchased land for $20,000 cash.",a1:"Land",e1:"Increase",a2:"Cash",e2:"Decrease",
+   expl:"Acquired land (Asset ↑) by paying cash (Asset ↓). One asset exchanged for another."},
+  {desc:"Bought $500 office supplies on account.",a1:"Office Supplies",e1:"Increase",a2:"Accounts Payable",e2:"Increase",
+   expl:"Received supplies (Asset ↑) but haven't paid yet, creating a payable (Liability ↑)."},
+  {desc:"Earned $5,500 service revenue and received cash.",a1:"Cash",e1:"Increase",a2:"Service Revenue",e2:"Increase",
+   expl:"Cash received (Asset ↑) for services performed, earning revenue (SE ↑)."},
+  {desc:"Performed $3,000 of services on account.",a1:"Accounts Receivable",e1:"Increase",a2:"Service Revenue",e2:"Increase",
+   expl:"Earned revenue (SE ↑) but cash not yet received — recorded as receivable (Asset ↑)."},
+  {desc:"Paid $2,000 rent with cash.",a1:"Rent Expense",e1:"Increase",a2:"Cash",e2:"Decrease",
+   expl:"Rent expense recorded (SE ↓ via expense ↑) and cash paid out (Asset ↓)."},
+  {desc:"Paid $1,200 employee salaries with cash.",a1:"Salaries Expense",e1:"Increase",a2:"Cash",e2:"Decrease",
+   expl:"Salaries expense recorded (SE ↓ via expense ↑) and cash paid out (Asset ↓)."},
+  {desc:"Paid $300 cash on accounts payable.",a1:"Accounts Payable",e1:"Decrease",a2:"Cash",e2:"Decrease",
+   expl:"Reduced the amount owed (Liability ↓) by paying cash (Asset ↓)."},
+  {desc:"Collected $2,000 from a customer on account.",a1:"Cash",e1:"Increase",a2:"Accounts Receivable",e2:"Decrease",
+   expl:"Received cash (Asset ↑) and removed the receivable (Asset ↓). Total assets unchanged."},
+  {desc:"Paid $5,000 cash dividend to stockholders.",a1:"Dividends",e1:"Increase",a2:"Cash",e2:"Decrease",
+   expl:"Dividends distributed (SE ↓ via dividends ↑) and cash paid out (Asset ↓)."},
+  {desc:"Borrowed $45,000 from the bank, signing a note payable.",a1:"Cash",e1:"Increase",a2:"Notes Payable",e2:"Increase",
+   expl:"Received cash (Asset ↑) and created a loan obligation (Liability ↑)."},
+  {desc:"Purchased equipment for $40,000 cash.",a1:"Equipment",e1:"Increase",a2:"Cash",e2:"Decrease",
+   expl:"Acquired equipment (Asset ↑) by paying cash (Asset ↓). One asset exchanged for another."},
+  {desc:"Performed services for $5,000 and received cash immediately.",a1:"Cash",e1:"Increase",a2:"Service Revenue",e2:"Increase",
+   expl:"Cash received (Asset ↑) for services performed, earning revenue (SE ↑)."},
+  {desc:"Purchased $300 of supplies on account.",a1:"Supplies",e1:"Increase",a2:"Accounts Payable",e2:"Increase",
+   expl:"Received supplies (Asset ↑) but haven't paid yet (Liability ↑)."},
+  {desc:"Performed services on account for $2,600.",a1:"Accounts Receivable",e1:"Increase",a2:"Service Revenue",e2:"Increase",
+   expl:"Earned revenue (SE ↑) with payment to come later (Asset ↑)."},
+  {desc:"Paid $1,200 toward accounts payable.",a1:"Accounts Payable",e1:"Decrease",a2:"Cash",e2:"Decrease",
+   expl:"Reduced the amount owed to suppliers (Liability ↓) by paying cash (Asset ↓)."},
+  {desc:"Received $3,100 cash from a customer on account.",a1:"Cash",e1:"Increase",a2:"Accounts Receivable",e2:"Decrease",
+   expl:"Collected cash (Asset ↑) and cleared the customer's balance (Asset ↓)."},
+  {desc:"Received a $200 utility bill, to be paid next month.",a1:"Utilities Expense",e1:"Increase",a2:"Utilities Payable",e2:"Increase",
+   expl:"Expense incurred (SE ↓ via expense ↑) but not yet paid, so a payable is created (Liability ↑)."},
+  {desc:"Received $1,500 cash in advance for services to be performed next month.",a1:"Cash",e1:"Increase",a2:"Unearned Revenue",e2:"Increase",
+   expl:"Cash received (Asset ↑) but service not yet performed — it's a liability until earned (Liability ↑)."},
+  {desc:"Paid $1,800 in cash dividends to stockholders.",a1:"Dividends",e1:"Increase",a2:"Cash",e2:"Decrease",
+   expl:"Dividends distributed (SE ↓ via dividends ↑) and cash paid out (Asset ↓)."},
+  {desc:"Recognized $300 of prepaid insurance as expired.",a1:"Insurance Expense",e1:"Increase",a2:"Prepaid Insurance",e2:"Decrease",
+   expl:"Insurance used up becomes an expense (SE ↓ via expense ↑), reducing the prepaid asset (Asset ↓)."},
+  {desc:"Recognized $1,000 of prepaid rent as consumed.",a1:"Rent Expense",e1:"Increase",a2:"Prepaid Rent",e2:"Decrease",
+   expl:"Rent consumed becomes an expense (SE ↓ via expense ↑), reducing the prepaid asset (Asset ↓)."},
+  {desc:"Used $120 worth of supplies during the month.",a1:"Supplies Expense",e1:"Increase",a2:"Supplies",e2:"Decrease",
+   expl:"Supplies consumed become an expense (SE ↓ via expense ↑), reducing the supplies asset (Asset ↓)."},
+  {desc:"Earned $300 of previously unearned revenue by performing the service.",a1:"Unearned Revenue",e1:"Decrease",a2:"Service Revenue",e2:"Increase",
+   expl:"The obligation is fulfilled (Liability ↓) and revenue is now earned (SE ↑)."},
+  {desc:"Accrued $800 of service revenue earned but not yet collected.",a1:"Accounts Receivable",e1:"Increase",a2:"Service Revenue",e2:"Increase",
+   expl:"Revenue earned (SE ↑) but cash not yet received — recorded as receivable (Asset ↑)."},
+  {desc:"Accrued $1,200 in employee salaries, not yet paid.",a1:"Salaries Expense",e1:"Increase",a2:"Salaries Payable",e2:"Increase",
+   expl:"Expense incurred (SE ↓ via expense ↑) but not yet paid, creating a payable (Liability ↑)."},
+  {desc:"Accrued $100 interest on a loan, not yet paid.",a1:"Interest Expense",e1:"Increase",a2:"Interest Payable",e2:"Increase",
+   expl:"Interest expense incurred (SE ↓ via expense ↑) but payment not yet made (Liability ↑)."},
+  {desc:"Paid $400 cash for interest expense.",a1:"Interest Expense",e1:"Increase",a2:"Cash",e2:"Decrease",
+   expl:"Interest expense recorded (SE ↓ via expense ↑) and cash paid out (Asset ↓)."},
+];
+
+// ====================== STATE ======================
+const S = {
+  name:'', id:'',
+  mod:1, mode:'practice',
+  qi:0, questions:[], score:0, total:0,
+  timerInterval:null, timerRemaining:0, timerDuration:0,
+  answered:false,
+  sessionStartTime:null,
+  testResults:{1:null,2:null,3:null},
+  testStartTime:null,
+  txnSelections:{a1:null,a2:null},
+  encryptedResult:null,
+};
+
+// ====================== HELPERS ======================
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function $(id){return document.getElementById(id)}
+function fmtTime(ms){const ts=Math.floor(ms/1000),m=Math.floor(ts/60),h=Math.floor(m/60);if(h>0)return h+'h '+String(m%60).padStart(2,'0')+'m '+String(ts%60).padStart(2,'0')+'s';if(m>0)return m+'m '+String(ts%60).padStart(2,'0')+'s';return ts+'s';}
+function fmtClock(d){return d.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true});}
+function lsKey(k){return 'acct-test-'+S.id+'-'+k;}
+
+// ====================== TIME TRACKING ======================
+let timeTrackStart = null;
+let timeInterval = null;
+
+function getStoredTime(){return parseInt(localStorage.getItem(lsKey('totalTime'))||'0');}
+function saveTime(){
+  if(!timeTrackStart||!S.id)return;
+  const elapsed=Date.now()-timeTrackStart;
+  const total=getStoredTime()+elapsed;
+  localStorage.setItem(lsKey('totalTime'),total.toString());
+  timeTrackStart=Date.now();
+}
+function getTotalTime(){return getStoredTime()+(timeTrackStart?Date.now()-timeTrackStart:0);}
+function updateTimeDisplay(){$('disp-time').textContent=fmtTime(getTotalTime());}
+function startTimeTracking(){
+  timeTrackStart=Date.now();
+  timeInterval=setInterval(()=>{updateTimeDisplay();},1000);
+  setInterval(saveTime,30000);
+  updateTimeDisplay();
+}
+window.addEventListener('beforeunload',saveTime);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)saveTime();});
+
+// ====================== SCREEN MANAGEMENT ======================
+function showScreen(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(name).classList.add('active');
+}
+
+// ====================== LOGIN ======================
+const inpName=$('inp-name'), inpId=$('inp-id'), btnBegin=$('btn-begin');
+function isValidId(v){return /^912\d{6}$/.test(v);}
+function checkInputs(){
+  const nameOk=inpName.value.trim().length>0;
+  const idVal=inpId.value.trim();
+  const idOk=isValidId(idVal);
+  btnBegin.disabled=!(nameOk&&idOk);
+  const hint=$('id-hint');
+  if(idVal.length>0&&!idOk){
+    inpId.style.borderColor='var(--wrong)';
+    hint.textContent='Student ID must be 9 digits starting with 912';
+    hint.style.color='var(--wrong)';
+  }else if(idOk){
+    inpId.style.borderColor='var(--correct)';
+    hint.textContent='Valid Student ID';
+    hint.style.color='var(--correct)';
+  }else{
+    inpId.style.borderColor='';
+    hint.textContent='';
+  }
+}
+inpName.addEventListener('input',checkInputs);
+inpId.addEventListener('input',checkInputs);
+inpName.addEventListener('keyup',checkInputs);
+inpId.addEventListener('keyup',checkInputs);
+inpId.addEventListener('keydown',e=>{if(e.key==='Enter'&&!btnBegin.disabled)handleLogin();});
+inpName.addEventListener('keydown',e=>{if(e.key==='Enter'&&!btnBegin.disabled)handleLogin();});
+
+function handleLogin(){
+  S.name=inpName.value.trim();
+  S.id=inpId.value.trim();
+  $('disp-name').textContent=S.name;
+  $('disp-id').textContent=S.id;
+  loadTestState();
+  startTimeTracking();
+  if(S.testResults[1]&&S.testResults[2]&&S.testResults[3]){
+    showResultsScreen();
+    return;
+  }
+  showScreen('screen-main');
+  selectModule(1);
+}
+
+function loadTestState(){
+  for(let m=1;m<=3;m++){
+    const d=localStorage.getItem(lsKey('module'+m));
+    if(d)S.testResults[m]=JSON.parse(d);
+  }
+  const enc=localStorage.getItem(lsKey('encrypted'));
+  if(enc)S.encryptedResult=enc;
+  updateBadges();
+}
+
+function updateBadges(){
+  for(let m=1;m<=3;m++){
+    const b=$('badge-'+m);
+    const r=S.testResults[m];
+    if(r){b.textContent=r.score+'/'+r.total;b.className='tab-badge done';}
+    else{b.textContent='Not tested';b.className='tab-badge';}
+  }
+}
+
+// ====================== MODULE/MODE ======================
+function selectModule(m){
+  S.mod=m;
+  document.querySelectorAll('.tab').forEach(t=>{
+    t.classList.toggle('active-tab',parseInt(t.dataset.mod)===m);
+  });
+  const timerSec=m===2?16:4;
+  $('timer-label').textContent=timerSec+' sec';
+  const testBtn=$('btn-mode-test');
+  if(S.testResults[m]){
+    testBtn.classList.add('disabled');
+    testBtn.innerHTML='Test<small>Completed ✔</small>';
+  }else{
+    testBtn.classList.remove('disabled');
+    testBtn.innerHTML='Test<small>One attempt only</small>';
+  }
+  const descs={
+    1:{title:"Module 1: A / L / SE Classification",text:"Classify each account as <strong>Asset</strong>, <strong>Liability</strong>, or <strong>Stockholders' Equity</strong>.<br>Remember: A = L + SE. Revenue, Expenses, and Dividends all fall under Stockholders' Equity because they affect Retained Earnings."},
+    2:{title:"Module 2: Transaction Effect Analysis",text:"For each transaction, determine whether the two given accounts <strong>Increase</strong> or <strong>Decrease</strong>.<br>Both selections must be correct to earn the point."},
+    3:{title:"Module 3: Normal Balance (Debit / Credit)",text:"Select the <strong>normal balance</strong> (Debit or Credit) for each account.<br><em>Rule:</em> LEFT side of equation (Assets) → Debit &nbsp;|&nbsp; RIGHT side (Liabilities, SE) → Credit<br><em>Exception:</em> Expenses &amp; Dividends are contra-equity → Debit normal balance."}
+  };
+  $('mod-desc').innerHTML='<h3>'+descs[m].title+'</h3><p>'+descs[m].text+'</p>';
+  selectMode(S.mode);
+  showStartScreen();
+}
+
+function selectMode(mode){
+  S.mode=mode;
+  document.querySelectorAll('.mode-btn').forEach(b=>{
+    b.classList.toggle('active-mode',b.dataset.mode===mode);
+  });
+  showStartScreen();
+}
+
+function showStartScreen(){
+  $('q-area').style.display='none';
+  $('summary-area').style.display='none';
+  $('start-area').style.display='block';
+  const pool=S.mod===2?TRANSACTIONS:ACCOUNTS;
+  const n=Math.min(pool.length,50);
+  const modeLabels={practice:'Practice (no timer)',['practice-timer']:'Practice + Timer',test:'Test'};
+  $('start-title').textContent=modeLabels[S.mode];
+  $('start-desc').textContent=n+' questions, randomly ordered.'+
+    (S.mode==='test'?' One attempt only — results recorded.':'');
+  if(S.mode==='test'&&S.testResults[S.mod]){
+    $('start-desc').textContent='You have already completed this test. Score: '+S.testResults[S.mod].score+'/'+S.testResults[S.mod].total;
+    $('btn-go').style.display='none';
+  }else{
+    $('btn-go').style.display='';
+  }
+}
+
+// ====================== SESSION ======================
+function startSession(){
+  if(S.mode==='test'){
+    $('modal').classList.add('show');
+    return;
+  }
+  beginSession();
+}
+function closeModal(){$('modal').classList.remove('show');}
+function confirmTest(){
+  closeModal();
+  beginSession();
+}
+
+function beginSession(){
+  const pool=S.mod===2?shuffle(TRANSACTIONS):shuffle(ACCOUNTS);
+  S.questions=pool.slice(0,Math.min(pool.length,50));
+  if(S.mod===2){
+    S.questions=S.questions.map(q=>{
+      if(Math.random()>0.5)return{...q,a1:q.a2,e1:q.e2,a2:q.a1,e2:q.e1,desc:q.desc,expl:q.expl};
+      return{...q};
+    });
+  }
+  S.qi=0;S.score=0;S.total=S.questions.length;
+  S.testStartTime=new Date();
+  $('start-area').style.display='none';
+  $('summary-area').style.display='none';
+  $('q-area').style.display='block';
+  showQuestion();
+}
+
+// ====================== QUESTION ======================
+function showQuestion(){
+  S.answered=false;
+  S.txnSelections={a1:null,a2:null};
+  $('q-num').textContent='Q '+(S.qi+1)+' / '+S.total;
+  $('q-score').textContent='Score: '+S.score+' / '+S.qi;
+  $('feedback').className='feedback';
+  $('feedback').style.display='none';
+  $('btn-next').className='btn-next';
+  const q=S.questions[S.qi];
+  const body=$('q-body');
+  const hasTimer=S.mode!=='practice';
+  $('timer-wrap').classList.toggle('hidden',!hasTimer);
+  if(S.mod===1)renderMod1(q,body);
+  else if(S.mod===2)renderMod2(q,body);
+  else renderMod3(q,body);
+  if(hasTimer)startTimer(S.mod===2?16:4);
+}
+
+function renderMod1(q,body){
+  body.innerHTML='<div class="q-prompt">'+q.name+'</div><div class="ans-row"></div>';
+  const row=body.querySelector('.ans-row');
+  ["Asset","Liability","Stockholders' Equity"].forEach(ans=>{
+    const btn=document.createElement('button');
+    btn.className='ans-btn';
+    btn.dataset.ans=ans;
+    btn.textContent=ans;
+    btn.onclick=()=>handleAnswer(ans);
+    row.appendChild(btn);
+  });
+}
+
+function renderMod3(q,body){
+  body.innerHTML='<div class="q-prompt">'+q.name+'</div><div class="ans-row"></div>';
+  const row=body.querySelector('.ans-row');
+  ["Debit","Credit"].forEach(ans=>{
+    const btn=document.createElement('button');
+    btn.className='ans-btn';
+    btn.dataset.ans=ans;
+    btn.textContent=ans;
+    btn.onclick=()=>handleAnswer(ans);
+    row.appendChild(btn);
+  });
+}
+
+function renderMod2(q,body){
+  body.innerHTML='<div class="q-transaction"></div><div class="txn-accounts"></div>';
+  body.querySelector('.q-transaction').textContent=q.desc;
+  const wrap=body.querySelector('.txn-accounts');
+  [1,2].forEach(i=>{
+    const acctName=i===1?q.a1:q.a2;
+    const card=document.createElement('div');
+    card.className='txn-acct-card';
+    card.innerHTML='<div class="acct-name"></div><div class="effect-btns"></div>';
+    card.querySelector('.acct-name').textContent=acctName;
+    const btns=card.querySelector('.effect-btns');
+    [{eff:"Increase",icon:"▲"},{eff:"Decrease",icon:"▼"}].forEach(o=>{
+      const btn=document.createElement('button');
+      btn.className='effect-btn';
+      btn.dataset.eff=o.eff;
+      btn.textContent=o.icon+" "+o.eff;
+      btn.onclick=()=>selectEffect(i,o.eff);
+      btns.appendChild(btn);
+    });
+    wrap.appendChild(card);
+  });
+}
+
+function selectEffect(acct,eff){
+  if(S.answered)return;
+  if(acct===1)S.txnSelections.a1=eff; else S.txnSelections.a2=eff;
+  const cards=document.querySelectorAll('.txn-acct-card');
+  const card=cards[acct-1];
+  card.querySelectorAll('.effect-btn').forEach(b=>{
+    b.classList.toggle('sel',b.dataset.eff===eff);
+  });
+  if(S.txnSelections.a1&&S.txnSelections.a2){
+    setTimeout(()=>{if(!S.answered)handleTxnAnswer();},300);
+  }
+}
+
+// ====================== ANSWER HANDLING ======================
+function handleAnswer(ans){
+  if(S.answered)return;
+  S.answered=true;
+  stopTimer();
+  const q=S.questions[S.qi];
+  let correct,correctAns,explanation;
+  if(S.mod===1){
+    correctAns=q.cls;
+    correct=(ans===q.cls);
+    explanation=buildClsExplanation(q);
+  }else{
+    correctAns=q.nb;
+    correct=(ans===q.nb);
+    explanation=buildNbExplanation(q);
+  }
+  if(correct)S.score++;
+  document.querySelectorAll('.ans-btn').forEach(b=>{
+    b.classList.add('disabled');
+    if(b.dataset.ans===correctAns)b.classList.add('sel');
+  });
+  showFeedback(correct,explanation);
+}
+
+function handleTxnAnswer(){
+  if(S.answered)return;
+  S.answered=true;
+  stopTimer();
+  const q=S.questions[S.qi];
+  const c1=(S.txnSelections.a1===q.e1);
+  const c2=(S.txnSelections.a2===q.e2);
+  const correct=c1&&c2;
+  if(correct)S.score++;
+  document.querySelectorAll('.effect-btn').forEach(b=>b.classList.add('disabled'));
+  let detail='';
+  if(!c1)detail+=q.a1+': correct answer is '+q.e1+'. ';
+  if(!c2)detail+=q.a2+': correct answer is '+q.e2+'. ';
+  showFeedback(correct,(correct?'':detail)+q.expl);
+}
+
+function handleTimeout(){
+  if(S.answered)return;
+  S.answered=true;
+  const q=S.questions[S.qi];
+  let explanation;
+  if(S.mod===1){
+    explanation=buildClsExplanation(q);
+    document.querySelectorAll('.ans-btn').forEach(b=>{b.classList.add('disabled');if(b.dataset.ans===q.cls)b.classList.add('sel');});
+  }else if(S.mod===3){
+    explanation=buildNbExplanation(q);
+    document.querySelectorAll('.ans-btn').forEach(b=>{b.classList.add('disabled');if(b.dataset.ans===q.nb)b.classList.add('sel');});
+  }else{
+    explanation=q.a1+': '+q.e1+'. '+q.a2+': '+q.e2+'. '+q.expl;
+    document.querySelectorAll('.effect-btn').forEach(b=>b.classList.add('disabled'));
+  }
+  showFeedback(false,"Time's up! "+explanation);
+}
+
+// ====================== EXPLANATIONS ======================
+function buildClsExplanation(q){
+  const n=q.name, h=q.hint, SE="Stockholders' Equity";
+  if(q.sub==="asset")return n+" is an Asset — "+h+". Assets are resources the company owns. LEFT side of the equation: A = L + SE.";
+  if(q.sub==="liability")return n+" is a Liability — "+h+". Liabilities are obligations the company owes. RIGHT side: A = L + SE.";
+  if(q.sub==="equity")return n+" is "+SE+" — "+h+". It represents the owners' claim. RIGHT side: A = L + SE.";
+  if(q.sub==="revenue")return n+" is "+SE+" — "+h+". Revenue increases Retained Earnings, which is part of SE.";
+  if(q.sub==="expense")return n+" is "+SE+" — "+h+". Expenses decrease Retained Earnings, which is part of SE.";
+  if(q.sub==="dividend")return n+" is "+SE+" — "+h+". Dividends decrease Retained Earnings (NOT an expense!).";
+  return "";
+}
+
+function buildNbExplanation(q){
+  const n=q.name, nb=q.nb;
+  let rule='';
+  if(q.sub==='asset')rule=n+' is an Asset (LEFT side of equation) → Debit normal balance.';
+  else if(q.sub==='liability')rule=n+' is a Liability (RIGHT side of equation) → Credit normal balance.';
+  else if(q.sub==='equity')rule=n+' is SE (RIGHT side of equation) → Credit normal balance.';
+  else if(q.sub==='revenue')rule=n+' is Revenue (increases SE on the RIGHT) → Credit normal balance.';
+  else if(q.sub==='expense')rule=n+' is an Expense (contra-equity, reduces SE) → Debit normal balance.';
+  else if(q.sub==='dividend')rule=n+' is Dividends (contra-equity, reduces SE) → Debit normal balance.';
+  return rule+'\n\nRule: LEFT side (Assets) = Debit | RIGHT side (L, SE) = Credit | Exceptions: Expenses & Dividends = Debit.';
+}
+
+// ====================== FEEDBACK ======================
+function showFeedback(correct,text){
+  const fb=$('feedback');
+  fb.className='feedback show '+(correct?'correct':'wrong');
+  fb.style.display='block';
+  $('fb-icon').textContent=correct?'✔ Correct!':'✘ Incorrect';
+  $('fb-text').textContent=text;
+  const card=$('q-area');
+  card.classList.remove('shake','pulse');
+  void card.offsetWidth;
+  card.classList.add(correct?'pulse':'shake');
+  if(S.mode==='test'){
+    setTimeout(nextQuestion,2000);
+  }else{
+    $('btn-next').className='btn-next show';
+  }
+}
+
+function nextQuestion(){
+  $('btn-next').className='btn-next';
+  S.qi++;
+  if(S.qi>=S.total){finishSession();return;}
+  showQuestion();
+}
+
+// ====================== TIMER ======================
+function startTimer(sec){
+  S.timerDuration=sec;
+  S.timerRemaining=sec;
+  updateTimerBar();
+  S.timerInterval=setInterval(()=>{
+    S.timerRemaining-=0.1;
+    if(S.timerRemaining<=0){S.timerRemaining=0;stopTimer();handleTimeout();}
+    updateTimerBar();
+  },100);
+}
+function stopTimer(){if(S.timerInterval){clearInterval(S.timerInterval);S.timerInterval=null;}}
+function updateTimerBar(){
+  const pct=(S.timerRemaining/S.timerDuration)*100;
+  const fill=$('timer-fill');
+  fill.style.width=pct+'%';
+  if(pct>60)fill.style.background='var(--timer-ok)';
+  else if(pct>30)fill.style.background='var(--timer-warn)';
+  else fill.style.background='var(--timer-danger)';
+  $('timer-text').textContent=Math.ceil(S.timerRemaining)+'s';
+}
+
+// ====================== SESSION END ======================
+function finishSession(){
+  stopTimer();
+  $('q-area').style.display='none';
+  $('summary-area').style.display='block';
+  const pct=Math.round(S.score/S.total*100);
+  const el=$('sum-score');
+  el.textContent=S.score+' / '+S.total+' ('+pct+'%)';
+  el.className='summary-score '+(pct>=70?'great':pct>=50?'ok':'low');
+  $('sum-detail').textContent=S.mod===2?'Transaction Effect Analysis complete.':
+    S.mod===1?'A/L/SE Classification complete.':'Normal Balance quiz complete.';
+  let btns='';
+  if(S.mode==='test'){
+    const result={score:S.score,total:S.total,startTime:S.testStartTime.toISOString(),endTime:new Date().toISOString()};
+    S.testResults[S.mod]=result;
+    localStorage.setItem(lsKey('module'+S.mod),JSON.stringify(result));
+    updateBadges();
+    if(S.testResults[1]&&S.testResults[2]&&S.testResults[3]){
+      btns='<button style="background:var(--correct);color:#fff" onclick="generateAndShowResults()">View Results &amp; Get Encrypted Code</button>';
+    }else{
+      const remaining=[];
+      if(!S.testResults[1])remaining.push('Module 1 (A/L/SE)');
+      if(!S.testResults[2])remaining.push('Module 2 (Transactions)');
+      if(!S.testResults[3])remaining.push('Module 3 (Normal Balance)');
+      btns='<p style="color:var(--text2);margin-bottom:12px">Remaining: '+remaining.join(', ')+'</p>'+
+        '<button style="background:var(--m1);color:#fff" onclick="backToModules()">Continue to Next Module</button>';
+    }
+  }else{
+    btns='<button style="background:var(--m1);color:#fff" onclick="beginSession()">Practice Again</button>'+
+      '<button style="background:var(--border);color:var(--text)" onclick="backToModules()">Back</button>';
+  }
+  $('sum-btns').innerHTML=btns;
+}
+
+function backToModules(){
+  showStartScreen();
+  selectModule(S.mod);
+}
+
+// ====================== ENCRYPTION ======================
+const _EK=['HCOB','2026','Exam1','Practice'];
+
+async function encryptData(plaintext){
+  const passphrase=_EK.join('');
+  const enc=new TextEncoder();
+  const salt=crypto.getRandomValues(new Uint8Array(16));
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const km=await crypto.subtle.importKey('raw',enc.encode(passphrase),'PBKDF2',false,['deriveKey']);
+  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:100000,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['encrypt']);
+  const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,enc.encode(plaintext));
+  const buf=new Uint8Array(salt.length+iv.length+new Uint8Array(ct).length);
+  buf.set(salt);buf.set(iv,salt.length);buf.set(new Uint8Array(ct),salt.length+iv.length);
+  return btoa(String.fromCharCode(...buf));
+}
+
+async function generateAndShowResults(){
+  saveTime();
+  const totalMin=Math.round(getTotalTime()/60000);
+  const data={
+    version:1,
+    studentName:S.name,
+    studentId:S.id,
+    module1:S.testResults[1],
+    module2:S.testResults[2],
+    module3:S.testResults[3],
+    totalPracticeMinutes:totalMin,
+    submittedAt:new Date().toISOString()
+  };
+  try{
+    const encrypted=await encryptData(JSON.stringify(data));
+    S.encryptedResult=encrypted;
+    localStorage.setItem(lsKey('encrypted'),encrypted);
+    showResultsScreen();
+  }catch(e){
+    alert('Encryption error. Please use Chrome or Edge browser.\n'+e.message);
+  }
+}
+
+function showResultsScreen(){
+  showScreen('screen-results');
+  const tbody=$('results-tbody');
+  tbody.innerHTML='';
+  const labels={1:'A/L/SE Classification',2:'Transaction Effects',3:'Normal Balance (Dr/Cr)'};
+  for(let m=1;m<=3;m++){
+    const r=S.testResults[m];
+    if(!r)continue;
+    const pct=Math.round(r.score/r.total*100);
+    const cls=pct>=70?'great':pct>=50?'ok':'low';
+    tbody.innerHTML+='<tr><td>'+labels[m]+'</td><td class="score-cell '+cls+'">'+r.score+'/'+r.total+'</td><td class="score-cell '+cls+'">'+pct+'%</td><td>'+fmtClock(new Date(r.startTime))+'</td><td>'+fmtClock(new Date(r.endTime))+'</td></tr>';
+  }
+  const totalMin=Math.round(getTotalTime()/60000);
+  $('results-time').textContent='Total Practice Time: '+fmtTime(getTotalTime())+' ('+totalMin+' min)';
+  $('encrypted-text').value=S.encryptedResult||'';
+}
+
+function copyResult(){
+  const ta=$('encrypted-text');
+  ta.select();
+  document.execCommand('copy');
+  const btn=$('btn-copy');
+  btn.textContent='Copied!';
+  btn.classList.add('copied');
+  setTimeout(()=>{btn.textContent='Copy to Clipboard';btn.classList.remove('copied');},2000);
+}
+
+// ====================== INIT ======================
+(function(){
+  if(!window.crypto||!window.crypto.subtle){
+    $('screen-login').innerHTML='<div class="login-card"><h1>Browser Not Supported</h1><p class="subtitle">Please use <strong>Chrome</strong> or <strong>Microsoft Edge</strong> to open this tool.<br>Safari and Firefox may not work when opening local HTML files.</p></div>';
+  }
+})();
+</script>
+</body>
+</html>
