@@ -299,6 +299,10 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
     <div class="total-time-display" id="results-time"></div>
     <p style="font-size:.9rem;color:var(--text2);margin-bottom:12px">Copy the encrypted text below and email it to your professor:</p>
     <textarea class="encrypted-area" id="encrypted-text" readonly></textarea>
+    <div id="regen-wrap" style="display:none;margin-bottom:12px">
+      <p style="color:#c0392b;font-size:.9rem;margin:0 0 8px">⚠ Encrypted code was not generated. Click below to retry.</p>
+      <button style="background:#e67e22;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:1rem;cursor:pointer" onclick="regenerateEncrypted()">Regenerate Encrypted Code</button>
+    </div>
     <button class="btn-copy" id="btn-copy" onclick="copyResult()">Copy to Clipboard</button>
     <div class="email-info">
       <strong>Email to:</strong> sapark@augusta.edu<br>
@@ -913,6 +917,32 @@ function showResultsScreen(){
   const totalMin=Math.round(getTotalTime()/60000);
   $('results-time').textContent='Total Practice Time: '+fmtTime(getTotalTime())+' ('+totalMin+' min)';
   $('encrypted-text').value=S.encryptedResult||'';
+  $('regen-wrap').style.display=S.encryptedResult?'none':'block';
+  $('btn-copy').style.display=S.encryptedResult?'':'none';
+}
+
+async function regenerateEncrypted(){
+  const totalMin=Math.round(getTotalTime()/60000);
+  const data={
+    version:1,
+    studentName:S.name,
+    studentId:S.id,
+    module1:S.testResults[1],
+    module2:S.testResults[2],
+    module3:S.testResults[3],
+    totalPracticeMinutes:totalMin,
+    submittedAt:new Date().toISOString()
+  };
+  try{
+    const encrypted=await encryptData(JSON.stringify(data));
+    S.encryptedResult=encrypted;
+    localStorage.setItem(lsKey('encrypted'),encrypted);
+    $('encrypted-text').value=encrypted;
+    $('regen-wrap').style.display='none';
+    $('btn-copy').style.display='';
+  }catch(e){
+    alert('Encryption failed. Please try Chrome or Edge browser.\n'+e.message);
+  }
 }
 
 function copyResult(){
