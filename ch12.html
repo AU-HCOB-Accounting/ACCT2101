@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 12 – Long-Term Liabilities</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    /* ===== Ch12 Page-specific styles ===== */
+
+    /* Journal Entry visual */
+    .journal-entry {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .journal-entry .je-date {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem;
+    }
+    .journal-entry .je-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.15rem 0;
+    }
+    .journal-entry .je-line.credit .je-acct { padding-left: 2rem; }
+    .journal-entry .je-dr, .journal-entry .je-cr {
+      min-width: 70px;
+      text-align: right;
+      font-weight: 600;
+    }
+    .journal-entry .je-dr { color: #1565c0; }
+    .journal-entry .je-cr { color: #c62828; }
+    .journal-entry .je-narration {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-style: italic;
+      padding-left: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    /* Amortization schedule table */
+    .amort-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+    }
+    .amort-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.6rem 0.8rem;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .amort-table td {
+      padding: 0.5rem 0.8rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .amort-table tr:nth-child(even) { background: var(--bg-light); }
+    .amort-table tr:hover { background: #e3f2fd; }
+    .amort-table .row-highlight {
+      background: #fff3e0 !important;
+      font-weight: 600;
+    }
+    .amort-table td:first-child { font-weight: 600; color: var(--primary); }
+
+    /* Comparison columns */
+    .compare-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .compare-col {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .compare-col h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    /* Ratio card */
+    .ratio-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-top: 4px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow-sm);
+      max-width: 500px;
+    }
+    .ratio-card h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+    }
+    .ratio-card .ratio-formula {
+      background: var(--bg-light);
+      border-radius: 4px;
+      padding: 0.8rem;
+      font-size: 0.95rem;
+      text-align: center;
+      margin: 0.8rem 0;
+      font-family: 'Courier New', monospace;
+    }
+    .ratio-card p {
+      font-size: 0.88rem;
+      text-align: left;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Mortgage breakdown bar */
+    .payment-bar-container {
+      margin: 1.5rem 0;
+    }
+    .payment-bar-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.3rem;
+    }
+    .payment-bar {
+      display: flex;
+      height: 36px;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 0.5rem;
+    }
+    .payment-bar .bar-interest {
+      background: #e57373;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    .payment-bar .bar-principal {
+      background: #4caf50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    /* Bond timeline visual */
+    .bond-timeline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 0;
+      position: relative;
+      margin: 1.5rem 0;
+    }
+    .bond-timeline::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 60px;
+      right: 60px;
+      height: 3px;
+      background: var(--primary);
+      transform: translateY(-50%);
+    }
+    .bt-node {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      min-width: 80px;
+    }
+    .bt-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 2px var(--primary);
+      margin: 0 auto 0.5rem;
+    }
+    .bt-dot.large {
+      width: 24px;
+      height: 24px;
+      background: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+    .bt-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .bt-amount {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 0.2rem;
+    }
+
+    @media (max-width: 768px) {
+      .compare-cols { grid-template-columns: 1fr; }
+      .bond-timeline { flex-wrap: wrap; gap: 1rem; }
+      .bond-timeline::before { display: none; }
+    }
+  </style>
+  <script src="nav.js" defer></script>
+</head>
+<body class="has-sidebar">
+
+<div class="chapter-container">
+
+  <!-- ===== CHAPTER HEADER ===== -->
+  <header class="chapter-header">
+    <div class="chapter-label">Chapter 12</div>
+    <h1 class="chapter-title">Long-Term Liabilities</h1>
+    <p class="chapter-subtitle">Bonds Payable, Long-Term Notes Payable, Mortgages Payable, and Financial Leverage</p>
+  </header>
+
+  <!-- ===== LEARNING OBJECTIVES ===== -->
+  <div class="learning-objectives">
+    <h2>Learning Objectives</h2>
+    <ol>
+      <li>Describe the nature of long-term liabilities and how they are reported on the balance sheet.</li>
+      <li>Explain the fundamental concepts of bonds payable, including issuance, interest payments, and repayment at maturity.</li>
+      <li>Journalize transactions for long-term notes payable and prepare an amortization schedule.</li>
+      <li>Journalize transactions for mortgages payable and understand how fixed payments are allocated between principal and interest.</li>
+      <li>Use the debt to equity ratio to evaluate business performance and financial leverage.</li>
+    </ol>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: INTRODUCTION TO LONG-TERM LIABILITIES             -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-intro">1. What Are Long-Term Liabilities?</h2>
+
+  <p>
+    In <a href="ch11.html">Chapter 11</a>, we examined <strong>current liabilities</strong>&mdash;obligations due
+    within one year or one operating cycle, whichever is longer. Now we turn to the other side of the balance sheet:
+    <strong>long-term liabilities</strong>. These are obligations that extend <em>beyond</em> one year (or one operating
+    cycle) and are reported in the <strong>long-term liability section</strong> of the balance sheet.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <p>
+      <strong>Long-Term Liabilities</strong> &mdash; Liabilities that do <em>not</em> need to be paid within one year
+      or within the entity&rsquo;s operating cycle, whichever is longer. They appear below current liabilities on the
+      balance sheet. The three most common types are:
+    </p>
+    <ol style="margin-top:0.5rem; padding-left:1.5rem;">
+      <li><strong>Bonds Payable</strong></li>
+      <li><strong>Long-Term Notes Payable</strong></li>
+      <li><strong>Mortgages Payable</strong></li>
+    </ol>
+  </div>
+
+  <p>
+    Companies borrow long-term for many reasons: to finance the purchase of property and equipment, to fund expansion
+    projects, or to restructure existing debt. Understanding how these obligations are recorded, paid, and reported is
+    essential to reading any company&rsquo;s financial statements.
+  </p>
+
+  <figure class="figure">
+    <img src="images/ch12/fig12-1.png"
+         alt="Diagram showing three types of long-term liabilities: Bonds Payable, Notes Payable, and Mortgages Payable">
+    <figcaption class="figure-caption">Figure 12-1. Three Types of Long-Term Liabilities</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: BONDS PAYABLE — OVERVIEW                          -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-bonds">2. Bonds Payable: An Overview</h2>
+
+  <p>
+    When a company needs to raise a very large amount of capital, it may issue <strong>bonds</strong>. A bond
+    functions similarly to a promissory note: the issuing company borrows money from investors (bondholders)
+    and promises to repay the principal at a specified <strong>maturity date</strong>, while making periodic
+    <strong>interest payments</strong> along the way.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERMS</div>
+    <p>
+      <strong>Par Value (Face Value)</strong> &mdash; The amount printed on the face of the bond certificate.
+      This is the principal amount the issuer promises to repay at maturity.
+    </p>
+    <p style="margin-top:0.5rem;">
+      <strong>Coupon Rate (Stated Rate)</strong> &mdash; The interest rate printed on the bond certificate.
+      It determines the amount of interest the issuer will pay to bondholders each period.
+    </p>
+    <p style="margin-top:0.5rem;">
+      <strong>Maturity Date</strong> &mdash; The date on which the bond issuer must repay the full par value
+      to the bondholders.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">How Bond Issuance Works</h3>
+
+  <p>
+    Consider a company that issues a bond with a <strong>par value of $10,000,000</strong> and a
+    <strong>coupon rate of 6%</strong>. At the time of issuance, the company receives $10,000,000 in cash
+    from investors. The journal entry is straightforward:
+  </p>
+
+  <div class="journal-entry">
+    <div class="je-date">At the Date of Issuance</div>
+    <div class="je-line">
+      <span class="je-acct">Cash</span>
+      <span class="je-dr">10,000,000</span>
+      <span class="je-cr"></span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Bonds Payable</span>
+      <span class="je-dr"></span>
+      <span class="je-cr">10,000,000</span>
+    </div>
+    <div class="je-narration">To record issuance of 6% bonds at par value.</div>
+  </div>
+
+  <h3 class="subsection-title">Periodic Interest Payments</h3>
+
+  <p>
+    After issuance, the company must make periodic interest payments to bondholders. The interest amount is
+    computed as:
+  </p>
+
+  \[
+    \text{Interest Payment} = \text{Par Value} \times \text{Coupon Rate}
+  \]
+
+  <p>
+    In our example: \( \$10{,}000{,}000 \times 6\% = \$600{,}000 \) per period. Each time the company makes
+    an interest payment, it records:
+  </p>
+
+  <div class="journal-entry">
+    <div class="je-date">Each Interest Payment Date</div>
+    <div class="je-line">
+      <span class="je-acct">Interest Expense</span>
+      <span class="je-dr">600,000</span>
+      <span class="je-cr"></span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Cash</span>
+      <span class="je-dr"></span>
+      <span class="je-cr">600,000</span>
+    </div>
+    <div class="je-narration">To record periodic interest payment to bondholders.</div>
+  </div>
+
+  <h3 class="subsection-title">Visualizing the Bond&rsquo;s Life</h3>
+
+  <p>
+    The timeline below illustrates the cash flows over a bond&rsquo;s life. The issuer receives cash at
+    issuance, pays interest each period, and repays the principal plus the final interest payment at maturity.
+  </p>
+
+  <figure class="figure">
+    <img src="images/ch12/fig12-5.png"
+         alt="Timeline showing bond cash flows: Receive $10M at issuance, pay $600K interest each period, pay $10.6M at maturity">
+    <figcaption class="figure-caption">Figure 12-5. Cash Flows Over a Bond&rsquo;s Life</figcaption>
+  </figure>
+
+  <h3 class="subsection-title">Repayment at Maturity</h3>
+
+  <p>
+    At the maturity date, the company must repay the full face value of the bond <em>plus</em> the final
+    interest installment. The journal entry at maturity:
+  </p>
+
+  <div class="journal-entry">
+    <div class="je-date">At Maturity Date</div>
+    <div class="je-line">
+      <span class="je-acct">Interest Expense</span>
+      <span class="je-dr">600,000</span>
+      <span class="je-cr"></span>
+    </div>
+    <div class="je-line">
+      <span class="je-acct">Bonds Payable</span>
+      <span class="je-dr">10,000,000</span>
+      <span class="je-cr"></span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Cash</span>
+      <span class="je-dr"></span>
+      <span class="je-cr">10,600,000</span>
+    </div>
+    <div class="je-narration">To record final interest payment and repayment of bond principal at maturity.</div>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      In this introductory example, we assumed the <strong>coupon rate equals the market interest rate</strong>,
+      so the bond was issued at <em>exactly</em> par value. In practice, if the market rate differs from the
+      coupon rate, the bond may be issued at a <strong>premium</strong> (above par) or a <strong>discount</strong>
+      (below par). These more complex scenarios&mdash;including premium/discount amortization&mdash;are covered
+      in depth in upper-level accounting courses.
+    </p>
+    <p style="margin-top:0.5rem;">
+      For now, focus on the core concept: companies issue bonds to raise large sums of capital, record
+      the cash received and the liability at issuance, and make periodic interest payments until the principal
+      is repaid at maturity.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: LONG-TERM NOTES PAYABLE                           -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-notes">3. Long-Term Notes Payable</h2>
+
+  <p>
+    A <strong>long-term note payable</strong> functions similarly to a bond: the company borrows money and
+    pays interest. The key difference is in size and structure. While bonds are typically issued in large
+    denominations to many investors, notes payable represent a direct borrowing arrangement, usually with
+    a single lender such as a bank.
+  </p>
+
+  <p>
+    There are two common repayment structures for notes payable:
+  </p>
+  <ul>
+    <li><strong>Lump-sum payment at maturity</strong> &mdash; The entire principal is repaid on the
+      maturity date (similar to a bond).</li>
+    <li><strong>Serial installment payments</strong> &mdash; The principal is paid down gradually through
+      a series of periodic payments over the life of the note.</li>
+  </ul>
+
+  <p>
+    Regardless of the repayment structure, the company must always <strong>accrue interest expense</strong>
+    over time, because interest accrues on the outstanding balance.
+  </p>
+
+  <h3 class="subsection-title">Issuance of a Long-Term Note</h3>
+
+  <p>
+    At the date of issuance, the journal entry is identical to that of a bond: the borrower receives cash
+    and records the liability.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE</div>
+    <p>
+      On <strong>December 31, 2026</strong>, Smart Touch Learning signs a <strong>$20,000 note payable</strong>.
+      The note is due in <strong>four annual installments of $5,000</strong>, plus <strong>6% interest</strong>
+      on the unpaid balance, to be paid each December 31.
+    </p>
+  </div>
+
+  <div class="journal-entry">
+    <div class="je-date">Dec. 31, 2026</div>
+    <div class="je-line">
+      <span class="je-acct">Cash</span>
+      <span class="je-dr">20,000</span>
+      <span class="je-cr"></span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Notes Payable</span>
+      <span class="je-dr"></span>
+      <span class="je-cr">20,000</span>
+    </div>
+    <div class="je-narration">To record issuance of a 4-year, 6% note payable.</div>
+  </div>
+
+  <h3 class="subsection-title" id="sec-amort">Understanding the Amortization Schedule</h3>
+
+  <p>
+    An <strong>amortization schedule</strong> is a table that details how each loan payment is allocated
+    between <strong>principal</strong> (paying down the debt) and <strong>interest</strong> (the cost of
+    borrowing). It also tracks the beginning and ending balances of the loan for each period.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY FORMULA</div>
+    <p>
+      Interest is always computed on the <strong>beginning balance</strong> of the period:
+    </p>
+    \[
+      \text{Interest Expense} = \text{Beginning Balance} \times \text{Interest Rate} \times \text{Time}
+    \]
+    <p style="margin-top:0.5rem;">
+      For an annual note with annual payments, <em>Time</em> = 1 year, so the formula simplifies to
+      Beginning Balance &times; Interest Rate.
+    </p>
+  </div>
+
+  <p>
+    Let&rsquo;s build the amortization schedule for the Smart Touch Learning note. The company repays
+    $5,000 of principal each year, plus interest computed on the beginning balance at 6%.
+  </p>
+
+  <table class="amort-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Beginning<br>Balance</th>
+        <th>Interest<br>Expense (6%)</th>
+        <th>Principal<br>Payment</th>
+        <th>Total Cash<br>Payment</th>
+        <th>Ending<br>Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Dec. 31, 2026</td>
+        <td colspan="4" style="text-align:center; color:var(--text-light); font-style:italic;">Note issued</td>
+        <td>$20,000</td>
+      </tr>
+      <tr class="row-highlight">
+        <td>Dec. 31, 2027</td>
+        <td>$20,000</td>
+        <td>$1,200</td>
+        <td>$5,000</td>
+        <td>$6,200</td>
+        <td>$15,000</td>
+      </tr>
+      <tr>
+        <td>Dec. 31, 2028</td>
+        <td>$15,000</td>
+        <td>$900</td>
+        <td>$5,000</td>
+        <td>$5,900</td>
+        <td>$10,000</td>
+      </tr>
+      <tr>
+        <td>Dec. 31, 2029</td>
+        <td>$10,000</td>
+        <td>$600</td>
+        <td>$5,000</td>
+        <td>$5,600</td>
+        <td>$5,000</td>
+      </tr>
+      <tr>
+        <td>Dec. 31, 2030</td>
+        <td>$5,000</td>
+        <td>$300</td>
+        <td>$5,000</td>
+        <td>$5,300</td>
+        <td>$0</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Notice that the <strong>total cash payment decreases</strong> each year even though the principal
+      payment stays at $5,000. Why? Because the interest expense is computed on the <em>beginning balance</em>,
+      which gets smaller each year. As you pay down the principal, you owe less interest.
+    </p>
+    <p style="margin-top:0.5rem;">
+      Also, be careful with dates: the ending balance on December 31, 2027, is <strong>exactly</strong> the
+      beginning balance on January 1, 2028. These are two names for the same number at the same point in time.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">How to Read the Amortization Schedule</h3>
+
+  <p>
+    Let&rsquo;s walk through the first year step by step:
+  </p>
+
+  <ol>
+    <li><strong>Beginning Balance</strong>: On January 1, 2027, the outstanding loan is $20,000.</li>
+    <li><strong>Interest Expense</strong>: \( \$20{,}000 \times 6\% = \$1{,}200 \). This represents the
+      cost of borrowing $20,000 for one year at 6%.</li>
+    <li><strong>Principal Payment</strong>: The company agreed to pay $5,000 toward the principal each year.</li>
+    <li><strong>Total Cash Payment</strong>: \( \$5{,}000 + \$1{,}200 = \$6{,}200 \). This is the total
+      amount the company pays on December 31, 2027.</li>
+    <li><strong>Ending Balance</strong>: \( \$20{,}000 - \$5{,}000 = \$15{,}000 \). Only the principal
+      payment reduces the outstanding balance&mdash;interest does not.</li>
+  </ol>
+
+  <p>
+    For the second year, we start with the new beginning balance of $15,000:
+    \( \$15{,}000 \times 6\% = \$900 \) in interest expense, and the total cash payment is
+    \( \$5{,}000 + \$900 = \$5{,}900 \). The pattern continues until the note is fully paid off.
+  </p>
+
+  <h3 class="subsection-title">Journalizing the Installment Payment</h3>
+
+  <p>
+    When Smart Touch Learning makes its first installment payment on December 31, 2027, the journal entry
+    records three things: (1) the reduction of the note&rsquo;s principal, (2) the interest expense for
+    the period, and (3) the total cash paid.
+  </p>
+
+  <div class="journal-entry">
+    <div class="je-date">Dec. 31, 2027 — First Installment Payment</div>
+    <div class="je-line">
+      <span class="je-acct">Interest Expense</span>
+      <span class="je-dr">1,200</span>
+      <span class="je-cr"></span>
+    </div>
+    <div class="je-line">
+      <span class="je-acct">Notes Payable</span>
+      <span class="je-dr">5,000</span>
+      <span class="je-cr"></span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Cash</span>
+      <span class="je-dr"></span>
+      <span class="je-cr">6,200</span>
+    </div>
+    <div class="je-narration">To record first annual installment: $5,000 principal + $1,200 interest.</div>
+  </div>
+
+  <p>
+    After this entry, the Notes Payable balance decreases from $20,000 to $15,000. The same journal entry
+    structure is repeated for each subsequent payment, with the interest amount declining each year as
+    shown in the amortization schedule.
+  </p>
+
+  <figure class="figure">
+    <img src="images/ch12/fig12-2.png"
+         alt="Illustration of notes payable amortization showing declining interest and constant principal payments">
+    <figcaption class="figure-caption">Figure 12-2. Notes Payable: How Each Payment Is Allocated</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: MORTGAGES PAYABLE                                  -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-mortgage">4. Mortgages Payable</h2>
+
+  <p>
+    A <strong>mortgage payable</strong> is a specific type of long-term debt that is
+    <strong>secured by a specific asset</strong>&mdash;typically real property such as land or a building.
+    Mortgages are fundamentally similar to notes payable, but they differ in two important ways:
+  </p>
+
+  <div class="compare-cols">
+    <div class="compare-col">
+      <h4 style="color:var(--primary);">Long-Term Notes Payable</h4>
+      <ul style="font-size:0.88rem; padding-left:1.2rem;">
+        <li>Generally <strong>unsecured</strong> (not backed by a specific asset)</li>
+        <li>Payment amounts may <strong>vary</strong> from period to period</li>
+        <li>Typically shorter terms (2&ndash;10 years)</li>
+      </ul>
+    </div>
+    <div class="compare-col">
+      <h4 style="color:var(--accent);">Mortgages Payable</h4>
+      <ul style="font-size:0.88rem; padding-left:1.2rem;">
+        <li><strong>Secured</strong> by a specific asset (building, land, etc.)</li>
+        <li><strong>Fixed payment amount</strong> each period</li>
+        <li>Longer terms (15&ndash;30 years typical)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <p>
+      <strong>Mortgage Payable</strong> &mdash; A long-term debt obligation that is secured by a
+      <em>security interest</em> in specific property. The borrower makes equal periodic payments (typically
+      monthly) over an extended term. If the borrower defaults, the lender can seize the pledged property.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Recording a Mortgage at Inception</h3>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE</div>
+    <p>
+      On <strong>December 31, 2026</strong>, Smart Touch Learning purchases a building for
+      <strong>$150,000</strong>. They pay <strong>$49,925 in cash</strong> and sign a <strong>30-year
+      mortgage</strong> for the remaining <strong>$100,075</strong> at <strong>6% annual interest</strong>,
+      payable in <strong>360 monthly payments</strong> (30 &times; 12) of <strong>$599.98</strong> each,
+      beginning January 31, 2027.
+    </p>
+  </div>
+
+  <p>
+    At the time of acquisition, Smart Touch Learning records the full cost of the building and shows
+    how the purchase was financed:
+  </p>
+
+  <div class="journal-entry">
+    <div class="je-date">Dec. 31, 2026</div>
+    <div class="je-line">
+      <span class="je-acct">Building</span>
+      <span class="je-dr">150,000</span>
+      <span class="je-cr"></span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Cash</span>
+      <span class="je-dr"></span>
+      <span class="je-cr">49,925</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Mortgage Payable</span>
+      <span class="je-dr"></span>
+      <span class="je-cr">100,075</span>
+    </div>
+    <div class="je-narration">To record purchase of building: $49,925 down payment + $100,075 mortgage.</div>
+  </div>
+
+  <h3 class="subsection-title">The Mortgage Amortization Schedule</h3>
+
+  <p>
+    A mortgage amortization schedule works exactly like the notes payable schedule, except the
+    <strong>total payment is fixed</strong> each period. Because the total payment remains constant while
+    the outstanding balance decreases, the allocation between interest and principal shifts over time:
+  </p>
+
+  <ul>
+    <li><strong>Interest portion decreases</strong> as the outstanding balance gets smaller.</li>
+    <li><strong>Principal portion increases</strong> because more of each fixed payment goes toward
+      reducing the debt.</li>
+  </ul>
+
+  <p>
+    The interest for each month is computed using the <strong>monthly interest rate</strong>:
+  </p>
+
+  \[
+    \text{Monthly Interest} = \text{Beginning Balance} \times \frac{\text{Annual Rate}}{12}
+  \]
+
+  <p>
+    Let&rsquo;s examine the first few payments of Smart Touch Learning&rsquo;s mortgage:
+  </p>
+
+  <table class="amort-table">
+    <thead>
+      <tr>
+        <th>Payment<br>Date</th>
+        <th>Beginning<br>Balance</th>
+        <th>Fixed Monthly<br>Payment</th>
+        <th>Interest<br>Expense</th>
+        <th>Principal<br>Reduction</th>
+        <th>Ending<br>Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-highlight">
+        <td>Jan. 31, 2027</td>
+        <td>$100,075.00</td>
+        <td>$599.98</td>
+        <td>$500.38</td>
+        <td>$99.60</td>
+        <td>$99,975.40</td>
+      </tr>
+      <tr>
+        <td>Feb. 28, 2027</td>
+        <td>$99,975.40</td>
+        <td>$599.98</td>
+        <td>$499.88</td>
+        <td>$100.10</td>
+        <td>$99,875.30</td>
+      </tr>
+      <tr>
+        <td>Mar. 31, 2027</td>
+        <td>$99,875.30</td>
+        <td>$599.98</td>
+        <td>$499.38</td>
+        <td>$100.60</td>
+        <td>$99,774.70</td>
+      </tr>
+      <tr>
+        <td>&hellip;</td>
+        <td>&hellip;</td>
+        <td>$599.98</td>
+        <td>&darr;</td>
+        <td>&uarr;</td>
+        <td>&hellip;</td>
+      </tr>
+      <tr>
+        <td>Payment 360</td>
+        <td>&asymp; $597</td>
+        <td>$599.98</td>
+        <td>&asymp; $3</td>
+        <td>&asymp; $597</td>
+        <td>$0.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="subsection-title">Visualizing the Payment Shift</h3>
+
+  <p>
+    Notice how the proportion of each payment allocated to interest versus principal changes dramatically
+    over the life of the mortgage:
+  </p>
+
+  <div class="payment-bar-container">
+    <div class="payment-bar-label">Payment 1 (Jan. 2027) &mdash; $599.98 total</div>
+    <div class="payment-bar">
+      <div class="bar-interest" style="width:83.4%;">Interest $500.38 (83%)</div>
+      <div class="bar-principal" style="width:16.6%;">Principal $99.60 (17%)</div>
+    </div>
+
+    <div class="payment-bar-label">Payment 180 (Midpoint, ~15 years) &mdash; $599.98 total</div>
+    <div class="payment-bar">
+      <div class="bar-interest" style="width:50%;">Interest ≈ $300</div>
+      <div class="bar-principal" style="width:50%;">Principal ≈ $300</div>
+    </div>
+
+    <div class="payment-bar-label">Payment 360 (Final) &mdash; $599.98 total</div>
+    <div class="payment-bar">
+      <div class="bar-interest" style="width:0.5%;">≈$3</div>
+      <div class="bar-principal" style="width:99.5%;">Principal ≈ $597 (99%+)</div>
+    </div>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      In the early years of a mortgage, the <strong>vast majority</strong> of each payment goes toward
+      interest, not principal. In our example, only $99.60 out of the $599.98 first payment actually
+      reduces the debt&mdash;that&rsquo;s less than 17%! This is why it takes so long to build equity
+      in a home during the early years of a mortgage.
+    </p>
+    <p style="margin-top:0.5rem;">
+      As the loan matures, this relationship gradually reverses: by the final payment, almost the
+      entire amount goes to principal.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Journalizing a Mortgage Payment</h3>
+
+  <p>
+    The journal entry for a mortgage payment has the <strong>exact same structure</strong> as a notes
+    payable installment: debit Interest Expense and Mortgage Payable, credit Cash.
+  </p>
+
+  <div class="journal-entry">
+    <div class="je-date">Jan. 31, 2027 — First Mortgage Payment</div>
+    <div class="je-line">
+      <span class="je-acct">Interest Expense</span>
+      <span class="je-dr">500.38</span>
+      <span class="je-cr"></span>
+    </div>
+    <div class="je-line">
+      <span class="je-acct">Mortgage Payable</span>
+      <span class="je-dr">99.60</span>
+      <span class="je-cr"></span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Cash</span>
+      <span class="je-dr"></span>
+      <span class="je-cr">599.98</span>
+    </div>
+    <div class="je-narration">To record first monthly mortgage payment.</div>
+  </div>
+
+  <figure class="figure">
+    <img src="images/ch12/fig12-3.png"
+         alt="Chart showing how mortgage payments shift from interest-heavy to principal-heavy over time">
+    <figcaption class="figure-caption">Figure 12-3. How a Fixed Mortgage Payment Is Allocated Over Time</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: PRACTICAL APPLICATION — EXCEL                      -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-excel">5. Practical Application: Calculating Mortgage Payments</h2>
+
+  <p>
+    While you may not need to calculate mortgage payments by hand on an exam, understanding how they
+    are computed is highly practical for real-world financial decision-making.
+  </p>
+
+  <h3 class="subsection-title">The PMT Function</h3>
+
+  <p>
+    Spreadsheet programs like Microsoft Excel and Google Sheets include a built-in <strong>PMT</strong>
+    (Payment) function that calculates the fixed periodic payment for a fully amortizing loan.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> PMT FUNCTION SYNTAX</div>
+    <p style="font-family:'Courier New',monospace; font-size:0.88rem;">
+      <strong>=PMT(rate, nper, pv, [fv], [type])</strong>
+    </p>
+    <ul style="margin-top:0.5rem; padding-left:1.5rem; font-size:0.88rem;">
+      <li><strong>rate</strong> &mdash; Interest rate <em>per period</em> (annual rate &divide; 12 for monthly)</li>
+      <li><strong>nper</strong> &mdash; Total number of payment periods</li>
+      <li><strong>pv</strong> &mdash; Present value (loan amount; enter as negative for cash outflow)</li>
+      <li><strong>fv</strong> &mdash; Future value (usually 0 for a fully amortizing loan)</li>
+      <li><strong>type</strong> &mdash; When payments are due (0 = end of period, 1 = beginning)</li>
+    </ul>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128221;</span> EXAMPLE — Using PMT</div>
+    <p>
+      Suppose you have a <strong>$20,000 mortgage</strong> at <strong>3% annual interest</strong>,
+      paid over <strong>5 years with monthly payments</strong> (60 total payments).
+    </p>
+    <p style="margin-top:0.5rem; font-family:'Courier New',monospace; font-size:0.88rem;">
+      =PMT(3%/12, 60, -20000, 0) = <strong>$359.37</strong>
+    </p>
+    <p style="margin-top:0.5rem;">
+      This tells you that a fixed monthly payment of <strong>$359.37</strong> will fully pay off the
+      $20,000 loan in exactly 60 months, including all interest.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Building an Amortization Table</h3>
+
+  <p>
+    Once you know the fixed payment, you can build the full amortization schedule by repeating
+    the same process we used for the mortgage example:
+  </p>
+
+  <ol>
+    <li>Start with the loan balance ($20,000).</li>
+    <li>Compute monthly interest: Beginning Balance &times; (Annual Rate &divide; 12).
+      <br>Period 1: \( \$20{,}000 \times \frac{3\%}{12} = \$50.00 \)</li>
+    <li>Compute principal reduction: Fixed Payment &minus; Interest.
+      <br>Period 1: \( \$359.37 - \$50.00 = \$309.37 \)</li>
+    <li>Compute new balance: Beginning Balance &minus; Principal Reduction.
+      <br>Period 1: \( \$20{,}000 - \$309.37 = \$19{,}690.63 \)</li>
+    <li>Repeat for all 60 periods. The balance reaches exactly $0 at the end.</li>
+  </ol>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT — Goal Seek</div>
+    <p>
+      If you don&rsquo;t know the PMT function, you can use Excel&rsquo;s <strong>Goal Seek</strong> tool
+      (Data &rarr; What-If Analysis &rarr; Goal Seek). Set up the amortization table with a placeholder
+      payment amount, then tell Goal Seek to set the <em>final balance cell</em> to zero by changing the
+      <em>payment amount cell</em>. Excel will automatically calculate the correct payment of $359.37.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: DEBT TO EQUITY RATIO                               -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-ratio">6. Evaluating Performance: The Debt to Equity Ratio</h2>
+
+  <p>
+    When companies take on long-term debt, investors and creditors want to know how much of the
+    company&rsquo;s assets are financed by <strong>debt</strong> versus <strong>equity</strong>. The
+    <strong>debt to equity ratio</strong> provides this information.
+  </p>
+
+  <div class="ratio-card">
+    <h4>Debt to Equity Ratio</h4>
+    <div class="ratio-formula">
+      Total Liabilities &divide; Total Equity
+    </div>
+    <p>
+      This ratio measures <strong>financial leverage</strong>&mdash;the extent to which a company relies
+      on borrowed funds to finance its operations.
+    </p>
+    <p style="margin-top:0.5rem;">
+      &bull; <strong>Ratio &gt; 1</strong>: The company finances more of its assets with debt than equity
+      (higher leverage, higher risk).<br>
+      &bull; <strong>Ratio &lt; 1</strong>: The company relies more on equity than debt
+      (lower leverage, lower risk).
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Example: PepsiCo&rsquo;s Debt to Equity Ratio</h3>
+
+  <p>
+    PepsiCo reported the following on its Fiscal 2021 Annual Report (in millions):
+  </p>
+
+  <table class="amort-table" style="max-width:500px;">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Dec. 25, 2021</th>
+        <th>Dec. 26, 2020</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align:left;">Total Liabilities</td>
+        <td>$76,226</td>
+        <td>$79,366</td>
+      </tr>
+      <tr>
+        <td style="text-align:left;">Total Equity</td>
+        <td>$16,151</td>
+        <td>$13,552</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Computing the ratio for each year:
+  </p>
+
+  \[
+    2021\!: \quad \frac{\$76{,}226}{\$16{,}151} = 4.72 \qquad\qquad
+    2020\!: \quad \frac{\$79{,}366}{\$13{,}552} = 5.86
+  \]
+
+  <p>
+    Both years show ratios well above 1, indicating that PepsiCo relies heavily on debt financing.
+    However, the ratio <strong>improved</strong> from 5.86 in 2020 to 4.72 in 2021, meaning PepsiCo
+    reduced its reliance on debt relative to equity.
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      A high debt to equity ratio is not necessarily &ldquo;bad.&rdquo; Many successful companies
+      intentionally use significant debt financing because the cost of debt (interest) is often lower
+      than the cost of equity, and interest expense is <strong>tax-deductible</strong>. However, higher
+      leverage means higher risk: if the company cannot generate enough cash flow to service its debt,
+      it could face financial distress. Analysts always evaluate this ratio <strong>in the context of
+      the industry</strong>&mdash;capital-intensive industries (utilities, real estate) naturally carry
+      higher ratios than technology companies.
+    </p>
+  </div>
+
+  <figure class="figure">
+    <img src="images/ch12/fig12-4.png"
+         alt="Infographic showing the debt to equity ratio formula and interpretation">
+    <figcaption class="figure-caption">Figure 12-4. The Debt to Equity Ratio</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- CHAPTER SUMMARY                                               -->
+  <!-- ============================================================ -->
+  <div class="chapter-summary">
+    <h2>Chapter Summary</h2>
+    <ul>
+      <li><strong>Long-term liabilities</strong> are obligations that extend beyond one year or one operating
+        cycle and are reported in the long-term liability section of the balance sheet.</li>
+      <li><strong>Bonds payable</strong> allow companies to raise large sums of capital. The issuer receives
+        cash at issuance, makes periodic interest payments based on the coupon rate, and repays the full par
+        value at maturity.</li>
+      <li><strong>Long-term notes payable</strong> involve borrowing money with periodic installment payments.
+        An amortization schedule tracks each payment&rsquo;s allocation between principal and interest, with
+        interest computed on the beginning balance each period.</li>
+      <li><strong>Mortgages payable</strong> are secured by specific assets and require equal fixed payments.
+        As the outstanding balance decreases, the interest portion of each payment falls while the principal
+        portion rises.</li>
+      <li>The <strong>PMT function</strong> in Excel calculates the fixed payment needed to fully amortize a
+        loan over a specified number of periods at a given interest rate.</li>
+      <li>The <strong>debt to equity ratio</strong> (Total Liabilities &divide; Total Equity) measures financial
+        leverage and indicates the proportion of assets financed by debt versus equity.</li>
+    </ul>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- GLOSSARY                                                      -->
+  <!-- ============================================================ -->
+  <div class="glossary">
+    <h2>Key Terms</h2>
+    <dl>
+      <dt>Long-Term Liabilities</dt>
+      <dd>Obligations that do not need to be paid within one year or the entity&rsquo;s operating cycle,
+        whichever is longer. Reported below current liabilities on the balance sheet.</dd>
+
+      <dt>Bonds Payable</dt>
+      <dd>Long-term debt instruments issued to investors. The issuer promises to pay the par (face) value
+        at maturity and make periodic interest payments based on the coupon rate.</dd>
+
+      <dt>Par Value (Face Value)</dt>
+      <dd>The principal amount printed on a bond certificate that the issuer promises to repay at maturity.</dd>
+
+      <dt>Coupon Rate (Stated Rate)</dt>
+      <dd>The interest rate stated on a bond certificate, used to calculate periodic interest payments to
+        bondholders.</dd>
+
+      <dt>Maturity Date</dt>
+      <dd>The date on which the principal of a bond or note must be repaid in full.</dd>
+
+      <dt>Long-Term Notes Payable</dt>
+      <dd>A borrowing arrangement where the company signs a promissory note to repay the principal (in
+        installments or at maturity) plus interest over a period exceeding one year.</dd>
+
+      <dt>Amortization Schedule</dt>
+      <dd>A table that details the allocation of each loan payment between principal and interest, tracking
+        the beginning and ending balance for each period.</dd>
+
+      <dt>Mortgage Payable</dt>
+      <dd>A long-term debt that is secured by a specific asset (e.g., a building). Typically requires
+        equal fixed periodic payments over an extended term (15&ndash;30 years).</dd>
+
+      <dt>Installment Payment</dt>
+      <dd>A periodic payment that includes both principal and interest, gradually reducing the outstanding
+        balance of a loan over time.</dd>
+
+      <dt>PMT Function</dt>
+      <dd>A spreadsheet function that calculates the fixed periodic payment required to fully amortize a
+        loan at a given interest rate over a specified number of periods.</dd>
+
+      <dt>Debt to Equity Ratio</dt>
+      <dd>A financial leverage ratio computed as Total Liabilities divided by Total Equity. A ratio greater
+        than 1 indicates the company finances more assets with debt than with equity.</dd>
+
+      <dt>Financial Leverage</dt>
+      <dd>The use of borrowed funds to finance assets. Higher leverage can amplify returns but also
+        increases financial risk.</dd>
+    </dl>
+  </div>
+
+
+  <!-- ===== CHAPTER NAVIGATION ===== -->
+  <nav class="chapter-nav">
+    <a href="ch11.html">&larr; Chapter 11: Current Liabilities</a>
+    <a href="ch13.html">Chapter 13: Stockholders&rsquo; Equity &rarr;</a>
+  </nav>
+
+</div><!-- end chapter-container -->
+
+</body>
+</html>

@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 6 – Merchandise Inventory</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    /* ===== Ch06 Page-specific styles ===== */
+
+    /* Perpetual inventory record table */
+    .inv-record {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.82rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      box-shadow: var(--shadow-sm);
+    }
+    .inv-record thead th {
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 0.5rem 0.6rem;
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+    .inv-record thead th.group-header {
+      border-bottom: 2px solid rgba(255,255,255,0.3);
+    }
+    .inv-record thead th.sub-header {
+      background: #2b4a6e;
+      font-weight: 500;
+      font-size: 0.72rem;
+    }
+    .inv-record td {
+      padding: 0.45rem 0.6rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.82rem;
+    }
+    .inv-record td:first-child {
+      text-align: left;
+      font-weight: 600;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+    .inv-record tbody tr:nth-child(even) { background: var(--bg-light); }
+    .inv-record tbody tr.sale-row { background: #fff3e0; }
+    .inv-record tbody tr.total-row {
+      background: var(--bg-light);
+      font-weight: 700;
+      border-top: 2px solid var(--primary);
+    }
+    .inv-record .col-purchases { border-left: 2px solid rgba(255,255,255,0.3); }
+    .inv-record .col-sold { border-left: 2px solid rgba(255,255,255,0.3); }
+    .inv-record .col-balance { border-left: 2px solid rgba(255,255,255,0.3); }
+
+    /* Comparison cards */
+    .method-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .method-card {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+    }
+    .method-card h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+    .method-card .mc-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0.5rem 0;
+    }
+    .method-card .mc-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.78rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .method-card.fifo { border-top: 3px solid #1976d2; }
+    .method-card.fifo .mc-value { color: #1565c0; }
+    .method-card.lifo { border-top: 3px solid #c62828; }
+    .method-card.lifo .mc-value { color: #c62828; }
+    .method-card.avg { border-top: 3px solid #f9a825; }
+    .method-card.avg .mc-value { color: #e65100; }
+
+    /* Income statement format */
+    .income-stmt {
+      max-width: 600px;
+      margin: 1.5rem auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .income-stmt .is-header {
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    .income-stmt .is-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.2rem 0;
+    }
+    .income-stmt .is-line.indent1 .is-label { padding-left: 1.5rem; }
+    .income-stmt .is-line.total {
+      font-weight: 700;
+      border-top: 1px solid var(--border-light);
+      margin-top: 0.2rem;
+      padding-top: 0.3rem;
+    }
+
+    /* Warehouse visualization */
+    .warehouse-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      margin: 1.5rem auto;
+      max-width: 280px;
+    }
+    .warehouse-layer {
+      width: 100%;
+      padding: 0.6rem 1rem;
+      text-align: center;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    .warehouse-layer.oldest { background: #bbdefb; color: #0d47a1; }
+    .warehouse-layer.middle { background: #c8e6c9; color: #1b5e20; }
+    .warehouse-layer.newest { background: #ffe0b2; color: #e65100; }
+    .warehouse-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 0.3rem;
+    }
+
+    /* LCM comparison */
+    .lcm-compare {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: center;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+    .lcm-box {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--border-light);
+    }
+    .lcm-box.selected { border-color: #4caf50; background: #e8f5e9; }
+    .lcm-box .lcm-title {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-light);
+      margin-bottom: 0.4rem;
+    }
+    .lcm-box .lcm-amount {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .lcm-vs {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-light);
+    }
+
+    /* Error ripple table */
+    .error-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.85rem;
+    }
+    .error-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.6rem 0.8rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.8rem;
+    }
+    .error-table td {
+      padding: 0.5rem 0.8rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .error-table .over { color: #c62828; font-weight: 600; }
+    .error-table .under { color: #1565c0; font-weight: 600; }
+    .error-table .correct { color: #2e7d32; font-weight: 600; }
+
+    /* Journal entry */
+    .journal-entry {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .journal-entry .je-date {
+      font-weight: 700;
+      color: var(--primary);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem;
+      margin-bottom: 0.5rem;
+    }
+    .journal-entry .je-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.15rem 0;
+    }
+    .journal-entry .je-line.credit .je-acct { padding-left: 2rem; }
+    .journal-entry .je-dr, .journal-entry .je-cr {
+      min-width: 70px;
+      text-align: right;
+      font-weight: 600;
+    }
+    .journal-entry .je-dr { color: #1565c0; }
+    .journal-entry .je-cr { color: #c62828; }
+    .journal-entry .je-narration {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-style: italic;
+      padding-left: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    @media (max-width: 768px) {
+      .method-cards { grid-template-columns: 1fr; }
+      .lcm-compare { grid-template-columns: 1fr; }
+      .income-stmt { padding: 1rem; }
+      .inv-record { font-size: 0.72rem; }
+      .inv-record td, .inv-record th { padding: 0.3rem 0.4rem; }
+    }
+  </style>
+  <script src="nav.js" defer></script>
+</head>
+<body class="has-sidebar">
+
+<div class="chapter-container">
+
+  <!-- ===== CHAPTER HEADER ===== -->
+  <header class="chapter-header">
+    <div class="chapter-label">Chapter 6</div>
+    <h1 class="chapter-title">Merchandise Inventory</h1>
+    <p class="chapter-subtitle">Costing Methods, Valuation, and Analysis</p>
+  </header>
+
+  <!-- ===== LEARNING OBJECTIVES ===== -->
+  <div class="learning-objectives">
+    <h2>Learning Objectives</h2>
+    <ol>
+      <li>Identify the accounting principles and controls that apply to merchandise inventory.</li>
+      <li>Determine the cost of merchandise inventory using the specific identification, FIFO, LIFO, and weighted-average methods under a perpetual inventory system.</li>
+      <li>Compare the effects of FIFO, LIFO, and weighted-average costing methods on the financial statements.</li>
+      <li>Apply the lower-of-cost-or-net realizable value (LCNRV) rule to merchandise inventory.</li>
+      <li>Measure the effects of merchandise inventory errors on the financial statements.</li>
+      <li>Use the inventory turnover and days&rsquo; sales in inventory ratios to evaluate business performance.</li>
+      <li>Describe the periodic inventory system and its key differences from the perpetual system (Appendix).</li>
+    </ol>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: WHY INVENTORY COSTING MATTERS                      -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-why-costing-matters">1. Why Inventory Costing Matters</h2>
+
+  <p>In Chapter 5, we learned the basic mechanics of purchasing and selling merchandise inventory. When a merchandising company buys goods, it debits Merchandise Inventory; when it sells goods, it records two entries&mdash;one for revenue and one for the cost. The journal entries themselves are straightforward:</p>
+
+  <div class="journal-entry">
+    <div class="je-date">Purchase of Inventory</div>
+    <div class="je-line"><span class="je-acct">Merchandise Inventory</span> <span class="je-dr">XXX</span> <span class="je-cr"></span></div>
+    <div class="je-line credit"><span class="je-acct">Cash / Accounts Payable</span> <span class="je-dr"></span> <span class="je-cr">XXX</span></div>
+  </div>
+
+  <div class="journal-entry">
+    <div class="je-date">Sale of Inventory (two entries)</div>
+    <div class="je-line"><span class="je-acct">Accounts Receivable</span> <span class="je-dr">XXX</span> <span class="je-cr"></span></div>
+    <div class="je-line credit"><span class="je-acct">Sales Revenue</span> <span class="je-dr"></span> <span class="je-cr">XXX</span></div>
+    <div style="height:0.5rem"></div>
+    <div class="je-line"><span class="je-acct">Cost of Goods Sold</span> <span class="je-dr">XXX</span> <span class="je-cr"></span></div>
+    <div class="je-line credit"><span class="je-acct">Merchandise Inventory</span> <span class="je-dr"></span> <span class="je-cr">XXX</span></div>
+    <div class="je-narration">Sales Revenue is based on the selling price; COGS is based on the cost paid to acquire the goods.</div>
+  </div>
+
+  <p>When a company purchases a single unit at one price and sells it, determining Cost of Goods Sold (COGS) is simple&mdash;you just use the price you paid. Even when multiple units are purchased at the <em>same</em> price, the calculation remains trivial.</p>
+
+  <h3 class="subsection-title">The Problem: Changing Costs</h3>
+
+  <p>In reality, unit costs rarely stay the same. Prices typically increase over time due to inflation. Imagine a merchandiser&rsquo;s warehouse that contains three identical units purchased at different times and at different costs:</p>
+
+  <div class="warehouse-stack">
+    <div class="warehouse-layer newest">Apr 7 &mdash; 1 unit @ $80</div>
+    <div class="warehouse-layer middle">Mar 2 &mdash; 1 unit @ $75</div>
+    <div class="warehouse-layer oldest">Jan 3 &mdash; 1 unit @ $70</div>
+    <p class="warehouse-label">Warehouse Floor</p>
+  </div>
+
+  <p>If you sell <strong>one</strong> unit, what is your Cost of Goods Sold? Should it be $70, $75, or $80? The three units are physically identical&mdash;you cannot tell them apart once they are on the shelf.</p>
+
+  <p>For companies dealing with a very small number of unique, high-value items&mdash;like cars, fine jewelry, or real estate&mdash;it is possible to physically track exactly which item was sold. This is called <strong>specific identification</strong>. But for most merchandisers dealing with hundreds or thousands of identical units, physically tracking each unit is impractical.</p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#x1f4a1;</span> THINK ABOUT IT</div>
+    <p>Suppose you purchased 100 units at $70, 250 units at $75, and 300 units at $80. You now have 650 identical units and sell 400 of them. Your sales revenue is easy to calculate (400 &times; $100 = $40,000), but which costs do you assign to those 400 units? You cannot physically identify which specific units left the warehouse. This is the fundamental problem that cost flow assumptions solve.</p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: ACCOUNTING PRINCIPLES FOR INVENTORY                -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-accounting-principles">2. Accounting Principles for Inventory</h2>
+
+  <p>Before examining specific costing methods, it is important to understand four accounting principles that govern how companies account for and report merchandise inventory.</p>
+
+  <h3 class="subsection-title">Consistency Principle</h3>
+
+  <p>A business should use the same accounting methods and procedures from period to period. Once a company selects an inventory costing method (FIFO, LIFO, or weighted-average), it must continue using that method consistently. A company cannot switch from LIFO to FIFO simply to boost reported earnings. While changes are technically permitted, they occur very infrequently and require specific justification disclosed in the notes to the financial statements.</p>
+
+  <h3 class="subsection-title">Disclosure Principle</h3>
+
+  <p>Financial statements should report enough information for outsiders to make knowledgeable decisions. Beyond reporting numerical amounts for Cost of Goods Sold and Ending Inventory, a company must clearly state in the notes to the financial statements <em>which</em> inventory costing method it used to arrive at those figures.</p>
+
+  <h3 class="subsection-title">Materiality Concept</h3>
+
+  <p>A company must perform strictly proper accounting only for items that are significant&mdash;or <em>material</em>&mdash;to the business&rsquo;s overall financial situation. Would you apply a complex perpetual inventory system to track ten pencils that cost less than a dollar each? Of course not. Low-cost office supplies are simply expensed as supplies expense rather than tracked through a formal inventory system.</p>
+
+  <h3 class="subsection-title">Accounting Conservatism</h3>
+
+  <p>When two or more possible values exist, a business should report the least favorable figures in the financial statements. The guiding rule is: <em>anticipate no gains, but provide for all probable losses</em>. Record an asset at the lowest reasonable amount and a liability at the highest reasonable amount. This principle directly underlies the lower-of-cost-or-net realizable value rule discussed later in this chapter.</p>
+
+  <h3 class="subsection-title">Control Over Merchandise Inventory</h3>
+
+  <p>Good inventory controls ensure that inventory purchases and sales are properly authorized and accounted for by the accounting system. Effective controls include:</p>
+
+  <ul>
+    <li>Ensuring inventory is purchased with <strong>proper authorization</strong>.</li>
+    <li>Tracking and documenting the <strong>receipt</strong> of inventory.</li>
+    <li>Recording <strong>damaged inventory</strong> properly.</li>
+    <li>Performing <strong>physical counts</strong> of inventory at least annually.</li>
+    <li>Properly recording and <strong>removing inventory</strong> from the books when it is sold.</li>
+  </ul>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: INVENTORY COSTING METHODS                          -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-costing-methods">3. Inventory Costing Methods: An Overview</h2>
+
+  <p>Because it is nearly impossible to track the exact cost of each individual item sold in large quantities, accountants use logical approximations called <strong>cost flow assumptions</strong>. GAAP permits four basic inventory costing methods:</p>
+
+  <figure class="figure">
+    <img src="images/ch06/fig6-1.png"
+         alt="Diagram comparing FIFO, LIFO, and Weighted-Average cost flow methods showing how each assigns costs to COGS and Ending Inventory">
+    <figcaption class="figure-caption">Figure 6-1. How Cost Flow Assumptions Assign Inventory Costs</figcaption>
+  </figure>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>Assumption</th>
+        <th>Typical Use</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Specific Identification</strong></td>
+        <td>Each unit is tracked individually</td>
+        <td>Unique, high-value items (cars, jewelry, real estate)</td>
+      </tr>
+      <tr>
+        <td><strong>FIFO</strong></td>
+        <td>First units purchased are the first sold</td>
+        <td>Perishable goods, most common method</td>
+      </tr>
+      <tr>
+        <td><strong>LIFO</strong></td>
+        <td>Last units purchased are the first sold</td>
+        <td>Tax advantages in inflationary periods</td>
+      </tr>
+      <tr>
+        <td><strong>Weighted-Average</strong></td>
+        <td>All units carry a blended average cost</td>
+        <td>Commodity-type goods, large homogeneous batches</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#x1f4d6;</span> KEY TERM</div>
+    <p><strong>Cost Flow Assumption:</strong> A logical method used to determine which inventory costs are assigned to Cost of Goods Sold and which remain in Ending Inventory when individual units cannot be specifically identified. FIFO, LIFO, and weighted-average are cost flow assumptions; specific identification is <em>not</em> an assumption because the actual unit cost is known.</p>
+  </div>
+
+  <p>It is critical to understand that cost flow assumptions describe the flow of <em>costs</em>, not the physical flow of goods. Under LIFO, you are not literally selling the newest goods first&mdash;you are <em>assuming</em> that the newest costs are transferred to COGS first for accounting purposes. The physical movement of goods in the warehouse is irrelevant to the cost flow assumption chosen.</p>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: FIFO CONCEPTUAL EXAMPLE                           -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-fifo-concept">4. FIFO: Conceptual Example</h2>
+
+  <p>To build intuition before working with perpetual inventory records, let us first examine a simplified example. A company has 650 units available for sale, purchased in three batches at rising costs. Out of these 650 units, 400 are sold at $100 each.</p>
+
+  <table>
+    <thead>
+      <tr><th>Purchase Date</th><th>Units</th><th>Unit Cost</th><th>Total Cost</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>January 3</td><td>100</td><td>$70</td><td>$7,000</td></tr>
+      <tr><td>March 2</td><td>250</td><td>$75</td><td>$18,750</td></tr>
+      <tr><td>April 7</td><td>300</td><td>$80</td><td>$24,000</td></tr>
+    </tbody>
+    <tfoot>
+      <tr style="font-weight:700; border-top:2px solid var(--primary);">
+        <td>Total</td><td>650</td><td></td><td>$49,750</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <h3 class="subsection-title">COGS Under FIFO</h3>
+
+  <p>Under FIFO (First-In, First-Out), the oldest goods are assumed to be sold first. We &ldquo;peel off&rdquo; costs starting from the top of the stack:</p>
+
+  <table>
+    <thead>
+      <tr><th>Layer</th><th>Units Sold</th><th>Unit Cost</th><th>Total</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Jan 3 (oldest)</td><td>100</td><td>$70</td><td>$7,000</td></tr>
+      <tr><td>Mar 2</td><td>250</td><td>$75</td><td>$18,750</td></tr>
+      <tr><td>Apr 7 (newest)</td><td>50</td><td>$80</td><td>$4,000</td></tr>
+    </tbody>
+    <tfoot>
+      <tr style="font-weight:700; border-top:2px solid var(--primary);">
+        <td>FIFO COGS</td><td>400</td><td></td><td>$29,750</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <h3 class="subsection-title">Ending Inventory Under FIFO</h3>
+
+  <p>Since the oldest goods are sold first, the remaining units are the <em>newest</em>. All 250 unsold units come from the April 7 batch at $80 each:</p>
+
+  <p style="text-align:center; font-size:1.1rem;">
+    \[ \text{Ending Inventory (FIFO)} = 250 \times \$80 = \$20{,}000 \]
+  </p>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#x1f4d0;</span> INVENTORY EQUATION</div>
+    <p>\[ \text{Goods Available for Sale} - \text{COGS} = \text{Ending Inventory} \]</p>
+    <p>\[ \$49{,}750 - \$29{,}750 = \$20{,}000 \;\checkmark \]</p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: LIFO CONCEPTUAL EXAMPLE                           -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-lifo-concept">5. LIFO: Conceptual Example</h2>
+
+  <p>Under LIFO (Last-In, First-Out), the <em>newest</em> goods are assumed to be sold first. Using the same 650 units and 400 sold:</p>
+
+  <table>
+    <thead>
+      <tr><th>Layer</th><th>Units Sold</th><th>Unit Cost</th><th>Total</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Apr 7 (newest)</td><td>300</td><td>$80</td><td>$24,000</td></tr>
+      <tr><td>Mar 2</td><td>100</td><td>$75</td><td>$7,500</td></tr>
+    </tbody>
+    <tfoot>
+      <tr style="font-weight:700; border-top:2px solid var(--primary);">
+        <td>LIFO COGS</td><td>400</td><td></td><td>$31,500</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <h3 class="subsection-title">Ending Inventory Under LIFO</h3>
+
+  <p>Since the newest goods were sold first, the remaining units are the <em>oldest</em>:</p>
+
+  <table>
+    <thead>
+      <tr><th>Layer</th><th>Units Remaining</th><th>Unit Cost</th><th>Total</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Jan 3 (oldest)</td><td>100</td><td>$70</td><td>$7,000</td></tr>
+      <tr><td>Mar 2</td><td>150</td><td>$75</td><td>$11,250</td></tr>
+    </tbody>
+    <tfoot>
+      <tr style="font-weight:700; border-top:2px solid var(--primary);">
+        <td>LIFO Ending Inventory</td><td>250</td><td></td><td>$18,250</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#x1f4d0;</span> VERIFICATION</div>
+    <p>\[ \$49{,}750 - \$31{,}500 = \$18{,}250 \;\checkmark \]</p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: AVERAGE COST CONCEPTUAL EXAMPLE                   -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-avg-concept">6. Weighted-Average: Conceptual Example</h2>
+
+  <p>Under the weighted-average method, a single blended unit cost is calculated by dividing total cost by total units:</p>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#x1f4d0;</span> FORMULA</div>
+    <p>\[ \text{Average Unit Cost} = \frac{\text{Total Cost of Goods Available for Sale}}{\text{Total Units Available for Sale}} \]</p>
+    <p>\[ = \frac{\$49{,}750}{650} \approx \$76.54 \]</p>
+  </div>
+
+  <p>This single average cost is applied to both COGS and Ending Inventory:</p>
+
+  <table>
+    <thead>
+      <tr><th></th><th>Units</th><th>Unit Cost</th><th>Total</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>COGS</strong></td><td>400</td><td>$76.54</td><td>$30,615</td></tr>
+      <tr><td><strong>Ending Inventory</strong></td><td>250</td><td>$76.54</td><td>$19,135</td></tr>
+    </tbody>
+    <tfoot>
+      <tr style="font-weight:700; border-top:2px solid var(--primary);">
+        <td>Goods Available for Sale</td><td>650</td><td></td><td>$49,750</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <h3 class="subsection-title">Three-Method Comparison</h3>
+
+  <div class="method-cards">
+    <div class="method-card fifo">
+      <h4>FIFO</h4>
+      <div class="mc-label">COGS</div>
+      <div class="mc-value">$29,750</div>
+      <div class="mc-label" style="margin-top:0.8rem;">Gross Profit</div>
+      <div class="mc-value">$10,250</div>
+      <div class="mc-label" style="margin-top:0.8rem;">Ending Inv.</div>
+      <div class="mc-value">$20,000</div>
+    </div>
+    <div class="method-card avg">
+      <h4>Weighted-Avg</h4>
+      <div class="mc-label">COGS</div>
+      <div class="mc-value">$30,615</div>
+      <div class="mc-label" style="margin-top:0.8rem;">Gross Profit</div>
+      <div class="mc-value">$9,385</div>
+      <div class="mc-label" style="margin-top:0.8rem;">Ending Inv.</div>
+      <div class="mc-value">$19,135</div>
+    </div>
+    <div class="method-card lifo">
+      <h4>LIFO</h4>
+      <div class="mc-label">COGS</div>
+      <div class="mc-value">$31,500</div>
+      <div class="mc-label" style="margin-top:0.8rem;">Gross Profit</div>
+      <div class="mc-value">$8,500</div>
+      <div class="mc-label" style="margin-top:0.8rem;">Ending Inv.</div>
+      <div class="mc-value">$18,250</div>
+    </div>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#x1f4a1;</span> THINK ABOUT IT</div>
+    <p>Why does FIFO always produce the <em>highest</em> gross profit when costs are rising? Because FIFO assigns the oldest, <em>cheapest</em> costs to COGS. A lower expense means higher profit. LIFO does the opposite&mdash;it pushes the newest, <em>most expensive</em> costs into COGS, producing the lowest profit. The weighted-average method always falls in between. This is a direct mathematical consequence of rising purchase prices, not a coincidence.</p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: SPECIFIC IDENTIFICATION PERPETUAL                  -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-specific-id">7. Specific Identification Method</h2>
+
+  <p>Before examining the three cost flow assumptions in a perpetual system, let us briefly review specific identification. This method tracks the <em>actual</em> cost of each individual unit. Because you know exactly which unit was sold, no assumption is necessary. It is typically used for unique, high-value items such as automobiles, jewelry, or real estate.</p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#x270f;&#xfe0f;</span> EXAMPLE</div>
+    <p>A tablet retailer has beginning inventory of 2 units at $350 each and purchases 4 units at $360 on August 5. On August 15, 4 units are sold. The customer selected 1 unit from the original batch ($350) and 3 units from the new batch ($360).</p>
+    <p><strong>COGS:</strong> (1 &times; $350) + (3 &times; $360) = $350 + $1,080 = <strong>$1,430</strong></p>
+    <p>Under specific identification, you simply look up the known cost of each specific unit that left the warehouse.</p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: FIFO PERPETUAL                                     -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-fifo-perpetual">8. FIFO Under the Perpetual System</h2>
+
+  <p>Under a perpetual system, COGS is calculated at the time of <em>each</em> sale, not at the end of the period. Under FIFO, the oldest available costs are assigned to each sale as it occurs. Let us walk through a complete example using the following data:</p>
+
+  <table>
+    <thead>
+      <tr><th>Date</th><th>Transaction</th><th>Units</th><th>Unit Cost</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Aug 1</td><td>Beginning Inventory</td><td>2</td><td>$350</td></tr>
+      <tr><td>Aug 5</td><td>Purchase</td><td>4</td><td>$360</td></tr>
+      <tr><td>Aug 15</td><td>Sale</td><td>4</td><td>&mdash;</td></tr>
+      <tr><td>Aug 26</td><td>Purchase</td><td>12</td><td>$380</td></tr>
+      <tr><td>Aug 31</td><td>Sale</td><td>10</td><td>&mdash;</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="subsection-title">Perpetual Inventory Record &mdash; FIFO</h3>
+
+  <table class="inv-record">
+    <thead>
+      <tr>
+        <th rowspan="2">Date</th>
+        <th colspan="3" class="group-header">Purchases</th>
+        <th colspan="3" class="group-header col-sold">Cost of Goods Sold</th>
+        <th colspan="3" class="group-header col-balance">Inventory on Hand</th>
+      </tr>
+      <tr>
+        <th class="sub-header">Qty</th>
+        <th class="sub-header">Unit Cost</th>
+        <th class="sub-header">Total</th>
+        <th class="sub-header col-sold">Qty</th>
+        <th class="sub-header">Unit Cost</th>
+        <th class="sub-header">Total</th>
+        <th class="sub-header col-balance">Qty</th>
+        <th class="sub-header">Unit Cost</th>
+        <th class="sub-header">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Aug 1</td>
+        <td></td><td></td><td></td>
+        <td></td><td></td><td></td>
+        <td>2</td><td>$350</td><td>$700</td>
+      </tr>
+      <tr>
+        <td>Aug 5</td>
+        <td>4</td><td>$360</td><td>$1,440</td>
+        <td></td><td></td><td></td>
+        <td>2</td><td>$350</td><td>$700</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td><td></td><td></td>
+        <td></td><td></td><td></td>
+        <td>4</td><td>$360</td><td>$1,440</td>
+      </tr>
+      <tr class="sale-row">
+        <td>Aug 15</td>
+        <td></td><td></td><td></td>
+        <td>2</td><td>$350</td><td>$700</td>
+        <td></td><td></td><td></td>
+      </tr>
+      <tr class="sale-row">
+        <td></td>
+        <td></td><td></td><td></td>
+        <td>2</td><td>$360</td><td>$720</td>
+        <td>2</td><td>$360</td><td>$720</td>
+      </tr>
+      <tr>
+        <td>Aug 26</td>
+        <td>12</td><td>$380</td><td>$4,560</td>
+        <td></td><td></td><td></td>
+        <td>2</td><td>$360</td><td>$720</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td><td></td><td></td>
+        <td></td><td></td><td></td>
+        <td>12</td><td>$380</td><td>$4,560</td>
+      </tr>
+      <tr class="sale-row">
+        <td>Aug 31</td>
+        <td></td><td></td><td></td>
+        <td>2</td><td>$360</td><td>$720</td>
+        <td></td><td></td><td></td>
+      </tr>
+      <tr class="sale-row">
+        <td></td>
+        <td></td><td></td><td></td>
+        <td>8</td><td>$380</td><td>$3,040</td>
+        <td>4</td><td>$380</td><td>$1,520</td>
+      </tr>
+      <tr class="total-row">
+        <td>Totals</td>
+        <td></td><td></td><td>$6,000</td>
+        <td></td><td></td><td>$5,180</td>
+        <td>4</td><td></td><td>$1,520</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="subsection-title">Step-by-Step Walkthrough</h3>
+
+  <p><strong>August 15 Sale (4 units):</strong> Under FIFO, pull from the oldest layer first. Take all 2 units from beginning inventory at $350, then 2 units from the August 5 purchase at $360. COGS = (2 &times; $350) + (2 &times; $360) = <strong>$1,420</strong>. Remaining on hand: 2 units at $360.</p>
+
+  <p><strong>August 26 Purchase (12 units at $380):</strong> No COGS calculation&mdash;simply add a new inventory layer. On hand: 2 @ $360 + 12 @ $380.</p>
+
+  <p><strong>August 31 Sale (10 units):</strong> Under FIFO, sell the oldest layer first. Take 2 units at $360 (depleting that layer), then 8 units at $380. COGS = (2 &times; $360) + (8 &times; $380) = <strong>$3,760</strong>. Remaining: 4 units at $380 = <strong>$1,520</strong>.</p>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#x1f4d0;</span> VERIFICATION</div>
+    <p>\[ \underbrace{\$700}_{\text{Beg. Inv.}} + \underbrace{\$6{,}000}_{\text{Purchases}} = \$6{,}700 \; (\text{Goods Available for Sale}) \]</p>
+    <p>\[ \$6{,}700 = \underbrace{\$5{,}180}_{\text{COGS}} + \underbrace{\$1{,}520}_{\text{Ending Inv.}} \;\checkmark \]</p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 9: LIFO PERPETUAL                                     -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-lifo-perpetual">9. LIFO Under the Perpetual System</h2>
+
+  <p>Under LIFO in a perpetual system, the <em>newest</em> available costs are assigned to COGS at the time of each sale. Using the same data:</p>
+
+  <h3 class="subsection-title">Perpetual Inventory Record &mdash; LIFO</h3>
+
+  <table class="inv-record">
+    <thead>
+      <tr>
+        <th rowspan="2">Date</th>
+        <th colspan="3" class="group-header">Purchases</th>
+        <th colspan="3" class="group-header col-sold">Cost of Goods Sold</th>
+        <th colspan="3" class="group-header col-balance">Inventory on Hand</th>
+      </tr>
+      <tr>
+        <th class="sub-header">Qty</th>
+        <th class="sub-header">Unit Cost</th>
+        <th class="sub-header">Total</th>
+        <th class="sub-header col-sold">Qty</th>
+        <th class="sub-header">Unit Cost</th>
+        <th class="sub-header">Total</th>
+        <th class="sub-header col-balance">Qty</th>
+        <th class="sub-header">Unit Cost</th>
+        <th class="sub-header">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Aug 1</td>
+        <td></td><td></td><td></td>
+        <td></td><td></td><td></td>
+        <td>2</td><td>$350</td><td>$700</td>
+      </tr>
+      <tr>
+        <td>Aug 5</td>
+        <td>4</td><td>$360</td><td>$1,440</td>
+        <td></td><td></td><td></td>
+        <td>2</td><td>$350</td><td>$700</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td><td></td><td></td>
+        <td></td><td></td><td></td>
+        <td>4</td><td>$360</td><td>$1,440</td>
+      </tr>
+      <tr class="sale-row">
+        <td>Aug 15</td>
+        <td></td><td></td><td></td>
+        <td>4</td><td>$360</td><td>$1,440</td>
+        <td>2</td><td>$350</td><td>$700</td>
+      </tr>
+      <tr>
+        <td>Aug 26</td>
+        <td>12</td><td>$380</td><td>$4,560</td>
+        <td></td><td></td><td></td>
+        <td>2</td><td>$350</td><td>$700</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td><td></td><td></td>
+        <td></td><td></td><td></td>
+        <td>12</td><td>$380</td><td>$4,560</td>
+      </tr>
+      <tr class="sale-row">
+        <td>Aug 31</td>
+        <td></td><td></td><td></td>
+        <td>10</td><td>$380</td><td>$3,800</td>
+        <td>2</td><td>$350</td><td>$700</td>
+      </tr>
+      <tr class="sale-row">
+        <td></td>
+        <td></td><td></td><td></td>
+        <td></td><td></td><td></td>
+        <td>2</td><td>$380</td><td>$760</td>
+      </tr>
+      <tr class="total-row">
+        <td>Totals</td>
+        <td></td><td></td><td>$6,000</td>
+        <td></td><td></td><td>$5,240</td>
+        <td>4</td><td></td><td>$1,460</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="subsection-title">Step-by-Step Walkthrough</h3>
+
+  <p><strong>August 15 Sale (4 units):</strong> Under LIFO, pull from the <em>newest</em> layer. The newest goods are the 4 units purchased August 5 at $360. COGS = 4 &times; $360 = <strong>$1,440</strong>. Remaining: the original 2 units at $350.</p>
+
+  <p><strong>August 31 Sale (10 units):</strong> The newest layer is the August 26 purchase (12 @ $380). Take 10 units from this batch. COGS = 10 &times; $380 = <strong>$3,800</strong>. Remaining: 2 @ $350 (beginning) + 2 @ $380 (Aug 26 remainder) = <strong>$1,460</strong>.</p>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#x1f4d0;</span> VERIFICATION</div>
+    <p>\[ \$6{,}700 = \underbrace{\$5{,}240}_{\text{COGS}} + \underbrace{\$1{,}460}_{\text{Ending Inv.}} \;\checkmark \]</p>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#x1f4a1;</span> THINK ABOUT IT</div>
+    <p>Notice that the journal entry <em>format</em> is identical under FIFO and LIFO&mdash;the only difference is the dollar amounts. The debit to Cost of Goods Sold and credit to Merchandise Inventory change because the costing method determines which cost layers are assumed to be sold. Practice building these perpetual inventory schedules until you are comfortable calculating COGS and Ending Inventory under both methods.</p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 10: WEIGHTED-AVERAGE PERPETUAL                        -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-avg-perpetual">10. Weighted-Average Under the Perpetual System</h2>
+
+  <p>Under a perpetual system, the weighted-average method is called the <strong>moving weighted-average</strong> method because the average unit cost is recalculated every time a new purchase is made. The average does <em>not</em> change when a sale occurs&mdash;only when new inventory is purchased.</p>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#x1f4d0;</span> FORMULA</div>
+    <p>\[ \text{New Average Unit Cost} = \frac{\text{Total Cost of Inventory on Hand}}{\text{Total Units on Hand}} \]</p>
+  </div>
+
+  <h3 class="subsection-title">Perpetual Inventory Record &mdash; Weighted-Average</h3>
+
+  <table class="inv-record">
+    <thead>
+      <tr>
+        <th rowspan="2">Date</th>
+        <th colspan="3" class="group-header">Purchases</th>
+        <th colspan="3" class="group-header col-sold">Cost of Goods Sold</th>
+        <th colspan="3" class="group-header col-balance">Inventory on Hand</th>
+      </tr>
+      <tr>
+        <th class="sub-header">Qty</th>
+        <th class="sub-header">Unit Cost</th>
+        <th class="sub-header">Total</th>
+        <th class="sub-header col-sold">Qty</th>
+        <th class="sub-header">Unit Cost</th>
+        <th class="sub-header">Total</th>
+        <th class="sub-header col-balance">Qty</th>
+        <th class="sub-header">Unit Cost</th>
+        <th class="sub-header">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Aug 1</td>
+        <td></td><td></td><td></td>
+        <td></td><td></td><td></td>
+        <td>2</td><td>$350.00</td><td>$700</td>
+      </tr>
+      <tr>
+        <td>Aug 5</td>
+        <td>4</td><td>$360</td><td>$1,440</td>
+        <td></td><td></td><td></td>
+        <td>6</td><td>$356.67</td><td>$2,140</td>
+      </tr>
+      <tr class="sale-row">
+        <td>Aug 15</td>
+        <td></td><td></td><td></td>
+        <td>4</td><td>$356.67</td><td>$1,427</td>
+        <td>2</td><td>$356.67</td><td>$713</td>
+      </tr>
+      <tr>
+        <td>Aug 26</td>
+        <td>12</td><td>$380</td><td>$4,560</td>
+        <td></td><td></td><td></td>
+        <td>14</td><td>$376.64</td><td>$5,273</td>
+      </tr>
+      <tr class="sale-row">
+        <td>Aug 31</td>
+        <td></td><td></td><td></td>
+        <td>10</td><td>$376.64</td><td>$3,766</td>
+        <td>4</td><td>$376.64</td><td>$1,507</td>
+      </tr>
+      <tr class="total-row">
+        <td>Totals</td>
+        <td></td><td></td><td>$6,000</td>
+        <td></td><td></td><td>$5,193</td>
+        <td>4</td><td></td><td>$1,507</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="subsection-title">Step-by-Step Walkthrough</h3>
+
+  <p><strong>After Aug 5 Purchase:</strong> Total cost = $700 + $1,440 = $2,140. Total units = 2 + 4 = 6. New average = $2,140 &divide; 6 = <strong>$356.67</strong>.</p>
+
+  <p><strong>Aug 15 Sale (4 units):</strong> Use the current average: 4 &times; $356.67 = <strong>$1,427</strong>. Remaining: 2 units &times; $356.67 = $713.</p>
+
+  <p><strong>After Aug 26 Purchase:</strong> Total cost = $713 + $4,560 = $5,273. Total units = 2 + 12 = 14. New average = $5,273 &divide; 14 = <strong>$376.64</strong>.</p>
+
+  <p><strong>Aug 31 Sale (10 units):</strong> 10 &times; $376.64 = <strong>$3,766</strong>. Remaining: 4 &times; $376.64 = <strong>$1,507</strong>.</p>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 11: COMPARING EFFECTS ON FINANCIAL STATEMENTS         -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-comparing-effects">11. Comparing Effects on the Financial Statements</h2>
+
+  <p>The choice of inventory costing method directly impacts both the Income Statement and the Balance Sheet. Assuming inventory costs are <strong>rising</strong> (the most common business environment due to inflation), the following patterns emerge:</p>
+
+  <figure class="figure">
+    <img src="images/ch06/fig6-2.png"
+         alt="Infographic comparing FIFO and LIFO effects on Income Statement and Balance Sheet when costs are rising, with Weighted-Average in the middle">
+    <figcaption class="figure-caption">Figure 6-2. FIFO vs. LIFO — Effects on Financial Statements (Rising Costs)</figcaption>
+  </figure>
+
+  <h3 class="subsection-title">Effects on the Income Statement</h3>
+
+  <table>
+    <thead>
+      <tr><th></th><th>FIFO</th><th>Weighted-Avg</th><th>LIFO</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>COGS</strong></td>
+        <td style="color:#1565c0;">Lowest</td>
+        <td>Middle</td>
+        <td style="color:#c62828;">Highest</td>
+      </tr>
+      <tr>
+        <td><strong>Gross Profit</strong></td>
+        <td style="color:#1565c0;">Highest</td>
+        <td>Middle</td>
+        <td style="color:#c62828;">Lowest</td>
+      </tr>
+      <tr>
+        <td><strong>Net Income</strong></td>
+        <td style="color:#1565c0;">Highest</td>
+        <td>Middle</td>
+        <td style="color:#c62828;">Lowest</td>
+      </tr>
+      <tr>
+        <td><strong>Income Tax</strong></td>
+        <td style="color:#c62828;">Highest</td>
+        <td>Middle</td>
+        <td style="color:#1565c0;">Lowest</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Companies may prefer <strong>FIFO</strong> to show higher profitability to investors and lenders. Alternatively, they may prefer <strong>LIFO</strong> because lower reported net income results in <strong>lower income tax payments</strong>&mdash;a real cash savings.</p>
+
+  <h3 class="subsection-title">Effects on the Balance Sheet</h3>
+
+  <table>
+    <thead>
+      <tr><th></th><th>FIFO</th><th>Weighted-Avg</th><th>LIFO</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ending Inventory</strong></td>
+        <td style="color:#1565c0;">Highest</td>
+        <td>Middle</td>
+        <td style="color:#c62828;">Lowest</td>
+      </tr>
+      <tr>
+        <td><strong>Reflects Current Costs?</strong></td>
+        <td style="color:#2e7d32;">Yes &mdash; newest costs remain</td>
+        <td>Partially</td>
+        <td style="color:#c62828;">No &mdash; oldest costs remain</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Under FIFO, the inventory remaining on the balance sheet consists of the newest, highest-cost purchases&mdash;so it closely reflects current replacement costs. Under LIFO, the oldest, cheapest costs are left in ending inventory, which can be significantly outdated compared to current market prices.</p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#x1f4a1;</span> THINK ABOUT IT</div>
+    <p>The patterns above are <em>not</em> coincidences&mdash;they are direct mathematical consequences of rising costs. Under FIFO, old (cheap) costs go to COGS and new (expensive) costs stay on the balance sheet. Under LIFO, the reverse occurs. If prices were <em>falling</em>, these patterns would flip entirely. The weighted-average method always lands in the middle because it blends all costs together.</p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 12: LOWER-OF-COST-OR-NRV                             -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-lcnrv">12. Lower-of-Cost-or-Net Realizable Value (LCNRV)</h2>
+
+  <p>After calculating ending inventory using a cost flow assumption, a company must test whether the inventory&rsquo;s market value has dropped below its recorded cost. The <strong>conservatism principle</strong> prevents a company from overstating its assets.</p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#x1f4d6;</span> KEY TERM</div>
+    <p><strong>Lower-of-Cost-or-Net Realizable Value (LCNRV):</strong> Under current GAAP (ASU 2015-11), inventory measured using FIFO or weighted-average must be reported at the lower of its historical cost or its net realizable value (NRV = estimated selling price minus estimated costs to complete and sell). For inventory measured using LIFO, the traditional lower-of-cost-or-market (LCM) rule with replacement cost still applies. In either case, if the market value falls below cost, the inventory must be written down.</p>
+  </div>
+
+  <figure class="figure">
+    <img src="images/ch06/fig6-4.png"
+         alt="Flowchart showing the Lower-of-Cost-or-Market decision: if market is less than cost, write down; if market equals or exceeds cost, no adjustment">
+    <figcaption class="figure-caption">Figure 6-4. Applying the Lower-of-Cost-or-Market Rule</figcaption>
+  </figure>
+
+  <h3 class="subsection-title">When Market Value Drops Below Cost</h3>
+
+  <p>Suppose your FIFO Ending Inventory is $20,000 (250 units at $80 each). Due to market conditions, the replacement price has dropped to $40 per unit, making the market value only $10,000.</p>
+
+  <div class="lcm-compare">
+    <div class="lcm-box">
+      <div class="lcm-title">Historical Cost</div>
+      <div class="lcm-amount">$20,000</div>
+    </div>
+    <div class="lcm-vs">vs.</div>
+    <div class="lcm-box selected">
+      <div class="lcm-title">Market Value</div>
+      <div class="lcm-amount">$10,000</div>
+    </div>
+  </div>
+
+  <p>You must choose the <strong>lower</strong> amount: $10,000. The inventory must be written down by $10,000.</p>
+
+  <div class="journal-entry">
+    <div class="je-date">Adjusting Entry &mdash; Inventory Write-Down</div>
+    <div class="je-line"><span class="je-acct">Cost of Goods Sold</span> <span class="je-dr">10,000</span> <span class="je-cr"></span></div>
+    <div class="je-line credit"><span class="je-acct">Merchandise Inventory</span> <span class="je-dr"></span> <span class="je-cr">10,000</span></div>
+    <div class="je-narration">Write down inventory to lower market value; recognize loss through COGS.</div>
+  </div>
+
+  <h3 class="subsection-title">When Market Value Exceeds Cost</h3>
+
+  <p>Now suppose the replacement cost rises to $85 per unit, making the market value $21,250. Comparing:</p>
+
+  <div class="lcm-compare">
+    <div class="lcm-box selected">
+      <div class="lcm-title">Historical Cost</div>
+      <div class="lcm-amount">$20,000</div>
+    </div>
+    <div class="lcm-vs">vs.</div>
+    <div class="lcm-box">
+      <div class="lcm-title">Market Value</div>
+      <div class="lcm-amount">$21,250</div>
+    </div>
+  </div>
+
+  <p><strong>No adjustment is made.</strong> You do not write <em>up</em> the value of inventory. Doing so would violate the conservatism principle by anticipating a gain before a sale occurs. The inventory remains on the books at its historical cost of $20,000.</p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#x270f;&#xfe0f;</span> EXAMPLE</div>
+    <p>Smart Touch Learning paid $3,000 for inventory. By December 31, the market replacement cost has fallen to $2,200. The LCM rule requires reporting inventory at $2,200. Adjusting entry: Debit Cost of Goods Sold $800, Credit Merchandise Inventory $800. The balance sheet will now correctly show inventory at the lower market value of $2,200.</p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 13: EFFECTS OF INVENTORY ERRORS                      -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-inventory-errors">13. Effects of Inventory Errors</h2>
+
+  <p>An error in counting or recording inventory does not affect just one account&mdash;it creates a <strong>ripple effect</strong> across COGS, Gross Profit, and Net Income, spanning <em>two</em> accounting periods.</p>
+
+  <figure class="figure">
+    <img src="images/ch06/fig6-3.png"
+         alt="Diagram showing how an inventory error in Period 1 ripples into Period 2, with the error self-correcting over two periods">
+    <figcaption class="figure-caption">Figure 6-3. The Ripple Effect of Inventory Errors</figcaption>
+  </figure>
+
+  <h3 class="subsection-title">The Core Equations</h3>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#x1f4d0;</span> INVENTORY EQUATIONS</div>
+    <p>\[ \text{Beginning Inventory} + \text{Net Purchases} = \text{Cost of Goods Available for Sale} \]</p>
+    <p>\[ \text{Cost of Goods Available for Sale} - \text{Ending Inventory} = \text{Cost of Goods Sold} \]</p>
+  </div>
+
+  <p>If the total Goods Available for Sale is correct but Ending Inventory is misstated, COGS will automatically be incorrect in the <em>opposite</em> direction.</p>
+
+  <h3 class="subsection-title">Scenario: Ending Inventory Overstated</h3>
+
+  <table class="error-table">
+    <thead>
+      <tr><th></th><th>Period 1 (Error Year)</th><th>Period 2 (Next Year)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ending Inventory</strong></td>
+        <td class="over">Overstated &uarr;</td>
+        <td class="correct">Correct</td>
+      </tr>
+      <tr>
+        <td><strong>Beginning Inventory</strong></td>
+        <td class="correct">Correct</td>
+        <td class="over">Overstated &uarr;</td>
+      </tr>
+      <tr>
+        <td><strong>COGS</strong></td>
+        <td class="under">Understated &darr;</td>
+        <td class="over">Overstated &uarr;</td>
+      </tr>
+      <tr>
+        <td><strong>Gross Profit</strong></td>
+        <td class="over">Overstated &uarr;</td>
+        <td class="under">Understated &darr;</td>
+      </tr>
+      <tr>
+        <td><strong>Net Income</strong></td>
+        <td class="over">Overstated &uarr;</td>
+        <td class="under">Understated &darr;</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="subsection-title">Scenario: Ending Inventory Understated</h3>
+
+  <table class="error-table">
+    <thead>
+      <tr><th></th><th>Period 1 (Error Year)</th><th>Period 2 (Next Year)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ending Inventory</strong></td>
+        <td class="under">Understated &darr;</td>
+        <td class="correct">Correct</td>
+      </tr>
+      <tr>
+        <td><strong>Beginning Inventory</strong></td>
+        <td class="correct">Correct</td>
+        <td class="under">Understated &darr;</td>
+      </tr>
+      <tr>
+        <td><strong>COGS</strong></td>
+        <td class="over">Overstated &uarr;</td>
+        <td class="under">Understated &darr;</td>
+      </tr>
+      <tr>
+        <td><strong>Gross Profit</strong></td>
+        <td class="under">Understated &darr;</td>
+        <td class="over">Overstated &uarr;</td>
+      </tr>
+      <tr>
+        <td><strong>Net Income</strong></td>
+        <td class="under">Understated &darr;</td>
+        <td class="over">Overstated &uarr;</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#x1f4a1;</span> THINK ABOUT IT</div>
+    <p>An inventory error naturally <strong>self-corrects</strong> after two periods. The overstatement of net income in Period 1 is exactly offset by an understatement in Period 2 (and vice versa). However, each individual year&rsquo;s financial statements will be materially misstated. This is why accurately counting and recording ending inventory through physical counts is absolutely critical.</p>
+  </div>
+
+  <p>The key to remembering these relationships is the equation: <strong>COGS and Ending Inventory move in opposite directions</strong>. If Ending Inventory is overstated, COGS is understated (because you subtracted too much from Goods Available for Sale). If COGS is understated, it is a <em>smaller</em> expense, so Gross Profit and Net Income are <em>overstated</em>.</p>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 14: INVENTORY TURNOVER & DAYS' SALES IN INVENTORY     -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-ratios">14. Inventory Turnover &amp; Days&rsquo; Sales in Inventory</h2>
+
+  <p>Two key ratios help evaluate how efficiently a company manages its inventory.</p>
+
+  <h3 class="subsection-title">Inventory Turnover</h3>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#x1f4d0;</span> FORMULA</div>
+    <p>\[ \text{Inventory Turnover} = \frac{\text{Cost of Goods Sold}}{\text{Average Merchandise Inventory}} \]</p>
+    <p>\[ \text{Average Merchandise Inventory} = \frac{\text{Beginning Inventory} + \text{Ending Inventory}}{2} \]</p>
+  </div>
+
+  <p>This ratio measures how rapidly a company sells its inventory. A higher turnover indicates that inventory is selling quickly and the business is operating efficiently. A low turnover suggests difficulty in selling inventory or overstocking.</p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#x270f;&#xfe0f;</span> EXAMPLE</div>
+    <p>If a company&rsquo;s Cost of Goods Sold for the year is $100,000 and its Average Merchandise Inventory is $10,000:</p>
+    <p>\[ \text{Inventory Turnover} = \frac{\$100{,}000}{\$10{,}000} = 10 \text{ times} \]</p>
+    <p>This means the company buys and completely sells out its inventory <strong>10 times</strong> during the year.</p>
+  </div>
+
+  <h3 class="subsection-title">Days&rsquo; Sales in Inventory</h3>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#x1f4d0;</span> FORMULA</div>
+    <p>\[ \text{Days' Sales in Inventory} = \frac{365}{\text{Inventory Turnover}} \]</p>
+  </div>
+
+  <p>This ratio measures how many days on average it takes to sell inventory from the time it is purchased. Using our previous example:</p>
+
+  <p style="text-align:center; font-size:1.05rem;">
+    \[ \text{Days' Sales in Inventory} = \frac{365}{10} = 36.5 \text{ days} \]
+  </p>
+
+  <p>On average, it takes this company 36.5 days from purchasing inventory to selling it. A <strong>higher turnover</strong> naturally produces a <strong>lower</strong> number of days in inventory, indicating efficient asset management.</p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#x1f4a1;</span> THINK ABOUT IT</div>
+    <p>These two ratios are simply inverses of each other, measured in different units. Inventory Turnover tells you &ldquo;how many times per year,&rdquo; while Days&rsquo; Sales in Inventory converts that into &ldquo;how many days per cycle.&rdquo; Together, they give you a complete picture of how efficiently a company converts its inventory investment into sales.</p>
+  </div>
+
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#x270f;&#xfe0f;</span> REAL-WORLD EXAMPLE &mdash; KOHL&rsquo;S CORPORATION</div>
+    <p>From Kohl&rsquo;s Corporation&rsquo;s financial statements:</p>
+    <p>\[ \text{Inventory Turnover} = \frac{\text{COGS}}{\text{Average Inventory}} = 3.12 \text{ times per year} \]</p>
+    <p>\[ \text{Days' Sales in Inventory} = \frac{365}{3.12} = 117 \text{ days} \]</p>
+    <p>Kohl&rsquo;s turns over its inventory about 3 times per year, meaning it takes approximately 117 days on average from purchasing merchandise to selling it. This ratio should be evaluated against industry averages&mdash;different types of retailers have very different turnover rates.</p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 15: APPENDIX — PERIODIC INVENTORY SYSTEM              -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-periodic">15. Appendix: The Periodic Inventory System</h2>
+
+  <p>All examples so far have used the <strong>perpetual</strong> inventory system, where COGS is calculated at the time of each sale. Under the <strong>periodic</strong> system, the timing is completely different.</p>
+
+  <h3 class="subsection-title">How It Works</h3>
+
+  <p>When a sale is made during the period, you do <em>not</em> record Cost of Goods Sold. You only record the sales revenue. No running inventory balance is maintained. Instead, at the <strong>end of the accounting period</strong>, you:</p>
+
+  <ol>
+    <li>Perform a <strong>physical count</strong> of the inventory to determine how many units remain.</li>
+    <li>Calculate Ending Inventory by applying a cost flow assumption to those remaining units.</li>
+    <li>Calculate COGS for the entire period at once using the inventory equation.</li>
+  </ol>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#x270f;&#xfe0f;</span> EXAMPLE &mdash; PERIODIC FIFO</div>
+    <p>Using the same data: Beginning Inventory = 2 units @ $350; Purchases = 4 @ $360 and 12 @ $380. Total = 18 units, $6,700 cost. A physical count shows 4 units remaining, meaning 14 were sold.</p>
+    <p><strong>Ending Inventory (FIFO):</strong> Under periodic FIFO, the 4 remaining units are the <em>newest</em> purchases: 4 &times; $380 = <strong>$1,520</strong>.</p>
+    <p><strong>COGS:</strong> $6,700 &minus; $1,520 = <strong>$5,180</strong>.</p>
+    <p>Notice this matches the perpetual FIFO result exactly. <strong>FIFO produces the same results under both perpetual and periodic systems</strong> because the oldest costs are always assigned to COGS regardless of timing.</p>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#x270f;&#xfe0f;</span> EXAMPLE &mdash; PERIODIC LIFO</div>
+    <p>Under periodic LIFO, the 14 units sold are assumed to be the newest: 12 @ $380 + 2 @ $360 = $4,560 + $720 = <strong>$5,280</strong>.</p>
+    <p><strong>Ending Inventory:</strong> The 4 remaining units are the oldest: 2 @ $350 + 2 @ $360 = $700 + $720 = <strong>$1,420</strong>.</p>
+    <p>Note that periodic LIFO COGS ($5,280) differs from perpetual LIFO COGS ($5,240). Under LIFO, the timing of cost assignment matters because the &ldquo;newest&rdquo; cost at each sale date may differ from the &ldquo;newest&rdquo; cost when calculated once at period-end.</p>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#x270f;&#xfe0f;</span> EXAMPLE &mdash; PERIODIC WEIGHTED-AVERAGE</div>
+    <p>Under the periodic system, you calculate <em>one</em> simple average at the end of the period:</p>
+    <p>\[ \text{Average Unit Cost} = \frac{\$6{,}700}{18 \text{ units}} = \$372.22 \]</p>
+    <p><strong>COGS:</strong> 14 &times; $372.22 = <strong>$5,211</strong></p>
+    <p><strong>Ending Inventory:</strong> 4 &times; $372.22 = <strong>$1,489</strong></p>
+    <p>This differs from the perpetual moving average, which recalculates after every purchase.</p>
+  </div>
+
+  <h3 class="subsection-title">Perpetual vs. Periodic: Key Differences</h3>
+
+  <table>
+    <thead>
+      <tr><th>Feature</th><th>Perpetual System</th><th>Periodic System</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>When is COGS calculated?</strong></td>
+        <td>At the time of each sale</td>
+        <td>At the end of the period</td>
+      </tr>
+      <tr>
+        <td><strong>Running inventory balance?</strong></td>
+        <td>Yes &mdash; continuously updated</td>
+        <td>No &mdash; only known after physical count</td>
+      </tr>
+      <tr>
+        <td><strong>Physical count needed?</strong></td>
+        <td>Used to verify records (shrinkage check)</td>
+        <td>Required to determine ending inventory</td>
+      </tr>
+      <tr>
+        <td><strong>FIFO results same?</strong></td>
+        <td colspan="2" style="text-align:center; color:#2e7d32; font-weight:600;">Yes &mdash; always identical</td>
+      </tr>
+      <tr>
+        <td><strong>LIFO / Avg results same?</strong></td>
+        <td colspan="2" style="text-align:center; color:#c62828; font-weight:600;">No &mdash; timing of calculation causes differences</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ============================================================ -->
+  <!-- CHAPTER SUMMARY                                               -->
+  <!-- ============================================================ -->
+  <div class="chapter-summary">
+    <h2>Chapter Summary</h2>
+    <ul>
+      <li><strong>Accounting Principles:</strong> Four principles govern inventory reporting: consistency (stick with your chosen method), disclosure (state which method you use), materiality (apply formal tracking only to significant items), and conservatism (report the least favorable figures when uncertainty exists).</li>
+      <li><strong>Cost Flow Assumptions:</strong> When identical inventory units are purchased at different costs, FIFO, LIFO, and weighted-average provide logical methods to assign costs to COGS and Ending Inventory. Specific identification tracks actual unit costs and is not an assumption.</li>
+      <li><strong>FIFO:</strong> Oldest costs go to COGS; newest costs stay in Ending Inventory. When costs are rising, FIFO produces the <em>lowest</em> COGS and <em>highest</em> gross profit.</li>
+      <li><strong>LIFO:</strong> Newest costs go to COGS; oldest costs stay in Ending Inventory. When costs are rising, LIFO produces the <em>highest</em> COGS and <em>lowest</em> gross profit, resulting in lower income taxes.</li>
+      <li><strong>Weighted-Average:</strong> Blends all costs into a single average. In a perpetual system, the average is recalculated (moves) after each purchase.</li>
+      <li><strong>LCNRV Rule:</strong> Inventory must be reported at the lower of its cost or its net realizable value (market). If market drops below cost, write down inventory by debiting COGS and crediting Merchandise Inventory. If market exceeds cost, no adjustment is made.</li>
+      <li><strong>Inventory Errors:</strong> An error in ending inventory creates a ripple effect across two periods. COGS and ending inventory move in opposite directions. The error self-corrects over two periods, but each year&rsquo;s statements will be individually misstated.</li>
+      <li><strong>Evaluation Ratios:</strong> Inventory Turnover (COGS &divide; Average Inventory) measures how rapidly inventory sells. Days&rsquo; Sales in Inventory (365 &divide; Turnover) converts this to days per cycle.</li>
+      <li><strong>Periodic System:</strong> COGS is calculated once at period-end rather than at each sale. FIFO gives identical results under both systems; LIFO and weighted-average may differ due to timing.</li>
+    </ul>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- KEY TERMS GLOSSARY                                            -->
+  <!-- ============================================================ -->
+  <div class="glossary">
+    <h2>Key Terms</h2>
+    <dl>
+      <dt>Cost Flow Assumption</dt>
+      <dd>A logical method used to assign inventory costs to COGS and Ending Inventory when individual units cannot be specifically identified (FIFO, LIFO, or weighted-average).</dd>
+
+      <dt>Specific Identification</dt>
+      <dd>An inventory costing method that tracks the actual cost of each individual unit sold; used for unique, high-value items.</dd>
+
+      <dt>FIFO</dt>
+      <dd>First-In, First-Out. Assumes the oldest inventory is sold first. Under rising costs, yields the lowest COGS and highest gross profit.</dd>
+
+      <dt>LIFO</dt>
+      <dd>Last-In, First-Out. Assumes the newest inventory is sold first. Under rising costs, yields the highest COGS and lowest gross profit.</dd>
+
+      <dt>Weighted-Average</dt>
+      <dd>An inventory method that assigns a blended average cost per unit. Under perpetual systems, the average is recalculated after each purchase (moving average).</dd>
+
+      <dt>LCNRV / LCM</dt>
+      <dd>Lower-of-Cost-or-Net Realizable Value (for FIFO/Avg) or Lower-of-Cost-or-Market (for LIFO). Requires inventory to be reported at the lower of its cost or current market value.</dd>
+
+      <dt>Conservatism Principle</dt>
+      <dd>The accounting principle that assets should be reported at the lowest reasonable amount and losses should be recognized immediately, while gains are not anticipated.</dd>
+
+      <dt>Consistency Principle</dt>
+      <dd>The principle requiring businesses to use the same accounting methods from period to period without arbitrary changes.</dd>
+
+      <dt>Inventory Turnover</dt>
+      <dd>A ratio measuring how rapidly inventory sells, calculated as COGS divided by Average Merchandise Inventory.</dd>
+
+      <dt>Days&rsquo; Sales in Inventory</dt>
+      <dd>The average number of days from purchasing inventory to selling it, calculated as 365 divided by the inventory turnover ratio.</dd>
+
+      <dt>Perpetual Inventory System</dt>
+      <dd>A system that continuously tracks inventory and calculates COGS at the time of each sale.</dd>
+
+      <dt>Periodic Inventory System</dt>
+      <dd>A system that calculates COGS only at the end of the accounting period, requiring a physical count to determine ending inventory.</dd>
+    </dl>
+  </div>
+
+
+  <!-- ===== CHAPTER NAVIGATION ===== -->
+  <nav class="chapter-nav">
+    <a href="ch05.html">&larr; Chapter 5: Merchandising Operations</a>
+    <a href="ch07.html">Chapter 7: Internal Control &rarr;</a>
+  </nav>
+
+</div><!-- /chapter-container -->
+
+</body>
+</html>

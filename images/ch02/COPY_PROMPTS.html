@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 2 — Image Generation Prompts — Copy Prompts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 2rem; color: #333; }
+  h1 { font-size: 1.4rem; margin-bottom: 1.5rem; color: #1a3a5c; }
+  .card { background: #fff; border-radius: 8px; margin-bottom: 1.2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; background: #1a3a5c; color: #fff; }
+  .card-header h3 { font-size: 0.95rem; font-weight: 600; }
+  .copy-btn { background: #fff; color: #1a3a5c; border: none; padding: 0.4rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+  .copy-btn:hover { background: #e0e0e0; }
+  .copy-btn.copied { background: #4caf50; color: #fff; }
+  .prompt-text { padding: 1rem; font-size: 0.85rem; line-height: 1.6; white-space: pre-wrap; font-family: 'Consolas', 'Monaco', monospace; color: #444; max-height: 300px; overflow-y: auto; border-top: 1px solid #eee; }
+  .meta { padding: 0.5rem 1rem; font-size: 0.8rem; color: #777; background: #fafafa; border-top: 1px solid #eee; }
+</style>
+</head>
+<body>
+<h1>Chapter 2 — Image Generation Prompts</h1>
+<div class="card">
+  <div class="card-header">
+    <h3>Normal Balance Hierarchy Tree</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-0')">Copy</button>
+  </div>
+  <div class="meta">File: `fig2-1.png` (normal-balance-hierarchy)</div>
+  <div class="prompt-text" id="prompt-0">Create a tree diagram showing the normal balance hierarchy for all account types.
+
+Top: &quot;A = L + SE&quot; equation in a prominent box
+
+Split into two sides:
+
+LEFT SIDE (blue theme, label: &quot;Normal Balance: DEBIT&quot;):
+  └── Assets (Cash, A/R, Supplies, Land, Equipment, Prepaid Expenses)
+  
+  Also on debit side (with note &quot;decreases SE → opposite of SE's credit&quot;):
+  └── Expenses (Rent Exp, Salaries Exp, etc.)
+  └── Dividends
+
+RIGHT SIDE (red theme, label: &quot;Normal Balance: CREDIT&quot;):
+  └── Liabilities (A/P, N/P, Unearned Revenue)
+  └── Stockholders' Equity, which splits into:
+        ├── Contributed Capital
+        │     └── Common Stock (Cr.)
+        └── Earned Capital
+              └── Retained Earnings (Cr.)
+                    └── Revenue (Cr.) — &quot;increases R/E&quot;
+
+Show T-account symbols under Assets (Dr. side highlighted) and under Liabilities/SE (Cr. side highlighted).
+
+Key visual: Expenses and Dividends should have a special callout or different border style 
+to emphasize they are exceptions (debit normal balance despite being under SE umbrella).
+
+Style: white background, blue (#1976d2) for debit side, red (#c62828) for credit side.
+Clean tree lines connecting each level. Sans-serif font.
+Size: 900×600px, landscape.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>Accounting Cycle Flow</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-1')">Copy</button>
+  </div>
+  <div class="meta">File: `fig2-2.png` (accounting-cycle-flow)</div>
+  <div class="prompt-text" id="prompt-1">Create a horizontal flow diagram showing the accounting cycle steps covered in Chapter 2.
+
+Steps connected by arrows (left to right):
+
+(1) &quot;Transaction Occurs&quot; 
+    - Small icon: receipt/invoice document
+    - Subtitle: &quot;Source document generated&quot;
+
+→ (2) &quot;Analyze&quot; 
+    - Small icon: magnifying glass over A=L+SE
+    - Subtitle: &quot;Which accounts? Increase or decrease?&quot;
+
+→ (3) &quot;Journalize&quot; 
+    - Small icon: notebook/journal
+    - Subtitle: &quot;Record debits &amp; credits in date order&quot;
+
+→ (4) &quot;Post to Ledger&quot; 
+    - Small icon: T-account
+    - Subtitle: &quot;Transfer to individual accounts&quot;
+
+→ (5) &quot;Trial Balance&quot; 
+    - Small icon: two-column checklist
+    - Subtitle: &quot;Verify: Total Dr. = Total Cr.&quot;
+
+→ (6) &quot;Financial Statements&quot; 
+    - Small icon: bar chart / document stack
+    - Subtitle: &quot;I/S → R/E → B/S&quot;
+
+Steps 2-4 should be highlighted (active/filled) as the focus of Chapter 2.
+Steps 5-6 should be slightly dimmer but still visible.
+
+Style: rounded rectangle boxes, white background, navy blue primary color.
+Active steps: filled navy boxes with white text.
+Other steps: white boxes with navy border.
+Arrows: clean, with slight gradient or shadow for depth.
+Size: 1000×250px, wide landscape.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>Journal Entry → Posting → Ledger Visual</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-2')">Copy</button>
+  </div>
+  <div class="meta">File: `fig2-3.png` (journal-to-ledger-posting)</div>
+  <div class="prompt-text" id="prompt-2">Create a diagram showing how a journal entry is posted to ledger T-accounts.
+
+Left side: &quot;JOURNAL&quot; (styled like a ruled notebook page)
+  Date: Apr 2
+  Cash ............... Dr. 45,000
+      Notes Payable ...... Cr. 45,000
+  (Show Post Ref. column with &quot;101&quot; next to Cash and &quot;201&quot; next to Notes Payable)
+
+Center: Large arrow labeled &quot;POST&quot; pointing right
+
+Right side: &quot;LEDGER&quot; (two T-accounts side by side)
+  T-Account 1: &quot;Cash (Acct. 101)&quot;
+    - Left (Dr.) side: 45,000
+    - Post Ref: &quot;J1&quot;
+  
+  T-Account 2: &quot;Notes Payable (Acct. 201)&quot;
+    - Right (Cr.) side: 45,000
+    - Post Ref: &quot;J1&quot;
+
+Show dotted lines or colored arrows connecting:
+- The debit amount in the journal to the debit side of the Cash T-account
+- The credit amount in the journal to the credit side of the Notes Payable T-account
+
+This illustrates the cross-referencing system (posting references).
+
+Style: white background, journal side has faint ruled lines, ledger side has clean T-account borders.
+Use blue for debit flows, red for credit flows.
+Size: 900×450px, landscape.</div>
+</div>
+<script>
+function copyPrompt(btn, id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+</body>
+</html>

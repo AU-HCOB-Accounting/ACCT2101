@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 9: Plant Assets, Natural Resources, and Intangibles — Image Generation Prompts — Copy Prompts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 2rem; color: #333; }
+  h1 { font-size: 1.4rem; margin-bottom: 1.5rem; color: #1a3a5c; }
+  .card { background: #fff; border-radius: 8px; margin-bottom: 1.2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; background: #1a3a5c; color: #fff; }
+  .card-header h3 { font-size: 0.95rem; font-weight: 600; }
+  .copy-btn { background: #fff; color: #1a3a5c; border: none; padding: 0.4rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+  .copy-btn:hover { background: #e0e0e0; }
+  .copy-btn.copied { background: #4caf50; color: #fff; }
+  .prompt-text { padding: 1rem; font-size: 0.85rem; line-height: 1.6; white-space: pre-wrap; font-family: 'Consolas', 'Monaco', monospace; color: #444; max-height: 300px; overflow-y: auto; border-top: 1px solid #eee; }
+  .meta { padding: 0.5rem 1rem; font-size: 0.8rem; color: #777; background: #fafafa; border-top: 1px solid #eee; }
+</style>
+</head>
+<body>
+<h1>Chapter 9: Plant Assets, Natural Resources, and Intangibles — Image Generation Prompts</h1>
+<div class="card">
+  <div class="card-header">
+    <h3>fig9-1.png (ppe-lifecycle)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-0')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 1 — The Life Cycle of a Plant Asset (Figure 9-1) | Purpose: Visual overview of the three stages in a plant asset's life cycle</div>
+  <div class="prompt-text" id="prompt-0">Create a clean, professional educational infographic for a university accounting textbook showing the three stages in a plant asset's life cycle. Use a horizontal layout with three large rounded-rectangle cards connected by thick arrows (→) flowing left to right.
+
+**Card 1 — &quot;1. Acquisition&quot;:**
+- Icon: a shopping cart or handshake icon
+- Color: Green (#2e7d32) header
+- Bullet points:
+  - &quot;Determine and record cost&quot;
+  - &quot;Cost Principle: purchase price + all costs to ready for intended use&quot;
+  - &quot;Capitalize the cost (debit Asset)&quot;
+
+**Card 2 — &quot;2. Usage&quot;:**
+- Icon: a gear/cog or factory icon
+- Color: Navy blue (#1a3a5c) header
+- Bullet points:
+  - &quot;Record Depreciation Expense each period&quot;
+  - &quot;Capital vs. Revenue Expenditures&quot;
+  - &quot;Matching principle: expense matched to revenue&quot;
+
+**Card 3 — &quot;3. Disposal&quot;:**
+- Icon: a truck driving away or exit sign icon
+- Color: Orange (#e65100) header
+- Bullet points:
+  - &quot;Update depreciation to disposal date&quot;
+  - &quot;Remove asset and accumulated depreciation&quot;
+  - &quot;Recognize Gain or Loss&quot;
+
+Style: White background, clean sans-serif font (like Helvetica), subtle drop shadows on cards, navy arrows between cards. Professional textbook quality. 900×400px landscape.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig9-2.png (land-vs-improvements)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-1')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 2.2 — Land vs. Land Improvements (Figure 9-2) | Purpose: Side-by-side comparison showing which costs go to Land vs. Land Improvements</div>
+  <div class="prompt-text" id="prompt-1">Create a professional educational comparison diagram for a university accounting textbook comparing Land vs. Land Improvements. Two-column layout with a vertical divider.
+
+**Left Column — &quot;Land&quot;:**
+- Header: Dark green (#2e7d32) background with white text
+- Icon: A terrain/mountain icon
+- Key label: &quot;NEVER Depreciated (infinite life)&quot;
+- Bullet list of costs:
+  - &quot;Purchase price&quot;
+  - &quot;Brokerage commissions&quot;
+  - &quot;Survey &amp; legal fees&quot;
+  - &quot;Delinquent property taxes&quot;
+  - &quot;Title transfer fees&quot;
+  - &quot;Clearing/grading costs&quot;
+
+**Right Column — &quot;Land Improvements&quot;:**
+- Header: Navy blue (#1a3a5c) background with white text
+- Icon: A fence/construction icon
+- Key label: &quot;DEPRECIATED (limited useful life)&quot;
+- Bullet list of costs:
+  - &quot;Fencing&quot;
+  - &quot;Paving&quot;
+  - &quot;Sprinkler systems&quot;
+  - &quot;Lighting&quot;
+  - &quot;Signs&quot;
+  - &quot;Landscaping&quot;
+
+Bottom callout banner: &quot;These are TWO SEPARATE asset accounts on the balance sheet&quot;
+
+Style: White background, clean layout, color-coded sides (green for land, navy for improvements). Sans-serif font. 860×450px.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig9-3.png (depreciation-methods-comparison)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-2')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 9 — Comparing Depreciation Methods (Figure 9-3) | Purpose: Graph comparing the three depreciation methods' expense patterns over 5 years</div>
+  <div class="prompt-text" id="prompt-2">Create a professional educational line graph for a university accounting textbook comparing three depreciation methods' expense patterns over 5 years. Show a single graph with three lines plotted over 5 years (X-axis: Year 1-5, Y-axis: Depreciation Expense in dollars from $0 to $18,000).
+
+**Line 1 — Straight-Line (Blue, solid line):**
+- Flat horizontal line at $8,000 for all 5 years
+- Labeled &quot;Straight-Line&quot;
+
+**Line 2 — Units-of-Production (Green, dashed line):**
+- Points: Year 1: $8,000, Year 2: $12,000, Year 3: $10,000, Year 4: $6,000, Year 5: $4,000
+- Labeled &quot;Units-of-Production&quot;
+
+**Line 3 — Double-Declining-Balance (Red/Orange, dotted line):**
+- Points: Year 1: $16,400, Year 2: $9,840, Year 3: $5,904, Year 4: $3,542, Year 5: $4,314
+- Labeled &quot;Double-Declining-Balance&quot;
+
+Below the graph, add a small callout: &quot;Total depreciation = $40,000 for ALL three methods&quot;
+
+Style: White background, grid lines, clean axis labels, legend box in upper right. Navy axis lines. Sans-serif font. 860×500px.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig9-4.png (capital-vs-revenue-expenditures)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-3')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 4 — Capital vs. Revenue Expenditures (Figure 9-4) | Purpose: Visual comparison of capital expenditures vs. revenue expenditures for a delivery truck</div>
+  <div class="prompt-text" id="prompt-3">Create a professional educational diagram for a university accounting textbook comparing capital vs. revenue expenditures using a delivery truck example. Two-panel layout with a delivery truck icon centered at the top.
+
+**Left Panel — &quot;Capital Expenditures&quot; (blue border):**
+- Header: Navy blue (#1a3a5c) background
+- Subheader: &quot;Debit an ASSET Account&quot;
+- List:
+  - &quot;Major engine overhaul&quot;
+  - &quot;Transmission rebuild&quot;
+  - &quot;Modification for new use&quot;
+  - &quot;Addition to storage capacity&quot;
+- Bottom label: &quot;Effect: Extends life or increases capacity → Balance Sheet&quot;
+
+**Right Panel — &quot;Revenue Expenditures&quot; (orange border):**
+- Header: Orange (#e65100) background
+- Subheader: &quot;Debit an EXPENSE Account&quot;
+- List:
+  - &quot;Oil change, lubrication&quot;
+  - &quot;Tire replacement&quot;
+  - &quot;Windshield replacement&quot;
+  - &quot;Paint job&quot;
+- Bottom label: &quot;Effect: Maintains normal operation → Income Statement&quot;
+
+Style: White background, clean cards with subtle shadows. Color-coded panels. Sans-serif font. 860×450px.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig9-5.png (book-value-vs-depreciable-cost)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-4')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 5.2 — Depreciable Cost vs. Book Value (Figure 9-5) | Purpose: Visual diagram showing the relationship between cost, depreciable cost, book value, and residual value</div>
+  <div class="prompt-text" id="prompt-4">Create a professional educational diagram for a university accounting textbook showing the relationship between cost, depreciable cost, book value, and residual value.
+
+Show a tall vertical bar representing an asset's total cost ($100,000). The bar is divided into two sections:
+
+**Top section (large, blue shading):**
+- Labeled: &quot;Depreciable Cost = $80,000&quot;
+- Subtitle: &quot;This is the total amount that will be depreciated over the asset's useful life&quot;
+- Arrow pointing to: &quot;At the END of useful life → becomes Accumulated Depreciation&quot;
+
+**Bottom section (small, green shading):**
+- Labeled: &quot;Residual Value = $20,000&quot;
+- Subtitle: &quot;This portion is NEVER depreciated&quot;
+- Arrow pointing to: &quot;At the END of useful life → becomes Book Value&quot;
+
+To the right of the bar, show two formula boxes:
+- Box 1: &quot;Depreciable Cost = Cost − Residual Value = $100,000 − $20,000 = $80,000&quot;
+- Box 2: &quot;Book Value = Cost − Accumulated Depreciation (changes each year)&quot;
+
+A callout at the bottom: &quot;At the end of useful life: Book Value = Residual Value&quot;
+
+Style: White background, clean layout, blue (#1a3a5c) and green (#2e7d32) color scheme. Sans-serif font. 860×500px.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig9-6.png (ddb-plug-number)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-5')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 8 — The Final-Year &quot;Plug&quot; Number (Figure 9-6) | Purpose: Visual showing why the DDB method needs a plug number in the final year</div>
+  <div class="prompt-text" id="prompt-5">Create a professional educational diagram for a university accounting textbook showing why the DDB method needs a plug number in the final year.
+
+Show a declining staircase/bar chart of book values over 5 years:
+- Year 0 (start): $41,000 (full bar)
+- End Year 1: $24,600 (after $16,400 depreciation)
+- End Year 2: $14,760 (after $9,840)
+- End Year 3: $8,856 (after $5,904)
+- End Year 4: $5,314 (after $3,542)
+
+At Year 5, show TWO paths branching from $5,314:
+**Path A (crossed out with red X):**
+- &quot;Formula: $5,314 × 40% = $2,125.60&quot;
+- &quot;Book Value would be $3,188.40&quot;
+- Red warning: &quot;Above residual value — but overshoots in some scenarios&quot;
+
+**Path B (green checkmark):**
+- &quot;Plug: $5,314 − $1,000 = $4,314&quot;
+- &quot;Book Value = $1,000 = Residual Value ✓&quot;
+- Green label: &quot;CORRECT — use the plug number&quot;
+
+A dashed horizontal line at $1,000 labeled &quot;Residual Value Floor — never depreciate below this&quot;
+
+Style: White background, staircase chart in navy blue, red/green for the two paths. Sans-serif font. 900×500px.</div>
+</div>
+<script>
+function copyPrompt(btn, id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+</body>
+</html>

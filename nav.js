@@ -5,7 +5,14 @@
     { file: 'ch02.html', num: '2', title: 'Recording Business Transactions', short: 'Ch 2' },
     { file: 'ch03.html', num: '3', title: 'The Adjusting Process', short: 'Ch 3' },
     { file: 'ch04.html', num: '4', title: 'Completing the Accounting Cycle', short: 'Ch 4' },
-    { file: 'ch05.html', num: '5', title: 'Merchandising Operations', short: 'Ch 5' }
+    { file: 'ch05.html', num: '5', title: 'Merchandising Operations', short: 'Ch 5' },
+    { file: 'ch06.html', num: '6', title: 'Merchandise Inventory', short: 'Ch 6' },
+    { file: 'ch07.html', num: '7', title: 'Internal Control and Cash', short: 'Ch 7' },
+    { file: 'ch08.html', num: '8', title: 'Receivables', short: 'Ch 8' },
+    { file: 'ch09.html', num: '9', title: 'Plant Assets, Natural Resources, and Intangibles', short: 'Ch 9' },
+    { file: 'ch11.html', num: '11', title: 'Current Liabilities', short: 'Ch 11' },
+    { file: 'ch12.html', num: '12', title: 'Long-Term Liabilities', short: 'Ch 12' },
+    { file: 'ch13.html', num: '13', title: "Stockholders' Equity", short: 'Ch 13' }
   ];
 
   var currentFile = location.pathname.split('/').pop() || 'index.html';

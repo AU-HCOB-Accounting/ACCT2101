@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 6 – Image Generation Prompts — Copy Prompts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 2rem; color: #333; }
+  h1 { font-size: 1.4rem; margin-bottom: 1.5rem; color: #1a3a5c; }
+  .card { background: #fff; border-radius: 8px; margin-bottom: 1.2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; background: #1a3a5c; color: #fff; }
+  .card-header h3 { font-size: 0.95rem; font-weight: 600; }
+  .copy-btn { background: #fff; color: #1a3a5c; border: none; padding: 0.4rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+  .copy-btn:hover { background: #e0e0e0; }
+  .copy-btn.copied { background: #4caf50; color: #fff; }
+  .prompt-text { padding: 1rem; font-size: 0.85rem; line-height: 1.6; white-space: pre-wrap; font-family: 'Consolas', 'Monaco', monospace; color: #444; max-height: 300px; overflow-y: auto; border-top: 1px solid #eee; }
+  .meta { padding: 0.5rem 1rem; font-size: 0.8rem; color: #777; background: #fafafa; border-top: 1px solid #eee; }
+</style>
+</head>
+<body>
+<h1>Chapter 6 – Image Generation Prompts</h1>
+<div class="card">
+  <div class="card-header">
+    <h3>Inventory Cost Flow Comparison Diagram</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-0')">Copy</button>
+  </div>
+  <div class="meta">Filename: `fig6-1.png` (cost-flow-methods) | Usage: Section 3 (Inventory Costing Methods) — visual overview of FIFO, LIFO, and Weighted-Average</div>
+  <div class="prompt-text" id="prompt-0">Create a clean, professional educational diagram comparing three inventory cost flow methods side by side. Use a modern textbook style with a white background.
+
+Show three warehouse columns labeled &quot;FIFO&quot;, &quot;LIFO&quot;, and &quot;Weighted-Average&quot;. Each warehouse is a vertical stack of colored boxes representing inventory layers:
+- Bottom layer (blue): &quot;Oldest Cost — $70&quot;
+- Middle layer (green): &quot;Middle Cost — $75&quot;
+- Top layer (orange): &quot;Newest Cost — $80&quot;
+
+For FIFO: Draw an arrow from the BOTTOM (oldest) going out to a box labeled &quot;COGS&quot; on the right. The remaining top layers stay in a box labeled &quot;Ending Inventory&quot;. Add a small note: &quot;Old costs → COGS, New costs → Balance Sheet&quot;
+
+For LIFO: Draw an arrow from the TOP (newest) going out to &quot;COGS&quot;. The remaining bottom layers stay in &quot;Ending Inventory&quot;. Note: &quot;New costs → COGS, Old costs → Balance Sheet&quot;
+
+For Weighted-Average: Show all layers blended into one uniform color with label &quot;Blended Average $76.54&quot;. An arrow goes to both &quot;COGS&quot; and &quot;Ending Inventory&quot; at the same average cost.
+
+Use a navy blue (#1a3a5c) and white color scheme with subtle accents. Sans-serif font, clean lines, no 3D effects.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>FIFO vs LIFO Financial Statement Impact</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-1')">Copy</button>
+  </div>
+  <div class="meta">Filename: `fig6-2.png` (fifo-vs-lifo-impact) | Usage: Section 11 (Comparing Effects) — shows opposite impact on I/S and B/S</div>
+  <div class="prompt-text" id="prompt-1">Create a clean educational infographic showing how FIFO and LIFO affect financial statements when costs are RISING. Use a professional textbook style with white background.
+
+Layout: Two-column comparison with &quot;FIFO&quot; on the left (blue theme, #1565c0) and &quot;LIFO&quot; on the right (red theme, #c62828).
+
+INCOME STATEMENT section (top half):
+- FIFO side: Show &quot;COGS: Lowest&quot; with a small down arrow, then &quot;Gross Profit: Highest&quot; with an up arrow, then &quot;Income Tax: Highest&quot; with an up arrow
+- LIFO side: Show &quot;COGS: Highest&quot; with an up arrow, then &quot;Gross Profit: Lowest&quot; with a down arrow, then &quot;Income Tax: Lowest&quot; with a down arrow
+
+BALANCE SHEET section (bottom half):
+- FIFO side: Show &quot;Ending Inventory: Highest&quot; with up arrow, small note &quot;Reflects current market costs&quot;
+- LIFO side: Show &quot;Ending Inventory: Lowest&quot; with down arrow, small note &quot;Contains outdated old costs&quot;
+
+Center column: Show &quot;Weighted-Average&quot; in gold/amber (#e65100) with text &quot;Always in the Middle&quot;
+
+Add a small note at the bottom: &quot;The patterns reverse when costs are falling.&quot;
+
+Use clean sans-serif typography, subtle shadows, and a modern flat design. No 3D effects.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>Inventory Error Ripple Effect</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-2')">Copy</button>
+  </div>
+  <div class="meta">Filename: `fig6-3.png` (inventory-error-ripple) | Usage: Section 13 (Effects of Inventory Errors) — shows how error flows across two periods</div>
+  <div class="prompt-text" id="prompt-2">Create a clean educational diagram showing how an inventory error ripples across two accounting periods. Use a professional textbook style with white background.
+
+Layout: Two connected panels side by side, labeled &quot;Period 1 (Error Year)&quot; and &quot;Period 2 (Next Year)&quot;.
+
+Period 1 panel:
+- Show a flow: &quot;Ending Inventory OVERSTATED ↑&quot; (red text)
+- Arrow down to &quot;COGS UNDERSTATED ↓&quot; (blue text)
+- Arrow down to &quot;Gross Profit OVERSTATED ↑&quot; (red text)
+- Arrow down to &quot;Net Income OVERSTATED ↑&quot; (red text)
+
+A prominent arrow connects Period 1's &quot;Ending Inventory&quot; to Period 2's &quot;Beginning Inventory&quot; with the label &quot;Ending Inv. of Period 1 = Beginning Inv. of Period 2&quot;
+
+Period 2 panel:
+- Show: &quot;Beginning Inventory OVERSTATED ↑&quot; (red)
+- Arrow down to &quot;COGS OVERSTATED ↑&quot; (red)
+- Arrow down to &quot;Gross Profit UNDERSTATED ↓&quot; (blue)
+- Arrow down to &quot;Net Income UNDERSTATED ↓&quot; (blue)
+
+At the bottom, a banner reads: &quot;The error SELF-CORRECTS over two periods — but each year's statements are individually misstated.&quot;
+
+Use navy (#1a3a5c) headers, red (#c62828) for overstated items, blue (#1565c0) for understated items, green (#2e7d32) for the self-correction note. Clean sans-serif font, no 3D effects.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>Lower-of-Cost-or-Market Rule</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-3')">Copy</button>
+  </div>
+  <div class="meta">Filename: `fig6-4.png` (lcm-rule) | Usage: Section 12 (LCNRV) — visual decision flowchart</div>
+  <div class="prompt-text" id="prompt-3">Create a clean educational flowchart showing how to apply the Lower-of-Cost-or-Market (LCM) / LCNRV rule. Use a professional textbook style with white background.
+
+Start with a diamond decision box at the top: &quot;Compare: Historical Cost vs. Market Value&quot;
+
+Two branches:
+
+LEFT branch (when market &lt; cost):
+- Arrow labeled &quot;Market &lt; Cost&quot; goes to a green action box: &quot;Write DOWN to Market Value&quot;
+- Below that: &quot;Journal Entry: Dr. COGS / Cr. Merchandise Inventory&quot;
+- A small note: &quot;Recognize loss immediately&quot;
+
+RIGHT branch (when market ≥ cost):
+- Arrow labeled &quot;Market ≥ Cost&quot; goes to a blue action box: &quot;NO Adjustment&quot;
+- Below that: &quot;Keep at Historical Cost&quot;
+- A small note: &quot;Do NOT write up — conservatism principle&quot;
+
+At the bottom center, a summary box with gold border: &quot;Rule: Always report inventory at the LOWER of the two values. Never anticipate gains.&quot;
+
+Use navy (#1a3a5c) for headers, green (#4caf50) for the write-down path, blue (#1976d2) for the no-adjustment path, gold (#d4a84b) for the summary box. Clean sans-serif font, rounded corners, no 3D.</div>
+</div>
+<script>
+function copyPrompt(btn, id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+</body>
+</html>

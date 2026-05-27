@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 8 – Receivables</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    /* ===== Ch08 Page-specific styles ===== */
+
+    /* T-Account visual */
+    .t-account {
+      display: inline-block;
+      min-width: 240px;
+      margin: 0.5rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.88rem;
+      vertical-align: top;
+    }
+    .t-account-title {
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary);
+      padding: 0.3rem 0.5rem;
+      margin-bottom: 0;
+    }
+    .t-account-body {
+      display: flex;
+      border-top: 2px solid var(--primary);
+      min-height: 60px;
+    }
+    .t-left, .t-right {
+      flex: 1;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.82rem;
+    }
+    .t-left { border-right: 2px solid var(--primary); }
+    .t-left-label, .t-right-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 0.3rem;
+    }
+    .t-entry { padding: 0.15rem 0; }
+    .t-entry.bal {
+      font-weight: 700;
+      border-top: 1px solid var(--border-light);
+      margin-top: 0.3rem;
+      padding-top: 0.3rem;
+    }
+
+    /* Journal Entry visual */
+    .journal-entry {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .journal-entry .je-date {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem;
+    }
+    .journal-entry .je-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.15rem 0;
+    }
+    .journal-entry .je-line.credit .je-acct { padding-left: 2rem; }
+    .journal-entry .je-dr, .journal-entry .je-cr {
+      min-width: 70px;
+      text-align: right;
+      font-weight: 600;
+    }
+    .journal-entry .je-dr { color: #1565c0; }
+    .journal-entry .je-cr { color: #c62828; }
+    .journal-entry .je-narration {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-style: italic;
+      padding-left: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    /* Comparison columns */
+    .compare-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .compare-col {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .compare-col h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    /* NRV comparison layout */
+    .nrv-compare {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: center;
+      margin: 1.5rem 0;
+    }
+    .nrv-box {
+      background: var(--bg-white);
+      border: 2px solid var(--primary-light);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    .nrv-box h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+    }
+    .nrv-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.88rem;
+    }
+    .nrv-line.total {
+      font-weight: 700;
+      border-top: 2px solid var(--primary);
+      margin-top: 0.3rem;
+      padding-top: 0.4rem;
+      color: var(--primary);
+    }
+    .nrv-arrow {
+      font-size: 2rem;
+      color: var(--text-light);
+      font-weight: bold;
+    }
+
+    /* Allowance T-account helper for estimation */
+    .allowance-calc {
+      max-width: 380px;
+      margin: 1.5rem auto;
+      background: var(--bg-white);
+      border: 2px solid var(--primary-light);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow-sm);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.88rem;
+    }
+    .allowance-calc .ac-title {
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .allowance-calc .ac-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.25rem 0.5rem;
+    }
+    .allowance-calc .ac-row.target {
+      font-weight: 700;
+      color: var(--primary);
+      border-top: 2px solid var(--primary);
+      margin-top: 0.3rem;
+      padding-top: 0.4rem;
+    }
+    .allowance-calc .ac-row.expense {
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* Aging schedule table */
+    .aging-table th, .aging-table td {
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    .aging-table th:first-child, .aging-table td:first-child {
+      text-align: left;
+    }
+
+    /* Method step list */
+    .method-steps {
+      counter-reset: step;
+      list-style: none;
+      padding-left: 0;
+    }
+    .method-steps li {
+      counter-increment: step;
+      padding: 0.6rem 0 0.6rem 2.5rem;
+      position: relative;
+      margin-bottom: 0.3rem;
+    }
+    .method-steps li::before {
+      content: "Step " counter(step);
+      position: absolute;
+      left: 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Ratio card grid */
+    .ratio-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    .ratio-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-top: 4px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .ratio-card h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+    }
+    .ratio-card .ratio-formula {
+      background: var(--bg-light);
+      border-radius: 4px;
+      padding: 0.6rem;
+      font-size: 0.85rem;
+      text-align: center;
+      margin: 0.5rem 0;
+      font-family: 'Courier New', monospace;
+    }
+    .ratio-card p {
+      font-size: 0.88rem;
+      text-align: left;
+      margin-bottom: 0.3rem;
+    }
+
+    @media (max-width: 768px) {
+      .compare-cols { grid-template-columns: 1fr; }
+      .nrv-compare { grid-template-columns: 1fr; }
+      .nrv-arrow { transform: rotate(90deg); text-align: center; }
+      .ratio-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+  <script src="nav.js" defer></script>
+</head>
+<body class="has-sidebar">
+
+<div class="chapter-container">
+
+  <!-- ===== CHAPTER HEADER ===== -->
+  <header class="chapter-header">
+    <div class="chapter-label">Chapter 8</div>
+    <h1 class="chapter-title">Receivables</h1>
+    <p class="chapter-subtitle">Accounting for Accounts Receivable, Bad Debts, Notes Receivable, and Financial Analysis</p>
+  </header>
+
+  <!-- ===== LEARNING OBJECTIVES ===== -->
+  <div class="learning-objectives">
+    <h2>Learning Objectives</h2>
+    <ol>
+      <li>Define and explain common types of receivables and journalize sales on credit.</li>
+      <li>Apply the direct write-off method for uncollectibles.</li>
+      <li>Apply the allowance method for uncollectibles and estimate bad debts expense based on the percent-of-sales, percent-of-receivables, and aging-of-receivables methods.</li>
+      <li>Account for notes receivable, including computing interest and recording honored and dishonored notes.</li>
+      <li>Use the acid-test ratio, accounts receivable turnover ratio, and days&rsquo; sales in receivables to evaluate business performance.</li>
+    </ol>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: TYPES OF RECEIVABLES                               -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-types">1. Common Types of Receivables</h2>
+
+  <p>
+    A <strong>receivable</strong> occurs when a business sells goods or services to another party <em>on account</em>
+    (on credit). It is a monetary claim&mdash;a right to receive cash in the future from a current transaction. The
+    party who receives the receivable is the <strong>creditor</strong>; the party obligated to pay later is the
+    <strong>debtor</strong>.
+  </p>
+
+  <p>There are three main categories of receivables:</p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERMS</div>
+    <p>
+      <strong>Accounts Receivable (A/R)</strong> &mdash; Also called <em>trade receivables</em>. Represents the right
+      to receive cash from customers for goods or services performed. Generally collected within 30&ndash;60 days.
+      Reported as a <strong>current asset</strong> on the balance sheet. Typically does <em>not</em> bear interest;
+      instead, companies may offer early-payment discount terms.
+    </p>
+    <p style="margin-top:0.8rem;">
+      <strong>Notes Receivable (N/R)</strong> &mdash; Also called <em>promissory notes</em>. A written promise to pay
+      a fixed amount of <strong>principal plus interest</strong> by a certain <strong>maturity date</strong>. Usually
+      have longer terms than accounts receivable and are evidenced by a legally binding written document.
+    </p>
+    <p style="margin-top:0.8rem;">
+      <strong>Other Receivables</strong> &mdash; Any receivable that is not a trade receivable or a note receivable.
+      Examples include dividends receivable, interest receivable, and taxes receivable. Classified as either current
+      or long-term depending on when they are due.
+    </p>
+  </div>
+
+  <figure class="figure">
+    <img src="images/ch08/fig8-1.png"
+         alt="Diagram comparing Accounts Receivable, Notes Receivable, and Other Receivables">
+    <figcaption class="figure-caption">Figure 8-1. Three Types of Receivables</figcaption>
+  </figure>
+
+  <h3 class="subsection-title">Recording Sales on Credit</h3>
+
+  <p>
+    When a company sells goods or services on account, it records a debit to Accounts Receivable and a credit to
+    Sales Revenue. Importantly, the journal entry must specify the <strong>individual customer</strong>&mdash;each
+    customer&rsquo;s balance is tracked in a <strong>subsidiary ledger</strong>, while the combined total is recorded
+    in the <strong>Accounts Receivable control account</strong>.
+  </p>
+
+  <div class="journal-entry">
+    <div class="je-date">To record a credit sale:</div>
+    <div class="je-line">
+      <span class="je-acct">Accounts Receivable&mdash;Customer</span>
+      <span class="je-dr">XXX</span>
+      <span class="je-cr">&nbsp;</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Sales Revenue</span>
+      <span class="je-dr">&nbsp;</span>
+      <span class="je-cr">XXX</span>
+    </div>
+  </div>
+
+  <p>
+    When cash is collected, the entry reverses the receivable: debit Cash and credit Accounts Receivable for the
+    specific customer.
+  </p>
+
+  <h3 class="subsection-title">Internal Control over Receivables</h3>
+
+  <p>
+    A critical element of internal control is the <strong>separation of cash-handling and cash-accounting duties</strong>.
+    The credit department should have no access to cash. If the same person can both approve write-offs and handle
+    cash, a corrupt employee could claim a customer&rsquo;s account has been written off&mdash;even though the customer
+    actually paid&mdash;and pocket the cash. Separating these duties prevents such fraud.
+  </p>
+
+  <h3 class="subsection-title">Decreasing Collection Time and Credit Risk</h3>
+
+  <p>
+    Companies must wait to receive cash from credit sales, and some accounts are never collected. Two strategies
+    help mitigate this risk:
+  </p>
+  <ul>
+    <li><strong>Credit/Debit Card Sales</strong> &mdash; The card company assumes the collection risk and pays the
+      seller quickly, minus a processing fee.</li>
+    <li><strong>Factoring &amp; Pledging Receivables</strong> &mdash; <em>Factoring</em> means selling receivables
+      outright to a third party (called a <em>factor</em>) for a fee. <em>Pledging</em> means borrowing money using
+      receivables as collateral.</li>
+  </ul>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: CONVERTING A/R TO N/R                              -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-conversion">2. Converting Accounts Receivable to Notes Receivable</h2>
+
+  <p>
+    There are two common scenarios involving notes receivable. In the first, an existing account receivable is
+    <strong>converted</strong> into a note receivable. In the second, a note receivable is created
+    <strong>directly</strong> from a sale.
+  </p>
+
+  <h3 class="subsection-title">Scenario 1: A/R Converted to N/R</h3>
+
+  <p>
+    Suppose Company A sells a product to Company B on account. Company B is expected to pay within 30&ndash;60 days.
+    However, Company B is short on cash and cannot pay by the due date. To buy more time, Company B issues a
+    <strong>promissory note</strong> to Company A, promising to pay the original amount <em>plus interest</em> at
+    a future date. Company A swaps the account receivable for a note receivable:
+  </p>
+
+  <div class="journal-entry">
+    <div class="je-date">To convert A/R to N/R:</div>
+    <div class="je-line">
+      <span class="je-acct">Notes Receivable&mdash;Company B</span>
+      <span class="je-dr">XXX</span>
+      <span class="je-cr">&nbsp;</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Accounts Receivable&mdash;Company B</span>
+      <span class="je-dr">&nbsp;</span>
+      <span class="je-cr">XXX</span>
+    </div>
+    <div class="je-narration">Accepted promissory note from Company B for overdue account.</div>
+  </div>
+
+  <p>
+    This entry removes the balance from Accounts Receivable and establishes the new Note Receivable. Over time,
+    interest will accrue on this note.
+  </p>
+
+  <h3 class="subsection-title">Scenario 2: N/R Received Directly from a Sale</h3>
+
+  <p>
+    Instead of starting with an account receivable, a company might make a sale and <em>immediately</em> receive a
+    promissory note. Over time, the company recognizes interest revenue as it accrues. When the due date arrives,
+    the company collects the <strong>maturity value</strong> (principal plus interest):
+  </p>
+
+  <div class="journal-entry">
+    <div class="je-date">At the time of sale:</div>
+    <div class="je-line">
+      <span class="je-acct">Notes Receivable&mdash;Company B</span>
+      <span class="je-dr">XXX</span>
+      <span class="je-cr">&nbsp;</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Sales Revenue</span>
+      <span class="je-dr">&nbsp;</span>
+      <span class="je-cr">XXX</span>
+    </div>
+  </div>
+
+  <div class="journal-entry">
+    <div class="je-date">As interest accrues:</div>
+    <div class="je-line">
+      <span class="je-acct">Interest Receivable</span>
+      <span class="je-dr">XXX</span>
+      <span class="je-cr">&nbsp;</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Interest Revenue</span>
+      <span class="je-dr">&nbsp;</span>
+      <span class="je-cr">XXX</span>
+    </div>
+  </div>
+
+  <div class="journal-entry">
+    <div class="je-date">At maturity (collection):</div>
+    <div class="je-line">
+      <span class="je-acct">Cash</span>
+      <span class="je-dr">XXX</span>
+      <span class="je-cr">&nbsp;</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Notes Receivable</span>
+      <span class="je-dr">&nbsp;</span>
+      <span class="je-cr">XXX</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Interest Receivable</span>
+      <span class="je-dr">&nbsp;</span>
+      <span class="je-cr">XXX</span>
+    </div>
+  </div>
+
+  <figure class="figure">
+    <img src="images/ch08/fig8-2.png"
+         alt="Two scenarios: converting A/R to N/R and receiving N/R directly from a sale">
+    <figcaption class="figure-caption">Figure 8-2. Two Receivable Scenarios</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: UNCOLLECTIBLE ACCOUNTS                             -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-uncollectibles">3. Estimating Uncollectible Accounts</h2>
+
+  <p>
+    In practice, a company deals with many customers. When you extend credit to multiple customers, it is virtually
+    impossible to collect every single dollar. Some customers will default and not pay what they owe. Therefore,
+    companies must use their best judgment and historical data to estimate how much of their accounts receivable will
+    go uncollected.
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> WHY ESTIMATE?</div>
+    <p>
+      If a company has $1,000 in receivables but expects $200 will never be collected, reporting the full $1,000
+      would <strong>overstate assets</strong>. The <strong>principle of conservatism</strong> requires that a company
+      not overstate its assets or revenues and should timely recognize potential losses. Reporting the full $1,000
+      when $200 is expected to be uncollectible would be a misstatement.
+    </p>
+  </div>
+
+  <p>
+    There are two methods to deal with uncollectible accounts: the <strong>Direct Write-off Method</strong> and the
+    <strong>Allowance Method</strong>. Only the allowance method is permitted under GAAP for public companies.
+  </p>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: DIRECT WRITE-OFF METHOD                            -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-direct">4. The Direct Write-off Method</h2>
+
+  <p>
+    Under the direct write-off method, a company recognizes <strong>Bad Debts Expense</strong> only when a specific
+    customer&rsquo;s account is definitively determined to be uncollectible&mdash;that is, when the company is 100%
+    sure it will never collect. At that point, the account is <em>written off</em> and the company stops pursuing
+    collection.
+  </p>
+
+  <div class="journal-entry">
+    <div class="je-date">Write-off (Direct Method):</div>
+    <div class="je-line">
+      <span class="je-acct">Bad Debts Expense</span>
+      <span class="je-dr">200</span>
+      <span class="je-cr">&nbsp;</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Accounts Receivable&mdash;Customer #1</span>
+      <span class="je-dr">&nbsp;</span>
+      <span class="je-cr">200</span>
+    </div>
+    <div class="je-narration">Wrote off uncollectible account.</div>
+  </div>
+
+  <h3 class="subsection-title">Recovery of a Written-Off Account</h3>
+
+  <p>
+    If a customer whose account was written off unexpectedly pays, the company must perform <strong>two steps</strong>:
+  </p>
+
+  <ol>
+    <li><strong>Reverse the write-off</strong> to reinstate the customer&rsquo;s account.</li>
+    <li><strong>Record the cash collection</strong> as usual.</li>
+  </ol>
+
+  <div class="journal-entry">
+    <div class="je-date">Step 1 &mdash; Reinstate the account:</div>
+    <div class="je-line">
+      <span class="je-acct">Accounts Receivable&mdash;Customer #1</span>
+      <span class="je-dr">200</span>
+      <span class="je-cr">&nbsp;</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Bad Debts Expense</span>
+      <span class="je-dr">&nbsp;</span>
+      <span class="je-cr">200</span>
+    </div>
+  </div>
+
+  <div class="journal-entry">
+    <div class="je-date">Step 2 &mdash; Collect cash:</div>
+    <div class="je-line">
+      <span class="je-acct">Cash</span>
+      <span class="je-dr">200</span>
+      <span class="je-cr">&nbsp;</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Accounts Receivable&mdash;Customer #1</span>
+      <span class="je-dr">&nbsp;</span>
+      <span class="je-cr">200</span>
+    </div>
+  </div>
+
+  <p>
+    The income statement effect: reversing the Bad Debts Expense in Step 1 decreases total expenses and increases
+    net income for the period by $200.
+  </p>
+
+  <h3 class="subsection-title">Why the Direct Write-off Method Violates GAAP</h3>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#9888;&#65039;</span> MATCHING PRINCIPLE VIOLATION</div>
+    <p>
+      The direct write-off method violates the <strong>matching principle</strong>, which requires that expenses be
+      recognized in the <em>same period</em> as the revenues they helped generate. Under this method, a credit sale
+      may be recorded in Period 1 but the bad debt expense is recorded in Period 2 (when the write-off occurs). This
+      disconnects the expense from the revenue it relates to.
+    </p>
+    <p style="margin-top:0.5rem;">
+      <strong>Result:</strong> Net income is overstated in Period 1 and understated in Period 2. Accounts receivable
+      is also overstated in Period 1. For these reasons, the direct write-off method is only acceptable for companies
+      with very few uncollectible receivables (small, non-public businesses).
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: ALLOWANCE METHOD                                   -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-allowance">5. The Allowance Method (GAAP)</h2>
+
+  <p>
+    Under the allowance method, instead of waiting for an actual write-off, the company <strong>estimates</strong>
+    Bad Debts Expense at the end of each accounting period through an <strong>adjusting entry</strong>. This matches
+    the anticipated loss with the period&rsquo;s sales revenue, satisfying the matching principle.
+  </p>
+
+  <figure class="figure">
+    <img src="images/ch08/fig8-3.png"
+         alt="Comparison diagram: Direct Write-off Method vs Allowance Method">
+    <figcaption class="figure-caption">Figure 8-3. Direct Write-off Method vs. Allowance Method</figcaption>
+  </figure>
+
+  <h3 class="subsection-title">The Adjusting Entry</h3>
+
+  <p>
+    Assume a company has $1,000 in credit sales and historical records indicate that 20% will be uncollectible.
+    At the end of the period, the company records:
+  </p>
+
+  <div class="journal-entry">
+    <div class="je-date">End-of-period adjusting entry:</div>
+    <div class="je-line">
+      <span class="je-acct">Bad Debts Expense</span>
+      <span class="je-dr">200</span>
+      <span class="je-cr">&nbsp;</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Allowance for Bad Debts</span>
+      <span class="je-dr">&nbsp;</span>
+      <span class="je-cr">200</span>
+    </div>
+    <div class="je-narration">Estimated 20% of credit sales uncollectible.</div>
+  </div>
+
+  <h3 class="subsection-title">Allowance for Bad Debts: A Contra-Asset Account</h3>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <p>
+      <strong>Allowance for Bad Debts</strong> (also called <em>Allowance for Doubtful Accounts</em>) is a
+      <strong>contra-asset account</strong>. Because it is a contra-asset, its normal balance is a
+      <strong>credit</strong>&mdash;the opposite of an asset. It reduces the Accounts Receivable balance to its
+      <em>net realizable value</em> on the balance sheet.
+    </p>
+    <p style="margin-top:0.5rem;">
+      Why not directly credit Accounts Receivable? Because the A/R control account is composed of specific
+      subsidiary customer accounts, and at the time of the estimate, the company does <em>not</em> yet know
+      which specific customer will default. The Allowance account serves as a holding place for this aggregate
+      estimated reduction.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Net Realizable Value (NRV)</h3>
+
+  <p>
+    <strong>Net Realizable Value</strong> is the actual amount of cash the company realistically expects to collect.
+    It is calculated as:
+  </p>
+
+  <div class="callout formula">
+    <div class="callout-label">FORMULA</div>
+    <p>\[\text{Net Realizable Value} = \text{Accounts Receivable} - \text{Allowance for Bad Debts}\]</p>
+  </div>
+
+  <p>
+    On the balance sheet, the company reports the <em>gross</em> Accounts Receivable balance, then subtracts the
+    Allowance for Bad Debts to show the NRV:
+  </p>
+
+  <div class="nrv-compare" style="grid-template-columns: 1fr;">
+    <div class="nrv-box">
+      <h4>Balance Sheet Presentation</h4>
+      <div class="nrv-line"><span>Accounts Receivable</span><span>$1,000</span></div>
+      <div class="nrv-line"><span>Less: Allowance for Bad Debts</span><span>($200)</span></div>
+      <div class="nrv-line total"><span>Net Realizable Value</span><span>$800</span></div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: WRITE-OFF UNDER ALLOWANCE METHOD                   -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-writeoff-allowance">6. Write-offs &amp; Recoveries under the Allowance Method</h2>
+
+  <h3 class="subsection-title">Actual Write-off</h3>
+
+  <p>
+    Under the allowance method, the Bad Debts Expense has <em>already</em> been recognized through the adjusting
+    entry. Therefore, when an actual write-off occurs, the company does <strong>not</strong> record any further
+    expense. Instead, it simply reduces both the Allowance and the Accounts Receivable:
+  </p>
+
+  <div class="journal-entry">
+    <div class="je-date">Write-off (Allowance Method):</div>
+    <div class="je-line">
+      <span class="je-acct">Allowance for Bad Debts</span>
+      <span class="je-dr">200</span>
+      <span class="je-cr">&nbsp;</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Accounts Receivable&mdash;Customer #1</span>
+      <span class="je-dr">&nbsp;</span>
+      <span class="je-cr">200</span>
+    </div>
+    <div class="je-narration">Wrote off Customer #1&rsquo;s uncollectible account.</div>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> CRITICAL INSIGHT</div>
+    <p>
+      Both accounts in the write-off entry (Allowance for Bad Debts and Accounts Receivable) are
+      <strong>balance sheet accounts</strong>. There is <strong>no income statement effect</strong> at the time of
+      an actual write-off under the allowance method.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">NRV Remains Unchanged After Write-off</h3>
+
+  <p>
+    This is a key concept: the actual write-off does <strong>not</strong> change the Net Realizable Value.
+  </p>
+
+  <div class="nrv-compare">
+    <div class="nrv-box">
+      <h4>Before Write-off</h4>
+      <div class="nrv-line"><span>A/R (gross)</span><span>$1,000</span></div>
+      <div class="nrv-line"><span>Less: Allowance</span><span>($200)</span></div>
+      <div class="nrv-line total"><span>NRV</span><span>$800</span></div>
+    </div>
+    <div class="nrv-arrow">&rarr;</div>
+    <div class="nrv-box">
+      <h4>After Write-off of $200</h4>
+      <div class="nrv-line"><span>A/R (gross)</span><span>$800</span></div>
+      <div class="nrv-line"><span>Less: Allowance</span><span>$0</span></div>
+      <div class="nrv-line total"><span>NRV</span><span>$800</span></div>
+    </div>
+  </div>
+
+  <figure class="figure">
+    <img src="images/ch08/fig8-4.png"
+         alt="T-accounts showing that Net Realizable Value is unchanged before and after a write-off under the allowance method">
+    <figcaption class="figure-caption">Figure 8-4. NRV Remains the Same After Write-off</figcaption>
+  </figure>
+
+  <h3 class="subsection-title">What If the Write-off Exceeds the Allowance?</h3>
+
+  <p>
+    If the actual write-off is greater than the allowance balance (e.g., write-off $300 but allowance is only $200),
+    the entry is the same&mdash;debit Allowance, credit A/R. This creates a <strong>temporary debit balance</strong>
+    of $100 in the Allowance account, meaning the original estimate was too low. This debit balance is corrected at
+    the next period-end adjusting entry. For instance, if the target ending balance is zero, the adjusting entry
+    would be: debit Bad Debts Expense $100, credit Allowance $100. The write-off entry <em>never</em> directly
+    touches Bad Debts Expense under the allowance method.
+  </p>
+
+  <h3 class="subsection-title">Recovery under the Allowance Method</h3>
+
+  <p>
+    If a previously written-off customer unexpectedly pays, the company follows two steps&mdash;similar to the
+    direct method, but using the Allowance account instead of Bad Debts Expense:
+  </p>
+
+  <div class="journal-entry">
+    <div class="je-date">Step 1 &mdash; Reverse the write-off:</div>
+    <div class="je-line">
+      <span class="je-acct">Accounts Receivable&mdash;Customer #1</span>
+      <span class="je-dr">200</span>
+      <span class="je-cr">&nbsp;</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Allowance for Bad Debts</span>
+      <span class="je-dr">&nbsp;</span>
+      <span class="je-cr">200</span>
+    </div>
+  </div>
+
+  <div class="journal-entry">
+    <div class="je-date">Step 2 &mdash; Collect cash:</div>
+    <div class="je-line">
+      <span class="je-acct">Cash</span>
+      <span class="je-dr">200</span>
+      <span class="je-cr">&nbsp;</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Accounts Receivable&mdash;Customer #1</span>
+      <span class="je-dr">&nbsp;</span>
+      <span class="je-cr">200</span>
+    </div>
+  </div>
+
+  <p>
+    Because all accounts involved are balance sheet accounts (A/R, Allowance, Cash), this recovery has
+    <strong>no net effect on the income statement</strong>.
+  </p>
+
+  <figure class="figure">
+    <img src="images/ch08/fig8-5.png"
+         alt="Flowchart showing write-off and recovery process under both methods">
+    <figcaption class="figure-caption">Figure 8-5. Write-off and Recovery: Direct Method vs. Allowance Method</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: ESTIMATING BAD DEBTS EXPENSE                      -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-estimation">7. Estimating Bad Debts Expense: Three Methods</h2>
+
+  <p>
+    Under the allowance method, the key question is: <em>how much</em> should the Bad Debts Expense be? Companies
+    estimate this based on past experience, industry data, and economic conditions. There are three methods:
+  </p>
+
+  <figure class="figure">
+    <img src="images/ch08/fig8-6.png"
+         alt="Overview diagram comparing the three estimation methods">
+    <figcaption class="figure-caption">Figure 8-6. Three Methods for Estimating Bad Debts</figcaption>
+  </figure>
+
+  <!-- 7A: Percent-of-Sales -->
+  <h3 class="subsection-title">Method 1: Percent-of-Sales (Income Statement Approach)</h3>
+
+  <p>
+    The percent-of-sales method computes Bad Debts Expense <strong>directly</strong> as a percentage of
+    <strong>net credit sales</strong> for the period. It is called the <em>income statement approach</em> because
+    it focuses on an income statement item (revenue) to calculate another income statement item (expense).
+  </p>
+
+  <div class="callout formula">
+    <div class="callout-label">FORMULA</div>
+    <p>\[\text{Bad Debts Expense} = \text{Net Credit Sales} \times \text{Estimated \%}\]</p>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128220;</span> EXAMPLE</div>
+    <p>
+      Smart Touch Learning has net credit sales of $60,000. Past experience suggests 0.5% will be uncollectible.
+    </p>
+    <p style="margin-top:0.5rem;">
+      \(\text{Bad Debts Expense} = \$60{,}000 \times 0.005 = \$300\)
+    </p>
+    <div class="journal-entry" style="margin-top:0.8rem;">
+      <div class="je-date">Dec. 31 &mdash; Adjusting entry:</div>
+      <div class="je-line">
+        <span class="je-acct">Bad Debts Expense</span>
+        <span class="je-dr">300</span>
+        <span class="je-cr">&nbsp;</span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Allowance for Bad Debts</span>
+        <span class="je-dr">&nbsp;</span>
+        <span class="je-cr">300</span>
+      </div>
+    </div>
+    <p style="margin-top:0.5rem; font-size:0.88rem;">
+      <strong>Important:</strong> Under the percent-of-sales method, any existing unadjusted balance in the
+      Allowance account does <em>not</em> affect the calculation of the current period&rsquo;s Bad Debts Expense.
+      The $300 is recorded regardless of the allowance balance.
+    </p>
+  </div>
+
+  <!-- 7B: Percent-of-Receivables -->
+  <h3 class="subsection-title">Method 2: Percent-of-Receivables (Balance Sheet Approach)</h3>
+
+  <p>
+    The percent-of-receivables method first calculates the <strong>target ending balance</strong> of the Allowance
+    account, and then determines the Bad Debts Expense as the &ldquo;plug&rdquo; figure needed to reach that target.
+    It is called the <em>balance sheet approach</em> because it focuses on a balance sheet item (A/R) to determine
+    the proper balance of another balance sheet item (Allowance).
+  </p>
+
+  <ul class="method-steps">
+    <li>Calculate the <strong>target ending balance</strong> of the Allowance account:<br>
+      \(\text{Target Balance} = \text{Ending A/R} \times \text{Estimated Uncollectible \%}\)</li>
+    <li>Determine the Bad Debts Expense as the <strong>plug figure</strong>:<br>
+      Compare the target ending balance to the current <em>unadjusted</em> balance of the Allowance account.
+      The difference is the required adjustment.</li>
+  </ul>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128220;</span> EXAMPLE &mdash; Credit Unadjusted Balance</div>
+    <p>
+      Ending A/R = $6,375. Estimated uncollectible = 4%. Unadjusted Allowance balance = $55 credit.
+    </p>
+    <p style="margin-top:0.5rem;">
+      \(\text{Target ending balance} = \$6{,}375 \times 0.04 = \$255\) (credit)
+    </p>
+    <div class="allowance-calc" style="margin-top:0.8rem;">
+      <div class="ac-title">Allowance for Bad Debts</div>
+      <div class="ac-row"><span>Unadjusted balance (credit)</span><span>$55</span></div>
+      <div class="ac-row expense"><span>+ Bad Debts Expense (plug)</span><span>$200</span></div>
+      <div class="ac-row target"><span>= Target ending balance</span><span>$255</span></div>
+    </div>
+    <div class="journal-entry" style="margin-top:0.8rem;">
+      <div class="je-date">Dec. 31 &mdash; Adjusting entry:</div>
+      <div class="je-line">
+        <span class="je-acct">Bad Debts Expense</span>
+        <span class="je-dr">200</span>
+        <span class="je-cr">&nbsp;</span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Allowance for Bad Debts</span>
+        <span class="je-dr">&nbsp;</span>
+        <span class="je-cr">200</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128220;</span> EXAMPLE &mdash; Debit Unadjusted Balance</div>
+    <p>
+      What if write-offs during the period exceeded the beginning allowance balance, leaving a <strong>debit</strong>
+      unadjusted balance of $55? The target is still a $185 credit.
+    </p>
+    <div class="allowance-calc" style="margin-top:0.8rem;">
+      <div class="ac-title">Allowance for Bad Debts</div>
+      <div class="ac-row"><span>Unadjusted balance (debit)</span><span>($55)</span></div>
+      <div class="ac-row expense"><span>+ Bad Debts Expense (plug)</span><span>$240</span></div>
+      <div class="ac-row target"><span>= Target ending balance</span><span>$185</span></div>
+    </div>
+    <p style="margin-top:0.5rem; font-size:0.88rem;">
+      To move from a $55 debit to a $185 credit requires a total credit adjustment of $240. This $240 is the
+      Bad Debts Expense for the period.
+    </p>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#128161;</span> T-ACCOUNT TIP</div>
+    <p>
+      Rather than memorizing formulas, <strong>draw the T-account</strong> for the Allowance account. Place your
+      target ending balance where it belongs (credit side). Place your unadjusted balance where it currently sits.
+      The gap between them is your Bad Debts Expense. This visual approach works every time, regardless of whether
+      the unadjusted balance is a debit or a credit.
+    </p>
+  </div>
+
+  <!-- 7C: Aging-of-Receivables -->
+  <h3 class="subsection-title">Method 3: Aging-of-Receivables (Balance Sheet Approach)</h3>
+
+  <p>
+    The aging-of-receivables method is similar to the percent-of-receivables method&mdash;both are balance sheet
+    approaches. The difference is that instead of applying a single percentage to all receivables, the aging method
+    <strong>groups individual accounts</strong> by how long they have been outstanding and applies <strong>different
+    uncollectible percentages</strong> to each age category. The longer an account is past due, the higher the
+    estimated uncollectible rate.
+  </p>
+
+  <table class="aging-table">
+    <thead>
+      <tr>
+        <th>Age Category</th>
+        <th>Receivable Amount</th>
+        <th>Estimated %</th>
+        <th>Estimated Uncollectible</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Not yet due</td>
+        <td>$3,000</td>
+        <td>1%</td>
+        <td>$30</td>
+      </tr>
+      <tr>
+        <td>1&ndash;30 days past due</td>
+        <td>$1,200</td>
+        <td>5%</td>
+        <td>$60</td>
+      </tr>
+      <tr>
+        <td>31&ndash;60 days past due</td>
+        <td>$500</td>
+        <td>10%</td>
+        <td>$50</td>
+      </tr>
+      <tr>
+        <td>61&ndash;90 days past due</td>
+        <td>$200</td>
+        <td>20%</td>
+        <td>$40</td>
+      </tr>
+      <tr>
+        <td>Over 90 days past due</td>
+        <td>$50</td>
+        <td>90%</td>
+        <td>$45</td>
+      </tr>
+      <tr style="font-weight:700; background:#e8eef4;">
+        <td>Total</td>
+        <td>$4,950</td>
+        <td>&mdash;</td>
+        <td><strong>$225</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    The total of $225 becomes the <strong>target ending balance</strong> of the Allowance for Bad Debts. From there,
+    the process is identical to the percent-of-receivables method: compare the target to the unadjusted balance
+    and calculate the Bad Debts Expense as the plug figure.
+  </p>
+
+  <figure class="figure">
+    <img src="images/ch08/fig8-7.png"
+         alt="Aging schedule showing receivables grouped by days past due with different uncollectible percentages">
+    <figcaption class="figure-caption">Figure 8-7. Aging-of-Receivables Schedule</figcaption>
+  </figure>
+
+  <!-- Summary Table -->
+  <h3 class="subsection-title">Comparing the Three Methods</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Percent-of-Sales</th>
+        <th>Percent-of-Receivables</th>
+        <th>Aging-of-Receivables</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Approach</strong></td>
+        <td>Income Statement</td>
+        <td>Balance Sheet</td>
+        <td>Balance Sheet</td>
+      </tr>
+      <tr>
+        <td><strong>Calculates Directly</strong></td>
+        <td>Bad Debts Expense</td>
+        <td>Target Allowance Balance</td>
+        <td>Target Allowance Balance</td>
+      </tr>
+      <tr>
+        <td><strong>Base for Calculation</strong></td>
+        <td>Net Credit Sales</td>
+        <td>Ending A/R (single %)</td>
+        <td>Ending A/R (by age group)</td>
+      </tr>
+      <tr>
+        <td><strong>Unadjusted Allowance Balance</strong></td>
+        <td>Ignored</td>
+        <td>Used to find the plug</td>
+        <td>Used to find the plug</td>
+      </tr>
+      <tr>
+        <td><strong>Precision</strong></td>
+        <td>Moderate</td>
+        <td>Good</td>
+        <td>Best (most detailed)</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 8: NOTES RECEIVABLE (BRIEF OVERVIEW)                  -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-notes">8. Notes Receivable &mdash; Brief Overview</h2>
+
+  <p>
+    As discussed in Section 1, a <strong>note receivable</strong> differs from an account receivable in two key
+    ways: it is evidenced by a <strong>formal written document</strong> (a promissory note), and it
+    <strong>bears interest</strong>. Notes receivable typically have longer terms than accounts receivable.
+  </p>
+
+  <p>
+    The key takeaway is that because a note bears interest, the company holding the note must recognize
+    <strong>interest revenue</strong> as it accrues over time. When the note is held across accounting periods,
+    an adjusting entry is needed at year-end to record the interest earned so far:
+  </p>
+
+  <div class="journal-entry">
+    <div class="je-date">Year-end &mdash; Accrue interest earned:</div>
+    <div class="je-line">
+      <span class="je-acct">Interest Receivable</span>
+      <span class="je-dr">XXX</span>
+      <span class="je-cr">&nbsp;</span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Interest Revenue</span>
+      <span class="je-dr">&nbsp;</span>
+      <span class="je-cr">XXX</span>
+    </div>
+  </div>
+
+  <p>
+    When the due date (maturity date) arrives and the maker pays, the company collects the
+    <strong>maturity value</strong>&mdash;the sum of the original principal plus all accrued interest. The
+    journal entries for the two receivable scenarios (converting A/R to N/R, and receiving N/R directly from
+    a sale) were covered in <a href="#sec-conversion">Section 2</a>.
+  </p>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 9: FINANCIAL RATIOS                                   -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-ratios">9. Financial Ratios for Evaluating Receivables</h2>
+
+  <p>
+    Balance sheet data provide useful insights into a company&rsquo;s ability to collect receivables and manage
+    liquidity. Three key ratios are especially relevant:
+  </p>
+
+  <div class="ratio-cards">
+    <!-- Acid-Test Ratio -->
+    <div class="ratio-card">
+      <h4>Acid-Test (Quick) Ratio</h4>
+      <div class="ratio-formula">
+        (Cash + Short-Term Investments + Net Current Receivables) &divide; Current Liabilities
+      </div>
+      <p>
+        Measures a company&rsquo;s ability to pay current liabilities using only its most liquid assets
+        (&ldquo;quick assets&rdquo;). More stringent than the current ratio because it excludes inventory
+        and prepaid expenses.
+      </p>
+      <p>A ratio of <strong>1.00 or higher</strong> is generally considered safe.</p>
+    </div>
+
+    <!-- A/R Turnover -->
+    <div class="ratio-card">
+      <h4>Accounts Receivable Turnover</h4>
+      <div class="ratio-formula">
+        Net Credit Sales &divide; Average Net A/R
+      </div>
+      <p>
+        Measures how many times a company collects its average receivables balance during a year. A
+        <strong>higher ratio</strong> indicates faster cash collections.
+      </p>
+      <p>Average Net A/R = (Beginning A/R + Ending A/R) &divide; 2</p>
+    </div>
+
+    <!-- Days' Sales in Receivables -->
+    <div class="ratio-card">
+      <h4>Days&rsquo; Sales in Receivables</h4>
+      <div class="ratio-formula">
+        365 &divide; Accounts Receivable Turnover
+      </div>
+      <p>
+        Indicates how many days it takes, on average, to collect an account receivable. Also called the
+        <strong>collection period</strong>. The shorter the better&mdash;it means the company can use
+        its cash more quickly.
+      </p>
+    </div>
+  </div>
+
+  <figure class="figure">
+    <img src="images/ch08/fig8-8.png"
+         alt="Visual summary of three financial ratios: Acid-Test, A/R Turnover, Days' Sales in Receivables">
+    <figcaption class="figure-caption">Figure 8-8. Financial Ratios for Evaluating Receivables</figcaption>
+  </figure>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128220;</span> EXAMPLE &mdash; Sears Holdings</div>
+    <p>
+      Using Sears Holdings Corporation data (amounts in millions):
+    </p>
+    <ul>
+      <li><strong>Acid-Test Ratio</strong> = $0.12 per $1.00 of current liabilities (well below the safe benchmark)</li>
+      <li><strong>A/R Turnover</strong> = 59.31 times per year</li>
+      <li><strong>Days&rsquo; Sales in Receivables</strong> = 365 &divide; 59.31 &asymp; <strong>6 days</strong></li>
+    </ul>
+    <p style="margin-top:0.3rem; font-size:0.88rem;">
+      Note: Net sales is often used instead of net credit sales because most companies do not report the level
+      of detail needed to determine net credit sales separately.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- CHAPTER SUMMARY                                               -->
+  <!-- ============================================================ -->
+  <div class="chapter-summary">
+    <h2>Chapter Summary</h2>
+    <ul>
+      <li><strong>Receivables</strong> arise when a company sells goods or services on credit. The three types are
+        accounts receivable, notes receivable, and other receivables.</li>
+      <li>The <strong>direct write-off method</strong> records bad debts expense only when a specific account is
+        deemed uncollectible. It violates the matching principle and is used only by small, non-public companies.</li>
+      <li>The <strong>allowance method</strong> (required by GAAP) estimates bad debts expense at the end of each
+        period through an adjusting entry, using the contra-asset account Allowance for Bad Debts.</li>
+      <li><strong>Net Realizable Value</strong> = Accounts Receivable &minus; Allowance for Bad Debts. An actual
+        write-off under the allowance method does not change NRV.</li>
+      <li>Three methods estimate the allowance: <em>percent-of-sales</em> (income statement approach),
+        <em>percent-of-receivables</em>, and <em>aging-of-receivables</em> (both balance sheet approaches).</li>
+      <li><strong>Notes receivable</strong> involve a written promise to pay principal plus interest. Unlike
+        accounts receivable, they bear interest and are evidenced by a formal written document.</li>
+      <li>Key ratios: <strong>Acid-Test Ratio</strong>, <strong>A/R Turnover</strong>, and <strong>Days&rsquo; Sales
+        in Receivables</strong> help evaluate how effectively a company manages its receivables.</li>
+    </ul>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- GLOSSARY                                                      -->
+  <!-- ============================================================ -->
+  <div class="glossary">
+    <h2>Key Terms</h2>
+    <dl>
+      <dt>Accounts Receivable</dt>
+      <dd>The right to receive cash from customers for goods or services; also called trade receivables. Generally collected within 30&ndash;60 days.</dd>
+
+      <dt>Notes Receivable</dt>
+      <dd>A written promise (promissory note) to pay a fixed amount of principal plus interest by a maturity date.</dd>
+
+      <dt>Bad Debts Expense</dt>
+      <dd>The cost to a business of extending credit to customers who do not pay. Recognized either at write-off (direct method) or through an adjusting entry (allowance method).</dd>
+
+      <dt>Direct Write-off Method</dt>
+      <dd>Records bad debts expense only when a specific account is deemed uncollectible. Violates the matching principle; not permitted under GAAP for public companies.</dd>
+
+      <dt>Allowance Method</dt>
+      <dd>Estimates and records bad debts expense at the end of the period through an adjusting entry, using the Allowance for Bad Debts contra-asset account. Required by GAAP.</dd>
+
+      <dt>Allowance for Bad Debts</dt>
+      <dd>A contra-asset account (also called Allowance for Doubtful Accounts) that reduces Accounts Receivable to its net realizable value. Normal balance is credit.</dd>
+
+      <dt>Net Realizable Value</dt>
+      <dd>The amount of cash a company realistically expects to collect: A/R minus Allowance for Bad Debts.</dd>
+
+      <dt>Percent-of-Sales Method</dt>
+      <dd>An income statement approach that computes bad debts expense directly as a percentage of net credit sales.</dd>
+
+      <dt>Percent-of-Receivables Method</dt>
+      <dd>A balance sheet approach that calculates the target ending balance of the Allowance account as a percentage of ending A/R, then derives the expense as a plug figure.</dd>
+
+      <dt>Aging-of-Receivables Method</dt>
+      <dd>A balance sheet approach that groups receivables by how long they have been outstanding and applies different uncollectible percentages to each age category.</dd>
+
+      <dt>Maturity Value</dt>
+      <dd>The total amount due at a note&rsquo;s maturity date: principal plus interest.</dd>
+
+      <dt>Acid-Test Ratio</dt>
+      <dd>A liquidity ratio that measures a company&rsquo;s ability to pay current liabilities using only quick assets (cash, short-term investments, net current receivables).</dd>
+
+      <dt>A/R Turnover Ratio</dt>
+      <dd>Net credit sales divided by average net accounts receivable. Measures how many times a company collects its average receivables in a year.</dd>
+
+      <dt>Days&rsquo; Sales in Receivables</dt>
+      <dd>365 divided by the A/R turnover ratio. Indicates the average number of days to collect a receivable; also called the collection period.</dd>
+    </dl>
+  </div>
+
+
+  <!-- ===== CHAPTER NAVIGATION ===== -->
+  <nav class="chapter-nav">
+    <a href="ch05.html">&larr; Chapter 5: Merchandising Operations</a>
+    <span></span>
+  </nav>
+
+</div><!-- end chapter-container -->
+
+</body>
+</html>

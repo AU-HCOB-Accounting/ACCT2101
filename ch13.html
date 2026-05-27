@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 13 – Stockholders' Equity</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    /* ===== Ch13 Page-specific styles ===== */
+
+    /* Journal Entry visual */
+    .journal-entry {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .journal-entry .je-date {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem;
+    }
+    .journal-entry .je-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.15rem 0;
+    }
+    .journal-entry .je-line.credit .je-acct { padding-left: 2rem; }
+    .journal-entry .je-dr, .journal-entry .je-cr {
+      min-width: 70px;
+      text-align: right;
+      font-weight: 600;
+    }
+    .journal-entry .je-dr { color: #1565c0; }
+    .journal-entry .je-cr { color: #c62828; }
+    .journal-entry .je-narration {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-style: italic;
+      padding-left: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    /* Balance Sheet / Equity section table */
+    .equity-section {
+      background: var(--bg-white);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow-md);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+    }
+    .equity-section .eq-header {
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+    .equity-section .eq-header div { font-size: 0.85rem; }
+    .equity-section .eq-label {
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 0.6rem;
+      font-size: 0.88rem;
+    }
+    .equity-section .eq-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.2rem 0;
+      font-size: 0.88rem;
+    }
+    .equity-section .eq-line.indent { padding-left: 1.5rem; }
+    .equity-section .eq-line.indent2 { padding-left: 3rem; }
+    .equity-section .eq-line.total {
+      font-weight: 700;
+      border-top: 1px solid var(--border-light);
+      margin-top: 0.3rem;
+      padding-top: 0.3rem;
+    }
+    .equity-section .eq-line.grand-total {
+      font-weight: 700;
+      border-top: 2px solid var(--primary);
+      margin-top: 0.4rem;
+      padding-top: 0.4rem;
+      font-size: 0.95rem;
+      color: var(--primary);
+    }
+
+    /* Stock category nested boxes */
+    .stock-categories {
+      display: flex;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+    .cat-authorized {
+      border: 3px solid var(--primary);
+      border-radius: 12px;
+      padding: 1.2rem;
+      background: var(--bg-light);
+      text-align: center;
+      max-width: 550px;
+      width: 100%;
+    }
+    .cat-authorized > .cat-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .cat-issued {
+      border: 2px solid var(--primary-light);
+      border-radius: 10px;
+      padding: 1rem;
+      background: var(--bg-white);
+    }
+    .cat-issued > .cat-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 700;
+      color: var(--primary-light);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+    .cat-inner {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .cat-box {
+      flex: 1;
+      border-radius: 8px;
+      padding: 0.8rem;
+      text-align: center;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .cat-outstanding {
+      background: #e8f5e9;
+      border: 2px solid #4caf50;
+      color: #2e7d32;
+    }
+    .cat-treasury {
+      background: #ffebee;
+      border: 2px solid #e53935;
+      color: #c62828;
+    }
+
+    /* Dividend timeline */
+    .div-timeline {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+    .div-timeline::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: 10%;
+      right: 10%;
+      height: 3px;
+      background: var(--primary-light);
+      z-index: 0;
+    }
+    .div-date {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .div-date .dot {
+      width: 16px;
+      height: 16px;
+      background: var(--primary);
+      border: 3px solid var(--bg-white);
+      border-radius: 50%;
+      margin: 14px auto 8px;
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+    .div-date .date-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--primary);
+    }
+    .div-date .date-name {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 0.2rem;
+    }
+    .div-date .date-action {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 0.3rem;
+      line-height: 1.3;
+    }
+
+    /* Advantages/Disadvantages comparison */
+    .adv-disadv {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .adv-col, .disadv-col {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .adv-col { border-top: 4px solid #4caf50; }
+    .disadv-col { border-top: 4px solid #e53935; }
+    .adv-col h4, .disadv-col h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+    .adv-col h4 { color: #2e7d32; }
+    .disadv-col h4 { color: #c62828; }
+    .adv-col li, .disadv-col li {
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+    }
+
+    @media (max-width: 768px) {
+      .adv-disadv { grid-template-columns: 1fr; }
+      .cat-inner { flex-direction: column; }
+      .div-timeline { flex-direction: column; align-items: center; }
+      .div-timeline::before { display: none; }
+    }
+  </style>
+  <script src="nav.js" defer></script>
+</head>
+<body class="has-sidebar">
+
+<div class="chapter-container">
+
+  <!-- ===== CHAPTER HEADER ===== -->
+  <header class="chapter-header">
+    <div class="chapter-label">Chapter 13</div>
+    <h1 class="chapter-title">Stockholders&rsquo; Equity</h1>
+    <p class="chapter-subtitle">Corporations, Stock Issuance, Cash Dividends, and Earnings Per Share</p>
+  </header>
+
+  <!-- ===== LEARNING OBJECTIVES ===== -->
+  <div class="learning-objectives">
+    <h2>Learning Objectives</h2>
+    <ol>
+      <li>Identify the characteristics of a corporation.</li>
+      <li>Journalize the issuance of stock (common and preferred, at par, premium, and no-par).</li>
+      <li>Account for cash dividends, including the declaration, record, and payment dates.</li>
+      <li>Compute and interpret earnings per share (EPS).</li>
+    </ol>
+  </div>
+
+
+  <!-- ===== OPENING SCENARIO ===== -->
+  <p>
+    Throughout this course, we have explored how businesses acquire assets, incur liabilities, and
+    generate revenue. In this final chapter, we turn to the right side of the accounting equation and
+    examine <strong>stockholders&rsquo; equity</strong>&mdash;the owners&rsquo; claim on the assets
+    of a corporation. Understanding equity is essential because it reveals how a company is funded,
+    how profits are shared, and how investors evaluate corporate performance.
+  </p>
+  <p>
+    Recall the accounting equation: <strong>Assets = Liabilities + Stockholders&rsquo; Equity</strong>.
+    Stockholders&rsquo; equity consists of two broad categories:
+  </p>
+  <ul>
+    <li><strong>Contributed Capital (Paid-in Capital)</strong> &mdash; money invested by stockholders
+      in exchange for shares of stock. When the corporation issues stock, it debits Cash and credits
+      Common Stock (and possibly a premium account).</li>
+    <li><strong>Earned Capital (Retained Earnings)</strong> &mdash; profits accumulated over time that
+      have not been distributed as dividends. The retained earnings formula is:
+      <br><em>Ending R/E = Beginning R/E + Net Income &minus; Dividends</em></li>
+  </ul>
+  <p>
+    Let&rsquo;s begin by examining what makes a corporation unique, then explore how stock issuance,
+    dividends, and key financial ratios work in practice.
+  </p>
+
+  <figure class="figure">
+    <img src="images/ch13/fig13-1.png"
+         alt="Overview diagram showing Stockholders' Equity split into Contributed Capital and Earned Capital (Retained Earnings)">
+    <figcaption class="figure-caption">Figure 13-1. The Two Components of Stockholders&rsquo; Equity</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: CHARACTERISTICS OF A CORPORATION                   -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="s1">1. What Is a Corporation?</h2>
+
+  <p>
+    A <strong>corporation</strong> is a business organized under state law as a <em>separate legal entity</em>,
+    distinct from its owners. Corporations dominate business activity in the United States&mdash;most
+    well-known companies, from Apple to Walmart, are corporations. They tend to be large multinational
+    businesses, though a corporation can also have just a single stockholder.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <p>
+      <strong>Corporation</strong> &mdash; A business organized under state law that is a separate legal
+      entity from its owners (stockholders). It is created by filing a certificate of formation
+      (or articles of incorporation) with a state, which grants a corporate charter.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Characteristics of Corporations</h3>
+
+  <p>A corporation has several unique characteristics that distinguish it from sole proprietorships and partnerships:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Characteristic</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Separate Legal Entity</strong></td>
+        <td>A corporation is organized independently of its owners. It can own property, enter contracts, sue and be sued in its own name.</td>
+      </tr>
+      <tr>
+        <td><strong>Number of Owners</strong></td>
+        <td>Corporations can have one or more owners (stockholders). A <em>public</em> corporation&rsquo;s stock trades on exchanges like the NYSE or NASDAQ. A <em>private</em> (closely held) corporation&rsquo;s stock is not publicly traded.</td>
+      </tr>
+      <tr>
+        <td><strong>No Personal Liability</strong></td>
+        <td>Stockholders are not personally liable for the corporation&rsquo;s debts. Their risk is limited to the amount they invested.</td>
+      </tr>
+      <tr>
+        <td><strong>Lack of Mutual Agency</strong></td>
+        <td>Individual stockholders cannot bind the corporation to a contract. Unlike in a partnership, one owner cannot commit the business without authority.</td>
+      </tr>
+      <tr>
+        <td><strong>Indefinite Life</strong></td>
+        <td>A corporation has a continuous (indefinite) life. The death or departure of a stockholder does not dissolve the business.</td>
+      </tr>
+      <tr>
+        <td><strong>Taxation</strong></td>
+        <td>Corporations are separate taxable entities. Corporate income is taxed at the corporate level and again when distributed to stockholders as dividends&mdash;this is called <strong>double taxation</strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>Capital Accumulation</strong></td>
+        <td>Corporations can raise large amounts of capital by issuing stock to many investors through an Initial Public Offering (IPO). This gives them a financing advantage over other business forms.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#129300;</span> THINK ABOUT IT</div>
+    <p>
+      Double taxation is the biggest disadvantage of the corporate form. The corporation pays income
+      tax on its earnings, and then stockholders pay personal income tax on the dividends they receive.
+      The same dollar of profit is taxed twice. Despite this, corporations remain the dominant form of
+      business because their ability to raise capital and limit personal liability outweighs the tax
+      disadvantage.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Advantages and Disadvantages of Corporations</h3>
+
+  <div class="adv-disadv">
+    <div class="adv-col">
+      <h4>&#10003; Advantages</h4>
+      <ul>
+        <li>Can raise more money than proprietorships or partnerships</li>
+        <li>Continuous (indefinite) life</li>
+        <li>Easy transfer of ownership (buying/selling stock)</li>
+        <li>No mutual agency among stockholders</li>
+        <li>Stockholders have limited liability</li>
+      </ul>
+    </div>
+    <div class="disadv-col">
+      <h4>&#10007; Disadvantages</h4>
+      <ul>
+        <li>Ownership and management are often separated</li>
+        <li>Earnings may be subject to double taxation</li>
+        <li>Government regulation is expensive</li>
+        <li>Start-up costs are higher than other business forms</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure class="figure">
+    <img src="images/ch13/fig13-2.png"
+         alt="Infographic comparing the seven key characteristics of corporations">
+    <figcaption class="figure-caption">Figure 13-2. Characteristics of a Corporation</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: STOCKHOLDERS' EQUITY BASICS                       -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="s2">2. Stockholders&rsquo; Equity Basics</h2>
+
+  <h3 class="subsection-title">Categories of Stock</h3>
+
+  <p>
+    When a corporation is created, the state grants it a <strong>corporate charter</strong> (articles of
+    incorporation). The charter specifies the maximum number of shares the corporation is allowed to
+    issue. Understanding the categories of stock is fundamental:
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <ul style="margin-bottom:0;">
+      <li><strong>Authorized Stock</strong> &mdash; The maximum number of shares a corporation is legally
+        permitted to issue, as specified in the corporate charter.</li>
+      <li><strong>Issued Stock</strong> &mdash; Shares that have actually been issued (sold) by the
+        corporation. Issued stock must always be less than or equal to authorized stock.</li>
+      <li><strong>Outstanding Stock</strong> &mdash; Shares currently held by outside stockholders
+        (investors). This is the stock that &ldquo;matters&rdquo; for dividends and voting.</li>
+      <li><strong>Treasury Stock</strong> &mdash; Shares that were previously issued but have been
+        repurchased by the company. Treasury stock is <em>issued</em> but <em>not outstanding</em>.</li>
+    </ul>
+  </div>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#128202;</span> FORMULA</div>
+    \[ \text{Outstanding Stock} = \text{Issued Stock} - \text{Treasury Stock} \]
+  </div>
+
+  <p>
+    The following diagram illustrates how these categories relate to each other. Think of it as nested
+    boxes: authorized stock is the outermost boundary, issued stock fits inside it, and issued stock
+    is further divided into outstanding shares and treasury shares.
+  </p>
+
+  <div class="stock-categories">
+    <div class="cat-authorized">
+      <div class="cat-label">AUTHORIZED STOCK</div>
+      <div class="cat-issued">
+        <div class="cat-label">ISSUED STOCK</div>
+        <div class="cat-inner">
+          <div class="cat-box cat-outstanding">
+            Outstanding Stock<br>
+            <span style="font-size:0.75rem; font-weight:400;">Held by stockholders</span>
+          </div>
+          <div class="cat-box cat-treasury">
+            Treasury Stock<br>
+            <span style="font-size:0.75rem; font-weight:400;">Repurchased by company</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="subsection-title">Stockholders&rsquo; Rights</h3>
+
+  <p>
+    When you purchase stock in a corporation, you receive a <strong>stock certificate</strong>&mdash;paper
+    (or electronic) evidence of your ownership. As a stockholder, you have four basic rights (unless a
+    right is withheld by contract):
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Right</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Vote</strong></td>
+        <td>Each share of common stock carries one vote. Stockholders vote on corporate matters at annual meetings, including the election of the Board of Directors. This is the <em>only</em> way stockholders participate in management.</td>
+      </tr>
+      <tr>
+        <td><strong>Dividends</strong></td>
+        <td>Stockholders receive a proportionate share of any dividend that the Board of Directors declares. Dividends are <em>not</em> automatic&mdash;the board must declare them.</td>
+      </tr>
+      <tr>
+        <td><strong>Liquidation</strong></td>
+        <td>If the corporation goes out of business, stockholders receive their proportionate share of any assets remaining <em>after all creditors have been paid</em>.</td>
+      </tr>
+      <tr>
+        <td><strong>Preemptive Right</strong></td>
+        <td>Stockholders have the right to maintain their proportional ownership when new shares are issued. However, this right is usually withheld by contract in most corporations.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#129300;</span> THINK ABOUT IT</div>
+    <p>
+      Many students assume that owning stock guarantees you will receive dividends. That is <strong>not
+      true</strong>. Dividends are declared at the discretion of the Board of Directors. A company may
+      choose to reinvest its profits rather than distribute them. Stockholders have the <em>right</em>
+      to receive dividends if declared&mdash;but declaration is not guaranteed.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Classes of Stock</h3>
+
+  <p>
+    Corporations can issue different <strong>classes of stock</strong>. Every corporation must issue
+    <strong>common stock</strong>, which represents the basic ownership of the corporation.
+    Additionally, a corporation may issue <strong>preferred stock</strong>, which gives its owners
+    certain advantages over common stockholders.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <ul style="margin-bottom:0;">
+      <li><strong>Common Stock</strong> &mdash; The basic ownership stock of a corporation. Common
+        stockholders have voting rights and receive dividends after preferred stockholders.</li>
+      <li><strong>Preferred Stock</strong> &mdash; Stock that gives owners advantages over common
+        stockholders, such as priority in receiving dividends and priority in receiving assets upon
+        liquidation. Preferred stockholders typically give up voting rights in exchange for these
+        advantages.</li>
+      <li><strong>Par Value</strong> &mdash; An arbitrary amount assigned by the company to each share
+        of stock. Par value has no relation to the stock&rsquo;s market value. Most companies set par
+        value very low (e.g., $1 or even $0.01).</li>
+      <li><strong>No-Par Stock</strong> &mdash; Stock that has no par value assigned to it.</li>
+      <li><strong>Stated Value</strong> &mdash; An amount assigned to no-par stock that functions like
+        par value for accounting purposes.</li>
+    </ul>
+  </div>
+
+  <h3 class="subsection-title">Two Sources of Stockholders&rsquo; Equity</h3>
+
+  <p>
+    A corporation&rsquo;s stockholders&rsquo; equity comes from two distinct sources. State law requires
+    corporations to report these separately because some capital must be maintained by the company and
+    cannot be used for dividends.
+  </p>
+
+  <ol>
+    <li><strong>Paid-in Capital (Contributed Capital)</strong> &mdash; Amounts received from stockholders
+      in exchange for stock. This is <em>externally generated</em> capital that results from transactions
+      with investors. Common Stock is the main source of paid-in capital.</li>
+    <li><strong>Retained Earnings (Earned Capital)</strong> &mdash; Equity earned through profitable
+      operations that has not been distributed to stockholders as dividends. This is <em>internally
+      generated</em> capital resulting from the corporation&rsquo;s own business activities.</li>
+  </ol>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: ISSUANCE OF STOCK                                  -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="s3">3. Issuing Stock</h2>
+
+  <p>
+    Companies raise capital by issuing stock. A company can sell its stock directly to investors or
+    use the services of an <strong>underwriter</strong>&mdash;a firm that handles the issuance of stock
+    to the public. An underwriter assumes some of the risk by agreeing to buy unsold shares.
+    Stocks of public companies trade on exchanges such as the <strong>New York Stock Exchange (NYSE)</strong>
+    or the <strong>NASDAQ Stock Market</strong>.
+  </p>
+  <p>
+    The <strong>issue price</strong> is the amount a corporation receives when it first issues stock.
+    This is the price at which the stock initially sells. After issuance, the stock trades on the open
+    market at fluctuating prices&mdash;but those daily market price changes are <em>not</em> recorded on the
+    corporation&rsquo;s balance sheet. The corporation only records the initial issuance transaction.
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#129300;</span> THINK ABOUT IT</div>
+    <p>
+      Students often confuse the issue price with the market price. The <strong>issue price</strong> is
+      what the corporation receives at the initial sale. After that, the stock may trade at $50, $100,
+      or $5 on the open market&mdash;none of those changes affect the corporation&rsquo;s books. The
+      corporation already received its cash at issuance.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Issuing Common Stock at Par Value</h3>
+
+  <p>
+    When a corporation issues stock at exactly its par value, the journal entry is straightforward.
+    The Common Stock account is always recorded at par value.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128220;</span> EXAMPLE &mdash; Issuing at Par</div>
+    <p>
+      Smart Touch Learning&rsquo;s corporate charter authorizes 20,000,000 shares of $1 par common
+      stock. The company issues 15,000 shares at the par value of $1 per share.
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">January 2, 2026</div>
+      <div class="je-line">
+        <span class="je-acct">Cash</span>
+        <span class="je-dr">15,000</span>
+        <span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Common Stock&mdash;$1 Par Value</span>
+        <span class="je-dr"></span>
+        <span class="je-cr">15,000</span>
+      </div>
+      <div class="je-narration">Issued 15,000 shares of common stock at par ($1 &times; 15,000 shares).</div>
+    </div>
+    <p style="margin-bottom:0; font-size:0.9rem;">
+      Cash received = 15,000 shares &times; $1 per share = <strong>$15,000</strong>. Since the stock
+      was issued at par, the entire amount goes to the Common Stock account.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Issuing Common Stock at a Premium</h3>
+
+  <p>
+    Most corporations set par value very low and issue stock at a price <em>above</em> par. The amount
+    above par is called a <strong>premium</strong>. A premium on stock issuance is <em>not</em> a gain,
+    income, or profit&mdash;it is simply another type of paid-in capital. The premium is recorded in an
+    account called <strong>Paid-in Capital in Excess of Par&mdash;Common</strong> (also known as
+    Additional Paid-in Capital, or APIC).
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#129300;</span> THINK ABOUT IT</div>
+    <p>
+      Here is the golden rule for stock issuance: <strong>Common Stock is ALWAYS recorded at par
+      value</strong>. Whatever the market price, whatever the issue price&mdash;the Common Stock
+      account always gets debited or credited at the par value per share. Any amount over par goes
+      to the Paid-in Capital in Excess of Par account.
+    </p>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128220;</span> EXAMPLE &mdash; Issuing at a Premium</div>
+    <p>
+      Smart Touch Learning issues an additional 3,000 shares of its $1 par common stock at a market
+      price of $5 per share. The $4 difference between the issue price ($5) and par value ($1) is the
+      premium.
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">January 15, 2026</div>
+      <div class="je-line">
+        <span class="je-acct">Cash</span>
+        <span class="je-dr">15,000</span>
+        <span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Common Stock&mdash;$1 Par Value</span>
+        <span class="je-dr"></span>
+        <span class="je-cr">3,000</span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Paid-in Capital in Excess of Par&mdash;Common</span>
+        <span class="je-dr"></span>
+        <span class="je-cr">12,000</span>
+      </div>
+      <div class="je-narration">Issued 3,000 shares of $1 par common stock at $5 per share.</div>
+    </div>
+    <p style="margin-bottom:0; font-size:0.9rem;">
+      Cash: 3,000 &times; $5 = $15,000 &bull;
+      Common Stock: 3,000 &times; $1 par = $3,000 &bull;
+      APIC: 3,000 &times; $4 premium = $12,000
+    </p>
+  </div>
+
+  <p>
+    After these two issuances, Smart Touch Learning has issued 18,000 shares (15,000 + 3,000)
+    of its authorized 20,000,000 shares. The stockholders&rsquo; equity section of the balance sheet
+    would appear as follows (assuming Retained Earnings of $3,550):
+  </p>
+
+  <div class="equity-section">
+    <div class="eq-header">
+      SMART TOUCH LEARNING, INC.<br>
+      <div>Balance Sheet (Partial)</div>
+      <div>December 31, 2026</div>
+    </div>
+    <div class="eq-label">Stockholders&rsquo; Equity</div>
+    <div class="eq-line indent">
+      <span>Common Stock, $1 Par Value; 20,000,000 shares authorized,<br>18,000 shares issued and outstanding</span>
+      <span>$18,000</span>
+    </div>
+    <div class="eq-line indent">
+      <span>Paid-in Capital in Excess of Par&mdash;Common</span>
+      <span>12,000</span>
+    </div>
+    <div class="eq-line indent total">
+      <span>Total Paid-in Capital</span>
+      <span>$30,000</span>
+    </div>
+    <div class="eq-line indent">
+      <span>Retained Earnings</span>
+      <span>3,550</span>
+    </div>
+    <div class="eq-line grand-total">
+      <span>Total Stockholders&rsquo; Equity</span>
+      <span>$33,550</span>
+    </div>
+  </div>
+
+  <h3 class="subsection-title">Issuing No-Par Common Stock</h3>
+
+  <p>
+    When a company issues <strong>no-par stock</strong>, the entire amount received goes directly to the
+    Common Stock account. Since there is no par value, there can be no &ldquo;excess of par&rdquo;&mdash;so
+    no Paid-in Capital in Excess of Par account is needed.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128220;</span> EXAMPLE &mdash; No-Par Stock</div>
+    <p>
+      Assume Smart Touch Learning&rsquo;s common stock is no-par. The company issues 15,000 shares
+      for $1 per share and later 3,000 shares for $5 per share.
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Issuance 1</div>
+      <div class="je-line">
+        <span class="je-acct">Cash</span>
+        <span class="je-dr">15,000</span>
+        <span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Common Stock&mdash;No Par Value</span>
+        <span class="je-dr"></span>
+        <span class="je-cr">15,000</span>
+      </div>
+      <div class="je-narration">Issued 15,000 shares of no-par common stock at $1 per share.</div>
+    </div>
+    <div class="journal-entry">
+      <div class="je-date">Issuance 2</div>
+      <div class="je-line">
+        <span class="je-acct">Cash</span>
+        <span class="je-dr">15,000</span>
+        <span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Common Stock&mdash;No Par Value</span>
+        <span class="je-dr"></span>
+        <span class="je-cr">15,000</span>
+      </div>
+      <div class="je-narration">Issued 3,000 shares of no-par common stock at $5 per share.</div>
+    </div>
+    <p style="margin-bottom:0; font-size:0.9rem;">
+      Total Common Stock = $15,000 + $15,000 = <strong>$30,000</strong>. Notice that the total
+      paid-in capital ($30,000) is the same as with par value stock&mdash;but it all sits in the
+      Common Stock account rather than being split between Common Stock and APIC.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Issuing Stated Value Common Stock</h3>
+
+  <p>
+    Accounting for <strong>stated value</strong> stock is virtually identical to par value stock. The
+    only difference is that the account name uses &ldquo;Stated Value&rdquo; instead of &ldquo;Par
+    Value,&rdquo; and the excess account is titled <strong>Paid-in Capital in Excess of
+    Stated&mdash;Common</strong>.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128220;</span> EXAMPLE &mdash; Stated Value Stock</div>
+    <p>
+      Smart Touch Learning issues 3,000 shares of $1 stated value common stock for $5 per share.
+    </p>
+    <div class="journal-entry">
+      <div class="je-line">
+        <span class="je-acct">Cash</span>
+        <span class="je-dr">15,000</span>
+        <span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Common Stock&mdash;$1 Stated Value</span>
+        <span class="je-dr"></span>
+        <span class="je-cr">3,000</span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Paid-in Capital in Excess of Stated&mdash;Common</span>
+        <span class="je-dr"></span>
+        <span class="je-cr">12,000</span>
+      </div>
+      <div class="je-narration">Issued 3,000 shares of $1 stated value stock at $5 per share.</div>
+    </div>
+  </div>
+
+  <h3 class="subsection-title">Issuing Common Stock for Assets Other Than Cash</h3>
+
+  <p>
+    A corporation may issue stock in exchange for assets other than cash, such as equipment, land, or
+    furniture. In these transactions, the asset is recorded at the <strong>market value</strong> of
+    either the stock issued <em>or</em> the asset received, whichever is more clearly determinable.
+    The Common Stock account is still recorded at par value, and any excess goes to APIC.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128220;</span> EXAMPLE &mdash; Stock for Non-Cash Assets</div>
+    <p>
+      Smart Touch Learning receives furniture with a market value of $18,000 in exchange for 5,000
+      shares of its $1 par common stock.
+    </p>
+    <div class="journal-entry">
+      <div class="je-line">
+        <span class="je-acct">Furniture</span>
+        <span class="je-dr">18,000</span>
+        <span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Common Stock&mdash;$1 Par Value</span>
+        <span class="je-dr"></span>
+        <span class="je-cr">5,000</span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Paid-in Capital in Excess of Par&mdash;Common</span>
+        <span class="je-dr"></span>
+        <span class="je-cr">13,000</span>
+      </div>
+      <div class="je-narration">Issued 5,000 shares of $1 par stock in exchange for furniture (market value $18,000).</div>
+    </div>
+    <p style="margin-bottom:0; font-size:0.9rem;">
+      Common Stock: 5,000 &times; $1 = $5,000 &bull;
+      APIC: $18,000 &minus; $5,000 = $13,000 &bull;
+      The contributed asset is recorded at its current market value, not at cost to the contributor.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Issuing Preferred Stock</h3>
+
+  <p>
+    Accounting for preferred stock follows the same pattern as common stock. The key difference is that
+    preferred stock has a <strong>stated dividend rate</strong> (e.g., 6%), which represents the annual
+    dividend preference per share. This dividend is calculated on the par value, not the market price.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128220;</span> EXAMPLE &mdash; Issuing Preferred Stock</div>
+    <p>
+      Smart Touch Learning is authorized to issue 2,000 shares of preferred stock. On January 3, 2026,
+      the company issues 1,000 shares of $50 par, 6% preferred stock at $55 per share.
+    </p>
+    <p style="font-size:0.9rem;">
+      The &ldquo;6%&rdquo; refers to the stated dividend: 6% &times; $50 par = <strong>$3 per share</strong>
+      annual dividend preference. This means preferred stockholders are entitled to receive $3 per share
+      in dividends <em>before</em> common stockholders receive anything.
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">January 3, 2026</div>
+      <div class="je-line">
+        <span class="je-acct">Cash</span>
+        <span class="je-dr">55,000</span>
+        <span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Preferred Stock&mdash;$50 Par Value</span>
+        <span class="je-dr"></span>
+        <span class="je-cr">50,000</span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Paid-in Capital in Excess of Par&mdash;Preferred</span>
+        <span class="je-dr"></span>
+        <span class="je-cr">5,000</span>
+      </div>
+      <div class="je-narration">Issued 1,000 shares of $50 par, 6% preferred stock at $55 per share.</div>
+    </div>
+    <p style="margin-bottom:0; font-size:0.9rem;">
+      Cash: 1,000 &times; $55 = $55,000 &bull;
+      Preferred Stock: 1,000 &times; $50 par = $50,000 &bull;
+      APIC&mdash;Preferred: 1,000 &times; $5 = $5,000
+    </p>
+  </div>
+
+  <p>
+    After issuing both common and preferred stock, the complete stockholders&rsquo; equity section shows
+    preferred stock listed first, followed by common stock. Here is how the balance sheet would appear
+    (assuming 23,000 shares of common stock have been issued and outstanding):
+  </p>
+
+  <div class="equity-section">
+    <div class="eq-header">
+      SMART TOUCH LEARNING, INC.<br>
+      <div>Balance Sheet (Partial)</div>
+      <div>January 3, 2026</div>
+    </div>
+    <div class="eq-label">Stockholders&rsquo; Equity</div>
+    <div class="eq-line indent">
+      <span>Preferred Stock, $50 Par Value, 6%; 2,000 shares authorized,<br>1,000 shares issued and outstanding</span>
+      <span>$50,000</span>
+    </div>
+    <div class="eq-line indent">
+      <span>Paid-in Capital in Excess of Par&mdash;Preferred</span>
+      <span>5,000</span>
+    </div>
+    <div class="eq-line indent">
+      <span>Common Stock, $1 Par Value; 20,000,000 shares authorized,<br>23,000 shares issued and outstanding</span>
+      <span>23,000</span>
+    </div>
+    <div class="eq-line indent">
+      <span>Paid-in Capital in Excess of Par&mdash;Common</span>
+      <span>25,000</span>
+    </div>
+    <div class="eq-line indent total">
+      <span>Total Paid-in Capital</span>
+      <span>$103,000</span>
+    </div>
+    <div class="eq-line indent">
+      <span>Retained Earnings</span>
+      <span>3,550</span>
+    </div>
+    <div class="eq-line grand-total">
+      <span>Total Stockholders&rsquo; Equity</span>
+      <span>$106,550</span>
+    </div>
+  </div>
+
+  <figure class="figure">
+    <img src="images/ch13/fig13-3.png"
+         alt="Summary diagram comparing issuance of par value, no-par, stated value, and preferred stock">
+    <figcaption class="figure-caption">Figure 13-3. Summary of Stock Issuance Methods</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: CASH DIVIDENDS                                     -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="s4">4. Cash Dividends</h2>
+
+  <p>
+    A profitable corporation may distribute some of its earnings to stockholders in the form of
+    <strong>dividends</strong>. Dividends represent a redistribution of the company&rsquo;s earnings
+    to its owners. The <strong>Board of Directors</strong> has sole authority to declare dividends&mdash;they
+    are never automatic.
+  </p>
+  <p>
+    Most states prohibit using <strong>paid-in capital</strong> for dividends. The portion of stockholders&rsquo;
+    equity that cannot be used for dividends is called <strong>legal capital</strong>. Dividends are paid
+    from <strong>retained earnings</strong>&mdash;the company&rsquo;s accumulated profits.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <ul style="margin-bottom:0;">
+      <li><strong>Dividend</strong> &mdash; A distribution of a corporation&rsquo;s earnings to its
+        stockholders. Cash dividends reduce both assets (Cash) and equity (Retained Earnings).</li>
+      <li><strong>Legal Capital</strong> &mdash; The portion of stockholders&rsquo; equity that cannot
+        be distributed as dividends, typically equal to the par or stated value of issued stock.</li>
+    </ul>
+  </div>
+
+  <h3 class="subsection-title">Three Important Dividend Dates</h3>
+
+  <p>
+    A corporation declares a dividend before paying it. Three dates are relevant in the dividend
+    process:
+  </p>
+
+  <div class="div-timeline">
+    <div class="div-date">
+      <div class="date-label">May 1</div>
+      <div class="dot"></div>
+      <div class="date-name">Declaration Date</div>
+      <div class="date-action">Board announces dividend;<br>liability is created</div>
+    </div>
+    <div class="div-date">
+      <div class="date-label">May 15</div>
+      <div class="dot"></div>
+      <div class="date-name">Date of Record</div>
+      <div class="date-action">Cutoff to determine which<br>stockholders receive dividend;<br><strong>no journal entry</strong></div>
+    </div>
+    <div class="div-date">
+      <div class="date-label">May 30</div>
+      <div class="dot"></div>
+      <div class="date-name">Payment Date</div>
+      <div class="date-action">Cash distributed<br>to stockholders</div>
+    </div>
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#129300;</span> THINK ABOUT IT</div>
+    <p>
+      This is a common exam question: <strong>No journal entry is recorded on the date of record.</strong>
+      The date of record is simply the cutoff date to determine who owns the stock and will receive the
+      dividend check. Journal entries are only made on the declaration date and the payment date.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Declaring and Paying Dividends&mdash;Step by Step</h3>
+
+  <p>
+    Let&rsquo;s walk through the complete dividend process using Smart Touch Learning as our example.
+    Note that dividends are paid only on <strong>outstanding shares</strong>&mdash;a corporation never
+    pays dividends on treasury stock.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128220;</span> EXAMPLE &mdash; Cash Dividend Process</div>
+
+    <p>
+      On May 1, Smart Touch Learning declares a $0.05 per share cash dividend on its 22,700
+      outstanding shares of common stock (23,000 issued &minus; 300 treasury shares). Total
+      dividend = $0.05 &times; 22,700 = <strong>$1,135</strong>.
+    </p>
+
+    <p><strong>Step 1 &mdash; Declaration Date (May 1):</strong></p>
+    <div class="journal-entry">
+      <div class="je-date">May 1, 2026</div>
+      <div class="je-line">
+        <span class="je-acct">Cash Dividends</span>
+        <span class="je-dr">1,135</span>
+        <span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Dividends Payable&mdash;Common</span>
+        <span class="je-dr"></span>
+        <span class="je-cr">1,135</span>
+      </div>
+      <div class="je-narration">Declared cash dividend: $0.05 &times; 22,700 shares = $1,135.</div>
+    </div>
+    <p style="font-size:0.9rem;">
+      <strong>Effect:</strong> Equity decreases (Cash Dividends will reduce Retained Earnings at closing).
+      Liabilities increase (Dividends Payable). Assets are unchanged.
+    </p>
+
+    <p><strong>Step 2 &mdash; Date of Record (May 15):</strong></p>
+    <p style="font-size:0.9rem; padding: 0.5rem; background: var(--bg-light); border-radius: 4px; text-align:center;">
+      <strong>No journal entry.</strong> This date simply identifies which stockholders will receive
+      the dividend.
+    </p>
+
+    <p><strong>Step 3 &mdash; Payment Date (May 30):</strong></p>
+    <div class="journal-entry">
+      <div class="je-date">May 30, 2026</div>
+      <div class="je-line">
+        <span class="je-acct">Dividends Payable&mdash;Common</span>
+        <span class="je-dr">1,135</span>
+        <span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Cash</span>
+        <span class="je-dr"></span>
+        <span class="je-cr">1,135</span>
+      </div>
+      <div class="je-narration">Paid cash dividend to common stockholders.</div>
+    </div>
+    <p style="font-size:0.9rem;">
+      <strong>Effect:</strong> Assets decrease (Cash). Liabilities decrease (Dividends Payable). Equity
+      is unchanged (the equity reduction already occurred at declaration).
+    </p>
+
+    <p><strong>Step 4 &mdash; Closing Entry (December 31):</strong></p>
+    <div class="journal-entry">
+      <div class="je-date">December 31, 2026</div>
+      <div class="je-line">
+        <span class="je-acct">Retained Earnings</span>
+        <span class="je-dr">1,135</span>
+        <span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Cash Dividends</span>
+        <span class="je-dr"></span>
+        <span class="je-cr">1,135</span>
+      </div>
+      <div class="je-narration">Closed Cash Dividends to Retained Earnings.</div>
+    </div>
+    <p style="margin-bottom:0; font-size:0.9rem;">
+      The Cash Dividends account is a <em>temporary</em> account (like expenses and revenues) that is
+      closed to Retained Earnings at year-end. The <strong>net effect</strong> of the entire dividend
+      process: Assets (Cash) decrease and Stockholders&rsquo; Equity (Retained Earnings) decreases by
+      the same amount ($1,135).
+    </p>
+  </div>
+
+  <figure class="figure">
+    <img src="images/ch13/fig13-4.png"
+         alt="Flow diagram showing the three dividend dates and their journal entries">
+    <figcaption class="figure-caption">Figure 13-4. The Dividend Process: Declaration &rarr; Record &rarr; Payment</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: EARNINGS PER SHARE (EPS)                           -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="s5">5. Earnings Per Share (EPS)</h2>
+
+  <p>
+    Investors constantly compare companies&rsquo; profitability. Since companies differ dramatically in
+    size, comparing total net income is not meaningful. A company earning $10 million in net income with
+    1 million shares outstanding is very different from one earning $10 million with 100 million shares.
+    <strong>Earnings per share (EPS)</strong> provides the standardized measure investors need.
+  </p>
+  <p>
+    EPS is the most widely used of all financial statistics. It is reported on the final segment of
+    every corporate income statement and tells you how much net income the corporation earned for
+    each share of common stock outstanding.
+  </p>
+
+  <div class="callout formula">
+    <div class="callout-label"><span class="icon">&#128202;</span> FORMULA</div>
+    \[ \text{Earnings Per Share (EPS)} = \frac{\text{Net Income} - \text{Preferred Dividends}}{\text{Average Number of Common Shares Outstanding}} \]
+  </div>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#129300;</span> THINK ABOUT IT</div>
+    <p>
+      Why do we subtract preferred dividends in the EPS formula? Because preferred stockholders have
+      a <em>prior claim</em> on earnings. The EPS formula measures the earnings available specifically
+      to <strong>common</strong> stockholders. After preferred stockholders receive their guaranteed
+      dividends, whatever remains belongs to common stockholders.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Why Use Average Shares Outstanding?</h3>
+
+  <p>
+    The denominator uses the <strong>average</strong> number of common shares outstanding rather than
+    the ending number. This is because net income is a <em>flow metric</em>&mdash;it accumulates over
+    the entire accounting period. Since shares outstanding can fluctuate during the year (new issuances,
+    repurchases), using the average matches the earnings period with the shares that were outstanding
+    during that period.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#128220;</span> EXAMPLE &mdash; EPS Calculation (Kohl&rsquo;s)</div>
+    <p>
+      Kohl&rsquo;s Corporation reports the following for fiscal 2015:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th style="text-align:right;">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Net Income</td>
+          <td style="text-align:right;">$673 million</td>
+        </tr>
+        <tr>
+          <td>Preferred Dividends</td>
+          <td style="text-align:right;">$0</td>
+        </tr>
+        <tr>
+          <td>Common Shares Outstanding (Beginning)</td>
+          <td style="text-align:right;">201 million</td>
+        </tr>
+        <tr>
+          <td>Common Shares Outstanding (Ending)</td>
+          <td style="text-align:right;">186 million</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Step 1:</strong> Calculate average shares outstanding:</p>
+    \[ \text{Average Shares} = \frac{201 + 186}{2} = 193.5 \text{ million shares} \]
+    <p><strong>Step 2:</strong> Calculate EPS:</p>
+    \[ \text{EPS} = \frac{\$673\text{M} - \$0}{193.5\text{M}} = \$3.48 \text{ per share} \]
+    <p style="margin-bottom:0; font-size:0.9rem;">
+      This means Kohl&rsquo;s earned <strong>$3.48 for every share</strong> of common stock outstanding.
+      Investors use this number to compare against prior years (is EPS growing?) and against competitors
+      in the same industry.
+    </p>
+  </div>
+
+  <h3 class="subsection-title">Interpreting EPS</h3>
+
+  <p>
+    EPS alone does not tell you whether a stock is a good investment. You must consider the context:
+  </p>
+  <ul>
+    <li><strong>Trend analysis:</strong> Is EPS increasing or decreasing over time? A rising EPS trend
+      signals improving profitability.</li>
+    <li><strong>Industry comparison:</strong> Compare a company&rsquo;s EPS to the industry median. An
+      EPS above the median suggests the company is performing better than its peers.</li>
+    <li><strong>Price context:</strong> EPS must be evaluated relative to the stock price (this is the
+      Price/Earnings ratio, covered in more advanced courses).</li>
+  </ul>
+
+  <figure class="figure">
+    <img src="images/ch13/fig13-5.png"
+         alt="Step-by-step visual showing the EPS formula with the Kohl's example calculation">
+    <figcaption class="figure-caption">Figure 13-5. Calculating Earnings Per Share</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: REPORTING STOCKHOLDERS' EQUITY                     -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="s6">6. Reporting Stockholders&rsquo; Equity on the Balance Sheet</h2>
+
+  <p>
+    The stockholders&rsquo; equity section of the balance sheet provides a complete picture of how the
+    corporation is funded by its owners. The standard reporting order is:
+  </p>
+
+  <ol>
+    <li><strong>Preferred Stock</strong> (at par value) &mdash; listed first</li>
+    <li><strong>Paid-in Capital in Excess of Par&mdash;Preferred</strong></li>
+    <li><strong>Common Stock</strong> (at par value)</li>
+    <li><strong>Paid-in Capital in Excess of Par&mdash;Common</strong></li>
+    <li><strong>Total Paid-in Capital</strong> (subtotal of items 1&ndash;4)</li>
+    <li><strong>Retained Earnings</strong></li>
+    <li><strong>Less: Treasury Stock</strong> (if any, shown as a deduction)</li>
+    <li><strong>Total Stockholders&rsquo; Equity</strong></li>
+  </ol>
+
+  <p>
+    Each stock line item must disclose: the par (or stated) value per share, the number of shares
+    authorized, and the number of shares issued and outstanding. If treasury stock exists, the
+    number of shares issued and the number outstanding will differ.
+  </p>
+
+  <div class="callout think">
+    <div class="callout-label"><span class="icon">&#129300;</span> THINK ABOUT IT</div>
+    <p>
+      Notice the order: <strong>Preferred Stock comes before Common Stock</strong> in the stockholders&rsquo;
+      equity section. This is because preferred stockholders have priority rights&mdash;they get dividends
+      first and assets first in liquidation. The reporting order on the balance sheet reflects this
+      priority.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- CHAPTER SUMMARY                                               -->
+  <!-- ============================================================ -->
+  <div class="chapter-summary">
+    <h2>Chapter Summary</h2>
+    <ul>
+      <li>A <strong>corporation</strong> is a separate legal entity organized under state law. Its key advantages include limited liability, indefinite life, ease of capital accumulation, and transferability of ownership. Its main disadvantage is <strong>double taxation</strong>.</li>
+      <li><strong>Authorized stock</strong> is the maximum number of shares a corporation may issue. <strong>Issued stock</strong> has been sold by the corporation. <strong>Outstanding stock</strong> is held by outside stockholders. <strong>Treasury stock</strong> is issued stock that has been repurchased (Outstanding = Issued &minus; Treasury).</li>
+      <li>Stockholders have four basic rights: <em>vote</em>, <em>dividends</em>, <em>liquidation</em>, and <em>preemptive right</em>.</li>
+      <li>When issuing <strong>par value stock</strong>, Common Stock is always recorded at par. Any amount received above par is recorded in <strong>Paid-in Capital in Excess of Par</strong>. For <strong>no-par stock</strong>, the entire amount goes to Common Stock.</li>
+      <li><strong>Preferred stock</strong> issuance follows the same pattern, with a stated dividend rate (e.g., 6%) applied to par value to determine the annual dividend preference per share.</li>
+      <li><strong>Cash dividends</strong> involve three dates: <em>declaration</em> (liability created), <em>record</em> (no journal entry), and <em>payment</em> (cash paid). Dividends are only paid on outstanding shares.</li>
+      <li><strong>Earnings Per Share (EPS)</strong> = (Net Income &minus; Preferred Dividends) &divide; Average Common Shares Outstanding. EPS is the most widely used profitability metric, enabling investors to compare companies of different sizes.</li>
+    </ul>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- GLOSSARY                                                      -->
+  <!-- ============================================================ -->
+  <div class="glossary">
+    <h2>Key Terms</h2>
+    <dl>
+      <dt>Corporation</dt>
+      <dd>A business organized under state law as a separate legal entity from its owners. Created by filing a certificate of formation (or articles of incorporation) with a state.</dd>
+
+      <dt>Stockholder</dt>
+      <dd>An owner of a corporation, also called a shareholder. Stockholders invest in the corporation by purchasing shares of stock.</dd>
+
+      <dt>Authorized Stock</dt>
+      <dd>The maximum number of shares of stock that a corporate charter allows the corporation to issue.</dd>
+
+      <dt>Issued Stock</dt>
+      <dd>Stock that has been issued (sold) by the corporation. May or may not be held by outside stockholders.</dd>
+
+      <dt>Outstanding Stock</dt>
+      <dd>Issued stock that is currently held by stockholders (as opposed to treasury stock held by the corporation).</dd>
+
+      <dt>Treasury Stock</dt>
+      <dd>A corporation&rsquo;s own previously issued stock that has been repurchased. Treasury stock is issued but not outstanding, does not vote, and does not receive dividends.</dd>
+
+      <dt>Common Stock</dt>
+      <dd>The basic ownership stock of a corporation, carrying voting rights and the right to dividends after preferred stockholders are paid.</dd>
+
+      <dt>Preferred Stock</dt>
+      <dd>Stock that gives its owners certain advantages over common stockholders, such as priority in receiving dividends and assets upon liquidation. Usually does not carry voting rights.</dd>
+
+      <dt>Par Value</dt>
+      <dd>An arbitrary amount assigned by a company to each share of its stock. Has no relation to market value. Common Stock is always recorded at par value on the books.</dd>
+
+      <dt>No-Par Stock</dt>
+      <dd>Stock that has no par value assigned to it. When issued, the entire amount received is credited to the Common Stock account.</dd>
+
+      <dt>Stated Value</dt>
+      <dd>An amount assigned to no-par stock that functions like par value for accounting purposes.</dd>
+
+      <dt>Paid-in Capital in Excess of Par</dt>
+      <dd>The amount received from stockholders above the par (or stated) value of the stock. Also called additional paid-in capital (APIC).</dd>
+
+      <dt>Paid-in Capital</dt>
+      <dd>Amounts received from stockholders in exchange for stock. Also called contributed capital. Represents externally generated equity.</dd>
+
+      <dt>Retained Earnings</dt>
+      <dd>Equity earned by profitable operations that has not been distributed to stockholders as dividends. Represents internally generated equity.</dd>
+
+      <dt>Dividend</dt>
+      <dd>A distribution of a corporation&rsquo;s earnings to its stockholders. Cash dividends reduce both Cash (asset) and Retained Earnings (equity).</dd>
+
+      <dt>Legal Capital</dt>
+      <dd>The portion of stockholders&rsquo; equity that cannot be used for dividends. Typically equal to the par or stated value of all issued stock.</dd>
+
+      <dt>Declaration Date</dt>
+      <dd>The date the board of directors announces a dividend. Creates a liability (Dividends Payable).</dd>
+
+      <dt>Date of Record</dt>
+      <dd>The cutoff date that determines which stockholders will receive the dividend. No journal entry is recorded.</dd>
+
+      <dt>Payment Date</dt>
+      <dd>The date the corporation distributes cash to stockholders. Reduces both Cash and Dividends Payable.</dd>
+
+      <dt>Underwriter</dt>
+      <dd>A firm that handles the issuance of a company&rsquo;s stock to the public, often assuming some risk by agreeing to buy unsold shares.</dd>
+
+      <dt>Earnings Per Share (EPS)</dt>
+      <dd>A profitability ratio: (Net Income &minus; Preferred Dividends) &divide; Average Common Shares Outstanding. The most widely used financial statistic for comparing corporate performance.</dd>
+    </dl>
+  </div>
+
+
+  <!-- ===== CHAPTER NAVIGATION ===== -->
+  <nav class="chapter-nav">
+    <a href="ch12.html">&larr; Chapter 12: Long-Term Liabilities</a>
+    <span></span>
+  </nav>
+
+</div><!-- end chapter-container -->
+
+</body>
+</html>

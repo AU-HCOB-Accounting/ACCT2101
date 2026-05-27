@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 9 – Plant Assets, Natural Resources, and Intangibles</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    /* ===== Ch09 Page-specific styles ===== */
+
+    /* Journal Entry visual */
+    .journal-entry {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .journal-entry .je-date {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem;
+    }
+    .journal-entry .je-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.15rem 0;
+    }
+    .journal-entry .je-line.credit .je-acct { padding-left: 2rem; }
+    .journal-entry .je-dr, .journal-entry .je-cr {
+      min-width: 70px;
+      text-align: right;
+      font-weight: 600;
+    }
+    .journal-entry .je-dr { color: #1565c0; }
+    .journal-entry .je-cr { color: #c62828; }
+    .journal-entry .je-narration {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-style: italic;
+      padding-left: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    /* T-Account visual */
+    .t-account {
+      display: inline-block;
+      min-width: 240px;
+      margin: 0.5rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.88rem;
+      vertical-align: top;
+    }
+    .t-account-title {
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary);
+      padding: 0.3rem 0.5rem;
+      margin-bottom: 0;
+    }
+    .t-account-body {
+      display: flex;
+      border-top: 2px solid var(--primary);
+      min-height: 60px;
+    }
+    .t-left, .t-right {
+      flex: 1;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.82rem;
+    }
+    .t-left { border-right: 2px solid var(--primary); }
+    .t-left-label, .t-right-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 0.3rem;
+    }
+    .t-entry { padding: 0.15rem 0; }
+    .t-entry.bal {
+      font-weight: 700;
+      border-top: 1px solid var(--border-light);
+      margin-top: 0.3rem;
+      padding-top: 0.3rem;
+    }
+
+    /* Depreciation schedule table */
+    .dep-schedule {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.85rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    .dep-schedule th {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.6rem 0.8rem;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .dep-schedule td {
+      padding: 0.5rem 0.8rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .dep-schedule tr:nth-child(even) td { background: var(--bg-light); }
+    .dep-schedule tr:last-child td { font-weight: 700; border-top: 2px solid var(--primary); }
+    .dep-schedule .row-label { text-align: left; font-weight: 600; }
+
+    /* Comparison columns */
+    .compare-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .compare-col {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .compare-col h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    /* Three-column method cards */
+    .method-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    .method-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-top: 4px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .method-card h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+    }
+    .method-card .method-formula {
+      background: var(--bg-light);
+      border-radius: 4px;
+      padding: 0.6rem;
+      font-size: 0.85rem;
+      text-align: center;
+      margin: 0.5rem 0;
+      font-family: 'Courier New', monospace;
+    }
+    .method-card p {
+      font-size: 0.88rem;
+      text-align: left;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Life-cycle steps */
+    .lifecycle-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    .lifecycle-step {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+    .lifecycle-step .step-num {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+    .lifecycle-step h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .lifecycle-step p {
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    /* Cost breakdown box */
+    .cost-breakdown {
+      background: var(--bg-white);
+      border: 2px solid var(--primary-light);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      margin: 1.2rem 0;
+      box-shadow: var(--shadow-sm);
+      max-width: 420px;
+    }
+    .cost-breakdown .cb-title {
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    .cost-breakdown .cb-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.88rem;
+    }
+    .cost-breakdown .cb-row.total {
+      font-weight: 700;
+      color: var(--primary);
+      border-top: 2px solid var(--primary);
+      margin-top: 0.3rem;
+      padding-top: 0.4rem;
+    }
+
+    /* Balance sheet display */
+    .bs-display {
+      background: var(--bg-white);
+      border: 2px solid var(--primary-light);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      margin: 1.2rem 0;
+      box-shadow: var(--shadow-sm);
+      max-width: 480px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.88rem;
+    }
+    .bs-display .bs-title {
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      font-size: 0.95rem;
+    }
+    .bs-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.2rem 0.5rem;
+    }
+    .bs-row.indent { padding-left: 2rem; }
+    .bs-row.sub-total {
+      border-top: 1px solid var(--border-light);
+      padding-top: 0.3rem;
+      margin-top: 0.2rem;
+    }
+    .bs-row.grand-total {
+      font-weight: 700;
+      color: var(--primary);
+      border-top: 2px solid var(--primary);
+      margin-top: 0.3rem;
+      padding-top: 0.4rem;
+    }
+
+    @media (max-width: 768px) {
+      .compare-cols { grid-template-columns: 1fr; }
+      .lifecycle-steps { grid-template-columns: 1fr; }
+      .method-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+  <script src="nav.js" defer></script>
+</head>
+<body class="has-sidebar">
+
+<div class="chapter-container">
+
+  <!-- ===== CHAPTER HEADER ===== -->
+  <header class="chapter-header">
+    <div class="chapter-label">Chapter 9</div>
+    <h1 class="chapter-title">Plant Assets, Natural Resources, and Intangibles</h1>
+    <p class="chapter-subtitle">Measuring Cost, Depreciation Methods, and the Asset Turnover Ratio</p>
+  </header>
+
+  <!-- ===== LEARNING OBJECTIVES ===== -->
+  <div class="learning-objectives">
+    <h2>Learning Objectives</h2>
+    <ol>
+      <li>Measure the cost of property, plant, and equipment.</li>
+      <li>Account for depreciation using the straight-line, units-of-production, and double-declining-balance methods.</li>
+      <li>Use the asset turnover ratio to evaluate business performance.</li>
+    </ol>
+  </div>
+
+  <!-- ===== OPENING SCENARIO ===== -->
+  <div class="opening-scenario">
+    <h2>Every Asset Has a Story</h2>
+    <p>Think about a delivery truck that a company just purchased. It cost $41,000 and will serve the business for the next five years. Should the company record the entire $41,000 as an expense in the year of purchase? Of course not&mdash;that would distort income, making the first year look unprofitable while the truck continues to generate revenue for years to come. Instead, accounting requires us to <em>spread</em> the cost over the truck&rsquo;s useful life. This process is called <strong>depreciation</strong>, and it is the heart of this chapter.</p>
+    <p>In Chapter 9, we follow the complete <strong>life cycle of a plant asset</strong>&mdash;from the moment a company acquires it, through the years of using it, and finally to its disposal. Along the way, you will learn exactly which costs get added to an asset&rsquo;s price tag, how to calculate depreciation using three different methods, and how investors evaluate a company&rsquo;s efficiency in using its assets.</p>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- SECTION 1: Property, Plant, and Equipment — Definition           -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>1. What Are Property, Plant, and Equipment?</h2>
+
+    <p>Property, Plant, and Equipment&mdash;commonly abbreviated as <strong>PP&amp;E</strong>&mdash;are assets that appear in the <em>non-current</em> section of the balance sheet. For an asset to be classified as PP&amp;E, it must satisfy all three of the following characteristics:</p>
+
+    <ol>
+      <li><strong>Long-term (non-current):</strong> The asset is expected to last longer than one year or one operating cycle, whichever is longer. Unlike current assets such as supplies or inventory, PP&amp;E is not intended for quick conversion to cash.</li>
+      <li><strong>Tangible:</strong> The asset has physical substance&mdash;you can physically touch and see it. This distinguishes PP&amp;E from intangible assets like patents or copyrights.</li>
+      <li><strong>Used in operations:</strong> The asset must be actively used in the company&rsquo;s day-to-day business operations. A long-term tangible asset that a company holds but does <em>not</em> use in operations would be classified as a long-term investment, not PP&amp;E.</li>
+    </ol>
+
+    <div class="key-term">
+      <strong>Property, Plant, and Equipment (PP&amp;E):</strong> Long-lived, tangible assets that are used in the operations of a business. Examples include land, buildings, equipment, furniture, fixtures, and automobiles. Also called <em>plant assets</em>, <em>operational assets</em>, or <em>fixed assets</em>.
+    </div>
+
+    <div class="think-about-it">
+      <h4>Think About It</h4>
+      <p>A company owns a piece of land that it purchased five years ago but has never used for any business purpose. Is this PP&amp;E? No. Even though it is long-term and tangible, it is <strong>not used in operations</strong>. It would be classified as a long-term investment, not PP&amp;E. All three conditions must be met simultaneously.</p>
+    </div>
+
+    <h3>The Life Cycle of a Plant Asset</h3>
+    <p>Every plant asset goes through three distinct stages during its time with a company. Understanding this life cycle is the key to understanding this entire chapter:</p>
+
+    <div class="lifecycle-steps">
+      <div class="lifecycle-step">
+        <div class="step-num">1</div>
+        <h4>Acquisition</h4>
+        <p>Determine and record the cost of the asset. What costs are included?</p>
+      </div>
+      <div class="lifecycle-step">
+        <div class="step-num">2</div>
+        <h4>Usage</h4>
+        <p>Allocate the cost over the asset&rsquo;s useful life through depreciation. Record capital vs. revenue expenditures.</p>
+      </div>
+      <div class="lifecycle-step">
+        <div class="step-num">3</div>
+        <h4>Disposal</h4>
+        <p>Remove the asset from the books and recognize any gain or loss.</p>
+      </div>
+    </div>
+
+    <figure class="figure">
+      <img src="images/ch09/fig9-1.png"
+           alt="Infographic showing the three stages of a plant asset life cycle: Acquisition, Usage, and Disposal">
+      <figcaption class="figure-caption">Figure 9-1. The Life Cycle of a Plant Asset</figcaption>
+    </figure>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- SECTION 2: The Acquisition Stage — Measuring Cost                -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>2. The Acquisition Stage: Measuring the Cost of PP&amp;E</h2>
+
+    <p>When a company acquires a plant asset, it records the asset at its <strong>historical cost</strong>&mdash;the actual amount paid for the asset. This follows the <strong>cost principle</strong>, which states that acquired assets should be recorded at their actual cost.</p>
+
+    <p>But what exactly counts as &ldquo;cost&rdquo;? It is not just the purchase price. The cost principle requires a company to capitalize <em>all</em> costs necessary to get the asset ready for its intended use. This includes the purchase price plus taxes, commissions, transportation, installation, testing, and any other amount required to prepare the asset for service.</p>
+
+    <div class="key-term">
+      <strong>Capitalize:</strong> To debit (increase) an asset account rather than recording the amount as an expense. When we say a cost is &ldquo;capitalized,&rdquo; we mean it becomes part of the asset&rsquo;s recorded cost on the balance sheet.
+    </div>
+
+    <h3>2.1 The Cost of Land</h3>
+    <p>The cost of land includes the following amounts paid by the purchaser:</p>
+    <ul>
+      <li>Purchase price</li>
+      <li>Brokerage commissions</li>
+      <li>Survey and legal fees</li>
+      <li>Delinquent property taxes (back taxes assumed by the buyer)</li>
+      <li>Title transfer fees</li>
+      <li>Cost of clearing the land (removing old structures, grading)</li>
+    </ul>
+
+    <p>Each of these costs is <em>capitalized</em> into the Land account because they are all necessary to prepare the land for its intended use.</p>
+
+    <div class="example-box">
+      <h4>Example: Measuring the Cost of Land</h4>
+      <p>Smart Touch Learning purchases land on August 1, 2026, for $50,000 by issuing a note payable. Additional costs paid in cash include:</p>
+      <ul>
+        <li>Delinquent property taxes: $4,000</li>
+        <li>Transfer taxes: $2,000</li>
+        <li>Removal of old building: $5,000</li>
+        <li>Survey fee: $1,000</li>
+      </ul>
+
+      <div class="cost-breakdown">
+        <div class="cb-title">Measuring the Cost of Land</div>
+        <div class="cb-row"><span>Purchase price of land</span><span>$50,000</span></div>
+        <div class="cb-row"><span>Add: Delinquent property taxes</span><span>4,000</span></div>
+        <div class="cb-row"><span>&emsp;&emsp;&emsp;Transfer taxes</span><span>2,000</span></div>
+        <div class="cb-row"><span>&emsp;&emsp;&emsp;Removal of old building</span><span>5,000</span></div>
+        <div class="cb-row"><span>&emsp;&emsp;&emsp;Survey fee</span><span>1,000</span></div>
+        <div class="cb-row total"><span>Total cost of land</span><span>$62,000</span></div>
+      </div>
+
+      <p>The journal entry to record this purchase:</p>
+      <div class="journal-entry">
+        <div class="je-date">Aug. 1, 2026</div>
+        <div class="je-line"><span class="je-acct">Land</span><span class="je-dr">62,000</span><span class="je-cr"></span></div>
+        <div class="je-line credit"><span class="je-acct">Notes Payable</span><span class="je-dr"></span><span class="je-cr">50,000</span></div>
+        <div class="je-line credit"><span class="je-acct">Cash</span><span class="je-dr"></span><span class="je-cr">12,000</span></div>
+        <div class="je-narration">To record purchase of land with note payable and cash.</div>
+      </div>
+      <p>Let&rsquo;s trace how the Land T-account builds up. The $50,000 purchase price goes in as a debit. Then each additional cost&mdash;the $4,000 taxes, $2,000 transfer fees, $5,000 demolition, $1,000 survey&mdash;also goes into the debit side of the Land account. The total balance: <strong>$62,000</strong>. Smart Touch Learning capitalizes the land at $62,000 because all of these costs were necessary to get the land ready for its intended use.</p>
+    </div>
+
+    <h3>2.2 Land vs. Land Improvements</h3>
+    <p>There is a crucial distinction you must remember: <strong>Land</strong> and <strong>Land Improvements</strong> are two entirely separate asset accounts.</p>
+
+    <div class="compare-cols">
+      <div class="compare-col">
+        <h4>Land</h4>
+        <ul>
+          <li>Has an <strong>unlimited (infinite) useful life</strong></li>
+          <li><strong>Never depreciated</strong></li>
+          <li>Includes: purchase price, brokerage commissions, surveys, clearing costs</li>
+        </ul>
+      </div>
+      <div class="compare-col">
+        <h4>Land Improvements</h4>
+        <ul>
+          <li>Have a <strong>limited (finite) useful life</strong></li>
+          <li><strong>Subject to depreciation</strong></li>
+          <li>Includes: fencing, paving, sprinkler systems, lighting, signs, landscaping</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="example-box">
+      <h4>Example: Recording Land Improvements</h4>
+      <p>On August 15, 2026, Smart Touch Learning pays $20,000 in cash for fences, paving, lighting, and signs on the new land.</p>
+      <div class="journal-entry">
+        <div class="je-date">Aug. 15, 2026</div>
+        <div class="je-line"><span class="je-acct">Land Improvements</span><span class="je-dr">20,000</span><span class="je-cr"></span></div>
+        <div class="je-line credit"><span class="je-acct">Cash</span><span class="je-dr"></span><span class="je-cr">20,000</span></div>
+        <div class="je-narration">To record purchase of land improvements for cash.</div>
+      </div>
+      <p>These improvements will be depreciated over their estimated useful life. The land itself, however, remains at $62,000 and is never depreciated because it lasts forever.</p>
+    </div>
+
+    <figure class="figure">
+      <img src="images/ch09/fig9-2.png"
+           alt="Comparison diagram of Land (never depreciated) versus Land Improvements (depreciated)">
+      <figcaption class="figure-caption">Figure 9-2. Land vs. Land Improvements</figcaption>
+    </figure>
+
+    <div class="think-about-it">
+      <h4>Think About It</h4>
+      <p>Why is land never depreciated? Because land is permanent. No matter how much you use it, it will always be there. A building can collapse, a truck can wear out, but the land beneath them endures. That is why land is the <em>only</em> plant asset exempt from depreciation.</p>
+    </div>
+
+    <h3>2.3 The Cost of Buildings</h3>
+    <p>The costs capitalized for a building depend on how the company obtains it:</p>
+    <div class="compare-cols">
+      <div class="compare-col">
+        <h4>Constructing a Building</h4>
+        <ul>
+          <li>Architectural fees</li>
+          <li>Building permits</li>
+          <li>Contractor charges</li>
+          <li>Materials, labor, and miscellaneous costs</li>
+        </ul>
+      </div>
+      <div class="compare-col">
+        <h4>Purchasing an Existing Building</h4>
+        <ul>
+          <li>Purchase price</li>
+          <li>Renovation costs to get it ready for its intended use</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>2.4 The Cost of Machinery and Equipment</h3>
+    <p>The cost of machinery and equipment includes:</p>
+    <ul>
+      <li>Purchase price (less any discounts)</li>
+      <li>Transportation charges</li>
+      <li>Insurance while in transit</li>
+      <li>Sales tax and other taxes</li>
+      <li>Purchase commission</li>
+      <li>Installation costs</li>
+      <li>Testing costs (prior to use of the asset)</li>
+    </ul>
+    <p>Pay special attention to installation and testing costs. Why are they capitalized? Because these costs are absolutely necessary to get the equipment ready for its intended use. Without installation and testing, the equipment cannot operate. Once the asset is up and running, however, ongoing insurance, taxes, repairs, and maintenance costs are expensed as incurred&mdash;they are no longer capitalized.</p>
+
+    <h3>2.5 The Cost of Furniture and Fixtures</h3>
+    <p>Common examples include desks, chairs, file cabinets, display racks, and shelving. As with other plant assets, the cost of furniture and fixtures includes the purchase price (less any discounts) plus all other costs to ready the asset for its intended use, such as shipping and assembly.</p>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- SECTION 3: Lump-Sum (Basket) Purchases                          -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>3. Lump-Sum (Basket) Purchases</h2>
+
+    <p>Sometimes a company pays a <strong>single price</strong> to acquire several different assets as a group. This is called a <strong>lump-sum purchase</strong> (or <strong>basket purchase</strong>). Even though the company paid one lump-sum amount, accounting requires that each asset be recorded separately in its own account.</p>
+
+    <p>The problem is: how do we divide the single purchase price among the different assets? The solution is the <strong>relative-market-value method</strong>. We allocate the total cost based on each asset&rsquo;s fair market value relative to the combined fair market value of all assets purchased.</p>
+
+    <div class="key-term">
+      <strong>Relative-Market-Value Method:</strong> A method of allocating the total cost of a lump-sum purchase among multiple assets according to each asset&rsquo;s proportion of the total appraised fair market value.
+    </div>
+
+    <div class="example-box">
+      <h4>Example: Lump-Sum Purchase Allocation</h4>
+      <p>On August 1, 2026, Smart Touch Learning pays $100,000 for both land and a building, signing a note payable. An appraisal indicates the land&rsquo;s fair market value is $30,000 and the building&rsquo;s fair market value is $90,000.</p>
+
+      <p><strong>Step 1:</strong> Calculate each asset&rsquo;s percentage of total fair market value.</p>
+      <table class="dep-schedule" style="max-width:550px;">
+        <thead>
+          <tr><th>Asset</th><th>Fair Market Value</th><th>Percentage</th><th>Allocated Cost</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="row-label">Land</td><td>$30,000</td><td>$30,000 &divide; $120,000 = 25%</td><td>$100,000 &times; 25% = $25,000</td></tr>
+          <tr><td class="row-label">Building</td><td>$90,000</td><td>$90,000 &divide; $120,000 = 75%</td><td>$100,000 &times; 75% = $75,000</td></tr>
+          <tr><td class="row-label">Total</td><td>$120,000</td><td>100%</td><td>$100,000</td></tr>
+        </tbody>
+      </table>
+
+      <p><strong>Step 2:</strong> Record the journal entry.</p>
+      <div class="journal-entry">
+        <div class="je-date">Aug. 1, 2026</div>
+        <div class="je-line"><span class="je-acct">Land</span><span class="je-dr">25,000</span><span class="je-cr"></span></div>
+        <div class="je-line"><span class="je-acct">Building</span><span class="je-dr">75,000</span><span class="je-cr"></span></div>
+        <div class="je-line credit"><span class="je-acct">Notes Payable</span><span class="je-dr"></span><span class="je-cr">100,000</span></div>
+        <div class="je-narration">To record lump-sum purchase of land and building.</div>
+      </div>
+
+      <p>Notice that we do <em>not</em> record each asset at its individual fair market value. The individual values are only used to determine the <strong>ratio</strong> for allocating the actual purchase price. The total debits must equal the total price paid ($100,000), not the total appraised value ($120,000).</p>
+    </div>
+
+    <div class="think-about-it">
+      <h4>Think About It</h4>
+      <p>Why does the company get to buy $120,000 worth of assets for only $100,000? This is precisely the advantage of a basket purchase&mdash;the buyer typically gets a discount by purchasing multiple assets together. The accounting question is simply how to split that discounted price fairly among the different assets.</p>
+    </div>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- SECTION 4: Capital vs. Revenue Expenditures                      -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>4. Capital vs. Revenue Expenditures</h2>
+
+    <p>After acquiring a plant asset, a company will inevitably spend additional money on it during the usage stage. These subsequent expenditures fall into two categories:</p>
+
+    <div class="compare-cols">
+      <div class="compare-col">
+        <h4>Capital Expenditures</h4>
+        <ul>
+          <li>Increase the asset&rsquo;s <strong>capacity or efficiency</strong>, or <strong>extend its useful life</strong></li>
+          <li>Also called <em>extraordinary repairs</em></li>
+          <li>Debited to an <strong>asset account</strong> (capitalized)</li>
+          <li>Reported on the <strong>balance sheet</strong></li>
+        </ul>
+        <p style="font-size:0.85rem;color:var(--text-light);">Example: Rebuilding an engine on a truck ($3,000) extends its useful life &rarr; Debit Truck</p>
+      </div>
+      <div class="compare-col">
+        <h4>Revenue Expenditures</h4>
+        <ul>
+          <li>Simply <strong>maintain</strong> the asset in normal working order</li>
+          <li>Also called <em>ordinary repairs</em></li>
+          <li>Debited to an <strong>expense account</strong></li>
+          <li>Reported on the <strong>income statement</strong></li>
+        </ul>
+        <p style="font-size:0.85rem;color:var(--text-light);">Example: Replacing tires on a truck ($500) maintains normal use &rarr; Debit Repairs &amp; Maintenance Expense</p>
+      </div>
+    </div>
+
+    <div class="example-box">
+      <h4>Example: Capital vs. Revenue Expenditure</h4>
+      <p><strong>Scenario A:</strong> Smart Touch Learning spends $3,000 to completely rebuild the engine on a five-year-old delivery truck. This extends the truck&rsquo;s useful life beyond its original estimate, making it an <em>extraordinary repair</em> (capital expenditure).</p>
+      <div class="journal-entry">
+        <div class="je-line"><span class="je-acct">Truck</span><span class="je-dr">3,000</span><span class="je-cr"></span></div>
+        <div class="je-line credit"><span class="je-acct">Cash</span><span class="je-dr"></span><span class="je-cr">3,000</span></div>
+        <div class="je-narration">To record cost of rebuilding engine on truck.</div>
+      </div>
+
+      <p><strong>Scenario B:</strong> Smart Touch Learning pays $500 cash to replace tires on the same truck. This is routine maintenance and does not extend the truck&rsquo;s useful life or increase its efficiency&mdash;an <em>ordinary repair</em> (revenue expenditure).</p>
+      <div class="journal-entry">
+        <div class="je-line"><span class="je-acct">Repairs and Maintenance Expense</span><span class="je-dr">500</span><span class="je-cr"></span></div>
+        <div class="je-line credit"><span class="je-acct">Cash</span><span class="je-dr"></span><span class="je-cr">500</span></div>
+        <div class="je-narration">To record repairs and maintenance costs incurred.</div>
+      </div>
+    </div>
+
+    <figure class="figure">
+      <img src="images/ch09/fig9-4.png"
+           alt="Diagram comparing Capital Expenditures (debit asset) versus Revenue Expenditures (debit expense)">
+      <figcaption class="figure-caption">Figure 9-4. Capital vs. Revenue Expenditures</figcaption>
+    </figure>
+
+    <div class="think-about-it">
+      <h4>Think About It</h4>
+      <p>Misclassifying these expenditures creates serious errors. If you treat a capital expenditure as an expense, you <strong>overstate expenses</strong> (understating net income) and <strong>understate assets</strong> on the balance sheet. The opposite error occurs if you capitalize an ordinary repair. Always ask: &ldquo;Does this spending <em>extend the life or improve the capacity</em> of the asset?&rdquo; If yes, capitalize it. If no, expense it.</p>
+    </div>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- SECTION 5: Introduction to Depreciation                         -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>5. Introduction to Depreciation</h2>
+
+    <p>We now move to the <strong>usage stage</strong> of the plant asset life cycle. The most important concept here is <strong>depreciation</strong>&mdash;a topic you first encountered in Chapter 3 as a deferred expense (an adjusting entry).</p>
+
+    <div class="key-term">
+      <strong>Depreciation:</strong> A systematic and rational process of allocating the cost of a plant asset to expense over its useful life. Depreciation follows the <strong>matching principle</strong>: as the asset is used to generate revenue, a portion of its cost is matched against that revenue as an expense.
+    </div>
+
+    <p>Several important points about depreciation:</p>
+    <ul>
+      <li>All plant assets <strong>except land</strong> are subject to depreciation.</li>
+      <li>Depreciation is an <strong>allocation</strong> process, not a <strong>valuation</strong> process. The book value on the balance sheet is not meant to reflect the asset&rsquo;s current market value.</li>
+      <li>Depreciation has <strong>nothing to do with cash</strong>. It does not mean the company is setting aside money to replace the asset.</li>
+      <li>Some assets may become <strong>obsolete</strong> before they physically wear out. An asset is obsolete when a newer asset can perform the job more efficiently.</li>
+    </ul>
+
+    <h3>5.1 Factors in Computing Depreciation</h3>
+    <p>To compute depreciation, three factors must be considered:</p>
+    <ol>
+      <li><strong>Capitalized Cost:</strong> The historical cost of the asset (determined in the acquisition stage). This is a known, factual amount.</li>
+      <li><strong>Estimated Useful Life:</strong> The length of time the company expects to use the asset in operations. It may be expressed in years, units produced, miles driven, or hours used. This is an <em>estimate</em>.</li>
+      <li><strong>Estimated Residual Value (Salvage Value):</strong> The expected cash value of the asset at the end of its useful life. This is also an <em>estimate</em>.</li>
+    </ol>
+
+    <div class="think-about-it">
+      <h4>Think About It</h4>
+      <p>Of these three factors, only the capitalized cost is a known, historical fact. Both the useful life and the residual value are management <em>estimates</em>. This means that depreciation itself is inherently an estimate&mdash;which is one reason book value does not equal market value.</p>
+    </div>
+
+    <h3>5.2 Depreciable Cost vs. Book Value</h3>
+    <p>Two critical terms that students often confuse:</p>
+
+    <div class="formula-box">
+      \[ \text{Depreciable Cost} = \text{Cost} - \text{Estimated Residual Value} \]
+    </div>
+    <p><strong>Depreciable cost</strong> is the <em>maximum total amount</em> of depreciation that will be recorded over the asset&rsquo;s entire useful life. It does not change from year to year.</p>
+
+    <div class="formula-box">
+      \[ \text{Book Value} = \text{Cost} - \text{Accumulated Depreciation} \]
+    </div>
+    <p><strong>Book value</strong> is the asset&rsquo;s remaining unallocated cost at any given point in time. It <em>decreases every year</em> as depreciation accumulates. At the end of the asset&rsquo;s useful life, the total accumulated depreciation will equal the depreciable cost, and the book value will equal the estimated residual value.</p>
+
+    <div class="example-box">
+      <h4>Visualizing the Relationship</h4>
+      <p>Suppose Equipment A costs $100,000 and has a residual value of $20,000.</p>
+      <ul>
+        <li><strong>Depreciable cost</strong> = $100,000 &minus; $20,000 = <strong>$80,000</strong></li>
+        <li>Over the useful life, total accumulated depreciation will reach exactly $80,000.</li>
+        <li>At that point, <strong>book value</strong> = $100,000 &minus; $80,000 = <strong>$20,000</strong> = residual value.</li>
+      </ul>
+      <p>The residual value is the &ldquo;floor&rdquo;&mdash;you never depreciate an asset below its residual value.</p>
+    </div>
+
+    <figure class="figure">
+      <img src="images/ch09/fig9-5.png"
+           alt="Diagram showing the relationship between Cost, Depreciable Cost, Book Value, and Residual Value">
+      <figcaption class="figure-caption">Figure 9-5. Depreciable Cost vs. Book Value</figcaption>
+    </figure>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- SECTION 6: Straight-Line Method                                  -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>6. The Straight-Line Method</h2>
+
+    <p>The <strong>straight-line method</strong> allocates an <strong>equal amount</strong> of depreciation expense to each year of the asset&rsquo;s useful life. It is the simplest and most commonly used method.</p>
+
+    <div class="formula-box">
+      \[ \text{Straight-Line Depreciation} = \frac{\text{Cost} - \text{Residual Value}}{\text{Useful Life}} \]
+    </div>
+
+    <div class="example-box">
+      <h4>Example: Straight-Line Depreciation</h4>
+      <p>Smart Touch Learning purchases a delivery truck on January 1, 2026, with the following data:</p>
+      <div class="cost-breakdown" style="max-width:300px;">
+        <div class="cb-title">Truck Data</div>
+        <div class="cb-row"><span>Cost</span><span>$41,000</span></div>
+        <div class="cb-row"><span>Less: Residual value</span><span>(1,000)</span></div>
+        <div class="cb-row total"><span>Depreciable cost</span><span>$40,000</span></div>
+        <div class="cb-row"><span>Useful life</span><span>5 years</span></div>
+      </div>
+
+      <p>Annual depreciation = ($41,000 &minus; $1,000) &divide; 5 = <strong>$8,000 per year</strong></p>
+
+      <p>The journal entry recorded each December 31:</p>
+      <div class="journal-entry">
+        <div class="je-date">Dec. 31</div>
+        <div class="je-line"><span class="je-acct">Depreciation Expense&mdash;Truck</span><span class="je-dr">8,000</span><span class="je-cr"></span></div>
+        <div class="je-line credit"><span class="je-acct">Accumulated Depreciation&mdash;Truck</span><span class="je-dr"></span><span class="je-cr">8,000</span></div>
+        <div class="je-narration">To record annual straight-line depreciation on truck.</div>
+      </div>
+
+      <h4>Straight-Line Depreciation Schedule</h4>
+      <table class="dep-schedule">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Depreciation Expense</th>
+            <th>Accumulated Depreciation</th>
+            <th>Book Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="row-label">Jan. 1, 2026</td><td>&mdash;</td><td>&mdash;</td><td>$41,000</td></tr>
+          <tr><td class="row-label">Dec. 31, 2026</td><td>$8,000</td><td>$8,000</td><td>$33,000</td></tr>
+          <tr><td class="row-label">Dec. 31, 2027</td><td>$8,000</td><td>$16,000</td><td>$25,000</td></tr>
+          <tr><td class="row-label">Dec. 31, 2028</td><td>$8,000</td><td>$24,000</td><td>$17,000</td></tr>
+          <tr><td class="row-label">Dec. 31, 2029</td><td>$8,000</td><td>$32,000</td><td>$9,000</td></tr>
+          <tr><td class="row-label">Dec. 31, 2030</td><td>$8,000</td><td>$40,000</td><td>$1,000</td></tr>
+        </tbody>
+      </table>
+
+      <p>Notice three important patterns:</p>
+      <ul>
+        <li>Depreciation expense is <strong>constant</strong> at $8,000 every year.</li>
+        <li>Accumulated depreciation <strong>increases steadily</strong> each year.</li>
+        <li>Book value <strong>decreases steadily</strong> and ends at <strong>$1,000</strong>&mdash;exactly the estimated residual value.</li>
+      </ul>
+      <p>When computing book value, always subtract the <em>total</em> accumulated depreciation from the <em>original</em> cost. Do not subtract yearly depreciation from the previous year&rsquo;s book value&mdash;while both approaches give the same answer, the former reflects the true formula: BV = Cost &minus; Accumulated Depreciation.</p>
+    </div>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- SECTION 7: Units-of-Production Method                            -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>7. The Units-of-Production Method</h2>
+
+    <p>Unlike the straight-line method, which allocates a constant amount based on <em>time</em>, the <strong>units-of-production method</strong> allocates a varying amount of depreciation each year based on the asset&rsquo;s <em>actual usage</em>.</p>
+
+    <p>When an asset&rsquo;s usage varies significantly from year to year, this method better matches expenses with revenues. It treats depreciation as a function of <strong>use</strong>, not of time.</p>
+
+    <h3>Step 1: Calculate Depreciation per Unit</h3>
+    <div class="formula-box">
+      \[ \text{Depreciation per Unit} = \frac{\text{Cost} - \text{Residual Value}}{\text{Total Estimated Units of Production}} \]
+    </div>
+
+    <h3>Step 2: Calculate Annual Depreciation Expense</h3>
+    <div class="formula-box">
+      \[ \text{Depreciation Expense} = \text{Depreciation per Unit} \times \text{Actual Units Used This Year} \]
+    </div>
+
+    <div class="example-box">
+      <h4>Example: Units-of-Production Depreciation</h4>
+      <p>Using the same truck (cost $41,000, residual $1,000), Smart Touch Learning estimates the truck will be driven a total of <strong>100,000 miles</strong> over its useful life with the following annual mileage:</p>
+      <ul>
+        <li>Year 1: 20,000 miles</li>
+        <li>Year 2: 30,000 miles</li>
+        <li>Year 3: 25,000 miles</li>
+        <li>Year 4: 15,000 miles</li>
+        <li>Year 5: 10,000 miles</li>
+      </ul>
+
+      <p><strong>Step 1:</strong> Depreciation per mile = ($41,000 &minus; $1,000) &divide; 100,000 = <strong>$0.40 per mile</strong></p>
+      <p><strong>Step 2:</strong> Multiply the per-mile rate by actual miles driven each year.</p>
+
+      <h4>Units-of-Production Depreciation Schedule</h4>
+      <table class="dep-schedule">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Miles Driven</th>
+            <th>Depreciation Expense</th>
+            <th>Accumulated Depreciation</th>
+            <th>Book Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="row-label">Jan. 1, 2026</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>$41,000</td></tr>
+          <tr><td class="row-label">Dec. 31, 2026</td><td>20,000</td><td>$8,000</td><td>$8,000</td><td>$33,000</td></tr>
+          <tr><td class="row-label">Dec. 31, 2027</td><td>30,000</td><td>$12,000</td><td>$20,000</td><td>$21,000</td></tr>
+          <tr><td class="row-label">Dec. 31, 2028</td><td>25,000</td><td>$10,000</td><td>$30,000</td><td>$11,000</td></tr>
+          <tr><td class="row-label">Dec. 31, 2029</td><td>15,000</td><td>$6,000</td><td>$36,000</td><td>$5,000</td></tr>
+          <tr><td class="row-label">Dec. 31, 2030</td><td>10,000</td><td>$4,000</td><td>$40,000</td><td>$1,000</td></tr>
+        </tbody>
+      </table>
+
+      <p>Notice that the depreciation expense <em>varies each year</em> depending on usage, but the total accumulated depreciation still reaches $40,000 and the final book value still equals the $1,000 residual value&mdash;just like the straight-line method.</p>
+    </div>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- SECTION 8: Double-Declining-Balance Method                       -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>8. The Double-Declining-Balance Method</h2>
+
+    <p>The <strong>double-declining-balance (DDB) method</strong> is an <strong>accelerated depreciation method</strong>. It records <em>more</em> depreciation expense in the early years of an asset&rsquo;s life and <em>less</em> in the later years. This approach is appropriate for assets that produce more revenue or are more efficient when they are new&mdash;such as computers or advanced machinery.</p>
+
+    <p>The DDB method multiplies the asset&rsquo;s <strong>decreasing book value</strong> by a constant rate that is <strong>twice</strong> the straight-line rate:</p>
+
+    <div class="formula-box">
+      \[ \text{DDB Depreciation} = \text{Beginning Book Value} \times \frac{2}{\text{Useful Life}} \]
+    </div>
+
+    <p>Two critical features of this formula:</p>
+    <ol>
+      <li><strong>Residual value is NOT subtracted</strong> from the cost in the formula. Unlike straight-line and units-of-production, DDB ignores residual value when computing the annual expense.</li>
+      <li>The <strong>book value decreases</strong> each year (because accumulated depreciation grows), so the depreciation expense naturally declines over time&mdash;hence the term &ldquo;declining balance.&rdquo;</li>
+    </ol>
+
+    <div class="example-box">
+      <h4>Example: Double-Declining-Balance Depreciation</h4>
+      <p>Using the same truck (cost $41,000, residual $1,000, 5-year life):</p>
+      <p>DDB rate = 2 &divide; 5 = <strong>0.40 (or 40% per year)</strong></p>
+
+      <ul>
+        <li><strong>Year 1:</strong> $41,000 &times; 40% = <strong>$16,400</strong></li>
+        <li><strong>Year 2:</strong> ($41,000 &minus; $16,400) &times; 40% = $24,600 &times; 40% = <strong>$9,840</strong></li>
+        <li><strong>Year 3:</strong> ($41,000 &minus; $26,240) &times; 40% = $14,760 &times; 40% = <strong>$5,904</strong></li>
+        <li><strong>Year 4:</strong> ($41,000 &minus; $32,144) &times; 40% = $8,856 &times; 40% = <strong>$3,542</strong> (rounded)</li>
+        <li><strong>Year 5:</strong> Beginning BV = $5,314. Applying the formula: $5,314 &times; 40% = $2,125.60. But wait&mdash;this would reduce the book value below the $1,000 residual value. <strong>We cannot do this.</strong></li>
+      </ul>
+
+      <h4>The Final-Year &ldquo;Plug&rdquo; Number</h4>
+      <p>In the last year, we abandon the formula and use a <strong>plug figure</strong> to bring the book value exactly to the residual value:</p>
+      <p style="text-align:center;font-size:1rem;">Year 5 Depreciation = Beginning Book Value &minus; Residual Value = $5,314 &minus; $1,000 = <strong>$4,314</strong></p>
+
+      <h4>Double-Declining-Balance Depreciation Schedule</h4>
+      <table class="dep-schedule">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Computation (BV &times; 2/5)</th>
+            <th>Depreciation Expense</th>
+            <th>Accumulated Depreciation</th>
+            <th>Book Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="row-label">Jan. 1, 2026</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>$41,000</td></tr>
+          <tr><td class="row-label">Dec. 31, 2026</td><td>$41,000 &times; 2/5</td><td>$16,400</td><td>$16,400</td><td>$24,600</td></tr>
+          <tr><td class="row-label">Dec. 31, 2027</td><td>$24,600 &times; 2/5</td><td>$9,840</td><td>$26,240</td><td>$14,760</td></tr>
+          <tr><td class="row-label">Dec. 31, 2028</td><td>$14,760 &times; 2/5</td><td>$5,904</td><td>$32,144</td><td>$8,856</td></tr>
+          <tr><td class="row-label">Dec. 31, 2029</td><td>$8,856 &times; 2/5</td><td>$3,542</td><td>$35,686</td><td>$5,314</td></tr>
+          <tr><td class="row-label">Dec. 31, 2030</td><td>Plug: $5,314 &minus; $1,000</td><td>$4,314</td><td>$40,000</td><td>$1,000</td></tr>
+        </tbody>
+      </table>
+
+      <p>Despite using different amounts each year, the total accumulated depreciation still reaches $40,000&mdash;the same total depreciable cost as the other methods. The final book value equals the residual value of $1,000.</p>
+    </div>
+
+    <figure class="figure">
+      <img src="images/ch09/fig9-6.png"
+           alt="Staircase diagram showing why DDB method needs a plug number in the final year to reach residual value">
+      <figcaption class="figure-caption">Figure 9-6. Why DDB Needs a Plug Number in the Final Year</figcaption>
+    </figure>
+
+    <div class="think-about-it">
+      <h4>Think About It</h4>
+      <p>The DDB method always requires you to check the final year. If mechanically applying the formula would push the book value below the residual value, <strong>stop</strong> and use the plug number instead. This is the most common mistake students make on exams. The residual value is the floor&mdash;you can never depreciate below it.</p>
+    </div>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- SECTION 9: Comparing the Three Methods                           -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>9. Comparing Depreciation Methods</h2>
+
+    <p>While each method produces a <em>different</em> pattern of annual depreciation expense, all three methods result in the <strong>same total depreciation</strong> over the asset&rsquo;s life&mdash;$40,000 in our truck example. The choice of method affects <em>when</em> the expense is recognized, not <em>how much</em> in total.</p>
+
+    <figure class="figure">
+      <img src="images/ch09/fig9-3.png"
+           alt="Line graph comparing Straight-Line, Units-of-Production, and Double-Declining-Balance depreciation expense patterns over 5 years">
+      <figcaption class="figure-caption">Figure 9-3. Comparing the Three Depreciation Methods</figcaption>
+    </figure>
+
+    <table class="dep-schedule">
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th>Straight-Line</th>
+          <th>Units-of-Production</th>
+          <th>Double-Declining-Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-label">2026</td><td>$8,000</td><td>$8,000</td><td>$16,400</td></tr>
+        <tr><td class="row-label">2027</td><td>$8,000</td><td>$12,000</td><td>$9,840</td></tr>
+        <tr><td class="row-label">2028</td><td>$8,000</td><td>$10,000</td><td>$5,904</td></tr>
+        <tr><td class="row-label">2029</td><td>$8,000</td><td>$6,000</td><td>$3,542</td></tr>
+        <tr><td class="row-label">2030</td><td>$8,000</td><td>$4,000</td><td>$4,314</td></tr>
+        <tr><td class="row-label">Total</td><td>$40,000</td><td>$40,000</td><td>$40,000</td></tr>
+      </tbody>
+    </table>
+
+    <div class="method-cards">
+      <div class="method-card">
+        <h4>Straight-Line</h4>
+        <div class="method-formula">Equal amount each year</div>
+        <p><strong>Best for:</strong> Assets that generate revenue evenly over time (e.g., buildings).</p>
+        <p><strong>Pattern:</strong> Depreciation is constant.</p>
+      </div>
+      <div class="method-card">
+        <h4>Units-of-Production</h4>
+        <div class="method-formula">Varies with usage</div>
+        <p><strong>Best for:</strong> Assets whose wear depends on how much they are used (e.g., vehicles measured by miles, machinery by hours).</p>
+        <p><strong>Pattern:</strong> Depreciation fluctuates with usage.</p>
+      </div>
+      <div class="method-card">
+        <h4>Double-Declining-Balance</h4>
+        <div class="method-formula">Higher early, lower later</div>
+        <p><strong>Best for:</strong> Assets that produce more revenue when new and lose efficiency quickly (e.g., computers, technology).</p>
+        <p><strong>Pattern:</strong> Accelerated&mdash;front-loaded expense.</p>
+      </div>
+    </div>
+
+    <div class="think-about-it">
+      <h4>Think About It</h4>
+      <p>Which method should a company use? The answer depends on the <strong>asset itself</strong>. A company should choose the method that best matches the asset&rsquo;s expense pattern against the revenue it helps generate. A building used steadily for 30 years? Straight-line. A delivery truck whose mileage varies dramatically by year? Units-of-production. A computer that becomes obsolete quickly? Double-declining-balance.</p>
+    </div>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- SECTION 10: Partial-Year Depreciation                            -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>10. Partial-Year Depreciation</h2>
+
+    <p>In our previous examples, we assumed the asset was purchased on January 1 and used for full calendar years. In practice, companies purchase assets at any point during the year. When this happens, depreciation must be prorated for the portion of the year the asset was actually in service.</p>
+
+    <p>A common convention used for this proration is the <strong>modified half-month convention</strong>:</p>
+    <ul>
+      <li>If the asset is purchased <strong>on or before the 15th</strong> of a month, record depreciation for that <strong>entire month</strong>.</li>
+      <li>If the asset is purchased <strong>after the 15th</strong> of a month, <strong>skip</strong> that month and begin depreciation the following month.</li>
+    </ul>
+
+    <div class="example-box">
+      <h4>Example: Partial-Year Depreciation (Straight-Line)</h4>
+      <p>The same truck (cost $41,000, residual $1,000, 5-year life) is placed into service on <strong>July 1, 2026</strong> instead of January 1.</p>
+      <ul>
+        <li>Full annual depreciation = ($41,000 &minus; $1,000) &divide; 5 = $8,000</li>
+        <li>Months in service during 2026 = July through December = <strong>6 months</strong></li>
+        <li>2026 depreciation = $8,000 &times; 6/12 = <strong>$4,000</strong></li>
+      </ul>
+      <p>The company records only $4,000 of depreciation expense in 2026 because the truck was used for only half the year.</p>
+
+      <div class="journal-entry">
+        <div class="je-date">Dec. 31, 2026</div>
+        <div class="je-line"><span class="je-acct">Depreciation Expense&mdash;Truck</span><span class="je-dr">4,000</span><span class="je-cr"></span></div>
+        <div class="je-line credit"><span class="je-acct">Accumulated Depreciation&mdash;Truck</span><span class="je-dr"></span><span class="je-cr">4,000</span></div>
+        <div class="je-narration">To record six months of straight-line depreciation on truck.</div>
+      </div>
+    </div>
+
+    <div class="think-about-it">
+      <h4>Think About It</h4>
+      <p>Partial-year depreciation applies to disposals too. If a company disposes of an asset during the year, it must record depreciation only up to the date of disposal, not for the entire year. Always calculate based on the number of months the asset was actually in service.</p>
+    </div>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- SECTION 11: Changing Estimates                                    -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>11. Changing Depreciation Estimates</h2>
+
+    <p>Because useful life and residual value are <em>estimates</em>, they may need to be revised as new information becomes available. When this happens, the company does <strong>not</strong> go back and restate prior years. Instead, it recalculates depreciation for the <strong>current and future years</strong> using the revised estimates.</p>
+
+    <div class="formula-box">
+      \[ \text{Revised Depreciation} = \frac{\text{Remaining Book Value} - \text{New Residual Value}}{\text{New Remaining Useful Life}} \]
+    </div>
+
+    <div class="example-box">
+      <h4>Example: Revising Useful Life</h4>
+      <p>Smart Touch Learning used the truck (cost $41,000, residual $1,000, 5-year life) for two full years using straight-line depreciation. After two years:</p>
+      <ul>
+        <li>Accumulated depreciation = $8,000 &times; 2 = $16,000</li>
+        <li>Remaining book value = $41,000 &minus; $16,000 = <strong>$25,000</strong></li>
+      </ul>
+      <p>At the start of 2028, Smart Touch Learning now believes the truck will remain useful for <strong>six more years</strong> (total life of 8 years instead of 5). The residual value is unchanged at $1,000.</p>
+      <p>Revised depreciation = ($25,000 &minus; $1,000) &divide; 6 = <strong>$4,000 per year</strong></p>
+      <p>From 2028 onward, the company records $4,000 of depreciation expense each year. The prior two years at $8,000 each are not corrected.</p>
+    </div>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- SECTION 12: Reporting PP&E on the Balance Sheet                  -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>12. Reporting Property, Plant, and Equipment</h2>
+
+    <p>Plant assets are reported at <strong>book value</strong> (cost minus accumulated depreciation) on the balance sheet. Companies may present PP&amp;E in one of two ways:</p>
+    <ol>
+      <li><strong>Detailed presentation:</strong> Show each asset category with its cost, less accumulated depreciation, at net book value.</li>
+      <li><strong>Summary presentation:</strong> Report a single &ldquo;Property, Plant, and Equipment, Net&rdquo; amount with detailed information disclosed in the notes to the financial statements.</li>
+    </ol>
+
+    <div class="bs-display">
+      <div class="bs-title">Balance Sheet (Partial) &mdash; PP&amp;E Section</div>
+      <div class="bs-row"><span><strong>Property, Plant, and Equipment:</strong></span><span></span></div>
+      <div class="bs-row indent"><span>Land</span><span>$20,000</span></div>
+      <div class="bs-row indent"><span>Building</span><span>$60,000</span></div>
+      <div class="bs-row indent"><span>&emsp;Less: Accumulated Depreciation</span><span>(250)</span></div>
+      <div class="bs-row indent sub-total"><span>&emsp;Building, net</span><span>$59,750</span></div>
+      <div class="bs-row indent"><span>Furniture</span><span>$18,000</span></div>
+      <div class="bs-row indent"><span>&emsp;Less: Accumulated Depreciation</span><span>(300)</span></div>
+      <div class="bs-row indent sub-total"><span>&emsp;Furniture, net</span><span>$17,700</span></div>
+      <div class="bs-row grand-total"><span>Property, Plant, and Equipment, Net</span><span>$97,450</span></div>
+    </div>
+
+    <p>Notice that <strong>Land</strong> is reported at its full historical cost with no accumulated depreciation. Land is never depreciated because it has an unlimited useful life.</p>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- SECTION 13: The Asset Turnover Ratio                             -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>13. The Asset Turnover Ratio</h2>
+
+    <p>The <strong>asset turnover ratio</strong> measures how efficiently a company uses its total assets to generate sales revenue. A higher ratio means the company is generating more sales per dollar of assets invested&mdash;a sign of greater efficiency.</p>
+
+    <div class="formula-box">
+      \[ \text{Asset Turnover Ratio} = \frac{\text{Net Sales Revenue}}{\text{Average Total Assets}} \]
+    </div>
+
+    <p>Where:</p>
+    <div class="formula-box">
+      \[ \text{Average Total Assets} = \frac{\text{Beginning Total Assets} + \text{Ending Total Assets}}{2} \]
+    </div>
+
+    <div class="example-box">
+      <h4>Example: Computing the Asset Turnover Ratio</h4>
+      <p>Using data from Kohl&rsquo;s Corporation&rsquo;s annual report (amounts in millions):</p>
+      <ul>
+        <li>Net sales revenue: $19,204</li>
+        <li>Total assets, beginning of year: $14,333</li>
+        <li>Total assets, end of year: $13,606</li>
+      </ul>
+      <p>Average total assets = ($14,333 + $13,606) &divide; 2 = $13,969.50</p>
+      <p>Asset turnover ratio = $19,204 &divide; $13,969.50 = <strong>1.37 times</strong></p>
+      <p>This means Kohl&rsquo;s generated $1.37 in net sales for every $1.00 of assets invested. If the industry average is 1.9 times, Kohl&rsquo;s is below average and should look for ways to increase net sales or decrease its asset base to improve efficiency.</p>
+    </div>
+
+    <div class="think-about-it">
+      <h4>Think About It</h4>
+      <p>Why do we use <strong>average</strong> total assets instead of ending assets? Because the balance sheet is a snapshot at one point in time, while net sales revenue covers the <em>entire</em> year. To make the comparison fair, we average the beginning and ending asset balances to approximate the assets available throughout the year.</p>
+    </div>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- SECTION 14: Disposal of Plant Assets                             -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>14. Disposal of Plant Assets</h2>
+
+    <p>When a company disposes of a plant asset&mdash;whether by selling it, discarding it, or trading it in&mdash;it must remove the asset from its books. The disposal process follows these steps:</p>
+
+    <ol>
+      <li><strong>Update depreciation</strong> through the date of disposal to ensure the book value is current.</li>
+      <li><strong>Record the disposal</strong> by removing both the asset&rsquo;s cost and its accumulated depreciation from the books.</li>
+      <li><strong>Recognize any gain or loss</strong> based on the difference between the cash received and the book value at the time of disposal.</li>
+    </ol>
+
+    <p>The journal entry to record a disposal follows this logical structure:</p>
+    <ul>
+      <li><strong>Debit Cash</strong> for the amount received from the sale.</li>
+      <li><strong>Debit Accumulated Depreciation</strong> for the total depreciation recorded over the asset&rsquo;s life (to remove the contra account).</li>
+      <li><strong>Credit the Asset account</strong> for its original historical cost (to remove the asset).</li>
+      <li>Use a <strong>plug figure</strong> to balance the entry:
+        <ul>
+          <li>If Cash received &gt; Book Value &rarr; <strong>Gain on Disposal</strong> (credit)</li>
+          <li>If Cash received &lt; Book Value &rarr; <strong>Loss on Disposal</strong> (debit)</li>
+          <li>If Cash received = Book Value &rarr; No gain or loss</li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="example-box">
+      <h4>Example: Disposal at a Gain</h4>
+      <p>Smart Touch Learning sells the delivery truck after 3 years for $20,000 cash. At the date of sale, accumulated depreciation totals $24,000 (using straight-line at $8,000/year).</p>
+      <ul>
+        <li>Book value at disposal = $41,000 &minus; $24,000 = <strong>$17,000</strong></li>
+        <li>Cash received = $20,000</li>
+        <li>Gain on disposal = $20,000 &minus; $17,000 = <strong>$3,000</strong></li>
+      </ul>
+      <div class="journal-entry">
+        <div class="je-line"><span class="je-acct">Cash</span><span class="je-dr">20,000</span><span class="je-cr"></span></div>
+        <div class="je-line"><span class="je-acct">Accumulated Depreciation&mdash;Truck</span><span class="je-dr">24,000</span><span class="je-cr"></span></div>
+        <div class="je-line credit"><span class="je-acct">Truck</span><span class="je-dr"></span><span class="je-cr">41,000</span></div>
+        <div class="je-line credit"><span class="je-acct">Gain on Disposal</span><span class="je-dr"></span><span class="je-cr">3,000</span></div>
+        <div class="je-narration">To record sale of truck at a gain.</div>
+      </div>
+    </div>
+
+    <div class="example-box">
+      <h4>Example: Disposal at a Loss</h4>
+      <p>Suppose instead the truck was sold for only $14,000.</p>
+      <ul>
+        <li>Book value at disposal = $41,000 &minus; $24,000 = <strong>$17,000</strong></li>
+        <li>Cash received = $14,000</li>
+        <li>Loss on disposal = $17,000 &minus; $14,000 = <strong>$3,000</strong></li>
+      </ul>
+      <div class="journal-entry">
+        <div class="je-line"><span class="je-acct">Cash</span><span class="je-dr">14,000</span><span class="je-cr"></span></div>
+        <div class="je-line"><span class="je-acct">Accumulated Depreciation&mdash;Truck</span><span class="je-dr">24,000</span><span class="je-cr"></span></div>
+        <div class="je-line"><span class="je-acct">Loss on Disposal</span><span class="je-dr">3,000</span><span class="je-cr"></span></div>
+        <div class="je-line credit"><span class="je-acct">Truck</span><span class="je-dr"></span><span class="je-cr">41,000</span></div>
+        <div class="je-narration">To record sale of truck at a loss.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- CHAPTER SUMMARY                                                  -->
+  <!-- ================================================================ -->
+  <section>
+    <h2>Chapter Summary</h2>
+    <ol>
+      <li><strong>PP&amp;E</strong> are long-term, tangible assets used in operations. Their cost includes the purchase price plus all amounts to get the asset ready for its intended use (cost principle).</li>
+      <li><strong>Land is never depreciated</strong> because it has an unlimited useful life. Land Improvements, however, are depreciated.</li>
+      <li>A <strong>lump-sum purchase</strong> allocates cost among multiple assets using the relative-market-value method.</li>
+      <li><strong>Capital expenditures</strong> increase capacity, efficiency, or useful life and are capitalized (debited to an asset). <strong>Revenue expenditures</strong> maintain normal operations and are expensed.</li>
+      <li><strong>Depreciation</strong> is the systematic allocation of an asset&rsquo;s cost over its useful life. Three methods:
+        <ul>
+          <li><em>Straight-line:</em> Equal expense each year.</li>
+          <li><em>Units-of-production:</em> Expense varies with actual usage.</li>
+          <li><em>Double-declining-balance:</em> Accelerated&mdash;higher expense early, lower later. Check the final year for the plug number.</li>
+        </ul>
+      </li>
+      <li>All three methods produce the <strong>same total depreciation</strong> over the asset&rsquo;s life. The choice affects timing, not total amount.</li>
+      <li><strong>Partial-year depreciation</strong> prorates the annual expense based on the portion of the year the asset was in service.</li>
+      <li>Changes in estimates of useful life or residual value affect only <strong>current and future</strong> periods, not prior periods.</li>
+      <li>The <strong>asset turnover ratio</strong> (Net Sales &divide; Average Total Assets) measures how efficiently a company uses its assets to generate revenue.</li>
+      <li>When <strong>disposing</strong> of a plant asset, update depreciation to the disposal date, remove the asset and its accumulated depreciation, and recognize any gain or loss.</li>
+    </ol>
+  </section>
+
+
+  <!-- ================================================================ -->
+  <!-- KEY TERMS GLOSSARY                                               -->
+  <!-- ================================================================ -->
+  <div class="key-terms-glossary">
+    <h2>Key Terms</h2>
+    <dl>
+      <dt>Property, Plant, and Equipment (PP&amp;E)</dt>
+      <dd>Long-lived, tangible assets used in the operations of a business. Also called plant assets, fixed assets, or operational assets.</dd>
+
+      <dt>Cost Principle</dt>
+      <dd>The principle that acquired assets should be recorded at their actual cost, including all amounts paid to get the asset ready for its intended use.</dd>
+
+      <dt>Capitalize</dt>
+      <dd>To record a cost as an asset (debit to an asset account) rather than as an expense.</dd>
+
+      <dt>Land Improvements</dt>
+      <dd>Improvements to land with a limited useful life, such as fencing, paving, lighting, and signs. Unlike land, they are subject to depreciation.</dd>
+
+      <dt>Lump-Sum (Basket) Purchase</dt>
+      <dd>A purchase of multiple assets for a single price. Each asset&rsquo;s cost is allocated using the relative-market-value method.</dd>
+
+      <dt>Relative-Market-Value Method</dt>
+      <dd>A method of allocating the total cost of a lump-sum purchase among individual assets based on each asset&rsquo;s proportion of the total appraised fair market value.</dd>
+
+      <dt>Capital Expenditure</dt>
+      <dd>A cost that increases an asset&rsquo;s capacity, efficiency, or useful life. Capitalized as an asset (debited to an asset account). Also called an extraordinary repair.</dd>
+
+      <dt>Revenue Expenditure</dt>
+      <dd>A cost that maintains a plant asset in its normal working order. Expensed immediately as incurred (debited to an expense account). Also called an ordinary repair.</dd>
+
+      <dt>Depreciation</dt>
+      <dd>The systematic allocation of a plant asset&rsquo;s cost to expense over its useful life. Follows the matching principle.</dd>
+
+      <dt>Estimated Useful Life</dt>
+      <dd>The length of time a company expects to use a plant asset in operations. May be expressed in years, units, miles, or hours.</dd>
+
+      <dt>Estimated Residual Value (Salvage Value)</dt>
+      <dd>The expected cash value of a plant asset at the end of its useful life.</dd>
+
+      <dt>Depreciable Cost</dt>
+      <dd>Cost minus estimated residual value. The total amount of depreciation to be recorded over the asset&rsquo;s useful life.</dd>
+
+      <dt>Book Value</dt>
+      <dd>Cost minus accumulated depreciation. The unallocated cost of a plant asset reported on the balance sheet. Not the same as fair market value.</dd>
+
+      <dt>Straight-Line Method</dt>
+      <dd>A depreciation method that allocates an equal amount of depreciation expense to each year of the asset&rsquo;s useful life.</dd>
+
+      <dt>Units-of-Production Method</dt>
+      <dd>A depreciation method that allocates a varying amount of depreciation based on the asset&rsquo;s actual physical usage each period.</dd>
+
+      <dt>Double-Declining-Balance (DDB) Method</dt>
+      <dd>An accelerated depreciation method that multiplies the asset&rsquo;s decreasing book value by a constant rate equal to twice the straight-line rate.</dd>
+
+      <dt>Accelerated Depreciation</dt>
+      <dd>Any method that expenses more of an asset&rsquo;s cost in the early years of its life and less in the later years.</dd>
+
+      <dt>Obsolescence</dt>
+      <dd>When a newer asset can perform the same job more efficiently, making the older asset less useful regardless of its physical condition.</dd>
+
+      <dt>Asset Turnover Ratio</dt>
+      <dd>Net sales revenue divided by average total assets. Measures how efficiently a company uses its assets to generate sales.</dd>
+
+      <dt>Gain on Disposal</dt>
+      <dd>The excess of cash received over the book value of a disposed plant asset. Reported on the income statement.</dd>
+
+      <dt>Loss on Disposal</dt>
+      <dd>The excess of the book value of a disposed plant asset over the cash received. Reported on the income statement.</dd>
+    </dl>
+  </div>
+
+
+  <!-- ===== CHAPTER NAVIGATION ===== -->
+  <nav class="chapter-nav">
+    <a href="ch08.html">&larr; Chapter 8: Receivables</a>
+    <a href="ch11.html">Chapter 11: Current Liabilities &rarr;</a>
+  </nav>
+
+</div><!-- end chapter-container -->
+
+</body>
+</html>

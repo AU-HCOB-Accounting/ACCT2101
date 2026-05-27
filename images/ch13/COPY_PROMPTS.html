@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 13: Stockholders' Equity — Image Generation Prompts — Copy Prompts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 2rem; color: #333; }
+  h1 { font-size: 1.4rem; margin-bottom: 1.5rem; color: #1a3a5c; }
+  .card { background: #fff; border-radius: 8px; margin-bottom: 1.2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; background: #1a3a5c; color: #fff; }
+  .card-header h3 { font-size: 0.95rem; font-weight: 600; }
+  .copy-btn { background: #fff; color: #1a3a5c; border: none; padding: 0.4rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+  .copy-btn:hover { background: #e0e0e0; }
+  .copy-btn.copied { background: #4caf50; color: #fff; }
+  .prompt-text { padding: 1rem; font-size: 0.85rem; line-height: 1.6; white-space: pre-wrap; font-family: 'Consolas', 'Monaco', monospace; color: #444; max-height: 300px; overflow-y: auto; border-top: 1px solid #eee; }
+  .meta { padding: 0.5rem 1rem; font-size: 0.8rem; color: #777; background: #fafafa; border-top: 1px solid #eee; }
+</style>
+</head>
+<body>
+<h1>Chapter 13: Stockholders' Equity — Image Generation Prompts</h1>
+<div class="card">
+  <div class="card-header">
+    <h3>fig13-1.png (stockholders-equity-overview)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-0')">Copy</button>
+  </div>
+  <div class="meta">Used in: Opening Section — Two Components of Stockholders' Equity (Figure 13-1) | Purpose: Visual overview showing how stockholders' equity splits into contributed capital and earned capital</div>
+  <div class="prompt-text" id="prompt-0">Create a clean, professional educational diagram for a university accounting textbook showing how stockholders' equity splits into contributed capital and earned capital. Show the Accounting Equation at the top: A = L + SE, with SE highlighted.
+
+Below, show SE splitting into two main branches with connecting lines:
+
+**Branch 1 — Contributed Capital (Paid-in Capital):**
+- Box with blue header (#1a3a5c)
+- Content: &quot;Amounts received from stockholders for stock&quot;
+- Sub-items: &quot;Common Stock&quot;, &quot;Preferred Stock&quot;, &quot;Paid-in Capital in Excess of Par&quot;
+- Label: &quot;Externally Generated&quot;
+
+**Branch 2 — Earned Capital (Retained Earnings):**
+- Box with gold header (#d4a84b)
+- Content: &quot;Equity earned by profitable operations, not distributed as dividends&quot;
+- Formula inside: &quot;End R/E = Beg R/E + Net Income − Dividends&quot;
+- Label: &quot;Internally Generated&quot;
+
+Style: White background, clean sans-serif font (Helvetica), subtle drop shadows on boxes, navy blue (#1a3a5c) primary color. Professional textbook quality. 900px wide, ~450px tall.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig13-2.png (corporation-characteristics)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-1')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 1 — Characteristics of a Corporation (Figure 13-2) | Purpose: Visual summary of the seven key characteristics of corporations</div>
+  <div class="prompt-text" id="prompt-1">Create a clean, professional educational infographic for a university accounting textbook showing the seven key characteristics of a corporation. Use a circular or hub-and-spoke layout with &quot;CORPORATION&quot; in a central circle (navy blue #1a3a5c background, white text).
+
+Seven spokes radiate outward to rounded-rectangle cards:
+
+1. **Separate Legal Entity** — icon: building with shield
+2. **Unlimited Owners** — icon: group of people
+3. **Limited Liability** — icon: shield with checkmark
+4. **No Mutual Agency** — icon: handshake with X
+5. **Indefinite Life** — icon: infinity symbol
+6. **Double Taxation** — icon: two dollar signs
+7. **Capital Accumulation** — icon: stack of coins
+
+Each card has a one-line description below the title. Cards 1-5 use blue (#1a3a5c) headers (advantages). Card 6 uses red (#c0392b) header (disadvantage). Card 7 uses blue.
+
+Style: White background, clean sans-serif font, subtle shadows. Navy blue primary (#1a3a5c). 900px wide, ~500px tall.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig13-3.png (stock-issuance-summary)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-2')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 3 — Summary of Stock Issuance Methods (Figure 13-3) | Purpose: Side-by-side comparison of how different types of stock issuance are recorded</div>
+  <div class="prompt-text" id="prompt-2">Create a clean, professional educational comparison chart for a university accounting textbook showing how different types of stock issuance are recorded. Use a 2×2 grid layout with four rounded-rectangle panels:
+
+**Panel 1 — &quot;At Par Value&quot;:**
+- Entry: Dr. Cash (par × shares) / Cr. Common Stock (par × shares)
+- Note: &quot;Entire amount → Common Stock&quot;
+- Color: Blue border (#1a3a5c)
+
+**Panel 2 — &quot;At a Premium&quot;:**
+- Entry: Dr. Cash (market × shares) / Cr. Common Stock (par × shares) / Cr. APIC (excess × shares)
+- Note: &quot;Common Stock ALWAYS at par; excess → APIC&quot;
+- Color: Blue border, with a gold highlight (#d4a84b) on the APIC line
+- Star icon: &quot;Golden Rule!&quot;
+
+**Panel 3 — &quot;No-Par Stock&quot;:**
+- Entry: Dr. Cash (total) / Cr. Common Stock (total)
+- Note: &quot;No par → No APIC; entire amount → Common Stock&quot;
+- Color: Green border (#4caf50)
+
+**Panel 4 — &quot;Preferred Stock&quot;:**
+- Entry: Dr. Cash / Cr. Preferred Stock (par × shares) / Cr. APIC-Preferred (excess × shares)
+- Note: &quot;Same pattern as common; stated dividend rate (e.g., 6%) × par = annual dividend&quot;
+- Color: Purple/dark border (#6a1b9a)
+
+Style: White background, clean sans-serif font, monospace font for journal entries. Navy blue (#1a3a5c) title. 900px wide, ~550px tall.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig13-4.png (dividend-process-flow)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-3')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 4 — The Dividend Process (Figure 13-4) | Purpose: Timeline showing the three dividend dates with their journal entries and effects</div>
+  <div class="prompt-text" id="prompt-3">Create a clean, professional educational timeline diagram for a university accounting textbook showing the three key dates in the dividend process. Show a horizontal timeline with three key dates connected by a line:
+
+**Date 1 — &quot;Declaration Date (May 1)&quot;:**
+- Box below timeline
+- Journal entry: Dr. Cash Dividends $1,135 / Cr. Dividends Payable $1,135
+- Effect icons: Equity ↓, Liabilities ↑, Assets unchanged
+- Color: Blue (#1a3a5c)
+
+**Date 2 — &quot;Date of Record (May 15)&quot;:**
+- Box below timeline
+- Large text: &quot;NO JOURNAL ENTRY&quot;
+- Subtitle: &quot;Cutoff date — determines who receives dividend&quot;
+- Color: Gray (#78909c) with dashed border
+- A red &quot;NO ENTRY&quot; icon or symbol
+
+**Date 3 — &quot;Payment Date (May 30)&quot;:**
+- Box below timeline
+- Journal entry: Dr. Dividends Payable $1,135 / Cr. Cash $1,135
+- Effect icons: Assets ↓, Liabilities ↓, Equity unchanged
+- Color: Green (#2e7d32)
+
+At the bottom, a summary bar: &quot;Net Effect: Assets (Cash) ↓ and Stockholders' Equity (R/E) ↓ by $1,135&quot;
+
+Style: White background, clean sans-serif font, timeline with colored dots at each date. 900px wide, ~500px tall.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig13-5.png (eps-calculation)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-4')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 5 — EPS Calculation (Figure 13-5) | Purpose: Step-by-step visual showing EPS formula with the Kohl's example</div>
+  <div class="prompt-text" id="prompt-4">Create a clean, professional educational diagram for a university accounting textbook showing how to calculate Earnings Per Share (EPS) step by step. Layout in three visual steps:
+
+**Step 1 — &quot;The Formula&quot;:**
+- Large centered formula: EPS = (Net Income − Preferred Dividends) / Average Common Shares Outstanding
+- Below formula, annotation arrows explaining each component:
+  - &quot;Earnings available to common stockholders&quot; pointing to numerator
+  - &quot;Average shares during the period (not ending)&quot; pointing to denominator
+- Color: Navy blue box (#1a3a5c)
+
+**Step 2 — &quot;Calculate Average Shares&quot;:**
+- Show: (Beginning 201M + Ending 186M) / 2 = 193.5M shares
+- Visual: two circles merging into one
+- Color: Blue (#2b579a)
+
+**Step 3 — &quot;Compute EPS&quot;:**
+- Show: ($673M − $0) / 193.5M = $3.48 per share
+- Large result highlighted in a gold box (#d4a84b): &quot;$3.48&quot;
+- Label: &quot;Kohl's earned $3.48 for every share of common stock&quot;
+
+At bottom, a small &quot;Interpretation Tips&quot; section with three bullet icons:
+- &quot;Compare to prior years (trend)&quot;
+- &quot;Compare to industry median&quot;
+- &quot;Consider stock price (P/E ratio)&quot;
+
+Style: White background, clean sans-serif font, monospace for numbers. Navy blue (#1a3a5c) primary. 900px wide, ~550px tall.</div>
+</div>
+<script>
+function copyPrompt(btn, id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 8: Receivables — Image Generation Prompts — Copy Prompts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 2rem; color: #333; }
+  h1 { font-size: 1.4rem; margin-bottom: 1.5rem; color: #1a3a5c; }
+  .card { background: #fff; border-radius: 8px; margin-bottom: 1.2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; background: #1a3a5c; color: #fff; }
+  .card-header h3 { font-size: 0.95rem; font-weight: 600; }
+  .copy-btn { background: #fff; color: #1a3a5c; border: none; padding: 0.4rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+  .copy-btn:hover { background: #e0e0e0; }
+  .copy-btn.copied { background: #4caf50; color: #fff; }
+  .prompt-text { padding: 1rem; font-size: 0.85rem; line-height: 1.6; white-space: pre-wrap; font-family: 'Consolas', 'Monaco', monospace; color: #444; max-height: 300px; overflow-y: auto; border-top: 1px solid #eee; }
+  .meta { padding: 0.5rem 1rem; font-size: 0.8rem; color: #777; background: #fafafa; border-top: 1px solid #eee; }
+</style>
+</head>
+<body>
+<h1>Chapter 8: Receivables — Image Generation Prompts</h1>
+<div class="card">
+  <div class="card-header">
+    <h3>fig8-1.png (types-of-receivables)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-0')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 1 — Common Types of Receivables (Figure 8-1) | Purpose: Visual comparison of the three types of receivables</div>
+  <div class="prompt-text" id="prompt-0">Create a clean, professional educational infographic for a university accounting textbook showing the three types of receivables. Use a horizontal layout with three rounded-rectangle cards side by side, connected at the top by a banner labeled &quot;Receivables.&quot;
+
+**Card 1 — Accounts Receivable (A/R):**
+- Icon: a simple invoice/bill icon
+- Color: Blue (#1976d2) header
+- Bullet points:
+  - &quot;Trade receivables&quot;
+  - &quot;Due in 30–60 days&quot;
+  - &quot;No interest&quot;
+  - &quot;Current asset&quot;
+  - &quot;No formal written document&quot;
+
+**Card 2 — Notes Receivable (N/R):**
+- Icon: a scroll/document with a pen icon
+- Color: Dark navy (#1a3a5c) header
+- Bullet points:
+  - &quot;Promissory note&quot;
+  - &quot;Longer term&quot;
+  - &quot;Bears interest&quot;
+  - &quot;Written legal document&quot;
+  - &quot;Has maturity date&quot;
+
+**Card 3 — Other Receivables:**
+- Icon: a folder/misc icon
+- Color: Gold (#d4a84b) header
+- Bullet points:
+  - &quot;Dividends receivable&quot;
+  - &quot;Interest receivable&quot;
+  - &quot;Taxes receivable&quot;
+  - &quot;Current or long-term&quot;
+
+Style: White background, clean sans-serif font (like Helvetica), subtle drop shadows on cards, no decorative elements. Professional textbook quality. 860px wide, ~350px tall.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig8-2.png (ar-nr-scenarios)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-1')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 2 — Converting A/R to N/R (Figure 8-2) | Purpose: Show two scenarios: converting A/R to N/R vs receiving N/R directly from a sale</div>
+  <div class="prompt-text" id="prompt-1">Create a professional educational diagram for a university accounting textbook showing two receivable scenarios: converting A/R to N/R vs. receiving N/R directly from a sale. Use a split layout (left and right panels) with a vertical divider.
+
+**Left Panel — &quot;Scenario 1: A/R → N/R&quot;:**
+- Flow: Company A sells to Company B → A/R created → Company B can't pay on time → A/R converted to N/R (promissory note issued) → Interest accrues → Cash collected at maturity
+- Use downward-flowing boxes connected by arrows
+- Key journal entry shown in a small box: &quot;Dr. Notes Receivable / Cr. Accounts Receivable&quot;
+
+**Right Panel — &quot;Scenario 2: N/R from Sale&quot;:**
+- Flow: Company A sells to Company B → N/R created directly → Interest accrues over time → Cash collected (principal + interest)
+- Same downward flow style
+- Key journal entry: &quot;Dr. Notes Receivable / Cr. Sales Revenue&quot;
+
+Style: Blue color scheme (#1a3a5c primary, #2b579a secondary). White background. Rounded-corner boxes. Clean arrows. Sans-serif font. 860px wide, ~500px tall.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig8-3.png (direct-vs-allowance)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-2')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 5 — The Allowance Method (Figure 8-3) | Purpose: Side-by-side comparison of Direct Write-off vs Allowance Method</div>
+  <div class="prompt-text" id="prompt-2">Create a professional educational comparison diagram for a university accounting textbook comparing the Direct Write-off Method and the Allowance Method. Two-column layout.
+
+**Left Column — &quot;Direct Write-off Method&quot; (with a red X or warning icon):**
+- Header: Red (#c62828) background
+- &quot;NOT allowed under GAAP (public companies)&quot;
+- Timeline showing: Period 1: Credit sale recorded (Revenue ✓) → Period 2: Write-off occurs (Expense recorded here ✗)
+- Label: &quot;Violates Matching Principle&quot;
+- Write-off entry: &quot;Dr. Bad Debts Expense / Cr. A/R&quot;
+
+**Right Column — &quot;Allowance Method&quot; (with a green checkmark):**
+- Header: Green (#2e7d32) background
+- &quot;Required by GAAP&quot;
+- Timeline showing: Period 1: Credit sale AND estimated expense recorded in SAME period (Revenue ✓, Expense ✓)
+- Label: &quot;Satisfies Matching Principle&quot;
+- Adjusting entry: &quot;Dr. Bad Debts Expense / Cr. Allowance for Bad Debts&quot;
+- Uses contra-asset account
+
+Style: White background, clean layout, clear visual contrast between the two methods (red = bad, green = good). Sans-serif font. 860px wide, ~450px tall.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig8-4.png (nrv-unchanged)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-3')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 6 — Write-offs &amp; Recoveries (Figure 8-4) | Purpose: T-accounts showing NRV is unchanged before and after a write-off</div>
+  <div class="prompt-text" id="prompt-3">Create a professional educational diagram for a university accounting textbook showing Net Realizable Value before and after a write-off.
+
+Show two side-by-side panels connected by a large arrow (→):
+
+**Left Panel — &quot;Before Write-off&quot;:**
+- T-Account for A/R: Debit side shows $1,000 balance
+- T-Account for Allowance for Bad Debts: Credit side shows $200 balance
+- Below: Calculation box: &quot;A/R $1,000 − Allowance $200 = NRV $800&quot;
+- NRV highlighted in blue
+
+**Right Panel — &quot;After Write-off of $200&quot;:**
+- T-Account for A/R: Shows $1,000 beginning, then $200 credit (write-off), ending balance $800
+- T-Account for Allowance: Shows $200 beginning credit, then $200 debit (write-off), ending balance $0
+- Below: Calculation box: &quot;A/R $800 − Allowance $0 = NRV $800&quot;
+- NRV highlighted in blue (same amount!)
+
+- Big callout at bottom: &quot;NRV UNCHANGED — No Income Statement Effect!&quot;
+
+Style: Blue color scheme (#1a3a5c). White background. Clean T-account lines. Bold emphasis on the NRV values. 860px wide, ~400px tall.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig8-5.png (writeoff-recovery-flow)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-4')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 6 — Write-offs &amp; Recoveries (Figure 8-5) | Purpose: Flowchart showing write-off and recovery process under both methods</div>
+  <div class="prompt-text" id="prompt-4">Create a professional educational flowchart for a university accounting textbook showing the write-off and recovery process under both methods. Show two parallel flows (top and bottom or left and right):
+
+**Flow 1 — Direct Write-off Method (top):**
+- Step 1: &quot;Write-off&quot; → Journal entry: Dr. Bad Debts Expense / Cr. A/R → &quot;Income Statement AFFECTED&quot;
+- Step 2: &quot;Recovery (if customer pays)&quot;
+  - 2a: Reverse → Dr. A/R / Cr. Bad Debts Expense
+  - 2b: Collect → Dr. Cash / Cr. A/R
+  - → &quot;Income Statement AFFECTED&quot;
+
+**Flow 2 — Allowance Method (bottom):**
+- Step 0: &quot;End-of-period estimate&quot; → Dr. Bad Debts Expense / Cr. Allowance → &quot;Expense recognized HERE&quot;
+- Step 1: &quot;Write-off&quot; → Dr. Allowance / Cr. A/R → &quot;NO Income Statement effect&quot;
+- Step 2: &quot;Recovery (if customer pays)&quot;
+  - 2a: Reverse → Dr. A/R / Cr. Allowance
+  - 2b: Collect → Dr. Cash / Cr. A/R
+  - → &quot;NO Income Statement effect&quot;
+
+Style: Color-coded flows (red for direct method, blue/green for allowance). Clean boxes with arrows. Sans-serif font. 860px wide, ~550px tall.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig8-6.png (three-methods-overview)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-5')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 7 — Estimating Bad Debts Expense (Figure 8-6) | Purpose: Overview diagram comparing the three estimation methods</div>
+  <div class="prompt-text" id="prompt-5">Create a professional educational diagram for a university accounting textbook showing the three methods for estimating bad debts.
+
+Show a top-level box &quot;Allowance Method&quot; that branches into three methods:
+
+**Branch 1 — &quot;Percent-of-Sales&quot;:**
+- Label: &quot;Income Statement Approach&quot;
+- Color: Orange/warm (#e65100)
+- Shows: Net Credit Sales × % → Bad Debts Expense (direct)
+- Arrow pointing to: &quot;Existing allowance balance IGNORED&quot;
+
+**Branch 2 — &quot;Percent-of-Receivables&quot;:**
+- Label: &quot;Balance Sheet Approach&quot;
+- Color: Blue (#1976d2)
+- Shows: Ending A/R × % → Target Allowance Balance → Then calculate expense as PLUG
+- Arrow: &quot;Unadjusted balance MATTERS&quot;
+
+**Branch 3 — &quot;Aging-of-Receivables&quot;:**
+- Label: &quot;Balance Sheet Approach&quot;
+- Color: Dark blue (#1a3a5c)
+- Shows: A/R grouped by age × different %s → Target Allowance Balance → Then calculate expense as PLUG
+- Arrow: &quot;Most precise method&quot;
+
+Style: Clean hierarchical diagram. White background. Rounded boxes. Clear flow arrows. Sans-serif font. 860px wide, ~450px tall.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig8-7.png (aging-schedule)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-6')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 7 — Aging-of-Receivables Method (Figure 8-7) | Purpose: Visual of an aging schedule with customer accounts grouped by days past due</div>
+  <div class="prompt-text" id="prompt-6">Create a professional educational illustration of an &quot;Aging-of-Receivables Schedule&quot; for a university accounting textbook.
+
+Show a stylized table/spreadsheet with:
+- Column headers: &quot;Customer | Total Balance | Not Yet Due | 1-30 Days | 31-60 Days | 61-90 Days | Over 90 Days&quot;
+- 4-5 sample customer rows with amounts distributed across columns
+- A totals row at the bottom
+- Below the table: a row showing &quot;Estimated Uncollectible %&quot; for each age column: 1%, 5%, 10%, 20%, 90%
+- Below that: &quot;Estimated Uncollectible $&quot; for each column
+- Grand total: &quot;Target Allowance Balance = $XXX&quot;
+- Visual emphasis (gradient or color coding) showing that older accounts have higher percentages (green for &quot;Not Yet Due&quot; graduating to red for &quot;Over 90 Days&quot;)
+
+Style: Clean spreadsheet look. Blue header row (#1a3a5c). White background. Color gradient from green to red across age columns. Sans-serif font. 860px wide, ~400px tall.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig8-8.png (financial-ratios)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-7')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 9 — Financial Ratios (Figure 8-8) | Purpose: Visual summary of the three financial ratios</div>
+  <div class="prompt-text" id="prompt-7">Create a professional educational infographic for a university accounting textbook showing financial ratios for evaluating receivables. Show three ratio cards in a horizontal row:
+
+**Card 1 — Acid-Test (Quick) Ratio:**
+- Icon: A shield or gauge icon
+- Formula: (Cash + Short-Term Investments + Net Current Receivables) ÷ Current Liabilities
+- Benchmark: &quot;≥ 1.00 is generally safe&quot;
+- Brief note: &quot;More stringent than current ratio — excludes inventory &amp; prepaids&quot;
+
+**Card 2 — A/R Turnover Ratio:**
+- Icon: A circular arrow/refresh icon
+- Formula: Net Credit Sales ÷ Average Net A/R
+- Interpretation: &quot;Higher = faster collections&quot;
+- Brief note: &quot;Measures how many times A/R is collected per year&quot;
+
+**Card 3 — Days' Sales in Receivables:**
+- Icon: A calendar icon
+- Formula: 365 ÷ A/R Turnover
+- Interpretation: &quot;Lower = better&quot;
+- Brief note: &quot;Average days to collect; also called collection period&quot;
+
+Card 2 and Card 3 should be connected by a small arrow showing the relationship: A/R Turnover feeds into Days' Sales calculation. Card 1 (Acid-Test) stands alone — no arrow connecting it to Card 2.
+
+Style: Blue color scheme (#1a3a5c primary, #2b579a secondary). White background. Clean cards with subtle shadows. Sans-serif font. 860px wide, ~300px tall.</div>
+</div>
+<script>
+function copyPrompt(btn, id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+</body>
+</html>

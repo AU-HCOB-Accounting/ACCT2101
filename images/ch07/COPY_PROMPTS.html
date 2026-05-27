@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 7 – Image Generation Prompts — Copy Prompts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 2rem; color: #333; }
+  h1 { font-size: 1.4rem; margin-bottom: 1.5rem; color: #1a3a5c; }
+  .card { background: #fff; border-radius: 8px; margin-bottom: 1.2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; background: #1a3a5c; color: #fff; }
+  .card-header h3 { font-size: 0.95rem; font-weight: 600; }
+  .copy-btn { background: #fff; color: #1a3a5c; border: none; padding: 0.4rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+  .copy-btn:hover { background: #e0e0e0; }
+  .copy-btn.copied { background: #4caf50; color: #fff; }
+  .prompt-text { padding: 1rem; font-size: 0.85rem; line-height: 1.6; white-space: pre-wrap; font-family: 'Consolas', 'Monaco', monospace; color: #444; max-height: 300px; overflow-y: auto; border-top: 1px solid #eee; }
+  .meta { padding: 0.5rem 1rem; font-size: 0.8rem; color: #777; background: #fafafa; border-top: 1px solid #eee; }
+</style>
+</head>
+<body>
+<h1>Chapter 7 – Image Generation Prompts</h1>
+<div class="card">
+  <div class="card-header">
+    <h3>Bank Reconciliation Framework</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-0')">Copy</button>
+  </div>
+  <div class="meta">Filename: `fig7-1.png` (bank-reconciliation-framework) | Used in: Section 8 (Bank Reconciliation: Summary Framework), Figure 7-1</div>
+  <div class="prompt-text" id="prompt-0">Create a clean, professional educational diagram for an introductory accounting textbook showing the complete bank reconciliation structure. Use a modern flat design with a white background.
+
+The diagram should show two parallel columns side by side:
+
+LEFT COLUMN (Bank Side) — use a blue color scheme (#1565c0 header):
+- Top box: &quot;Ending Balance per BANK STATEMENT&quot; (blue background, white text)
+- Below it, a vertical flow:
+  - &quot;+ Deposits in Transit&quot; (green text with + sign)
+  - &quot;− Outstanding Checks&quot; (red text with − sign)
+  - &quot;+/− Bank Errors&quot; (orange text)
+- Arrow pointing down to bottom box
+
+RIGHT COLUMN (Book Side) — use a green color scheme (#2e7d32 header):
+- Top box: &quot;Ending Balance per BOOKS&quot; (green background, white text)
+- Below it, a vertical flow:
+  - &quot;+ Bank Collections&quot; (green text)
+  - &quot;+ EFT Receipts&quot; (green text)
+  - &quot;+ Interest Revenue&quot; (green text)
+  - &quot;− Service Charges&quot; (red text)
+  - &quot;− NSF Checks&quot; (red text)
+  - &quot;− EFT Payments&quot; (red text)
+  - &quot;+/− Book Errors&quot; (orange text)
+- Arrow pointing down to bottom box
+
+BOTTOM: Both columns converge into a single highlighted box at the center bottom:
+- &quot;CORRECT (ADJUSTED) CASH BALANCE&quot; (dark navy background #1a3a5c, white text, bold)
+- A &quot;=&quot; sign or &quot;Must be equal&quot; label connecting the two arrows
+
+Add a callout note at the bottom right: &quot;★ Only BOOK side items require journal entries&quot;
+
+Style: Clean, professional, suitable for a college textbook. No decorative elements. Use clear sans-serif fonts. The diagram should be approximately 900×600 pixels.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>Internal Control Objectives</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-1')">Copy</button>
+  </div>
+  <div class="meta">Filename: `fig7-2.png` (internal-control-objectives) | Used in: Section 1 (What Is Internal Control?), optional supplementary figure</div>
+  <div class="prompt-text" id="prompt-1">Create a clean, professional educational diagram for an introductory accounting textbook showing the four objectives of internal control.
+
+Design: A central circle or shield icon labeled &quot;INTERNAL CONTROL&quot; in dark navy (#1a3a5c), with four branches radiating outward to four rounded rectangles:
+
+1. Top-left: &quot;Safeguard Assets&quot; — with a small lock/shield icon, light blue background
+2. Top-right: &quot;Encourage Policy Compliance&quot; — with a small checklist icon, light green background
+3. Bottom-left: &quot;Promote Operational Efficiency&quot; — with a small gear/speedometer icon, light orange background
+4. Bottom-right: &quot;Ensure Accurate Records&quot; — with a small ledger/document icon, light purple background
+
+Each rectangle should have the objective title in bold and a one-line subtitle:
+1. &quot;Protect company resources from theft and waste&quot;
+2. &quot;Ensure employees follow company procedures&quot;
+3. &quot;Reduce waste and maximize productivity&quot;
+4. &quot;Maintain reliable financial information&quot;
+
+Style: Modern flat design, white background, clean sans-serif fonts, professional and suitable for a college textbook. Approximately 800×500 pixels.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>Bank Statement Components</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-2')">Copy</button>
+  </div>
+  <div class="meta">Filename: `fig7-3.png` (bank-statement-components) | Used in: Section 4 (The Bank Statement), optional supplementary figure</div>
+  <div class="prompt-text" id="prompt-2">Create a clean, professional illustration of a simplified bank statement for an introductory accounting textbook. White background, modern flat design.
+
+Show a stylized bank statement document with the following clearly labeled sections:
+
+HEADER:
+- Bank name: &quot;First National Bank&quot;
+- Account holder: &quot;Laird Company&quot;
+- Statement period: &quot;April 1 – April 30, 2026&quot;
+
+BODY (simplified table format):
+- Beginning Balance: $5,900
+- Deposits and Credits section: show 2-3 line items (deposits, EFT receipt, interest earned) — highlight &quot;CM&quot; (Credit Memorandum) labels
+- Checks and Debits section: show 2-3 line items (cleared checks, service charge, NSF check) — highlight &quot;DM&quot; (Debit Memorandum) labels
+- Ending Balance: $12,720
+
+ANNOTATIONS (callout arrows pointing to relevant parts):
+1. Arrow to deposits → &quot;Credit Memorandum (CM): Increases your account&quot;
+2. Arrow to service charge → &quot;Debit Memorandum (DM): Decreases your account&quot;
+3. Arrow to ending balance → &quot;Compare this to your Cash ledger balance&quot;
+
+Color scheme: Professional blue tones (#1a3a5c, #2b579a). Use green for credit items, red for debit items. Clean sans-serif fonts. Approximately 850×550 pixels.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>Journal Entries Flow from Bank Reconciliation</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-3')">Copy</button>
+  </div>
+  <div class="meta">Filename: `fig7-4.png` (recon-journal-entry-flow) | Used in: Section 10 (Journal Entries from the Bank Reconciliation), optional supplementary figure</div>
+  <div class="prompt-text" id="prompt-3">Create a clean, professional flowchart for an introductory accounting textbook illustrating which bank reconciliation items require journal entries.
+
+Layout: Two paths diverging from a bank reconciliation document icon at the top.
+
+LEFT PATH (Bank Side) — Blue color scheme:
+- Box: &quot;Bank Side Adjustments&quot;
+- Items listed: &quot;Deposits in Transit, Outstanding Checks, Bank Errors&quot;
+- Arrow pointing down to:
+- Red X mark or stop sign with text: &quot;NO Journal Entry Needed&quot;
+- Small note: &quot;Already recorded in company's books&quot;
+
+RIGHT PATH (Book Side) — Green color scheme:
+- Box: &quot;Book Side Adjustments&quot;
+- Items listed: &quot;Bank Collections, EFT, Service Charges, NSF Checks, Interest, Book Errors&quot;
+- Arrow pointing down to:
+- Green checkmark with text: &quot;JOURNAL ENTRIES REQUIRED&quot;
+- Arrow continuing down to:
+- Box: &quot;Post to General Ledger&quot; with an icon of a T-account or ledger book
+- Arrow continuing down to:
+- Box: &quot;Cash ledger balance = Adjusted balance&quot; (highlighted in gold/yellow)
+
+Style: Modern flat design, white background, clear visual hierarchy. Use sans-serif fonts. Color code consistently (blue for bank, green for book). Approximately 700×800 pixels.</div>
+</div>
+<script>
+function copyPrompt(btn, id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 1 — Image Generation Prompts — Copy Prompts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 2rem; color: #333; }
+  h1 { font-size: 1.4rem; margin-bottom: 1.5rem; color: #1a3a5c; }
+  .card { background: #fff; border-radius: 8px; margin-bottom: 1.2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; background: #1a3a5c; color: #fff; }
+  .card-header h3 { font-size: 0.95rem; font-weight: 600; }
+  .copy-btn { background: #fff; color: #1a3a5c; border: none; padding: 0.4rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+  .copy-btn:hover { background: #e0e0e0; }
+  .copy-btn.copied { background: #4caf50; color: #fff; }
+  .prompt-text { padding: 1rem; font-size: 0.85rem; line-height: 1.6; white-space: pre-wrap; font-family: 'Consolas', 'Monaco', monospace; color: #444; max-height: 300px; overflow-y: auto; border-top: 1px solid #eee; }
+  .meta { padding: 0.5rem 1rem; font-size: 0.8rem; color: #777; background: #fafafa; border-top: 1px solid #eee; }
+</style>
+</head>
+<body>
+<h1>Chapter 1 — Image Generation Prompts</h1>
+<div class="card">
+  <div class="card-header">
+    <h3>Qualitative Characteristics Hierarchy</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-0')">Copy</button>
+  </div>
+  <div class="meta">File: `fig1-1.png` (qualitative-characteristics)</div>
+  <div class="prompt-text" id="prompt-0">Create a hierarchical diagram showing the qualitative characteristics of useful accounting information.
+
+Top level: &quot;Useful Information&quot; (rounded rectangle, navy blue)
+
+Split into two main branches:
+
+Branch 1 - &quot;Primary Characteristics&quot; (blue):
+  ├── &quot;Relevance&quot; (blue box)
+  │     ├── Predictive Value
+  │     ├── Confirmatory Value
+  │     └── Materiality (italic, with note: &quot;related consideration&quot;)
+  └── &quot;Faithful Representation&quot; (blue box)
+        ├── Completeness
+        ├── Neutrality
+        └── Free from Error
+
+Branch 2 - &quot;Enhancing Characteristics&quot; (teal/green):
+  Four items in a horizontal row: Comparability, Verifiability, Timeliness, Understandability
+
+Use tree/hierarchy lines connecting each level. 
+Primary characteristics should be visually larger/more prominent than enhancing ones.
+Style: white background, navy blue and teal colors, clean sans-serif font.
+Size: 900×550px, landscape.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>Four Business Organizations Comparison</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-1')">Copy</button>
+  </div>
+  <div class="meta">File: `fig1-2.png` (business-organizations)</div>
+  <div class="prompt-text" id="prompt-1">Create a visual comparison of four business organization types, designed as an infographic.
+
+Four columns, each representing one type:
+1. Sole Proprietorship - icon: single person
+2. Partnership - icon: two people shaking hands
+3. Corporation - icon: office building with stock chart
+4. LLC - icon: shield with checkmark
+
+For each, show key attributes with icons:
+- Owners: 1 / 2+ / many / 1+
+- Liability: unlimited (red warning) / unlimited / limited (green shield) / limited (green shield)
+- Taxation: pass-through (single arrow) / pass-through / double (two arrows, highlighted in red) / pass-through
+- Life: terminates / terminates / indefinite (infinity symbol) / varies
+
+Style: flat icons, white background, clean grid layout.
+Use red for &quot;unlimited liability&quot; and &quot;double taxation&quot; to highlight disadvantages.
+Use green for &quot;limited liability&quot; to highlight advantage.
+Size: 900×500px, landscape.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>Three Types of Business Activities on the Balance Sheet</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-2')">Copy</button>
+  </div>
+  <div class="meta">File: `fig1-3.png` (business-activities-balance-sheet)</div>
+  <div class="prompt-text" id="prompt-2">Create a detailed diagram showing how the three types of business activities map onto the Balance Sheet.
+IMPORTANT: Stockholders' Equity is NOT purely financing — show the nuance inside Retained Earnings.
+
+Left side: &quot;ASSETS&quot; header
+  - Current Assets (Cash, A/R, Inventory) — tagged &quot;Operating&quot; (green badge)
+  - Non-Current Assets (Land, Buildings, Equipment) — tagged &quot;Investing&quot; (orange badge)
+
+Right side: &quot;LIABILITIES &amp; EQUITY&quot; header
+  - Current Liabilities (A/P, Wages Payable) — tagged &quot;Operating&quot; (green badge)
+  - Non-Current Liabilities (Bonds, Long-term Notes) — tagged &quot;Financing&quot; (blue badge)
+  - Stockholders' Equity section, broken down further:
+      - Common Stock — tagged &quot;Financing&quot; (blue badge)
+      - Retained Earnings — shown as a sub-box with TWO components inside:
+          - Net Income (Revenue − Expenses) — tagged &quot;Operating&quot; (green badge)
+          - Dividends — tagged &quot;Financing&quot; (blue badge)
+        Use a left green border or highlight on the Net Income line to visually 
+        distinguish it from the surrounding Financing items.
+
+Layout: two-column balance sheet format with colored badges/tags for each activity type.
+The Retained Earnings sub-box should be visually indented or nested under SE to show 
+that it contains BOTH operating and financing elements.
+Include a small legend at bottom: green = Operating, orange = Investing, blue = Financing.
+Add a brief note near the legend: &quot;Retained Earnings is a mix: Net Income is from 
+operating activities, while Dividends are a financing activity.&quot;
+
+Style: white background, clean borders, color-coded badges.
+Size: 900×600px, landscape.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>Financial Statement Flow (Four Statements)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-3')">Copy</button>
+  </div>
+  <div class="meta">File: `fig1-4.png` (financial-statement-flow)</div>
+  <div class="prompt-text" id="prompt-3">Create a vertical flow diagram showing how the four financial statements connect.
+
+Flow (top to bottom, with arrows between each):
+
+1. &quot;Income Statement&quot; (blue box)
+   - Content: &quot;Revenue - Expenses&quot;
+   - Output arrow labeled: &quot;→ Net Income&quot;
+
+2. &quot;Statement of Retained Earnings&quot; (blue box)
+   - Content: &quot;Beginning R/E + Net Income - Dividends&quot;
+   - Output arrow labeled: &quot;→ Ending R/E&quot;
+
+3. &quot;Balance Sheet&quot; (navy box, highlighted/larger)
+   - Content: &quot;Assets = Liabilities + SE&quot;
+   - Note: &quot;Reports position AS OF a specific date&quot;
+
+4. &quot;Statement of Cash Flows&quot; (blue box)
+   - Content: &quot;Operating + Investing + Financing&quot;
+   - Note: &quot;Explains change in Cash&quot;
+   - Arrow connecting back to Balance Sheet's Cash line
+
+Show arrows clearly indicating the flow of information from one statement to the next.
+Highlight that Net Income flows into R/E, and ending R/E flows into the Balance Sheet.
+Style: white background, navy/blue boxes, red accent for output arrows.
+Size: 600×800px, portrait.</div>
+</div>
+<script>
+function copyPrompt(btn, id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+</body>
+</html>

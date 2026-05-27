@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 11 – Current Liabilities</title>
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    /* ===== Ch11 Page-specific styles ===== */
+
+    /* Journal Entry visual */
+    .journal-entry {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .journal-entry .je-date {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem;
+    }
+    .journal-entry .je-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.15rem 0;
+    }
+    .journal-entry .je-line.credit .je-acct { padding-left: 2rem; }
+    .journal-entry .je-dr, .journal-entry .je-cr {
+      min-width: 70px;
+      text-align: right;
+      font-weight: 600;
+    }
+    .journal-entry .je-dr { color: #1565c0; }
+    .journal-entry .je-cr { color: #c62828; }
+    .journal-entry .je-narration {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-style: italic;
+      padding-left: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    /* Liability category cards */
+    .liability-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    .liability-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-top: 4px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .liability-card.estimated { border-top-color: var(--accent); }
+    .liability-card.contingent { border-top-color: #7b1fa2; }
+    .liability-card h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+    }
+    .liability-card.estimated h4 { color: var(--accent); }
+    .liability-card.contingent h4 { color: #7b1fa2; }
+    .liability-card ul {
+      margin: 0; padding-left: 1.2rem;
+      font-size: 0.88rem;
+    }
+    .liability-card ul li { margin-bottom: 0.3rem; }
+
+    /* Formula box */
+    .formula-box {
+      background: linear-gradient(135deg, var(--primary) 0%, #2b579a 100%);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow);
+    }
+    .formula-box .formula-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.85;
+      margin-bottom: 0.5rem;
+    }
+    .formula-box .formula-math {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    /* Timeline visual */
+    .timeline {
+      position: relative;
+      padding: 1rem 0 1rem 2.5rem;
+      margin: 1.5rem 0;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.9rem;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--primary-light);
+      border-radius: 2px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.5rem;
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.85rem;
+      top: 1.2rem;
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      border: 3px solid var(--bg-light);
+      border-radius: 50%;
+    }
+    .timeline-item .tl-date {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
+    }
+
+    /* Contingency decision table */
+    .contingency-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.88rem;
+    }
+    .contingency-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.7rem 1rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    .contingency-table td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: top;
+    }
+    .contingency-table tr:nth-child(even) { background: var(--bg-light); }
+    .contingency-table .badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .badge-remote { background: #4caf50; }
+    .badge-possible { background: #ff9800; }
+    .badge-probable { background: #e53935; }
+
+    /* Ratio card */
+    .ratio-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-light);
+      border-top: 4px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      max-width: 520px;
+      margin: 1.5rem auto;
+    }
+    .ratio-card h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      text-align: center;
+    }
+    .ratio-card .ratio-formula {
+      background: var(--bg-light);
+      border-radius: 4px;
+      padding: 0.8rem;
+      font-size: 0.88rem;
+      text-align: center;
+      margin: 0.8rem 0;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Comparison columns */
+    .compare-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .compare-col {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .compare-col h4 {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    /* Interest calc helper */
+    .interest-calc {
+      max-width: 420px;
+      margin: 1.5rem auto;
+      background: var(--bg-white);
+      border: 2px solid var(--primary-light);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow-sm);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.88rem;
+    }
+    .interest-calc .ic-title {
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .interest-calc .ic-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.25rem 0.5rem;
+    }
+    .interest-calc .ic-row.total {
+      font-weight: 700;
+      color: var(--primary);
+      border-top: 2px solid var(--primary);
+      margin-top: 0.3rem;
+      padding-top: 0.4rem;
+    }
+
+    @media (max-width: 768px) {
+      .liability-cards { grid-template-columns: 1fr; }
+      .compare-cols { grid-template-columns: 1fr; }
+    }
+  </style>
+  <script src="nav.js" defer></script>
+</head>
+<body class="has-sidebar">
+
+<div class="chapter-container">
+
+  <!-- ===== CHAPTER HEADER ===== -->
+  <header class="chapter-header">
+    <div class="chapter-label">Chapter 11</div>
+    <h1 class="chapter-title">Current Liabilities</h1>
+    <p class="chapter-subtitle">Accounting for Known Liabilities, Estimated Liabilities, Contingent Liabilities, and the Times-Interest-Earned Ratio</p>
+  </header>
+
+  <!-- ===== LEARNING OBJECTIVES ===== -->
+  <div class="learning-objectives">
+    <h2>Learning Objectives</h2>
+    <ol>
+      <li>Account for current liabilities of known amount, including accounts payable, sales tax payable, unearned revenue, and short-term notes payable.</li>
+      <li>Account for current liabilities that must be estimated, including bonus plans, vacation pay, and warranties.</li>
+      <li>Account for contingent liabilities and determine the appropriate reporting treatment based on likelihood.</li>
+      <li>Use the times-interest-earned ratio to evaluate a business&rsquo;s ability to pay interest expense.</li>
+    </ol>
+  </div>
+
+
+  <!-- ===== OPENING SCENARIO ===== -->
+  <div class="callout scenario">
+    <div class="callout-label"><span class="icon">&#127758;</span> OPENING SCENARIO</div>
+    <p>
+      Imagine you own a small business. You sold products last month, so you owe sales tax to the state. You purchased
+      inventory on a 90-day promissory note. Your employees have earned vacation time you haven&rsquo;t paid yet. And
+      a customer just threatened a lawsuit over a defective product. Each of these situations creates a different type
+      of <strong>current liability</strong>&mdash;some with amounts you know exactly, some you must estimate, and some
+      that may or may not become real obligations. In this chapter, we will learn how to identify, measure, and record
+      each category so the balance sheet faithfully represents what the business owes.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: BIG PICTURE — CATEGORIES OF LIABILITIES           -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-overview">1. Big Picture: Categories of Liabilities</h2>
+
+  <p>
+    Before diving into the details, it helps to see the full landscape. <strong>Liabilities</strong> are debts owed
+    to creditors. They have three defining characteristics:
+  </p>
+  <ol>
+    <li>They arise from a <strong>past transaction or event</strong>.</li>
+    <li>They create a <strong>present obligation</strong> for future payment of cash or services.</li>
+    <li>They are an <strong>unavoidable obligation</strong>.</li>
+  </ol>
+
+  <p>
+    To settle a liability, a company can either <strong>pay cash</strong> or <strong>provide services</strong>. For
+    example, most payables are settled with cash, but unearned revenue is settled by performing the promised work.
+  </p>
+
+  <p>
+    Liabilities are divided into two broad categories based on <em>when</em> they must be settled:
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERMS</div>
+    <p>
+      <strong>Current Liabilities</strong> &mdash; Obligations that must be paid within <strong>one year</strong> or
+      within the entity&rsquo;s <strong>operating cycle</strong>, whichever is longer. If the operating cycle exceeds
+      one year, we use the operating cycle as the cutoff; otherwise, we use one year.
+    </p>
+    <p style="margin-top:0.8rem;">
+      <strong>Long-Term Liabilities (Non-Current)</strong> &mdash; Obligations that do <em>not</em> need to be paid
+      within one year or the operating cycle. Common examples include long-term notes payable, mortgage payable, and
+      bonds payable. These are covered in Chapter 12.
+    </p>
+  </div>
+
+  <p>
+    Within current liabilities, there are further distinctions based on <em>how certain</em> the amount is:
+  </p>
+
+  <div class="liability-cards">
+    <div class="liability-card">
+      <h4>Known Amount</h4>
+      <ul>
+        <li>Accounts Payable (from purchases)</li>
+        <li>Sales Tax Payable (from sales)</li>
+        <li>Unearned Revenue (from customer advances)</li>
+        <li>Short-Term Notes Payable (from issuing notes)</li>
+        <li>Income Tax Payable</li>
+        <li>Current Portion of Long-Term Debt</li>
+      </ul>
+    </div>
+    <div class="liability-card estimated">
+      <h4>Estimated Amount</h4>
+      <ul>
+        <li>Bonus Plans</li>
+        <li>Vacation Pay</li>
+        <li>Health &amp; Pension Benefits</li>
+        <li>Warranties</li>
+      </ul>
+    </div>
+    <div class="liability-card contingent">
+      <h4>Contingent</h4>
+      <ul>
+        <li>Lawsuits</li>
+        <li>Product recalls</li>
+        <li>Environmental obligations</li>
+        <li>Depends on a future event</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure class="figure">
+    <img src="images/ch11/fig11-1.png"
+         alt="Diagram showing Current Liabilities categorized into Known Amount, Estimated, and Contingent">
+    <figcaption class="figure-caption">Figure 11-1. Categories of Current Liabilities</figcaption>
+  </figure>
+
+  <p>
+    For every type of current liability, three questions guide our accounting:
+  </p>
+  <ol>
+    <li><strong>How do we pay or settle the liability?</strong> (Cash or services?)</li>
+    <li><strong>How do we calculate the interest?</strong> (If applicable&mdash;especially for notes payable.)</li>
+    <li><strong>How and when do we record the liability?</strong> (At what point does the obligation get recognized?)</li>
+  </ol>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: LIABILITIES OF KNOWN AMOUNT                       -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-known">2. Current Liabilities of Known Amount</h2>
+
+  <p>
+    A liability of known amount is one whose existence <em>and</em> dollar amount are certain. The company knows
+    exactly how much it owes and to whom. These are the most straightforward current liabilities to account for.
+  </p>
+
+  <!-- ---- 2.1 Accounts Payable ---- -->
+  <h3 class="subsection-title">2.1 Accounts Payable</h3>
+
+  <p>
+    <strong>Accounts payable</strong> arise from purchases of goods or services on credit. When a company buys
+    merchandise inventory, supplies, or services and agrees to pay later, it records an accounts payable. This is the
+    most common current liability for most businesses. The entry to record a credit purchase of inventory under the
+    perpetual system is a debit to Merchandise Inventory and a credit to Accounts Payable.
+  </p>
+
+  <!-- ---- 2.2 Sales Tax Payable ---- -->
+  <h3 class="subsection-title">2.2 Sales Tax Payable</h3>
+
+  <p>
+    When a business sells taxable products, it collects <strong>sales tax</strong> from customers in addition to the
+    selling price. The sales tax collected is <em>not</em> revenue for the business. Instead, it is a current liability
+    that the company must remit to the state or local government at regular intervals. The company is merely acting as
+    a collection agent for the government.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#9998;</span> EXAMPLE: Recording Sales Tax</div>
+    <p>
+      December&rsquo;s taxable sales for Smart Touch Learning total $10,000. The company collects an additional 6%
+      sales tax, which equals $600 ($10,000 &times; 0.06). The customer pays a total of $10,600.
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Recording the Sale</div>
+      <div class="je-line">
+        <span class="je-acct">Cash</span>
+        <span class="je-dr">10,600</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Sales Revenue</span>
+        <span class="je-dr"></span><span class="je-cr">10,000</span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Sales Tax Payable</span>
+        <span class="je-dr"></span><span class="je-cr">600</span>
+      </div>
+    </div>
+    <p>
+      Out of the $10,600 collected, only $10,000 is the company&rsquo;s sales revenue. The remaining $600 is a
+      liability owed to the government.
+    </p>
+  </div>
+
+  <div class="callout think-about-it">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      When you shop at a store, the price on the tag is <em>not</em> the total you pay&mdash;you also pay sales tax.
+      The seller keeps only the tagged price as revenue. The tax portion is a debt the seller owes to the government.
+      <strong>Sales tax is never an expense for the business</strong>&mdash;it is strictly a current liability.
+    </p>
+  </div>
+
+  <p>When Smart Touch Learning remits the tax to the government:</p>
+
+  <div class="journal-entry">
+    <div class="je-date">Remitting Sales Tax to the Government</div>
+    <div class="je-line">
+      <span class="je-acct">Sales Tax Payable</span>
+      <span class="je-dr">600</span><span class="je-cr"></span>
+    </div>
+    <div class="je-line credit">
+      <span class="je-acct">Cash</span>
+      <span class="je-dr"></span><span class="je-cr">600</span>
+    </div>
+    <div class="je-narration">To remit sales tax collected to the state government.</div>
+  </div>
+
+
+  <!-- ---- 2.3 Income Tax Payable ---- -->
+  <h3 class="subsection-title">2.3 Income Tax Payable</h3>
+
+  <p>
+    When a business earns income, it is subject to federal and state income taxes. Income is typically determined at
+    the end of the year, at which point the company estimates its tax liability. Unlike sales tax, income tax is a
+    <strong>true expense</strong> for the company&mdash;it reduces the company&rsquo;s net income.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#9998;</span> EXAMPLE: Income Tax Payable</div>
+    <p>
+      Smart Touch Learning incurs an estimated federal income tax payable of $3,780 based on its income for the period.
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Recording Income Tax at Year-End</div>
+      <div class="je-line">
+        <span class="je-acct">Income Tax Expense</span>
+        <span class="je-dr">3,780</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Income Tax Payable</span>
+        <span class="je-dr"></span><span class="je-cr">3,780</span>
+      </div>
+    </div>
+    <p>
+      In the following year, when Smart Touch Learning actually pays the tax:
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Paying Income Tax</div>
+      <div class="je-line">
+        <span class="je-acct">Income Tax Payable</span>
+        <span class="je-dr">3,780</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Cash</span>
+        <span class="je-dr"></span><span class="je-cr">3,780</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout think-about-it">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Notice the difference: <strong>sales tax</strong> is collected from customers and forwarded to the
+      government&mdash;it is <em>not</em> an expense. <strong>Income tax</strong>, on the other hand, <em>is</em> an
+      expense because it is levied on the company&rsquo;s own income.
+    </p>
+  </div>
+
+
+  <!-- ---- 2.4 Unearned Revenue ---- -->
+  <h3 class="subsection-title">2.4 Unearned Revenue</h3>
+
+  <p>
+    <strong>Unearned revenue</strong> (also called <em>deferred revenue</em>) arises when a business receives cash
+    <em>before</em> providing goods or performing services. Because the company has not yet fulfilled its obligation,
+    the advance payment is recorded as a liability. This liability can only be settled by <strong>providing the
+    promised services</strong>&mdash;not by paying cash back (under normal circumstances).
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#9998;</span> EXAMPLE: Unearned Revenue</div>
+    <p>
+      On May 21, Smart Touch Learning receives $900 in advance for a month&rsquo;s work beginning on that date.
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">May 21 &mdash; Receiving the Advance</div>
+      <div class="je-line">
+        <span class="je-acct">Cash</span>
+        <span class="je-dr">900</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Unearned Revenue</span>
+        <span class="je-dr"></span><span class="je-cr">900</span>
+      </div>
+    </div>
+    <p>
+      During May, Smart Touch Learning delivers one-third of the work, earning $300 ($900 &times; 1/3) of the
+      revenue. Revenue is recognized only when the performance obligation is satisfied.
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">May 31 &mdash; Recognizing Earned Revenue</div>
+      <div class="je-line">
+        <span class="je-acct">Unearned Revenue</span>
+        <span class="je-dr">300</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Service Revenue</span>
+        <span class="je-dr"></span><span class="je-cr">300</span>
+      </div>
+      <div class="je-narration">To recognize revenue for one-third of services performed.</div>
+    </div>
+  </div>
+
+
+  <!-- ---- 2.5 Short-Term Notes Payable ---- -->
+  <h3 class="subsection-title">2.5 Short-Term Notes Payable</h3>
+
+  <p>
+    A <strong>short-term note payable</strong> is a written promise by a business to pay a debt, usually involving
+    <strong>interest</strong>, within one year or less. Notes payable differ from accounts payable in two key ways:
+    they involve a formal written document (a promissory note), and they typically bear interest.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERMS</div>
+    <p>
+      <strong>Promissory Note</strong> &mdash; A written agreement containing the principal amount, the maker (borrower),
+      the payee (lender), the interest rate, and the maturity date.
+    </p>
+    <p style="margin-top:0.8rem;">
+      <strong>Maker (Issuer)</strong> &mdash; The party who borrows money and promises to pay. The maker records
+      <strong>Notes Payable</strong> (a liability).
+    </p>
+    <p style="margin-top:0.8rem;">
+      <strong>Payee</strong> &mdash; The party who lends money and will receive payment. The payee records
+      <strong>Notes Receivable</strong> (an asset).
+    </p>
+  </div>
+
+  <h4>Computing Interest on a Note</h4>
+
+  <p>
+    Interest compensates the lender for the use of their money. The formula for computing interest is:
+  </p>
+
+  <div class="formula-box">
+    <div class="formula-label">Interest Formula</div>
+    <div class="formula-math">
+      \( \text{Interest} = \text{Principal} \times \text{Annual Interest Rate} \times \text{Time} \)
+    </div>
+  </div>
+
+  <div class="callout think-about-it">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      The most critical thing to remember is that the interest rate is almost always expressed as an <strong>annual</strong>
+      rate. A &ldquo;10% note&rdquo; means 10% <em>per year</em>, not 10% over the note&rsquo;s term. Because of this,
+      the &ldquo;Time&rdquo; variable must represent a <strong>fraction of the year</strong>.
+    </p>
+    <ul style="margin-top:0.6rem;">
+      <li>If the term is in <strong>months</strong>: Time = Number of months &divide; 12</li>
+      <li>If the term is in <strong>days</strong>: Time = Number of days &divide; 365</li>
+    </ul>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#9998;</span> EXAMPLE: Interest Calculations</div>
+    <p><strong>Example A:</strong> $2,000 note at 10% for 9 months</p>
+    <p>\( \$2{,}000 \times 10\% \times \frac{9}{12} = \$150 \)</p>
+    <p style="margin-top:0.8rem;"><strong>Example B:</strong> $5,000 note at 12% for 60 days</p>
+    <p>\( \$5{,}000 \times 12\% \times \frac{60}{365} = \$98.63 \)</p>
+  </div>
+
+  <h4>Example 1: Note Payable for Inventory Purchase</h4>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#9998;</span> EXAMPLE: Purchasing Inventory with a Note</div>
+    <p>
+      On May 1, 2026, Smart Touch Learning purchases merchandise inventory in exchange for a 90-day, 10% note payable
+      for $8,000.
+    </p>
+
+    <div class="journal-entry">
+      <div class="je-date">May 1, 2026 &mdash; Issuing the Note</div>
+      <div class="je-line">
+        <span class="je-acct">Merchandise Inventory</span>
+        <span class="je-dr">8,000</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Notes Payable</span>
+        <span class="je-dr"></span><span class="je-cr">8,000</span>
+      </div>
+    </div>
+
+    <p>
+      On July 30, 2026 (90 days later), Smart Touch Learning pays the note plus accrued interest:
+    </p>
+
+    <div class="interest-calc">
+      <div class="ic-title">Interest Calculation</div>
+      <div class="ic-row"><span>Principal</span><span>$8,000</span></div>
+      <div class="ic-row"><span>&times; Annual Rate</span><span>10%</span></div>
+      <div class="ic-row"><span>&times; Time (90/365)</span><span>0.2466</span></div>
+      <div class="ic-row total"><span>Interest</span><span>$197</span></div>
+    </div>
+
+    <div class="journal-entry">
+      <div class="je-date">Jul. 30, 2026 &mdash; Paying the Note at Maturity</div>
+      <div class="je-line">
+        <span class="je-acct">Notes Payable</span>
+        <span class="je-dr">8,000</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line">
+        <span class="je-acct">Interest Expense</span>
+        <span class="je-dr">197</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Cash</span>
+        <span class="je-dr"></span><span class="je-cr">8,197</span>
+      </div>
+      <div class="je-narration">To record payment of 90-day, 10% note plus interest.</div>
+    </div>
+
+    <p>
+      The company pays a total of $8,197&mdash;the $8,000 face value plus $197 in interest. The Notes Payable account
+      is always recorded and removed at its <strong>face value</strong>.
+    </p>
+  </div>
+
+
+  <h4>Example 2: Borrowing Cash from a Bank (Spanning Two Periods)</h4>
+
+  <p>
+    When a note payable spans two accounting periods, the matching principle requires an <strong>adjusting entry</strong>
+    at year-end to accrue the interest expense that belongs to the current period.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#9998;</span> EXAMPLE: Note Payable Across Two Periods</div>
+    <p>
+      On November 1, 2026, Smart Touch Learning borrows $10,000 from First Street Bank at 6% for five months.
+    </p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-date">Nov. 1, 2026 &mdash; Borrowing</div>
+        <div class="journal-entry" style="margin:0.5rem 0 0 0;box-shadow:none;border:none;padding:0.5rem 0;">
+          <div class="je-line">
+            <span class="je-acct">Cash</span>
+            <span class="je-dr">10,000</span><span class="je-cr"></span>
+          </div>
+          <div class="je-line credit">
+            <span class="je-acct">Notes Payable</span>
+            <span class="je-dr"></span><span class="je-cr">10,000</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-date">Dec. 31, 2026 &mdash; Year-End Adjusting Entry</div>
+        <p style="font-size:0.85rem;margin-bottom:0.5rem;">
+          Two months have passed (November and December). Interest for 2 months:
+          $10,000 &times; 6% &times; 2/12 = <strong>$100</strong>
+        </p>
+        <div class="journal-entry" style="margin:0.5rem 0 0 0;box-shadow:none;border:none;padding:0.5rem 0;">
+          <div class="je-line">
+            <span class="je-acct">Interest Expense</span>
+            <span class="je-dr">100</span><span class="je-cr"></span>
+          </div>
+          <div class="je-line credit">
+            <span class="je-acct">Interest Payable</span>
+            <span class="je-dr"></span><span class="je-cr">100</span>
+          </div>
+        </div>
+        <p style="font-size:0.82rem;color:var(--text-light);margin-top:0.5rem;">
+          Note: The principal stays in <em>Notes Payable</em>. Accrued interest goes to a separate
+          <em>Interest Payable</em> account.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-date">Apr. 1, 2027 &mdash; Maturity (Payment)</div>
+        <p style="font-size:0.85rem;margin-bottom:0.5rem;">
+          Total interest for the full 5 months: $10,000 &times; 6% &times; 5/12 = <strong>$250</strong>.<br>
+          Of this, $100 was already accrued in 2026. The remaining $150 belongs to 2027 (January&ndash;March).
+        </p>
+        <div class="journal-entry" style="margin:0.5rem 0 0 0;box-shadow:none;border:none;padding:0.5rem 0;">
+          <div class="je-line">
+            <span class="je-acct">Notes Payable</span>
+            <span class="je-dr">10,000</span><span class="je-cr"></span>
+          </div>
+          <div class="je-line">
+            <span class="je-acct">Interest Payable</span>
+            <span class="je-dr">100</span><span class="je-cr"></span>
+          </div>
+          <div class="je-line">
+            <span class="je-acct">Interest Expense</span>
+            <span class="je-dr">150</span><span class="je-cr"></span>
+          </div>
+          <div class="je-line credit">
+            <span class="je-acct">Cash</span>
+            <span class="je-dr"></span><span class="je-cr">10,250</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout think-about-it">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Why is the interest split between two years? Because of the <strong>matching principle</strong>. Interest expense
+      must be recognized in the period it is incurred, not the period it is paid. The $100 belongs to 2026 (when the
+      money was borrowed and used for two months), and the $150 belongs to 2027 (the remaining three months).
+    </p>
+  </div>
+
+  <figure class="figure">
+    <img src="images/ch11/fig11-2.png"
+         alt="Timeline showing a note payable spanning two accounting periods with interest accrual">
+    <figcaption class="figure-caption">Figure 11-2. Notes Payable Across Two Accounting Periods</figcaption>
+  </figure>
+
+
+  <!-- ---- 2.6 Current Portion of Long-Term Notes Payable ---- -->
+  <h3 class="subsection-title">2.6 Current Portion of Long-Term Notes Payable</h3>
+
+  <p>
+    Long-term notes payable are typically reported in the long-term liability section of the balance sheet. However,
+    when a long-term debt is paid in <strong>installments</strong>, the company must report the portion due within the
+    <em>upcoming year</em> as a <strong>current liability</strong>. The remainder continues to be classified as a
+    long-term liability.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#9998;</span> EXAMPLE: Current vs. Long-Term Portion</div>
+    <p>
+      Suppose a company issues a note with a maturity date four years from now, and installment payments are made at
+      the end of each year. At the end of the first year, one payment is made. At this point, the very next
+      payment&mdash;which is due within the upcoming year&mdash;is reclassified as the <strong>current portion of
+      long-term debt</strong>. The remaining payments due in later years stay in long-term liabilities.
+    </p>
+  </div>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <p>
+      <strong>Current Portion of Long-Term Debt</strong> &mdash; The amount of a long-term liability that is due
+      within the next year. This portion must be reclassified and reported as a current liability on the balance sheet.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: ESTIMATED LIABILITIES                              -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-estimated">3. Current Liabilities That Must Be Estimated</h2>
+
+  <p>
+    Sometimes a business knows that a liability exists but does <strong>not know the exact amount</strong>. In these
+    situations, the company must <em>reasonably estimate</em> the amount and report it on the balance sheet. Common
+    examples include bonus plans, vacation pay, health and pension benefits, and warranties.
+  </p>
+
+
+  <!-- ---- 3.1 Bonus Plans ---- -->
+  <h3 class="subsection-title">3.1 Bonus Plans</h3>
+
+  <p>
+    Companies often promise employees a bonus based on the year&rsquo;s net income. When the bonus is a percentage of
+    net income <em>after</em> deducting the bonus itself, a special formula is required.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#9998;</span> EXAMPLE: Calculating Bonus Payable</div>
+    <p>
+      Smart Touch Learning estimates that it will pay a 5% bonus on its annual net income <em>after</em> deducting the
+      bonus. The company reports net income of $315,000 <strong>before</strong> the calculation of the bonus.
+    </p>
+    <p>
+      The key phrase is &ldquo;5% of net income <em>after</em> the bonus.&rdquo; This means the base for our 5%
+      calculation is the net income before the bonus minus the bonus itself.
+    </p>
+
+    <div class="formula-box">
+      <div class="formula-label">Bonus Formula</div>
+      <div class="formula-math">
+        \( \text{Bonus} = \frac{\text{Net Income Before Bonus} \times \text{Bonus \%}}{1 + \text{Bonus \%}} \)
+      </div>
+    </div>
+
+    <p>Plugging in the numbers:</p>
+    <p>\( \text{Bonus} = \frac{\$315{,}000 \times 0.05}{1 + 0.05} = \frac{\$15{,}750}{1.05} = \$15{,}000 \)</p>
+
+    <div class="journal-entry">
+      <div class="je-date">Year-End &mdash; Recording the Bonus</div>
+      <div class="je-line">
+        <span class="je-acct">Employee Bonus Expense</span>
+        <span class="je-dr">15,000</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Employee Bonus Payable</span>
+        <span class="je-dr"></span><span class="je-cr">15,000</span>
+      </div>
+      <div class="je-narration">To record estimated bonus payable to employees.</div>
+    </div>
+    <p>
+      This liability remains on the balance sheet until the bonus is actually paid to employees in the following year.
+      Remember: when a liability increases, stockholders&rsquo; equity decreases&mdash;which is why an expense must be
+      recognized.
+    </p>
+  </div>
+
+
+  <!-- ---- 3.2 Vacation, Health, and Pension Benefits ---- -->
+  <h3 class="subsection-title">3.2 Vacation, Health, and Pension Benefits</h3>
+
+  <p>
+    Businesses typically offer vacation, health, and pension benefits to employees. A <strong>pension plan</strong>
+    provides benefits to retired employees. As employees work and earn these benefits, the company must accrue the
+    related expense and the corresponding liability&mdash;just like standard wages and salaries.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#9998;</span> EXAMPLE: Vacation Benefits</div>
+    <p>
+      Smart Touch Learning estimates the cost of providing vacation benefits is $1,000 per month.
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Monthly Accrual</div>
+      <div class="je-line">
+        <span class="je-acct">Vacation Benefits Expense</span>
+        <span class="je-dr">1,000</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Vacation Benefits Payable</span>
+        <span class="je-dr"></span><span class="je-cr">1,000</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ---- 3.3 Warranties ---- -->
+  <h3 class="subsection-title">3.3 Warranties</h3>
+
+  <p>
+    Many corporations guarantee their products against defects under <strong>warranty agreements</strong>. The matching
+    principle requires a business to record warranty expense in the <em>same period</em> that the company records the
+    related sales revenue&mdash;not in the future period when a customer actually makes a claim.
+  </p>
+
+  <p>
+    This concept is similar to the relationship between Accounts Receivable, the Allowance for Bad Debts, and Bad
+    Debts Expense from Chapter 8. Just as a company estimates bad debts at the time of sale, it must also estimate
+    warranty costs at the time of sale.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#9998;</span> EXAMPLE: Estimating and Recording Warranty Expense</div>
+    <p>
+      On June 10, 2026, Smart Touch Learning makes sales on account totaling $50,000 (cost of merchandise inventory
+      sold: $35,000). Based on past data, the company estimates that warranty costs will be 3% of sales.
+    </p>
+
+    <div class="journal-entry">
+      <div class="je-date">Jun. 10, 2026 &mdash; Recording the Sale</div>
+      <div class="je-line">
+        <span class="je-acct">Accounts Receivable</span>
+        <span class="je-dr">50,000</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Sales Revenue</span>
+        <span class="je-dr"></span><span class="je-cr">50,000</span>
+      </div>
+    </div>
+
+    <div class="journal-entry">
+      <div class="je-date">Jun. 10, 2026 &mdash; Recording Cost of Goods Sold</div>
+      <div class="je-line">
+        <span class="je-acct">Cost of Goods Sold</span>
+        <span class="je-dr">35,000</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Merchandise Inventory</span>
+        <span class="je-dr"></span><span class="je-cr">35,000</span>
+      </div>
+    </div>
+
+    <p>
+      Estimated warranty expense: 3% &times; $50,000 = <strong>$1,500</strong>
+    </p>
+
+    <div class="journal-entry">
+      <div class="je-date">Jun. 10, 2026 &mdash; Estimating Warranty Expense</div>
+      <div class="je-line">
+        <span class="je-acct">Warranty Expense</span>
+        <span class="je-dr">1,500</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Estimated Warranty Payable</span>
+        <span class="je-dr"></span><span class="je-cr">1,500</span>
+      </div>
+      <div class="je-narration">To record estimated warranty costs (3% &times; $50,000).</div>
+    </div>
+  </div>
+
+  <h4>Honoring a Warranty Claim</h4>
+
+  <p>
+    When a customer actually makes a claim, the company does <em>not</em> recognize another expense&mdash;it was
+    already estimated and recorded at the time of the original sale. Instead, the company simply reduces the
+    previously created liability.
+  </p>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#9998;</span> EXAMPLE: Honoring a Warranty Claim</div>
+    <p>
+      On June 27, 2026, customers make claims totaling $800. Smart Touch Learning replaces the defective goods.
+    </p>
+    <div class="journal-entry">
+      <div class="je-date">Jun. 27, 2026 &mdash; Replacing Defective Goods</div>
+      <div class="je-line">
+        <span class="je-acct">Estimated Warranty Payable</span>
+        <span class="je-dr">800</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Merchandise Inventory</span>
+        <span class="je-dr"></span><span class="je-cr">800</span>
+      </div>
+      <div class="je-narration">To record warranty claim honored with replacement goods.</div>
+    </div>
+    <p>
+      Notice that <em>no expense</em> is recorded here. The expense was already recognized on June 10 when the sale
+      occurred. This entry simply clears out the liability and reduces inventory for the replacement goods.
+    </p>
+  </div>
+
+  <div class="callout think-about-it">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      The warranty accounting process has two stages:
+    </p>
+    <ol>
+      <li><strong>At the time of sale:</strong> Estimate and record the warranty expense and liability.</li>
+      <li><strong>When claims are made:</strong> Reduce the liability (no additional expense).</li>
+    </ol>
+    <p>
+      This two-step process ensures that the expense is matched to the period of the sale, satisfying the matching
+      principle.
+    </p>
+  </div>
+
+  <figure class="figure">
+    <img src="images/ch11/fig11-3.png"
+         alt="Flowchart showing two stages of warranty accounting: estimation at sale and fulfillment at claim">
+    <figcaption class="figure-caption">Figure 11-3. Two Stages of Warranty Accounting</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: CONTINGENT LIABILITIES                             -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-contingent">4. Contingent Liabilities</h2>
+
+  <p>
+    A <strong>contingent liability</strong> is a <em>potential</em> liability that depends on a future event. For the
+    liability to be paid or settled, some specific event must occur in the future. How a business accounts for a
+    contingent liability depends entirely on the <strong>likelihood</strong> of that future event occurring.
+  </p>
+
+  <div class="callout key-term">
+    <div class="callout-label"><span class="icon">&#128273;</span> KEY TERM</div>
+    <p>
+      <strong>Contingent Liability</strong> &mdash; A potential obligation that may or may not become an actual
+      liability, depending on the outcome of a future event beyond the company&rsquo;s control. The most common
+      example is a pending lawsuit.
+    </p>
+  </div>
+
+  <p>
+    The likelihood of the future event is categorized into three levels, each with different reporting requirements:
+  </p>
+
+  <table class="contingency-table">
+    <thead>
+      <tr>
+        <th>Likelihood</th>
+        <th>Accrue (Record)?</th>
+        <th>Disclose in Notes?</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="badge badge-remote">Remote</span></td>
+        <td>No</td>
+        <td>No</td>
+        <td>Do nothing.</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-possible">Reasonably Possible</span></td>
+        <td>No</td>
+        <td>Yes</td>
+        <td>Describe the situation in a note to the financial statements.</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-probable">Probable</span> (amount <em>cannot</em> be estimated)</td>
+        <td>No</td>
+        <td>Yes</td>
+        <td>Describe the situation in a note to the financial statements.</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-probable">Probable</span> (amount <em>can</em> be estimated)</td>
+        <td><strong>Yes</strong></td>
+        <td><strong>Yes</strong></td>
+        <td>Record the expense and liability. Also describe in notes.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <figure class="figure">
+    <img src="images/ch11/fig11-4.png"
+         alt="Decision flowchart for contingent liability reporting based on likelihood and estimability">
+    <figcaption class="figure-caption">Figure 11-4. Contingent Liability Decision Framework</figcaption>
+  </figure>
+
+  <div class="callout think-about-it">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Only when a contingent liability is <strong>both probable and estimable</strong> does the company make an actual
+      journal entry. In all other cases, the liability is either disclosed in the notes or ignored entirely. Think of
+      it as a two-part test: Is it likely to happen? And can we put a dollar figure on it?
+    </p>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#9998;</span> EXAMPLE: Loss Contingency (Lawsuit)</div>
+    <p>
+      Scorsese Inc. is involved in a lawsuit at December 31, 2026.
+    </p>
+    <p><strong>Situation A:</strong> Assume it is <strong>probable</strong> that Scorsese will be liable for $900,000
+    as a result of this lawsuit, and the amount can be reasonably estimated.</p>
+    <div class="journal-entry">
+      <div class="je-date">Dec. 31, 2026 &mdash; Accruing the Loss Contingency</div>
+      <div class="je-line">
+        <span class="je-acct">Lawsuit Loss</span>
+        <span class="je-dr">900,000</span><span class="je-cr"></span>
+      </div>
+      <div class="je-line credit">
+        <span class="je-acct">Lawsuit Liability</span>
+        <span class="je-dr"></span><span class="je-cr">900,000</span>
+      </div>
+      <div class="je-narration">To accrue estimated loss from probable lawsuit.</div>
+    </div>
+    <p>
+      This entry decreases stockholders&rsquo; equity (through the loss) and increases liabilities.
+    </p>
+
+    <p style="margin-top:1rem;"><strong>Situation B:</strong> Assume it is <strong>not probable</strong> that Scorsese
+    will be liable for any payment.</p>
+    <p>
+      No journal entry is necessary. If the likelihood is &ldquo;reasonably possible,&rdquo; the company must still
+      describe the lawsuit in the notes to the financial statements.
+    </p>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: TIMES-INTEREST-EARNED RATIO                       -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-ratio">5. Times-Interest-Earned Ratio</h2>
+
+  <p>
+    The <strong>times-interest-earned ratio</strong> (also called the <strong>interest-coverage ratio</strong>)
+    measures a company&rsquo;s ability to pay its interest expense from operating income. Investors and creditors use
+    this ratio to assess the risk of lending to a company.
+  </p>
+
+  <ul>
+    <li>A <strong>high ratio</strong> indicates the company easily covers its interest payments.</li>
+    <li>A <strong>low ratio</strong> (especially below 1) means the company does not generate enough operating income to cover its interest, which signals financial distress.</li>
+  </ul>
+
+  <div class="formula-box">
+    <div class="formula-label">Times-Interest-Earned Ratio</div>
+    <div class="formula-math">
+      \( \text{Times-Interest-Earned} = \frac{\text{Net Income} + \text{Income Tax Expense} + \text{Interest Expense}}{\text{Interest Expense}} \)
+    </div>
+  </div>
+
+  <div class="callout think-about-it">
+    <div class="callout-label"><span class="icon">&#128161;</span> THINK ABOUT IT</div>
+    <p>
+      Why do we add taxes and interest <em>back</em> to net income in the numerator? Because we need to find the total
+      earnings available to pay interest&mdash;<em>before</em> interest and taxes were deducted. The numerator is
+      essentially <strong>EBIT</strong> (Earnings Before Interest and Taxes), also called <strong>Operating
+      Income</strong>.
+    </p>
+    <p style="margin-top:0.6rem;">
+      Think of it this way: Start with net income (what&rsquo;s left after everything). Add back interest expense
+      (because we want to see what was available <em>before</em> paying interest). Add back tax expense (because taxes
+      are calculated <em>after</em> interest is deducted, so adding them back gives us the pre-interest, pre-tax
+      income).
+    </p>
+  </div>
+
+  <div class="callout example">
+    <div class="callout-label"><span class="icon">&#9998;</span> EXAMPLE: PepsiCo&rsquo;s Times-Interest-Earned Ratio</div>
+    <p>
+      The following amounts (in millions) are from PepsiCo&rsquo;s income statement:
+    </p>
+
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;font-size:0.88rem;">
+      <thead>
+        <tr style="background:var(--primary);color:#fff;">
+          <th style="padding:0.6rem 1rem;text-align:left;"></th>
+          <th style="padding:0.6rem 1rem;text-align:right;">Year Ended Dec. 2026</th>
+          <th style="padding:0.6rem 1rem;text-align:right;">Year Ended Dec. 2025</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:0.5rem 1rem;">Net Income</td>
+          <td style="padding:0.5rem 1rem;text-align:right;">$7,618</td>
+          <td style="padding:0.5rem 1rem;text-align:right;">$7,120</td>
+        </tr>
+        <tr style="background:var(--bg-light);">
+          <td style="padding:0.5rem 1rem;">Income Tax Expense</td>
+          <td style="padding:0.5rem 1rem;text-align:right;">$2,142</td>
+          <td style="padding:0.5rem 1rem;text-align:right;">$1,894</td>
+        </tr>
+        <tr>
+          <td style="padding:0.5rem 1rem;">Interest Expense</td>
+          <td style="padding:0.5rem 1rem;text-align:right;">$1,863</td>
+          <td style="padding:0.5rem 1rem;text-align:right;">$1,128</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>Year ended December 2026:</strong></p>
+    <p>
+      \( \frac{\$7{,}618 + \$2{,}142 + \$1{,}863}{\$1{,}863} = \frac{\$11{,}623}{\$1{,}863} = 6.24 \)
+    </p>
+
+    <p><strong>Year ended December 2025:</strong></p>
+    <p>
+      \( \frac{\$7{,}120 + \$1{,}894 + \$1{,}128}{\$1{,}128} = \frac{\$10{,}142}{\$1{,}128} = 8.99 \)
+    </p>
+
+    <p>
+      Both years show a ratio well above 1, meaning PepsiCo generates far more income than needed to cover its
+      interest. However, the ratio decreased from 8.99 to 6.24, which could reflect increased borrowing or decreased
+      operating performance. Analysts would investigate the cause of the decline.
+    </p>
+  </div>
+
+  <figure class="figure">
+    <img src="images/ch11/fig11-5.png"
+         alt="Bar chart comparing PepsiCo's times-interest-earned ratio across two years">
+    <figcaption class="figure-caption">Figure 11-5. Times-Interest-Earned Ratio Comparison</figcaption>
+  </figure>
+
+
+  <!-- ============================================================ -->
+  <!-- CHAPTER SUMMARY                                               -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-summary">Chapter Summary</h2>
+
+  <div class="callout summary">
+    <div class="callout-label"><span class="icon">&#128218;</span> KEY TAKEAWAYS</div>
+    <ol>
+      <li>
+        <strong>Current liabilities of known amount</strong> include accounts payable, sales tax payable
+        (a liability, not an expense), income tax payable (an expense), unearned revenue (settled by providing
+        services), short-term notes payable (requiring interest calculation), and the current portion of long-term
+        debt.
+      </li>
+      <li>
+        <strong>Estimated liabilities</strong> arise when the existence of a liability is certain but the exact amount
+        is not. The company must estimate and record the amount. Examples: bonus plans (using the bonus formula),
+        vacation pay, and warranties (estimated at the time of sale based on historical data).
+      </li>
+      <li>
+        <strong>Contingent liabilities</strong> depend on a future event. They are accrued only when the outcome is
+        both <em>probable</em> and the amount can be <em>reasonably estimated</em>. Otherwise, they are either
+        disclosed in the notes or not reported at all.
+      </li>
+      <li>
+        The <strong>times-interest-earned ratio</strong> (EBIT &divide; Interest Expense) measures a company&rsquo;s
+        ability to pay its interest obligations. A higher ratio indicates greater financial safety.
+      </li>
+    </ol>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- KEY TERMS GLOSSARY                                            -->
+  <!-- ============================================================ -->
+  <h2 class="section-title" id="sec-glossary">Key Terms</h2>
+
+  <div class="callout glossary">
+    <dl>
+      <dt>Current Liability</dt>
+      <dd>An obligation that must be paid within one year or within the entity&rsquo;s operating cycle, whichever is longer.</dd>
+
+      <dt>Long-Term Liability</dt>
+      <dd>An obligation that does not need to be paid within one year or the operating cycle. Also called non-current liability.</dd>
+
+      <dt>Accounts Payable</dt>
+      <dd>Amounts owed to suppliers for goods or services purchased on credit.</dd>
+
+      <dt>Sales Tax Payable</dt>
+      <dd>Sales tax collected from customers that the company must remit to the government. It is a liability, not an expense.</dd>
+
+      <dt>Income Tax Payable</dt>
+      <dd>The estimated amount of income tax owed to the government based on the company&rsquo;s taxable income.</dd>
+
+      <dt>Unearned Revenue</dt>
+      <dd>Cash received in advance before goods or services are provided. Also called deferred revenue. Settled by providing the promised service.</dd>
+
+      <dt>Promissory Note</dt>
+      <dd>A written agreement stating the principal, interest rate, maturity date, maker (borrower), and payee (lender).</dd>
+
+      <dt>Notes Payable</dt>
+      <dd>The liability recorded by the maker (issuer) of a promissory note, representing the promise to pay the principal plus interest.</dd>
+
+      <dt>Interest Payable</dt>
+      <dd>Accrued interest that has been incurred but not yet paid. Recorded separately from Notes Payable.</dd>
+
+      <dt>Current Portion of Long-Term Debt</dt>
+      <dd>The part of a long-term liability that is due within the next year, reclassified as a current liability.</dd>
+
+      <dt>Estimated Liability</dt>
+      <dd>A liability whose existence is known but whose exact amount must be estimated (e.g., warranties, bonus plans).</dd>
+
+      <dt>Warranty</dt>
+      <dd>A guarantee against product defects. The matching principle requires recording the estimated warranty expense in the same period as the related sales revenue.</dd>
+
+      <dt>Estimated Warranty Payable</dt>
+      <dd>The liability account that holds the estimated future cost of warranty claims. Reduced when actual claims are honored.</dd>
+
+      <dt>Contingent Liability</dt>
+      <dd>A potential liability whose outcome depends on a future event. Accrued only when probable and estimable.</dd>
+
+      <dt>Times-Interest-Earned Ratio</dt>
+      <dd>A ratio measuring a company&rsquo;s ability to pay interest expense: (Net Income + Income Tax Expense + Interest Expense) &divide; Interest Expense. Also called the interest-coverage ratio.</dd>
+
+      <dt>EBIT</dt>
+      <dd>Earnings Before Interest and Taxes. Equal to Net Income + Income Tax Expense + Interest Expense. Also referred to as Operating Income.</dd>
+    </dl>
+  </div>
+
+
+  <!-- ===== CHAPTER NAVIGATION ===== -->
+  <nav class="chapter-nav">
+    <a href="ch09.html">&larr; Chapter 9: Plant Assets, Natural Resources, and Intangible Assets</a>
+    <a href="ch12.html">Chapter 12: Long-Term Liabilities &rarr;</a>
+  </nav>
+
+</div><!-- end chapter-container -->
+
+</body>
+</html>

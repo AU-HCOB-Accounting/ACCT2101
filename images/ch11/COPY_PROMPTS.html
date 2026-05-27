@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 11: Current Liabilities — Image Generation Prompts — Copy Prompts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 2rem; color: #333; }
+  h1 { font-size: 1.4rem; margin-bottom: 1.5rem; color: #1a3a5c; }
+  .card { background: #fff; border-radius: 8px; margin-bottom: 1.2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; background: #1a3a5c; color: #fff; }
+  .card-header h3 { font-size: 0.95rem; font-weight: 600; }
+  .copy-btn { background: #fff; color: #1a3a5c; border: none; padding: 0.4rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+  .copy-btn:hover { background: #e0e0e0; }
+  .copy-btn.copied { background: #4caf50; color: #fff; }
+  .prompt-text { padding: 1rem; font-size: 0.85rem; line-height: 1.6; white-space: pre-wrap; font-family: 'Consolas', 'Monaco', monospace; color: #444; max-height: 300px; overflow-y: auto; border-top: 1px solid #eee; }
+  .meta { padding: 0.5rem 1rem; font-size: 0.8rem; color: #777; background: #fafafa; border-top: 1px solid #eee; }
+</style>
+</head>
+<body>
+<h1>Chapter 11: Current Liabilities — Image Generation Prompts</h1>
+<div class="card">
+  <div class="card-header">
+    <h3>fig11-1.png (liability-categories)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-0')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 1 — Big Picture: Categories of Liabilities (Figure 11-1) | Purpose: Visual overview showing how liabilities are categorized into current vs. long-term, and current liabilities further divided into known, estimated, and contingent</div>
+  <div class="prompt-text" id="prompt-0">Create a clean, professional educational infographic for a university accounting textbook showing how liabilities are categorized. Use a hierarchical layout.
+
+**Top Level — &quot;Liabilities&quot; banner:**
+- Splits into two main branches
+
+**Left Branch — &quot;Current Liabilities&quot;:**
+- Color: Navy blue (#1a3a5c) header
+- Further divides into three sub-categories shown as rounded-rectangle cards:
+
+  **Card 1 — &quot;Known Amount&quot; (blue border #1976d2):**
+  - Accounts Payable (from purchases)
+  - Sales Tax Payable (from sales)
+  - Unearned Revenue (from customer advances)
+  - Short-Term Notes Payable (from issuing notes)
+  - Income Tax Payable
+  - Current Portion of Long-Term Debt
+
+  **Card 2 — &quot;Estimated Amount&quot; (orange border #e65100):**
+  - Bonus Plans
+  - Vacation Pay
+  - Health &amp; Pension Benefits
+  - Warranties
+
+  **Card 3 — &quot;Contingent&quot; (purple border #7b1fa2):**
+  - Lawsuits
+  - Depends on future event
+  - May or may not become actual liability
+
+**Right Branch — &quot;Long-Term (Non-Current) Liabilities&quot;:**
+- Color: Gray (#607d8b) header
+- Items: Notes Payable, Mortgage Payable, Bonds Payable
+- Label: &quot;Covered in Chapter 12&quot;
+
+Below the cards, show three key questions:
+1. How do we pay or settle?
+2. How do we calculate interest?
+3. How and when do we record?
+
+Style: White background, clean sans-serif font (Helvetica), subtle drop shadows on cards. Professional textbook quality. 900×550px landscape.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig11-2.png (notes-payable-timeline)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-1')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 2.5 — Short-Term Notes Payable, Example 2 (Figure 11-2) | Purpose: Timeline showing a note payable that spans two accounting periods with interest accrual at year-end</div>
+  <div class="prompt-text" id="prompt-1">Create a professional educational timeline diagram for a university accounting textbook showing a note payable that spans two accounting periods with interest accrual at year-end.
+
+Show a horizontal timeline from November 2026 to April 2027:
+
+**Point 1 — &quot;Nov. 1, 2026&quot; (left):**
+- Label: &quot;Borrow $10,000 at 6% for 5 months&quot;
+- Entry box: &quot;Dr. Cash 10,000 / Cr. Notes Payable 10,000&quot;
+
+**Point 2 — &quot;Dec. 31, 2026&quot; (middle, highlighted with dashed vertical line):**
+- Label: &quot;YEAR-END: Accrue 2 months interest&quot;
+- Calculation: &quot;$10,000 × 6% × 2/12 = $100&quot;
+- Entry box: &quot;Dr. Interest Expense 100 / Cr. Interest Payable 100&quot;
+- Visual emphasis on the period boundary
+
+**Point 3 — &quot;Apr. 1, 2027&quot; (right):**
+- Label: &quot;MATURITY: Pay note + total interest $250&quot;
+- Show split: &quot;$100 (2026) + $150 (2027) = $250 total interest&quot;
+- Entry box showing four lines: &quot;Dr. Notes Payable 10,000 / Dr. Interest Payable 100 / Dr. Interest Expense 150 / Cr. Cash 10,250&quot;
+
+Color-code the two accounting periods:
+- 2026 portion (Nov-Dec): Light blue shading
+- 2027 portion (Jan-Mar): Light green shading
+
+Style: Navy blue (#1a3a5c) primary color, white background, clean sans-serif font. Timeline line should be prominent. 900×400px landscape.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig11-3.png (warranty-process)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-2')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 3.3 — Warranties (Figure 11-3) | Purpose: Flowchart showing the two stages of warranty accounting: estimation at sale time and fulfillment at claim time</div>
+  <div class="prompt-text" id="prompt-2">Create a professional educational flowchart for a university accounting textbook showing the two stages of warranty accounting. Show two stages connected by a timeline arrow.
+
+**Stage 1 — &quot;At the Time of Sale&quot; (left side, blue #1976d2):**
+- Icon: Sales/receipt icon
+- Label: &quot;Estimate &amp; Record&quot;
+- Journal entry box: &quot;Dr. Warranty Expense 1,500 / Cr. Estimated Warranty Payable 1,500&quot;
+- Annotation: &quot;Based on historical data (3% × $50,000 sales)&quot;
+- Callout: &quot;MATCHING PRINCIPLE — expense matches the period of revenue&quot;
+
+**Arrow connecting stages:**
+- Label: &quot;Time passes... customer discovers defect&quot;
+
+**Stage 2 — &quot;When Claims Are Made&quot; (right side, orange #e65100):**
+- Icon: Return/exchange icon
+- Label: &quot;Reduce Liability&quot;
+- Journal entry box: &quot;Dr. Estimated Warranty Payable 800 / Cr. Merchandise Inventory 800&quot;
+- Annotation: &quot;Replace defective goods&quot;
+- Callout: &quot;NO NEW EXPENSE — already recorded at Stage 1&quot;
+
+Below both stages, show a comparison:
+- Stage 1: &quot;Income Statement affected (expense recorded)&quot;
+- Stage 2: &quot;Income Statement NOT affected (only balance sheet changes)&quot;
+
+Style: Navy blue (#1a3a5c) primary, white background, clean sans-serif font, rounded boxes with subtle shadows. 900×450px landscape.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig11-4.png (contingency-decision)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-3')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 4 — Contingent Liabilities (Figure 11-4) | Purpose: Decision flowchart for determining how to report a contingent liability</div>
+  <div class="prompt-text" id="prompt-3">Create a professional educational decision flowchart for a university accounting textbook showing how to determine the reporting treatment for a contingent liability.
+
+**Start box (top center):**
+- &quot;Contingent Liability Exists&quot;
+
+**Decision 1 — &quot;What is the likelihood?&quot;**
+- Three branches:
+
+**Branch 1 — &quot;Remote&quot; (green #4caf50):**
+- Result: &quot;Do Nothing&quot;
+- No accrual, no disclosure
+
+**Branch 2 — &quot;Reasonably Possible&quot; (orange #ff9800):**
+- Result: &quot;Disclose in Notes Only&quot;
+- Describe situation in notes to financial statements
+- Do not record a journal entry
+
+**Branch 3 — &quot;Probable&quot; (red #e53935):**
+- Leads to Decision 2: &quot;Can the amount be estimated?&quot;
+  - **No:** &quot;Disclose in Notes Only&quot; (describe in notes, no accrual)
+  - **Yes:** &quot;ACCRUE: Record Journal Entry AND Disclose in Notes&quot;
+    - Show entry: &quot;Dr. Loss / Cr. Liability&quot;
+    - This is the only scenario requiring a journal entry
+    - Highlight this outcome with a bold border
+
+Style: Navy blue (#1a3a5c) primary, white background. Use traffic-light colors (green/orange/red) for the three likelihood levels. Clean diamond shapes for decisions, rounded rectangles for outcomes. Sans-serif font. 900×500px landscape.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>fig11-5.png (times-interest-earned)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-4')">Copy</button>
+  </div>
+  <div class="meta">Used in: Section 5 — Times-Interest-Earned Ratio (Figure 11-5) | Purpose: Bar chart comparing PepsiCo's times-interest-earned ratio across two years</div>
+  <div class="prompt-text" id="prompt-4">Create a professional educational bar chart for a university accounting textbook comparing PepsiCo's times-interest-earned ratio across two years.
+
+**Chart layout:**
+- Two grouped vertical bars side by side
+- X-axis: &quot;Year Ended Dec. 2025&quot; and &quot;Year Ended Dec. 2026&quot;
+- Y-axis: Ratio value (0 to 10)
+- Bar values: 8.99 (2025) and 6.24 (2026)
+- Display exact values above each bar
+
+**Color coding:**
+- 2025 bar: Medium blue (#2b579a)
+- 2026 bar: Navy (#1a3a5c)
+
+**Reference line:**
+- Horizontal dashed line at ratio = 1.0, labeled &quot;Danger Zone (below 1.0)&quot;
+- Area below the line subtly shaded in light red
+
+**Annotation:**
+- Arrow pointing down between the two bars with label: &quot;Ratio declined but still well above 1.0&quot;
+
+**Formula reminder box (small, bottom right):**
+- &quot;TIE = (NI + Tax Exp + Int Exp) ÷ Int Exp&quot;
+
+Style: White background, clean sans-serif font (Helvetica), subtle grid lines. Professional textbook quality. 700×400px landscape.</div>
+</div>
+<script>
+function copyPrompt(btn, id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+</body>
+</html>

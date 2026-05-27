@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 3 — Image Generation Prompts — Copy Prompts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 2rem; color: #333; }
+  h1 { font-size: 1.4rem; margin-bottom: 1.5rem; color: #1a3a5c; }
+  .card { background: #fff; border-radius: 8px; margin-bottom: 1.2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; background: #1a3a5c; color: #fff; }
+  .card-header h3 { font-size: 0.95rem; font-weight: 600; }
+  .copy-btn { background: #fff; color: #1a3a5c; border: none; padding: 0.4rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+  .copy-btn:hover { background: #e0e0e0; }
+  .copy-btn.copied { background: #4caf50; color: #fff; }
+  .prompt-text { padding: 1rem; font-size: 0.85rem; line-height: 1.6; white-space: pre-wrap; font-family: 'Consolas', 'Monaco', monospace; color: #444; max-height: 300px; overflow-y: auto; border-top: 1px solid #eee; }
+  .meta { padding: 0.5rem 1rem; font-size: 0.8rem; color: #777; background: #fafafa; border-top: 1px solid #eee; }
+</style>
+</head>
+<body>
+<h1>Chapter 3 — Image Generation Prompts</h1>
+<div class="card">
+  <div class="card-header">
+    <h3>Four Types of Adjusting Entries (2×2 Matrix)</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-0')">Copy</button>
+  </div>
+  <div class="meta">File: `fig3-1.png` (four-types-adjusting-entries)</div>
+  <div class="prompt-text" id="prompt-0">Create a clean 2×2 matrix diagram showing the four types of adjusting entries.
+
+Layout: a 2×2 grid with clear headers.
+
+Column headers:
+- Left column: &quot;DEFERRALS&quot; with subtitle &quot;Cash First → Recognize Later&quot;
+- Right column: &quot;ACCRUALS&quot; with subtitle &quot;Recognize First → Cash Later&quot;
+
+Row headers:
+- Top row: &quot;REVENUE&quot;
+- Bottom row: &quot;EXPENSE&quot;
+
+Four cells, each containing:
+
+TOP-LEFT — Deferred Revenue:
+  - Icon: money bag with clock
+  - &quot;Cash received BEFORE revenue earned&quot;
+  - Initial entry: &quot;Dr. Cash / Cr. Unearned Revenue (Liability)&quot;
+  - Adjusting entry: &quot;Dr. Unearned Revenue / Cr. Revenue&quot;
+  - Arrow showing: Liability → Revenue
+
+TOP-RIGHT — Accrued Revenue:
+  - Icon: clipboard with checkmark
+  - &quot;Revenue earned BEFORE cash received&quot;
+  - Adjusting entry: &quot;Dr. Accounts Receivable / Cr. Revenue&quot;
+  - Arrow showing: creates Asset (A/R)
+
+BOTTOM-LEFT — Deferred Expense:
+  - Icon: receipt with dollar sign
+  - &quot;Cash paid BEFORE expense incurred&quot;
+  - Initial entry: &quot;Dr. Prepaid/Asset / Cr. Cash&quot;
+  - Adjusting entry: &quot;Dr. Expense / Cr. Asset&quot;
+  - Arrow showing: Asset → Expense
+
+BOTTOM-RIGHT — Accrued Expense:
+  - Icon: calendar with exclamation
+  - &quot;Expense incurred BEFORE cash paid&quot;
+  - Adjusting entry: &quot;Dr. Expense / Cr. Payable&quot;
+  - Arrow showing: creates Liability (Payable)
+
+At the center intersection, place a large circle or badge:
+&quot;NO CASH in Adjusting Entries!&quot;
+
+Color scheme:
+- Deferrals column: blue (#1976d2) background tint
+- Accruals column: red/pink (#c62828) background tint
+- Revenue row: lighter shade
+- Expense row: slightly darker shade
+- Center badge: orange/warning color
+
+Style: clean, modern, white background with colored sections.
+Sans-serif font. Clear borders between cells.
+Size: 900×650px, landscape.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>Book Value Decline Over Time</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-1')">Copy</button>
+  </div>
+  <div class="meta">File: `fig3-3.png` (book-value-decline)</div>
+  <div class="prompt-text" id="prompt-1">Create a chart/diagram showing how book value declines over a 10-year period
+under straight-line depreciation.
+
+Setup:
+- Equipment cost: $10,000
+- Salvage value: $0
+- Useful life: 10 years
+- Annual depreciation: $1,000
+
+Visual: a combined bar + line chart on a clean white background.
+
+Bar chart (stacked, for each year 0 through 10):
+- Bottom portion (navy blue): &quot;Book Value&quot; — starts at $10,000 and decreases by $1,000 each year
+- Top portion (light gray/red): &quot;Accumulated Depreciation&quot; — starts at $0 and increases by $1,000 each year
+- The total height of each stacked bar always equals $10,000 (the original cost)
+
+Line overlay:
+- A descending line connecting the top of each &quot;Book Value&quot; portion, clearly showing the linear decline
+
+Key labels:
+- Y-axis: dollar amounts ($0 to $10,000)
+- X-axis: &quot;Year 0&quot; through &quot;Year 10&quot;
+- A horizontal dashed line at $10,000 labeled &quot;Original Cost (never changes)&quot;
+- A horizontal dashed line at $0 labeled &quot;Salvage Value&quot;
+- Arrow pointing to the difference labeled &quot;Depreciation Base = Cost − Salvage Value&quot;
+
+Three callout annotations:
+1. At Year 0: &quot;Purchase date — full cost recorded as asset&quot;
+2. At Year 5: &quot;Book Value = $10,000 − $5,000 = $5,000&quot;
+3. At Year 10: &quot;Fully depreciated — Book Value = $0&quot;
+
+Formula box in corner:
+&quot;Straight-Line Depreciation = (Cost − Salvage Value) ÷ Useful Life&quot;
+&quot;= ($10,000 − $0) ÷ 10 = $1,000/year&quot;
+
+Style: clean, modern chart style. Navy blue for book value bars,
+light red/coral for accumulated depreciation bars. 
+Sans-serif font. White background with subtle grid lines.
+Size: 900×500px, landscape.</div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h3>Deferral vs. Accrual Cash Timing</h3>
+    <button class="copy-btn" onclick="copyPrompt(this, 'prompt-2')">Copy</button>
+  </div>
+  <div class="meta">File: `fig3-2.png` (deferral-accrual-timeline)</div>
+  <div class="prompt-text" id="prompt-2">Create a visual timeline diagram comparing the cash timing of deferrals vs. accruals.
+
+Layout: two horizontal timelines stacked vertically with clear labels.
+
+TIMELINE 1 — &quot;DEFERRALS&quot; (blue theme):
+  Left side: &quot;Oct 1&quot; with a large CASH icon (dollar bills/coins)
+    Label above: &quot;① Cash received/paid&quot;
+    Below: small text &quot;Record as Liability or Asset&quot;
+  Arrow spanning across the timeline →
+  Right side: &quot;Dec 31&quot; with a DOCUMENT icon (financial statement)
+    Label above: &quot;② Recognize Revenue or Expense&quot;
+    Below: small text &quot;Adjusting Entry&quot;
+  Between the two points, show a bracket labeled &quot;Time passes...&quot;
+  Summary below: &quot;Cash FIRST → Recognize LATER&quot;
+
+TIMELINE 2 — &quot;ACCRUALS&quot; (red/pink theme):
+  Left side: &quot;Oct 1&quot; with a WORK/SERVICE icon (gear/briefcase)
+    Label above: &quot;① Revenue earned / Expense incurred&quot;
+    Below: small text &quot;Adjusting Entry (Dec 31)&quot;
+  Arrow spanning across the timeline →
+  Right side: &quot;Jan 15&quot; with a large CASH icon (dollar bills/coins)
+    Label above: &quot;② Cash received/paid&quot;
+    Below: small text &quot;Standard journal entry&quot;
+  Between the two points, show a bracket labeled &quot;Time passes...&quot;
+  At &quot;Dec 31&quot; mark (between the two points), place a vertical dashed line
+    labeled &quot;Reporting Date&quot; — this is where the adjusting entry is made
+  Summary below: &quot;Recognize FIRST → Cash LATER&quot;
+
+Center divider between the two timelines:
+  A bold text: &quot;KEY DIFFERENCE: When does cash change hands relative to recognition?&quot;
+
+Style: clean white background, blue (#1976d2) for deferrals, 
+red (#c62828) for accruals. Rounded timeline dots. Clear icons.
+Sans-serif font.
+Size: 900×500px, landscape.</div>
+</div>
+<script>
+function copyPrompt(btn, id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+</body>
+</html>
