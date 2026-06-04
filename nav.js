@@ -76,12 +76,12 @@
     var toolLi = document.createElement('li');
     toolLi.className = 'sidebar-chapter sidebar-tool';
     var toolA = document.createElement('a');
-    toolA.href = 'Accounting-Cycle-Simulators.html';
+    toolA.href = 'Accounting-Equation-Simulator.html';
     toolA.target = '_blank';
     toolA.rel = 'noopener';
     toolA.className = 'sidebar-chapter-link';
     toolA.innerHTML = '<span class="sidebar-ch-num">Tool</span>' +
-      '<span class="sidebar-ch-title">🔄 Cycle Simulators</span>';
+      '<span class="sidebar-ch-title">📊 Equation Simulator</span>';
     toolLi.appendChild(toolA);
     ul.appendChild(toolLi);
 
