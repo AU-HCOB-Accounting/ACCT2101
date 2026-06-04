@@ -72,6 +72,19 @@
       ul.appendChild(li);
     });
 
+    // Interactive tools (not chapters) — appears at the bottom of every page
+    var toolLi = document.createElement('li');
+    toolLi.className = 'sidebar-chapter sidebar-tool';
+    var toolA = document.createElement('a');
+    toolA.href = 'Accounting-Cycle-Simulators.html';
+    toolA.target = '_blank';
+    toolA.rel = 'noopener';
+    toolA.className = 'sidebar-chapter-link';
+    toolA.innerHTML = '<span class="sidebar-ch-num">Tool</span>' +
+      '<span class="sidebar-ch-title">🔄 Cycle Simulators</span>';
+    toolLi.appendChild(toolA);
+    ul.appendChild(toolLi);
+
     document.body.insertBefore(sidebar, document.body.firstChild);
 
     var toggle = document.createElement('button');
