@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprehensive Final Review – ACCT 2101</title>
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .review-banner{background:linear-gradient(135deg,var(--primary),var(--primary-light));
+      color:#fff;border-radius:var(--radius);padding:1.5rem 1.8rem;margin-bottom:1.5rem;
+      box-shadow:var(--shadow-md);font-family:'Helvetica Neue',Arial,sans-serif;}
+    .review-banner h2{font-size:1.05rem;letter-spacing:1px;text-transform:uppercase;
+      margin-bottom:1rem;color:#fff;border:none;padding:0;}
+    .review-banner .rb-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+    .review-banner .rb-card{background:rgba(255,255,255,0.10);border-radius:6px;padding:0.9rem 1.1rem;}
+    .review-banner .rb-card .rb-label{font-size:0.72rem;font-weight:700;letter-spacing:1.5px;
+      text-transform:uppercase;opacity:0.85;margin-bottom:0.4rem;}
+    .review-banner .rb-card .rb-date{font-size:1.05rem;font-weight:700;margin-bottom:0.4rem;}
+    .review-banner ul{list-style:none;margin:0;padding:0;font-size:0.86rem;line-height:1.7;}
+    .review-banner .rb-exam .rb-date{color:#ffd966;}
+    .review-banner a{color:#ffd966;}
+    .review-note{background:var(--bg-key);border-left:4px solid var(--accent-gold);
+      border-radius:var(--radius);padding:1rem 1.4rem;margin-bottom:1.5rem;font-size:0.92rem;}
+    .chapter-pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin:0 0 2rem;}
+    .chapter-pills a{font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.82rem;font-weight:600;
+      text-decoration:none;color:var(--primary);background:var(--bg-light);
+      border:1px solid var(--border-section);border-radius:20px;padding:0.4rem 0.9rem;transition:all .15s;}
+    .chapter-pills a:hover{background:var(--primary);color:#fff;}
+    .review-chapter{margin-top:2.5rem;padding-top:0.5rem;}
+    .review-body h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.55rem;font-weight:700;
+      color:#fff;background:var(--primary);border-radius:var(--radius) var(--radius) 0 0;
+      padding:0.7rem 1.1rem;margin:2.5rem 0 0;scroll-margin-top:1rem;}
+    .review-body h2 + *{border-top:3px solid var(--accent-gold);padding-top:1.2rem;}
+    .review-body h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.12rem;font-weight:700;
+      color:var(--primary-light);margin:1.8rem 0 0.7rem;padding-bottom:0.3rem;
+      border-bottom:1px solid var(--border-light);}
+    .review-body h3::before{content:"\25B8  ";color:var(--accent-gold);}
+    .review-body ul,.review-body ol{padding-left:1.4rem;margin-bottom:1rem;}
+    .review-body li{margin-bottom:0.45rem;text-align:left;}
+    .review-body p{text-align:left;}
+    .review-body pre{background:#fbfbfd;border:1px solid var(--border-light);
+      border-left:4px solid var(--primary-light);border-radius:6px;padding:0.9rem 1.1rem;
+      margin:0.8rem 0;overflow-x:auto;font-family:'Courier New',monospace;font-size:0.85rem;line-height:1.55;}
+    .review-body code{font-family:'Courier New',monospace;font-size:0.85em;
+      background:#eef2f7;color:#0d47a1;padding:0.1rem 0.35rem;border-radius:4px;}
+    .review-body pre code{background:none;color:inherit;padding:0;}
+    .review-body blockquote{background:#fff3e0;border-left:4px solid #e65100;border-radius:6px;
+      padding:0.9rem 1.2rem;margin:1rem 0;font-size:0.92rem;color:#5d4037;}
+    .review-body blockquote p{margin-bottom:0.4rem;}
+    .review-body table{font-size:0.88rem;}
+    .review-body h3:has(+ ul li:first-child) {}
+    .backtop{display:block;text-align:right;font-size:0.78rem;margin-top:0.6rem;}
+    .backtop a{color:var(--text-light);text-decoration:none;}
+    @media(max-width:768px){.review-banner .rb-grid{grid-template-columns:1fr;}}
+</style>
+  <script src="nav.js" defer></script>
+</head>
+<body class="has-sidebar">
+<div class="chapter-container" id="top">
+
+  <header class="chapter-header">
+    <div class="chapter-label">Comprehensive Final Review</div>
+    <h1 class="chapter-title">Chapters 9, 11, 12 & 13</h1>
+    <p class="chapter-subtitle">Plant Assets · Current Liabilities · Long-Term Liabilities · Stockholders' Equity</p>
+  </header>
+
+  <div class="review-banner">
+    <h2>Deadlines &amp; Exam</h2>
+    <div class="rb-grid">
+      <div class="rb-card rb-due">
+        <div class="rb-label">Assignments &amp; Quizzes Due</div>
+        <div class="rb-date">Monday, July 13 (11:59 PM)</div>
+        <ul><li>▸ Ch 9 — Graded Assignment &amp; Quiz #9</li><li>▸ Ch 11 — Graded Assignment &amp; Quiz #10</li><li>▸ Ch 12 — Graded Assignment &amp; Quiz #11</li><li>▸ Ch 13 — Graded Assignment &amp; Quiz #12</li></ul>
+        <div style="font-size:0.78rem;opacity:0.8;margin-top:0.5rem;">Quizzes &rarr; D2L &nbsp;|&nbsp; Assignments &rarr; MyAccountingLab. Late work is not accepted.</div>
+      </div>
+      <div class="rb-card rb-exam">
+        <div class="rb-label">Exam</div>
+        <div class="rb-date">Tuesday, July 14</div>
+        <ul><li>Comprehensive Final Exam — Ch. 1–9, 11, 12 &amp; 13</li></ul>
+        <div style="font-size:0.78rem;opacity:0.8;margin-top:0.5rem;">Based on Video Lectures 23–26.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="review-note">This page covers the <strong>new</strong> material (Chapters 9, 11, 12, 13). The Final is <strong>comprehensive</strong> — also review the <a href="exam1-review.html">Exam&nbsp;1</a>, <a href="exam2-review.html">Exam&nbsp;2</a>, and <a href="exam3-review.html">Exam&nbsp;3</a> review pages and the full <a href="index.html">Study Guide</a> for Chapters 1–8.</div>
+
+  <p style="font-size:0.93rem;color:var(--text-secondary);">
+    This is a <strong>transcript-based review summary</strong> built directly from the video lectures &mdash;
+    it highlights the concepts, formulas, journal entries, common mistakes, and exam checkpoints I emphasize in class.
+    It is a quick-reference companion to the lectures and the full
+    <a href="index.html">Interactive Study Guide</a>, not a replacement for the Pearson textbook.
+  </p>
+
+  <div class="chapter-pills"><a href="#ch9">Ch 9</a><a href="#ch11">Ch 11</a><a href="#ch12">Ch 12</a><a href="#ch13">Ch 13</a></div>
+
+  <section class="review-chapter review-body"><h2 id="ch9">Chapter 9 — Plant Assets, Natural Resources, and Intangibles</h2>
+<blockquote>
+<p><strong>Scope note (from the professor):</strong> This chapter has many learning objectives, but for ACCT 2101 we focus on <strong>LO 1, 2, and 6 only</strong>. In practice that means: (1) measuring the <strong>cost of PP&amp;E</strong>, (2) computing <strong>depreciation</strong> by all three methods (plus partial-year), and (6) the <strong>asset turnover ratio</strong> — capped off by a conceptual look at <strong>disposal</strong>. The professor explicitly <strong>skipped natural resources/depletion and intangibles/amortization/goodwill</strong> as too advanced for this course, so they are not testable from lecture. Study the items below.</p>
+</blockquote>
+<h3>Key Concepts</h3>
+<p><strong>The three tests for PP&amp;E (Property, Plant, and Equipment).</strong> An asset must meet <strong>all three</strong> to be PP&amp;E:</p>
+<ol>
+<li><strong>Long-term (non-current)</strong> — not converted to cash within one year / one operating cycle.</li>
+<li><strong>Tangible</strong> — has physical substance (you can touch and see it).</li>
+<li><strong>Used in operations</strong> — actively used in the business. A long-term tangible asset <em>not</em> used in operations is a <strong>long-term investment / other asset</strong>, NOT PP&amp;E (e.g., land bought but never used for business).</li>
+</ol>
+<p><strong>Life cycle of a plant asset (the spine of the chapter):</strong> (1) <strong>Acquisition</strong> → (2) <strong>Usage</strong> (depreciation) → (3) <strong>Disposal</strong>.</p>
+<p><strong>Cost Principle / Capitalization.</strong> A plant asset is recorded at <strong>historical cost</strong> = purchase price <strong>plus all costs to get the asset ready for its intended use</strong>. Every such related cost is <strong>capitalized</strong> (debited to the asset, not expensed).</p>
+<ul>
+<li><strong>Land cost</strong> includes: purchase price, brokerage commissions, survey &amp; legal fees, <strong>delinquent property taxes</strong>, title transfer fees, and <strong>cost of clearing/removing an old building</strong>. (Don't memorize the list — understand the "ready for intended use" concept.)</li>
+<li><strong>Buildings:</strong> if <em>constructed</em> → architectural fees, permits, contractor charges, materials/labor. If <em>purchased</em> → purchase price + renovation costs.</li>
+<li><strong>Machinery &amp; Equipment:</strong> purchase price (less discounts), transportation/freight, insurance <strong>in transit</strong>, sales tax, purchase commission, <strong>installation</strong>, and <strong>testing</strong> costs. (Professor emphasized installation &amp; testing — needed to get it running, so capitalized.)</li>
+<li><strong>Furniture &amp; Fixtures:</strong> purchase price + costs to ready it (shipping, assembly).</li>
+</ul>
+<p><strong>Land vs. Land Improvements (key distinction).</strong></p>
+<ul>
+<li><strong>Land</strong> = permanent, <strong>infinite life → NEVER depreciated.</strong></li>
+<li><strong>Land Improvements</strong> (fences, paving, lighting, signs) = <strong>limited life → ARE depreciated</strong>, in a separate account.</li>
+</ul>
+<p><strong>Lump-sum (basket) purchase.</strong> One price for several assets together (usually a discount). Must split the price into separate accounts using the <strong>relative-market-value method</strong>: allocate by each asset's % of <em>total appraised fair market value</em>. Total debits = price <strong>actually paid</strong>, not total appraised value.</p>
+<p><strong>Capital vs. Revenue expenditures (during usage).</strong></p>
+<ul>
+<li><strong>Capital expenditure</strong> (extraordinary repair) — increases capacity/efficiency or <strong>extends useful life</strong> → <strong>capitalize (debit the asset).</strong> Ex: $3,000 to rebuild a truck engine → debit Truck.</li>
+<li><strong>Revenue expenditure</strong> (ordinary repair) — routine maintenance, keeps asset in normal working order → <strong>expense now.</strong> Ex: $500 to replace tires → debit Repairs &amp; Maintenance Expense.</li>
+</ul>
+<p><strong>Depreciation = allocation, not valuation.</strong> A <strong>systematic and rational</strong> process of allocating an asset's cost to expense over its useful life. Driven by the <strong>matching principle</strong>. It is NOT about fair market value and has <strong>nothing to do with cash</strong>. All plant assets <strong>except land</strong> are depreciated; assets can also become <strong>obsolete</strong> before physically wearing out.</p>
+<p><strong>Three depreciation factors:</strong> (1) <strong>Capitalized Cost</strong> — a known fact; (2) <strong>Estimated Useful Life</strong> — an estimate; (3) <strong>Estimated Residual (Salvage) Value</strong> — an estimate. Only cost is certain.</p>
+<p><strong>Two terms students confuse:</strong></p>
+<ul>
+<li><strong>Depreciable Cost = Cost − Residual Value</strong> → the <em>maximum total</em> depreciation over the asset's whole life (does not change).</li>
+<li><strong>Book Value = Cost − Accumulated Depreciation</strong> → decreases every year. At end of life, accumulated dep. = depreciable cost, so <strong>book value = residual value</strong>.</li>
+</ul>
+<p><strong>Asset Turnover Ratio (LO 6).</strong> Net sales generated per average dollar of total assets — measures efficiency; <strong>higher is better.</strong> Uses <em>average</em> total assets because the balance sheet is a point-in-time snapshot while sales span the whole year.</p>
+<p><strong>Disposal (conceptual).</strong> Sell/discard an asset: (1) <strong>update depreciation to the disposal date</strong>; (2) remove the asset (credit asset at cost) and its <strong>Accumulated Depreciation</strong> (debit); (3) the cash rarely equals book value, so <strong>plug</strong> with a Gain or Loss.</p>
+<h3>Key Formulas &amp; Rules</h3>
+<p><strong>Straight-Line (equal each year):</strong></p>
+<pre><code>Straight-Line Dep. = (Cost − Residual Value) ÷ Useful Life
+</code></pre>
+<p><strong>Units-of-Production (varies with usage):</strong></p>
+<pre><code>Step 1: Dep. per Unit = (Cost − Residual Value) ÷ Total Estimated Units
+Step 2: Dep. Expense  = Dep. per Unit × Actual Units Used This Year
+</code></pre>
+<p><strong>Double-Declining-Balance (accelerated — front-loaded):</strong></p>
+<pre><code>DDB Dep. = Beginning Book Value × (2 ÷ Useful Life)
+   where Beginning Book Value = Cost − Accumulated Depreciation
+</code></pre>
+<ul>
+<li><strong>Residual value is NOT subtracted</strong> in the DDB formula (the one method that ignores it up front).</li>
+<li><strong>Final-year plug:</strong> if the formula would push book value below residual value, STOP and use <strong>Final-Year Dep. = Beginning Book Value − Residual Value</strong> to land exactly on residual value.</li>
+</ul>
+<p><strong>Partial-year depreciation (modified half-month convention — NOT formal GAAP, just a consistent convention):</strong></p>
+<pre><code>Partial-Year Dep. = Annual Dep. × (Months in Service ÷ 12)
+</code></pre>
+<ul>
+<li>Purchased <strong>on/before the 15th</strong> → count that whole month. Purchased <strong>after the 15th</strong> → skip that month, start next month. Also applies to disposals (depreciate only to disposal date).</li>
+</ul>
+<p><strong>Revised estimate (textbook supplement):</strong></p>
+<pre><code>Revised Dep. = (Remaining Book Value − New Residual Value) ÷ New Remaining Useful Life
+</code></pre>
+<p>Applied to <strong>current &amp; future years only</strong> — prior years are never restated.</p>
+<p><strong>Asset Turnover Ratio:</strong></p>
+<pre><code>Asset Turnover = Net Sales Revenue ÷ Average Total Assets
+Average Total Assets = (Beginning Total Assets + Ending Total Assets) ÷ 2
+</code></pre>
+<blockquote>
+<p><strong>Depletion / Amortization (terminology only — out of scope for this lecture):</strong> Natural resources (mines, oil) use <strong>depletion</strong>, computed like units-of-production: <code>Depletion per Unit = (Cost − Residual) ÷ Total Estimated Units</code>. Intangibles with limited life use <strong>amortization</strong> (usually straight-line). <strong>Goodwill</strong> and indefinite-life intangibles are <strong>not amortized</strong> but tested for impairment. The professor did not cover these computationally — do not expect lecture-based problems on them.</p>
+</blockquote>
+<h3>Journal Entry Examples</h3>
+<p>All examples use the professor's running numbers (<strong>Smart Touch Learning</strong> truck: Cost $41,000, Residual $1,000, Life 5 yrs).</p>
+<p><strong>1) Acquisition — Land (Aug. 1: $50,000 note + $12,000 cash costs = $62,000):</strong></p>
+<pre><code>Dr. Land                       62,000
+   Cr. Notes Payable                 50,000
+   Cr. Cash                          12,000
+   (delinquent taxes $4,000 + transfer $2,000 + clearing $5,000 + survey $1,000)
+</code></pre>
+<p><strong>2) Lump-sum purchase — $100,000 for land + building (FMV 30k/90k → 25%/75%):</strong></p>
+<pre><code>Dr. Land                       25,000
+Dr. Building                   75,000
+   Cr. Notes Payable                100,000
+</code></pre>
+<p><strong>3) Capital vs. revenue expenditure:</strong></p>
+<pre><code>Dr. Truck                       3,000     (capital exp. — engine rebuild, extends life)
+   Cr. Cash                          3,000
+
+Dr. Repairs and Maintenance Exp.  500     (revenue exp. — tires, routine)
+   Cr. Cash                            500
+</code></pre>
+<p><strong>4) Depreciation — Straight-Line ($8,000/yr), recorded each Dec. 31:</strong></p>
+<pre><code>Dr. Depreciation Expense—Truck       8,000
+   Cr. Accumulated Depreciation—Truck     8,000
+</code></pre>
+<p><strong>5) Partial-year depreciation (truck in service July 1 → 6/12 × $8,000):</strong></p>
+<pre><code>Dr. Depreciation Expense—Truck       4,000
+   Cr. Accumulated Depreciation—Truck     4,000
+</code></pre>
+<p><strong>6) Disposal at a GAIN</strong> — sold after 3 yrs (Accum. Dep. $24,000, BV $17,000) for $20,000:</p>
+<pre><code>Dr. Cash                           20,000
+Dr. Accumulated Depreciation—Truck 24,000
+   Cr. Truck                            41,000
+   Cr. Gain on Disposal                  3,000   (cash $20k &gt; BV $17k)
+</code></pre>
+<p><strong>7) Disposal at a LOSS</strong> — same asset, sold for only $14,000:</p>
+<pre><code>Dr. Cash                           14,000
+Dr. Accumulated Depreciation—Truck 24,000
+Dr. Loss on Disposal                3,000        (cash $14k &lt; BV $17k)
+   Cr. Truck                            41,000
+</code></pre>
+<h3>Common Mistakes</h3>
+<ul>
+<li><strong>Expensing capitalizable costs.</strong> Brokerage, survey, installation, testing, clearing, freight, etc. are part of the asset's cost — capitalize them, don't expense.</li>
+<li><strong>Depreciating land.</strong> Land is <strong>never</strong> depreciated. Watch for <strong>Land Improvements</strong> hidden in a problem (fences/paving/lights) — those ARE depreciated.</li>
+<li><strong>Recording basket assets at appraised value.</strong> FMV is only used for the <strong>ratio</strong>. Total debits = price actually paid ($100,000), not total appraisal ($120,000).</li>
+<li><strong>Capital vs. revenue mix-up.</strong> Wrong classification overstates/understates both net income and assets. Ask: "Does it extend life or boost capacity?" Yes → capitalize; No → expense.</li>
+<li><strong>DDB: subtracting residual value in the formula.</strong> DDB does NOT subtract residual — multiply <em>full</em> book value × (2 ÷ life) in year 1.</li>
+<li><strong>DDB: missing the final-year plug.</strong> Mechanically applying the rate in the last year drops BV below residual. Use <strong>Beginning BV − Residual</strong> instead. (Professor: "the most common mistake students make.")</li>
+<li><strong>Book value computed off the prior year's book value.</strong> Always <strong>BV = original Cost − total Accumulated Depreciation</strong>, not last year's BV minus this year's expense.</li>
+<li><strong>Forgetting to update depreciation before disposal.</strong> Catch up depreciation to the disposal date first, or the gain/loss is wrong.</li>
+<li><strong>Gain/loss direction.</strong> Cash <strong>&gt;</strong> BV = <strong>Gain (credit)</strong>; Cash <strong>&lt;</strong> BV = <strong>Loss (debit)</strong>. Compare to <strong>book value</strong>, not to cost.</li>
+<li><strong>Asset turnover using ending (not average) assets</strong>, or forgetting to divide by 2.</li>
+</ul>
+<h3>Exam Checklist</h3>
+<ul>
+<li>☐ State the <strong>3 tests</strong> for PP&E; classify land "bought but unused" correctly (investment, not PP&amp;E).</li>
+<li>☐ Build an asset's <strong>capitalized cost</strong> from a list of charges (know what's in vs. out).</li>
+<li>☐ <strong>Land vs. Land Improvements</strong> — which depreciates, which doesn't.</li>
+<li>☐ Do a <strong>lump-sum allocation</strong> by relative market value; debit each asset its share of the <strong>price paid</strong>.</li>
+<li>☐ Classify and journalize <strong>capital vs. revenue expenditures</strong>.</li>
+<li>☐ Compute <strong>Depreciable Cost</strong> vs. <strong>Book Value</strong> and explain the difference.</li>
+<li>☐ Compute and journalize <strong>Straight-Line</strong> depreciation and build the schedule (BV ends at residual).</li>
+<li>☐ Compute <strong>Units-of-Production</strong>: per-unit rate × actual units; schedule.</li>
+<li>☐ Compute <strong>DDB</strong>: rate = 2 ÷ life, no residual up front, and the <strong>final-year plug</strong> to residual.</li>
+<li>☐ Recognize all three methods give the <strong>same total depreciation</strong> ($40,000 here) — only timing differs.</li>
+<li>☐ Prorate <strong>partial-year</strong> depreciation (×months/12; half-month convention rule).</li>
+<li>☐ Record <strong>disposal</strong> at a gain AND at a loss (update dep. → remove cost &amp; accum. dep. → plug gain/loss).</li>
+<li>☐ Compute the <strong>Asset Turnover Ratio</strong> = Net Sales ÷ Average Total Assets; interpret higher = better.</li>
+<li>☐ Remember Land is reported at full cost (no accumulated depreciation) on the balance sheet.</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section><section class="review-chapter review-body"><h2 id="ch11">Chapter 11 — Current Liabilities</h2>
+<p><em>Exam-review summary. Note: the professor dropped the payroll-transactions learning objective (LO 2) as too complicated, so detailed payroll journal entries are not tested. Everything else in the chapter is fair game.</em></p>
+<h3>Key Concepts</h3>
+<p><strong>What a liability is.</strong> A debt owed to creditors. Three characteristics: (1) arises from a <strong>past</strong> transaction/event, (2) creates a <strong>present obligation</strong> to pay cash or provide a service, (3) is <strong>unavoidable</strong>. Settled by either <strong>paying cash</strong> or <strong>providing a service</strong>.</p>
+<p><strong>Current vs. long-term.</strong> Current liabilities must be paid within <strong>one year OR the operating cycle, whichever is longer</strong>. Long-term (non-current) liabilities — long-term notes payable, mortgage payable, bonds payable — fall outside that window (Chapter 12).</p>
+<p><strong>Three categories of current liabilities (by certainty of amount):</strong></p>
+<ol>
+<li><strong>Known amount</strong> — accounts payable (from purchases), sales tax payable (from sales), unearned revenue (from customer advances), short-term notes payable (from issuing a note), income tax payable, current portion of long-term debt.</li>
+<li><strong>Estimated amount</strong> — exists for sure, but exact dollar amount unknown: bonus plans, vacation pay, health/pension benefits, warranties.</li>
+<li><strong>Contingent</strong> — depends on a future event: lawsuits, etc.</li>
+</ol>
+<p><strong>Three guiding questions</strong> the professor asks for every liability: (1) How do we settle it — cash or service? (2) How do we calculate interest (if any)? (3) How and when do we record it?</p>
+<p><strong>Sales tax vs. income tax — the key distinction.</strong> Sales tax is <strong>NOT an expense</strong>; the company is just a collection agent that remits it to the government. Income tax <strong>IS a true expense</strong> because it is levied on the company's own income.</p>
+<p><strong>Notes payable — maker vs. payee.</strong> The <strong>maker/issuer</strong> borrows money → records <strong>Notes Payable</strong> (this chapter's focus). The <strong>payee</strong> lends → records Notes Receivable. Notes Payable is always recorded and removed at <strong>face value</strong>; accrued interest sits in a <strong>separate Interest Payable</strong> account.</p>
+<p><strong>Unearned revenue</strong> is settled only by <strong>providing the promised service</strong>, never by paying cash back. Recognize revenue only as the performance obligation is satisfied.</p>
+<p><strong>Warranties &amp; the matching principle.</strong> Record Warranty Expense in the <strong>same period as the related sales revenue</strong> (estimated from historical data at the point of sale) — not when claims come in later. Conceptually parallel to Accounts Receivable / Allowance for Bad Debts / Bad Debt Expense from Chapter 8.</p>
+<p><strong>Contingent liability</strong> = a potential liability depending on a future event. Treatment depends entirely on <strong>likelihood</strong> (remote / reasonably possible / probable).</p>
+<p><strong>Times-interest-earned (interest-coverage) ratio</strong> measures ability to pay interest expense. High = easily covers interest; below 1 = not enough operating income to cover interest (distress).</p>
+<h3>Key Formulas &amp; Rules</h3>
+<p><strong>Interest on a note:</strong></p>
+<blockquote>
+<p><strong>Interest = Principal × Annual Rate × Time</strong>
+- The rate is <strong>almost always ANNUAL</strong>. Time must be a <strong>fraction of a year</strong>.
+- Term in <strong>days</strong> → days / <strong>365</strong> (e.g., 90/365).
+- Term in <strong>months</strong> → months / <strong>12</strong> (e.g., 9/12).
+- Quick checks: $2,000 × 10% × 9/12 = <strong>$150</strong>;  $5,000 × 12% × 60/365 = <strong>$98.63</strong>.</p>
+</blockquote>
+<p><strong>Bonus (when bonus = % of net income AFTER the bonus):</strong></p>
+<blockquote>
+<p><strong>Bonus = (Net Income Before Bonus × Bonus %) ÷ (1 + Bonus %)</strong>
+- Example: ($315,000 × 0.05) ÷ 1.05 = <strong>$15,000</strong>.</p>
+</blockquote>
+<p><strong>Warranty estimate:</strong> Warranty Expense = Warranty % × Sales. Example: 3% × $50,000 = <strong>$1,500</strong>.</p>
+<p><strong>Contingent-liability recognition rules:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Likelihood</th>
+<th>Accrue (record)?</th>
+<th>Disclose in notes?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Remote</strong></td>
+<td>No</td>
+<td>No (do nothing)</td>
+</tr>
+<tr>
+<td><strong>Reasonably possible</strong></td>
+<td>No</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td><strong>Probable, amount NOT estimable</strong></td>
+<td>No</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td><strong>Probable AND estimable</strong></td>
+<td><strong>Yes</strong></td>
+<td><strong>Yes</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Rule of thumb: accrue <strong>only</strong> when <strong>both probable and reasonably estimable</strong>.</p>
+<p><strong>Times-interest-earned ratio:</strong></p>
+<blockquote>
+<p><strong>Times-Interest-Earned = (Net Income + Income Tax Expense + Interest Expense) ÷ Interest Expense</strong>
+- Numerator = <strong>EBIT</strong> (Earnings Before Interest and Taxes) = Operating Income. Add tax and interest back because we want earnings available <strong>before</strong> interest was paid (and tax is computed after interest).
+- Kohl's 2016: ($673 + $384 + $327) ÷ $327 = $1,384 ÷ $327 = <strong>4.23</strong>.
+- Kohl's 2015: ($867 + $482 + $340) ÷ $340 = <strong>4.97</strong>. Both well above 1 = strong ability to pay interest.</p>
+</blockquote>
+<h3>Journal Entry Examples</h3>
+<p><strong>Sales tax payable</strong> — Dec. sales $10,000, 6% tax = $600; customer pays $10,600:</p>
+<pre><code>Dr. Cash                 10,600
+   Cr. Sales Revenue              10,000
+   Cr. Sales Tax Payable             600
+</code></pre>
+<p>Remitting to the government:</p>
+<pre><code>Dr. Sales Tax Payable       600
+   Cr. Cash                          600
+</code></pre>
+<p><strong>Income tax payable</strong> — estimated $3,780 (income tax IS an expense):</p>
+<pre><code>Dr. Income Tax Expense    3,780
+   Cr. Income Tax Payable          3,780
+</code></pre>
+<p>When paid next year: Dr. Income Tax Payable 3,780 / Cr. Cash 3,780.</p>
+<p><strong>Unearned revenue</strong> — receive $900 in advance May 21:</p>
+<pre><code>Dr. Cash                    900
+   Cr. Unearned Revenue              900
+</code></pre>
+<p>Deliver 1/3 of work, earn $300:</p>
+<pre><code>Dr. Unearned Revenue        300
+   Cr. Service Revenue               300
+</code></pre>
+<p><strong>Short-term note payable for inventory</strong> — May 1, 90-day, 10%, $8,000:</p>
+<pre><code>Dr. Merchandise Inventory  8,000
+   Cr. Notes Payable               8,000
+</code></pre>
+<p>At maturity (Jul. 30); interest = $8,000 × 10% × 90/365 ≈ <strong>$197</strong>, total cash $8,197:</p>
+<pre><code>Dr. Notes Payable          8,000
+Dr. Interest Expense         197
+   Cr. Cash                        8,197
+</code></pre>
+<p><strong>Note payable to borrow cash, spanning two periods</strong> — Nov. 1, borrow $10,000 from First Street Bank, 6%, 5 months:</p>
+<pre><code>Dr. Cash                  10,000
+   Cr. Notes Payable              10,000
+</code></pre>
+<p>Dec. 31 year-end accrual; interest = $10,000 × 6% × 2/12 = <strong>$100</strong>:</p>
+<pre><code>Dr. Interest Expense         100
+   Cr. Interest Payable             100
+</code></pre>
+<p>Apr. 1 maturity; total interest = $10,000 × 6% × 5/12 = $250 ($100 already accrued, $150 current year), pay $10,250:</p>
+<pre><code>Dr. Notes Payable         10,000
+Dr. Interest Payable         100
+Dr. Interest Expense         150
+   Cr. Cash                       10,250
+</code></pre>
+<p><strong>Bonus payable</strong> — year-end, $15,000 (from formula):</p>
+<pre><code>Dr. Employee Bonus Expense  15,000
+   Cr. Employee Bonus Payable      15,000
+</code></pre>
+<p><strong>Vacation benefits</strong> — $1,000/month accrual:</p>
+<pre><code>Dr. Vacation Benefits Expense  1,000
+   Cr. Vacation Benefits Payable      1,000
+</code></pre>
+<p><strong>Warranty — estimate at time of sale</strong> (3% × $50,000 = $1,500):</p>
+<pre><code>Dr. Warranty Expense       1,500
+   Cr. Estimated Warranty Payable   1,500
+</code></pre>
+<p><strong>Warranty — honoring a claim</strong> (June 27, $800 replacement goods; NO new expense):</p>
+<pre><code>Dr. Estimated Warranty Payable  800
+   Cr. Merchandise Inventory          800
+</code></pre>
+<p><strong>Contingent liability — probable &amp; estimable</strong> (Scorsese Inc. lawsuit, $900,000):</p>
+<pre><code>Dr. Lawsuit Loss          900,000
+   Cr. Lawsuit Liability          900,000
+</code></pre>
+<p>If not probable → no entry (disclose in notes only if reasonably possible).</p>
+<p><em>(Payroll JEs are NOT tested — LO 2 was dropped by the professor.)</em></p>
+<h3>Common Mistakes</h3>
+<ul>
+<li><strong>Treating sales tax as revenue or as an expense.</strong> It is neither — only the $10,000 is revenue; the $600 is a <strong>liability</strong>. Sales tax is never an expense.</li>
+<li><strong>Confusing sales tax with income tax.</strong> Income tax IS an expense; sales tax is not.</li>
+<li><strong>Using the stated rate as the period rate.</strong> A "10% note" is <strong>10% per year</strong>, not 10% over 90 days. Always multiply by the time fraction.</li>
+<li><strong>Wrong denominator for time.</strong> Days → /365, months → /12. Mixing these up is a classic error.</li>
+<li><strong>Recording interest inside Notes Payable.</strong> Principal stays in <strong>Notes Payable</strong> (at face value); accrued interest goes to <strong>Interest Payable</strong>, separately.</li>
+<li><strong>Forgetting the year-end interest accrual</strong> on a note that spans two periods — the matching principle requires it, even though no cash is paid yet.</li>
+<li><strong>Double-counting warranty expense.</strong> Expense is recorded <strong>at the sale</strong> (estimate). When a claim is honored, only reduce the liability (Dr. Estimated Warranty Payable / Cr. Merchandise Inventory) — <strong>no second expense</strong>.</li>
+<li><strong>Settling unearned revenue with cash.</strong> It is settled by <strong>performing the service</strong>, recognizing revenue as the obligation is satisfied.</li>
+<li><strong>Bonus formula:</strong> dividing by the wrong base. When bonus is "% of income AFTER the bonus," divide by <strong>(1 + bonus %)</strong>. Don't just take 5% × net income.</li>
+<li><strong>Contingent liabilities:</strong> accruing when only "reasonably possible," or accruing "probable" cases that can't be estimated. Accrue <strong>only when probable AND estimable</strong>.</li>
+<li><strong>TIE ratio:</strong> forgetting to <strong>add back</strong> income tax and interest to net income, or using net income alone in the numerator.</li>
+</ul>
+<h3>Exam Checklist</h3>
+<ul>
+<li>☐ Define a liability (3 characteristics) and the current-vs-long-term cutoff (1 year <strong>or</strong> operating cycle, whichever is longer).</li>
+<li>☐ Classify a given liability as known / estimated / contingent.</li>
+<li>☐ Record sales tax (sale + remittance); know it's a liability, not an expense.</li>
+<li>☐ Record income tax payable; know it IS an expense (contrast with sales tax).</li>
+<li>☐ Record unearned revenue and recognize it as the service is performed.</li>
+<li>☐ Compute note interest with <strong>P × R × T</strong>; pick the right time fraction (/365 vs /12).</li>
+<li>☐ Journalize a note: issuance, year-end accrual (Interest Payable), and payment at maturity across two periods.</li>
+<li>☐ Distinguish maker (Notes Payable) vs. payee (Notes Receivable); record principal at face value.</li>
+<li>☐ Identify and reclassify the <strong>current portion of long-term debt</strong>.</li>
+<li>☐ Apply the <strong>bonus formula</strong> (÷ (1 + bonus %)) and record the bonus.</li>
+<li>☐ Accrue vacation/benefits (numbers given).</li>
+<li>☐ Warranty two-step: estimate/expense at sale, reduce liability at claim (no new expense).</li>
+<li>☐ Apply the contingent-liability table (remote / reasonably possible / probable / probable &amp; estimable).</li>
+<li>☐ Compute and interpret the <strong>times-interest-earned ratio</strong> (EBIT ÷ interest expense); know above-1 = healthy.</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section><section class="review-chapter review-body"><h2 id="ch12">Chapter 12 — Long-Term Liabilities</h2>
+<blockquote>
+<p><strong>Professor's emphasis (read this first):</strong> This is a short chapter. The professor <em>crossed out almost all of the bonds-payable learning objectives</em> — bonds are only covered at a foundational level (issued <strong>at par</strong>). He explicitly said he is <strong>NOT</strong> doing premium/discount amortization in detail (that's an upper-level topic). The <strong>majority of the lecture, and the exam weight, is on long-term NOTES PAYABLE and MORTGAGES PAYABLE — building/reading amortization schedules and journalizing installment payments.</strong> Spend your study time there.</p>
+</blockquote>
+<h3>Key Concepts</h3>
+<ul>
+<li>
+<p><strong>Long-term liabilities</strong> = obligations NOT due within one year (or one operating cycle, whichever is longer). Reported in the long-term liability section of the balance sheet. Three types: <strong>(1) Bonds Payable, (2) Long-Term Notes Payable, (3) Mortgages Payable.</strong></p>
+</li>
+<li>
+<p><strong>Bonds Payable (foundational only):</strong> A bond is like a big promissory note. It has a <strong>par value (face value)</strong> — the principal repaid at maturity — and a <strong>coupon rate (stated rate)</strong> — the % interest the issuer promises to pay each period. Company issues bond → receives cash → credits Bonds Payable. Pays periodic interest = par × coupon rate. At maturity: pays final interest <strong>plus</strong> repays full par value, clearing the liability.</p>
+</li>
+<li>
+<p><strong>Stated (coupon) vs. Market rate</strong> — determines issue price:</p>
+</li>
+<li>Coupon = Market → bond issued <strong>at PAR</strong> (cash received = face value). <em>This is the only case the professor actually works.</em></li>
+<li>Coupon &lt; Market → bond issued at a <strong>DISCOUNT</strong> (cash received &lt; face) — investors demand more, so they pay less.</li>
+<li>Coupon &gt; Market → bond issued at a <strong>PREMIUM</strong> (cash received &gt; face) — bond pays better than market, so investors pay more.</li>
+<li>
+<p><em>(Professor mentions premium/discount exist but does NOT do the journal entries/amortization — don't over-study this.)</em></p>
+</li>
+<li>
+<p><strong>Long-Term Notes Payable:</strong> Borrow money, pay interest. Issuance entry is identical to a bond (Dr. Cash / Cr. Notes Payable). Repaid either as a <strong>lump sum at maturity</strong> or through <strong>serial installments</strong> that pay down principal over time. Interest must always be <strong>accrued over time</strong> regardless of repayment structure.</p>
+</li>
+<li>
+<p><strong>Amortization schedule:</strong> A table that splits each payment into <strong>interest</strong> (cost of borrowing) and <strong>principal</strong> (debt reduction), and tracks <strong>beginning</strong> and <strong>ending balance</strong> each period. Core skill for this chapter.</p>
+</li>
+<li><strong>Interest is ALWAYS computed on the BEGINNING balance</strong> of the period: <code>Beginning Balance × Rate × Time</code>.</li>
+<li>
+<p>In the <strong>note example</strong>, the <strong>principal payment is FIXED ($5,000/yr)</strong>, so the <strong>total cash payment DECREASES</strong> each year (because interest shrinks as the balance falls).</p>
+</li>
+<li>
+<p><strong>Mortgages Payable:</strong> A note payable <strong>secured by a specific asset</strong> (e.g., a building). Two key differences vs. a plain note: <strong>(1) secured</strong> by the property (lender can seize on default); <strong>(2) the TOTAL cash payment is FIXED</strong> each period.</p>
+</li>
+<li>Because the <strong>total payment is fixed</strong> while the balance falls: <strong>interest portion DECREASES</strong> and <strong>principal portion INCREASES</strong> over time. (Early payments are mostly interest; late payments are mostly principal.)</li>
+<li>
+<p>Record the asset and the financing at inception: Dr. Building / Cr. Cash (down payment) / Cr. Mortgage Payable (borrowed amount).</p>
+</li>
+<li>
+<p><strong>Debt to Equity Ratio:</strong> Measures <strong>financial leverage</strong> — how much of the assets are financed by debt vs. equity. Ratio <strong>&gt; 1</strong> = more debt than equity (higher leverage, higher risk).</p>
+</li>
+</ul>
+<h3>Key Formulas &amp; Rules</h3>
+<ul>
+<li><strong>Bond interest payment (at par):</strong> <code>Interest = Par Value × Coupon Rate</code></li>
+<li>
+<p>Example: $10,000,000 × 6% = <strong>$600,000</strong> per period.</p>
+</li>
+<li>
+<p><strong>Issue price rule (stated vs. market):</strong></p>
+</li>
+<li>Coupon <strong>=</strong> Market → <strong>Par</strong> (cash = face)</li>
+<li>Coupon <strong>&lt;</strong> Market → <strong>Discount</strong> (cash &lt; face)</li>
+<li>
+<p>Coupon <strong>&gt;</strong> Market → <strong>Premium</strong> (cash &gt; face)</p>
+</li>
+<li>
+<p><strong>Amortization — interest expense (THE key formula):</strong>
+  <code>Interest Expense = Beginning Balance × Interest Rate × Time</code></p>
+</li>
+<li>
+<p>Annual note, annual payment → Time = 1.</p>
+</li>
+<li>
+<p><strong>Monthly mortgage → use monthly rate = Annual Rate ÷ 12</strong> (i.e., × 1/12).</p>
+</li>
+<li>
+<p><strong>Note (fixed principal):</strong> Total Payment = Fixed Principal + Interest on beginning balance. Ending Balance = Beginning Balance − <strong>Principal only</strong> (interest does NOT reduce the balance).</p>
+</li>
+<li>
+<p><strong>Mortgage (fixed total payment):</strong> Principal Reduction = Fixed Payment − Interest. Ending Balance = Beginning Balance − Principal Reduction.</p>
+</li>
+<li>
+<p><strong>Debt to Equity Ratio = Total Liabilities ÷ Total Equity</strong> (&gt; 1 = debt-heavy / leveraged).</p>
+</li>
+<li>
+<p><strong>Excel (practical, "not required for exam"):</strong> <code>=PMT(rate, nper, pv, fv)</code> — rate = annual ÷ 12 for monthly, pv entered as negative. Goal Seek can also solve the payment by setting the final balance cell to 0.</p>
+</li>
+</ul>
+<h3>Journal Entry Examples</h3>
+<p><strong>A. Bond issued AT PAR — $10,000,000, 6% coupon (= market rate)</strong></p>
+<ul>
+<li><em>Issuance:</em>  <code>Dr. Cash 10,000,000 / Cr. Bonds Payable 10,000,000</code></li>
+<li><em>Each interest payment:</em>  <code>Dr. Interest Expense 600,000 / Cr. Cash 600,000</code></li>
+<li><em>At maturity (final interest + repay principal):</em>
+  <code>Dr. Interest Expense 600,000</code>
+  <code>Dr. Bonds Payable 10,000,000</code>
+  <code>Cr. Cash 10,600,000</code></li>
+</ul>
+<blockquote>
+<p><em>Discount/premium bond entries are NOT covered by the professor — skip the amortization-of-discount/premium journal entries.</em></p>
+</blockquote>
+<p><strong>B. Long-Term Note Payable — Smart Touch Learning, $20,000, 6%, four $5,000 annual installments</strong></p>
+<p>Amortization schedule (interest on beginning balance, fixed $5,000 principal):</p>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Beg. Bal</th>
+<th>Interest (6%)</th>
+<th>Principal</th>
+<th>Total Pmt</th>
+<th>End Bal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2018 issue</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>$20,000</td>
+</tr>
+<tr>
+<td>Yr 1</td>
+<td>$20,000</td>
+<td>$1,200</td>
+<td>$5,000</td>
+<td><strong>$6,200</strong></td>
+<td>$15,000</td>
+</tr>
+<tr>
+<td>Yr 2</td>
+<td>$15,000</td>
+<td>$900</td>
+<td>$5,000</td>
+<td>$5,900</td>
+<td>$10,000</td>
+</tr>
+<tr>
+<td>Yr 3</td>
+<td>$10,000</td>
+<td>$600</td>
+<td>$5,000</td>
+<td>$5,600</td>
+<td>$5,000</td>
+</tr>
+<tr>
+<td>Yr 4</td>
+<td>$5,000</td>
+<td>$300</td>
+<td>$5,000</td>
+<td>$5,300</td>
+<td>$0</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><em>Issuance (Dec 31, 2018):</em>  <code>Dr. Cash 20,000 / Cr. Notes Payable 20,000</code></li>
+<li><em>First installment payment ($5,000 principal + $1,200 interest = $6,200):</em>
+  <code>Dr. Interest Expense 1,200</code>
+  <code>Dr. Notes Payable 5,000</code>
+  <code>Cr. Cash 6,200</code></li>
+</ul>
+<p><strong>C. Mortgage Payable — Smart Touch Learning, building $150,000; $49,925 cash down + $100,075 mortgage, 30 yr / 360 monthly pmts of $599.98 @ 6%</strong></p>
+<ul>
+<li><em>Purchase (Dec 31, 2018):</em>
+  <code>Dr. Building 150,000</code>
+  <code>Cr. Cash 49,925</code>
+  <code>Cr. Mortgage Payable 100,075</code></li>
+</ul>
+<p>First-month math: interest = $100,075 × 6% × 1/12 = <strong>$500.38</strong>; principal = $599.98 − $500.38 = <strong>$99.60</strong>; ending bal = $99,975.40.</p>
+<ul>
+<li><em>First monthly payment (Jan 31, 2019):</em>
+  <code>Dr. Interest Expense 500.38</code>
+  <code>Dr. Mortgage Payable 99.60</code>
+  <code>Cr. Cash 599.98</code></li>
+</ul>
+<blockquote>
+<p>Note the note and mortgage payment entries have the <strong>identical structure</strong>: Dr. Interest Expense + Dr. (Note/Mortgage) Payable, Cr. Cash.</p>
+</blockquote>
+<p><strong>D. Debt to Equity example (Kohl's, from lecture):</strong> 2015 = 1.48, 2014 = 1.39 → reliance on debt <strong>increased</strong> (more leverage / risk). Both &gt; 1.</p>
+<h3>Common Mistakes</h3>
+<ul>
+<li><strong>Computing interest on the wrong balance.</strong> Interest is ALWAYS <code>Beginning Balance × rate × time</code> — NOT on the original loan amount every year, and NOT on the ending balance.</li>
+<li><strong>Subtracting the WHOLE payment from the balance.</strong> Only the <strong>principal portion</strong> reduces the balance. (Note: subtract $5,000, not the $6,200 total. Mortgage: subtract $99.60, not $599.98.)</li>
+<li><strong>Mixing up the date / beginning vs. ending balance.</strong> The ending balance on Dec 31 of one year = the beginning balance on Jan 1 of the next year (same number, same point in time).</li>
+<li><strong>Forgetting to convert to a monthly rate for mortgages.</strong> Use 6% ÷ 12 (× 1/12) per month — not the full annual 6%.</li>
+<li><strong>Confusing the two payment structures:</strong> note example = <strong>fixed principal</strong> (total payment falls); mortgage = <strong>fixed total payment</strong> (interest falls, principal rises).</li>
+<li><strong>Over-studying premium/discount bonds.</strong> The professor does NOT do the discount/premium amortization entries — don't waste exam-prep time there.</li>
+<li><strong>Debt-to-equity:</strong> it's Total Liabilities ÷ Total <strong>Equity</strong> (not ÷ total assets), and a ratio &gt; 1 = debt-financed, not automatically "bad."</li>
+</ul>
+<h3>Exam Checklist</h3>
+<ul>
+<li>☐ Bond AT PAR: issuance entry, periodic interest = par × coupon, maturity entry (interest + repay principal).</li>
+<li>☐ Know the <strong>stated vs. market</strong> rule: = par, &lt; discount, &gt; premium (concept only).</li>
+<li>☐ <strong>Build/read a note amortization schedule:</strong> interest = beg. bal × rate; fixed principal; total payment falls each year.</li>
+<li>☐ Journalize a note installment: Dr. Interest Expense, Dr. Notes Payable, Cr. Cash.</li>
+<li>☐ <strong>Mortgage:</strong> record building purchase (Dr. Building / Cr. Cash / Cr. Mortgage Payable); fixed payment; monthly rate = annual ÷ 12; interest falls &amp; principal rises over time.</li>
+<li>☐ Journalize a mortgage payment: Dr. Interest Expense, Dr. Mortgage Payable, Cr. Cash.</li>
+<li>☐ Note vs. mortgage difference: mortgage is <strong>secured</strong> + <strong>fixed total payment</strong>.</li>
+<li>☐ <strong>Debt to Equity = Total Liabilities ÷ Total Equity;</strong> interpret &gt; 1 vs. &lt; 1 (leverage/risk).</li>
+<li>☐ (Practical only, "not required") PMT function &amp; Goal Seek for finding the fixed payment.</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section><section class="review-chapter review-body"><h2 id="ch13">Chapter 13 — Stockholders' Equity</h2>
+<blockquote>
+<p><strong>Scope note (from the lecture):</strong> The professor states this course focuses <strong>exclusively on cash dividends</strong>. Stock dividends and stock splits are in the textbook but are <strong>not covered/tested</strong> here. Treasury stock is introduced as a <em>category</em> (issued but not outstanding) but no treasury-stock journal entry is worked in the transcript. Cumulative preferred / dividends-in-arrears is not worked in the lecture either. Those topics are included below at a terminology level only — confirm with your professor before relying on them for the exam.</p>
+</blockquote>
+<h3>Key Concepts</h3>
+<p><strong>Two sources of stockholders' equity</strong></p>
+<ul>
+<li><strong>Paid-in (Contributed) Capital</strong> — money actually invested by stockholders in exchange for stock (Common Stock + Paid-in Capital in Excess of Par/APIC). Externally generated.</li>
+<li><strong>Retained Earnings (Earned Capital)</strong> — accumulated net income not paid out. Internally generated.</li>
+<li>Ending R/E = Beginning R/E + Net Income (− Net Loss) − Dividends.</li>
+</ul>
+<p><strong>Characteristics of a corporation</strong> (separate legal entity organized under state law)</p>
+<ul>
+<li>Separate legal entity; no/essentially unlimited number of owners; <strong>no personal liability</strong> (limited to investment); <strong>lack of mutual agency</strong> (a single stockholder can't bind the corp); <strong>indefinite life</strong>; <strong>double taxation</strong> (corp pays tax on earnings, owners pay again on dividends); strong <strong>capital accumulation</strong> ability.</li>
+<li>Main advantage: raise large capital + limited liability. Main disadvantage: <strong>double taxation</strong>.</li>
+</ul>
+<p><strong>Categories of stock</strong> (nested boxes)</p>
+<ul>
+<li><strong>Authorized</strong> = max shares the charter allows. <strong>Issued</strong> = actually sold (≤ authorized). <strong>Outstanding</strong> = held by outside investors. <strong>Treasury</strong> = repurchased by the company; it is <em>issued but NOT outstanding</em>.</li>
+<li><strong>Outstanding = Issued − Treasury.</strong></li>
+</ul>
+<p><strong>Four stockholder rights:</strong> Vote (1 vote/share; elect Board of Directors), Dividends (only if/when <strong>declared by the board</strong> — never automatic), Liquidation (paid <em>after</em> creditors), Preemptive right (maintain proportional ownership; offered new shares first).</p>
+<p><strong>Classes of stock</strong></p>
+<ul>
+<li><strong>Common</strong> = basic ownership, votes, dividends <em>after</em> preferred.</li>
+<li><strong>Preferred</strong> = priority on dividends (and liquidation); usually gives up voting rights. Carries a stated dividend rate (e.g., 6%).</li>
+<li><strong>Par value</strong> = arbitrary amount per share, no relation to market value (often $1 or $0.01). <strong>No-par</strong> = none assigned. <strong>Stated value</strong> = amount assigned to no-par stock; <strong>treated exactly like par</strong> for entries.</li>
+</ul>
+<p><strong>Issue price vs. market price:</strong> Issue price = what the corporation actually <em>receives</em> at first issuance. Daily market fluctuations afterward are <strong>NOT recorded</strong> on the balance sheet — the recorded amount doesn't change.</p>
+<p><strong>Cash dividends:</strong> Paid from <strong>retained earnings</strong>, never from paid-in capital. <strong>Legal capital</strong> = portion of equity (the paid-in/par amount) that legally can't be used for dividends. Paid only on <strong>outstanding</strong> shares (never on treasury).</p>
+<p><strong>EPS</strong> — the most widely used profitability metric; reported at the bottom of the income statement; measures net income earned for each common share.</p>
+<h3>Key Formulas &amp; Rules</h3>
+<ul>
+<li><strong>Outstanding = Issued − Treasury</strong></li>
+<li><strong>Golden rule:</strong> <em>Common (and Preferred) Stock is ALWAYS credited at PAR (or stated) value.</em> Anything above par goes to <strong>Paid-in Capital in Excess of Par</strong>.</li>
+<li>Premium per share = Issue price − Par. Total to APIC = Premium × shares.</li>
+<li><strong>No-par stock:</strong> entire cash received → Common Stock (no APIC).</li>
+<li><strong>Stock for non-cash assets:</strong> record asset at <strong>market value of stock issued OR asset received, whichever is more clearly determinable</strong>; Common Stock at par; difference to APIC.</li>
+<li><strong>Preferred annual dividend per share = Par × Stated rate.</strong> (e.g., $50 par × 6% = <strong>$3/share</strong>.)</li>
+<li><strong>Total preferred dividend = Par × rate × # preferred shares.</strong></li>
+<li><strong>Cumulative preferred (terminology only):</strong> unpaid dividends accumulate as <strong>dividends in arrears</strong> (not a recorded liability until declared) and must be paid — <em>all arrears + current year</em> — before common gets anything. <em>Not worked in this lecture.</em></li>
+<li><strong>EPS = (Net Income − Preferred Dividends) ÷ Average Common Shares Outstanding.</strong> Subtract preferred dividends to isolate earnings available to common; use <strong>average</strong> shares because net income is a flow over the whole period while share counts change.</li>
+</ul>
+<h3>Journal Entry Examples</h3>
+<p>(Smart Touch Learning, $1 par common — professor's numbers)</p>
+<p><strong>1. Issue common at par</strong> — 15,000 shares at $1:</p>
+<pre><code>Dr. Cash                                   15,000
+   Cr. Common Stock—$1 Par                        15,000
+</code></pre>
+<p><strong>2. Issue common at a premium</strong> — 3,000 shares of $1 par at $5:</p>
+<pre><code>Dr. Cash                                   15,000   (3,000 × $5)
+   Cr. Common Stock—$1 Par                          3,000   (3,000 × $1)
+   Cr. Paid-in Capital in Excess of Par—Common     12,000   (3,000 × $4)
+</code></pre>
+<p><strong>3. Issue no-par common</strong> — 3,000 shares at $5 (no APIC):</p>
+<pre><code>Dr. Cash                                   15,000
+   Cr. Common Stock—No Par                         15,000
+</code></pre>
+<p><strong>4. Issue common for a non-cash asset</strong> — 5,000 shares of $1 par for furniture (FMV $18,000):</p>
+<pre><code>Dr. Furniture                              18,000
+   Cr. Common Stock—$1 Par                          5,000   (5,000 × $1)
+   Cr. Paid-in Capital in Excess of Par—Common     13,000   (18,000 − 5,000)
+</code></pre>
+<p><strong>5. Issue preferred</strong> — 1,000 shares of $50 par, 6% preferred at $55:</p>
+<pre><code>Dr. Cash                                   55,000   (1,000 × $55)
+   Cr. Preferred Stock—$50 Par                     50,000   (1,000 × $50)
+   Cr. Paid-in Capital in Excess of Par—Preferred   5,000   (1,000 × $5)
+</code></pre>
+<p><strong>Cash dividend — full cycle</strong> (declares $0.05/share on 22,700 outstanding shares = <strong>$1,135</strong>):</p>
+<p><em>Declaration Date (May 1)</em> — liability created:</p>
+<pre><code>Dr. Cash Dividends                          1,135
+   Cr. Dividends Payable—Common                     1,135
+</code></pre>
+<p><em>Date of Record (May 15)</em> — <strong>NO JOURNAL ENTRY.</strong></p>
+<p><em>Payment Date (May 30):</em></p>
+<pre><code>Dr. Dividends Payable—Common                1,135
+   Cr. Cash                                          1,135
+</code></pre>
+<p><em>Closing (Dec 31)</em> — Cash Dividends is temporary, closed to R/E:</p>
+<pre><code>Dr. Retained Earnings                       1,135
+   Cr. Cash Dividends                                1,135
+</code></pre>
+<p><strong>Net effect of whole cycle:</strong> Assets (Cash) ↓ and Equity (R/E) ↓ by $1,135.</p>
+<p><strong>Treasury stock (terminology only — NOT worked in this lecture; cost method shown for reference):</strong></p>
+<pre><code>Purchase:   Dr. Treasury Stock   xxx  /  Cr. Cash xxx
+Resale:     Dr. Cash  xxx  /  Cr. Treasury Stock (at cost) xxx  /  Cr. Paid-in Capital from Treasury Stock xxx
+</code></pre>
+<p><em>Verify treatment with your professor before exam — the lecture only defines treasury stock as "issued but not outstanding."</em></p>
+<h3>Common Mistakes</h3>
+<ul>
+<li><strong>Crediting Common Stock at the issue price instead of par.</strong> Common/Preferred Stock is ALWAYS at par; the excess goes to APIC.</li>
+<li>Thinking the <strong>premium (APIC) is a gain/revenue.</strong> It is paid-in capital, not income — it never touches the income statement or retained earnings.</li>
+<li>Recording a <strong>journal entry on the date of record.</strong> There is none — only declaration and payment.</li>
+<li>Confusing <strong>issue price with market price</strong> — later market swings are never booked.</li>
+<li>Forgetting <strong>dividends are paid only on outstanding shares</strong> (Issued − Treasury), not on issued or authorized shares.</li>
+<li>Treating dividends as automatic — they require <strong>board declaration</strong>.</li>
+<li>Paying dividends from paid-in capital — dividends come from <strong>retained earnings</strong>.</li>
+<li>In EPS: forgetting to <strong>subtract preferred dividends</strong>, or using <strong>ending</strong> instead of <strong>average</strong> common shares.</li>
+<li>Mixing up the equity effects: at <strong>declaration</strong> equity ↓ / liabilities ↑ / assets unchanged; at <strong>payment</strong> assets ↓ / liabilities ↓ / equity unchanged.</li>
+<li>Balance-sheet order: <strong>Preferred is listed before Common</strong> (priority rights).</li>
+</ul>
+<h3>Exam Checklist</h3>
+<ul>
+<li>☐ List corporation characteristics; explain <strong>double taxation</strong> and <strong>limited liability</strong>.</li>
+<li>☐ Distinguish <strong>authorized / issued / outstanding / treasury</strong>; compute Outstanding = Issued − Treasury.</li>
+<li>☐ State the four stockholder rights.</li>
+<li>☐ Journalize issuance: <strong>at par, at a premium, no-par, stated value, for non-cash assets, and preferred</strong> — Stock always at par, excess to APIC.</li>
+<li>☐ Build the <strong>Stockholders' Equity section</strong> (Preferred → APIC-Pref → Common → APIC-Common → Total Paid-in Capital → Retained Earnings → Total SE).</li>
+<li>☐ Compute preferred dividend = <strong>Par × rate × shares</strong> ($50 × 6% = $3/share).</li>
+<li>☐ Cash dividend: entries on <strong>declaration</strong> and <strong>payment</strong>, <strong>none on record</strong>, plus the <strong>closing</strong> entry; know the accounting-equation effect of each step.</li>
+<li>☐ EPS = (NI − Preferred Div) ÷ <strong>Average</strong> common shares; know <em>why</em> (subtract preferred = common's share; average = flow vs. fluctuating shares). Kohl's check: (201+186)/2 = 193.5M → $673M/193.5M = <strong>$3.48</strong>.</li>
+<li>☐ Remember scope: <strong>cash dividends only</strong>; stock dividends/splits not tested per the lecture.</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section>
+
+  <nav class="chapter-nav">
+    <a href="index.html">&larr; Interactive Study Guide</a>
+    <a href="#top">Back to top &uarr;</a>
+  </nav>
+
+</div>
+</body>
+</html>

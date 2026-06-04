@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2nd Exam Review – ACCT 2101</title>
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .review-banner{background:linear-gradient(135deg,var(--primary),var(--primary-light));
+      color:#fff;border-radius:var(--radius);padding:1.5rem 1.8rem;margin-bottom:1.5rem;
+      box-shadow:var(--shadow-md);font-family:'Helvetica Neue',Arial,sans-serif;}
+    .review-banner h2{font-size:1.05rem;letter-spacing:1px;text-transform:uppercase;
+      margin-bottom:1rem;color:#fff;border:none;padding:0;}
+    .review-banner .rb-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+    .review-banner .rb-card{background:rgba(255,255,255,0.10);border-radius:6px;padding:0.9rem 1.1rem;}
+    .review-banner .rb-card .rb-label{font-size:0.72rem;font-weight:700;letter-spacing:1.5px;
+      text-transform:uppercase;opacity:0.85;margin-bottom:0.4rem;}
+    .review-banner .rb-card .rb-date{font-size:1.05rem;font-weight:700;margin-bottom:0.4rem;}
+    .review-banner ul{list-style:none;margin:0;padding:0;font-size:0.86rem;line-height:1.7;}
+    .review-banner .rb-exam .rb-date{color:#ffd966;}
+    .review-banner a{color:#ffd966;}
+    .review-note{background:var(--bg-key);border-left:4px solid var(--accent-gold);
+      border-radius:var(--radius);padding:1rem 1.4rem;margin-bottom:1.5rem;font-size:0.92rem;}
+    .chapter-pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin:0 0 2rem;}
+    .chapter-pills a{font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.82rem;font-weight:600;
+      text-decoration:none;color:var(--primary);background:var(--bg-light);
+      border:1px solid var(--border-section);border-radius:20px;padding:0.4rem 0.9rem;transition:all .15s;}
+    .chapter-pills a:hover{background:var(--primary);color:#fff;}
+    .review-chapter{margin-top:2.5rem;padding-top:0.5rem;}
+    .review-body h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.55rem;font-weight:700;
+      color:#fff;background:var(--primary);border-radius:var(--radius) var(--radius) 0 0;
+      padding:0.7rem 1.1rem;margin:2.5rem 0 0;scroll-margin-top:1rem;}
+    .review-body h2 + *{border-top:3px solid var(--accent-gold);padding-top:1.2rem;}
+    .review-body h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.12rem;font-weight:700;
+      color:var(--primary-light);margin:1.8rem 0 0.7rem;padding-bottom:0.3rem;
+      border-bottom:1px solid var(--border-light);}
+    .review-body h3::before{content:"\25B8  ";color:var(--accent-gold);}
+    .review-body ul,.review-body ol{padding-left:1.4rem;margin-bottom:1rem;}
+    .review-body li{margin-bottom:0.45rem;text-align:left;}
+    .review-body p{text-align:left;}
+    .review-body pre{background:#fbfbfd;border:1px solid var(--border-light);
+      border-left:4px solid var(--primary-light);border-radius:6px;padding:0.9rem 1.1rem;
+      margin:0.8rem 0;overflow-x:auto;font-family:'Courier New',monospace;font-size:0.85rem;line-height:1.55;}
+    .review-body code{font-family:'Courier New',monospace;font-size:0.85em;
+      background:#eef2f7;color:#0d47a1;padding:0.1rem 0.35rem;border-radius:4px;}
+    .review-body pre code{background:none;color:inherit;padding:0;}
+    .review-body blockquote{background:#fff3e0;border-left:4px solid #e65100;border-radius:6px;
+      padding:0.9rem 1.2rem;margin:1rem 0;font-size:0.92rem;color:#5d4037;}
+    .review-body blockquote p{margin-bottom:0.4rem;}
+    .review-body table{font-size:0.88rem;}
+    .review-body h3:has(+ ul li:first-child) {}
+    .backtop{display:block;text-align:right;font-size:0.78rem;margin-top:0.6rem;}
+    .backtop a{color:var(--text-light);text-decoration:none;}
+    @media(max-width:768px){.review-banner .rb-grid{grid-template-columns:1fr;}}
+</style>
+  <script src="nav.js" defer></script>
+</head>
+<body class="has-sidebar">
+<div class="chapter-container" id="top">
+
+  <header class="chapter-header">
+    <div class="chapter-label">2nd Exam Review</div>
+    <h1 class="chapter-title">Chapters 3 & 4</h1>
+    <p class="chapter-subtitle">The Adjusting Process · Completing the Accounting Cycle</p>
+  </header>
+
+  <div class="review-banner">
+    <h2>Deadlines &amp; Exam</h2>
+    <div class="rb-grid">
+      <div class="rb-card rb-due">
+        <div class="rb-label">Assignments &amp; Quizzes Due</div>
+        <div class="rb-date">Wednesday, June 10 (11:59 PM)</div>
+        <ul><li>▸ Ch 3 — Graded Assignment &amp; Quiz #3</li><li>▸ Ch 4 — Graded Assignment &amp; Quiz #4</li></ul>
+        <div style="font-size:0.78rem;opacity:0.8;margin-top:0.5rem;">Quizzes &rarr; D2L &nbsp;|&nbsp; Assignments &rarr; MyAccountingLab. Late work is not accepted.</div>
+      </div>
+      <div class="rb-card rb-exam">
+        <div class="rb-label">Exam</div>
+        <div class="rb-date">Thursday, June 11</div>
+        <ul><li>2nd Exam — Chapters 3 &amp; 4</li></ul>
+        <div style="font-size:0.78rem;opacity:0.8;margin-top:0.5rem;">Based on Video Lectures 9–13.</div>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <p style="font-size:0.93rem;color:var(--text-secondary);">
+    This is a <strong>transcript-based review summary</strong> built directly from the video lectures &mdash;
+    it highlights the concepts, formulas, journal entries, common mistakes, and exam checkpoints I emphasize in class.
+    It is a quick-reference companion to the lectures and the full
+    <a href="index.html">Interactive Study Guide</a>, not a replacement for the Pearson textbook.
+  </p>
+
+  <div class="chapter-pills"><a href="#ch3">Ch 3</a><a href="#ch4">Ch 4</a></div>
+
+  <section class="review-chapter review-body"><h2 id="ch3">Chapter 3 — The Adjusting Process</h2>
+<p><em>Exam-review summary. Built from the video lectures (Lectures 9–11); the textbook confirms structure and terminology only.</em></p>
+<h3>Key Concepts</h3>
+<ul>
+<li><strong>Where adjusting entries fit in the cycle.</strong> Transaction analysis → journalize → post to ledger → <strong>unadjusted trial balance</strong> → <em>adjusting entries</em> → post → <strong>adjusted trial balance</strong> → financial statements. The professor stresses that the trial balance you learned in Chapter 2 is really the <em>unadjusted</em> one — it's prepared <em>before</em> any end-of-period adjustments.</li>
+<li><strong>Accrual vs. cash basis.</strong> Under <strong>accrual</strong> accounting, revenue is recognized when <strong>earned</strong> and expenses when <strong>incurred</strong> — cash timing does <em>not</em> dictate recognition. Under <strong>cash basis</strong>, revenue/expense follow the cash. GAAP requires accrual; cash basis is only for small private companies (sole proprietors, local retailers). This course = GAAP, so think accrual.</li>
+<li><strong>Why adjustments exist.</strong> Some economic events have <em>no visible daily transaction or invoice</em> — e.g., insurance expiring with time, revenue being earned over a subscription period. The professor repeats this: you must update the books at period-end to reflect what was really earned/incurred.</li>
+<li><strong>The "cash timing" memory hook</strong> (emphasized in all three lectures): <strong>Deferrals = cash FIRST, recognize later. Accruals = recognize FIRST, cash later.</strong> Four types: Deferred Revenue, Deferred Expense, Accrued Revenue, Accrued Expense.</li>
+<li><strong>Time period (periodicity) concept.</strong> Over an infinite horizon, cash-basis and accrual-basis totals are identical (the $600 example reaches $600 either way). The <em>only</em> reason timing matters is that companies must report on periodic (quarterly/annual) windows. This is <em>why</em> accrual accounting and adjusting entries are needed at all.</li>
+<li><strong>Revenue Recognition Principle (ASC 606, in effect since 2018).</strong> Five steps: (1) identify the contract, (2) identify the performance obligations, (3) determine the transaction price, (4) allocate the price to the obligations, (5) recognize revenue when/as each obligation is satisfied. Old rule was simply "recognize when earned."</li>
+<li><strong>Matching Principle (expense recognition).</strong> Match expenses to the <em>period</em> in which they helped generate revenue. The professor explicitly warns: matching is about <strong>timing, not matching equal dollar amounts</strong> of revenue and expense.</li>
+<li><strong>Depreciation concepts.</strong> Cost is recorded as an asset; as the asset is used, cost is allocated to expense via <strong>Depreciation Expense</strong>, credited to the <strong>contra-asset</strong> account <strong>Accumulated Depreciation</strong> (the Equipment account itself is <em>never</em> reduced). <strong>Book Value (Carrying Value) = Cost − Accumulated Depreciation.</strong> Original cost never changes; only Accumulated Depreciation grows.</li>
+<li><strong>Impact of omitting adjustments.</strong> Skipping an adjusting entry misstates <em>both</em> statements. Lecture 11 drills the deferred-expense case: omitting it leaves assets overstated, expenses understated, and net income / equity overstated.</li>
+</ul>
+<h3>Key Formulas &amp; Rules</h3>
+<ul>
+<li><strong>Three defining traits of EVERY adjusting entry</strong> (the professor's checklist — verify all three):
+  1. Recorded <strong>at the end of the period</strong>, right before financial statements.
+  2. Hits <strong>exactly one income statement account</strong> (a revenue or an expense) <strong>and exactly one balance sheet account</strong> (an asset or a liability).
+  3. <strong>NEVER involves Cash.</strong> If your adjusting entry touches Cash, it is wrong.</li>
+<li><strong>Supplies Expense = Beginning balance + Purchases − Ending physical count.</strong> (Books say $150, physical count $30 → $120 used.)</li>
+<li><strong>Straight-Line Depreciation = (Cost − Salvage/Residual Value) ÷ Useful Life.</strong> The numerator (Cost − Salvage) is the <strong>Depreciation Base</strong> — <em>do not</em> confuse it with Book Value.</li>
+<li><strong>Book Value = Cost − Accumulated Depreciation.</strong></li>
+<li><strong>Interest = Principal × Rate × Time.</strong> The rate given is <strong>always annual</strong> — multiply by the fraction of the year (e.g., × 1/12 for one month).</li>
+<li><strong>Partial-year / partial-month depreciation:</strong> the formula gives the <em>annual</em> amount; divide by 12 for a monthly adjustment (e.g., $3,600/yr ÷ 12 = $300 for one month).</li>
+<li><strong>Step-4 revenue allocation:</strong> allocate the lump-sum price by each item's share of total standalone value (Service A $100 of $150 = 67% × $120 lump = $80, not $100).</li>
+</ul>
+<h3>Journal Entry Examples</h3>
+<p><strong>Deferred Revenue — Unearned Service Revenue</strong> (magazine subscription, $1,200/yr collected Oct 1; 3 months earned by Dec 31 = $300)</p>
+<ul>
+<li>Initial (Oct 1): <code>Dr. Cash 1,200 / Cr. Unearned Service Revenue 1,200</code></li>
+<li>Adjusting (Dec 31): <code>Dr. Unearned Service Revenue 300 / Cr. Service Revenue 300</code></li>
+<li><em>Unearned Service Revenue is a LIABILITY — settled by performing services, not by paying cash.</em></li>
+</ul>
+<p><strong>Deferred Expense — Prepaid Insurance</strong> ($1,200/yr bought Oct 1; 3 months expired = $300)</p>
+<ul>
+<li>Initial (Oct 1): <code>Dr. Prepaid Insurance 1,200 / Cr. Cash 1,200</code></li>
+<li>Adjusting (Dec 31): <code>Dr. Insurance Expense 300 / Cr. Prepaid Insurance 300</code> → ending Prepaid Insurance = $900 (9 months left)</li>
+</ul>
+<p><strong>Deferred Expense — Prepaid Rent</strong> (Smart Touch Learning, $3,000 for 3 months, Dec 1, 2026; 1 month used)</p>
+<ul>
+<li>Initial (Dec 1): <code>Dr. Prepaid Rent 3,000 / Cr. Cash 3,000</code></li>
+<li>Adjusting (Dec 31): <code>Dr. Rent Expense 1,000 / Cr. Prepaid Rent 1,000</code> → Prepaid Rent = $2,000</li>
+</ul>
+<p><strong>Deferred Expense — Supplies</strong> (Beg $50 + Purchases $100 = $150; physical count $30)</p>
+<ul>
+<li>Adjusting (Dec 31): <code>Dr. Supplies Expense 120 / Cr. Supplies 120</code></li>
+</ul>
+<p><strong>Deferred Expense — Depreciation</strong> (equipment $10,000, 10-yr life, $0 salvage = $1,000/yr)</p>
+<ul>
+<li>Adjusting (Dec 31): <code>Dr. Depreciation Expense 1,000 / Cr. Accumulated Depreciation 1,000</code></li>
+<li>Partial-month (Smart Touch furniture $18,000, 5-yr, $0 salvage, acquired Dec 2 → $3,600/12 = $300):
+  <code>Dr. Depreciation Expense—Furniture 300 / Cr. Accumulated Depreciation—Furniture 300</code></li>
+</ul>
+<p><strong>Accrued Revenue</strong> (Smart Touch e-learning, $1,600/mo, service from Dec 16; half month = $800)</p>
+<ul>
+<li>Adjusting (Dec 31): <code>Dr. Accounts Receivable 800 / Cr. Service Revenue 800</code></li>
+<li>Cash collection (Jan 15): <code>Dr. Cash 1,600 / Cr. Accounts Receivable 800 / Cr. Service Revenue 800</code></li>
+</ul>
+<p><strong>Accrued Expense — Salaries</strong> (Smart Touch, $2,400/mo; Dec 16–31 earned = $1,200)</p>
+<ul>
+<li>Adjusting (Dec 31): <code>Dr. Salaries Expense 1,200 / Cr. Salaries Payable 1,200</code></li>
+<li>Payment (Jan 1): <code>Dr. Salaries Payable 1,200 / Cr. Cash 1,200</code></li>
+</ul>
+<p><strong>Accrued Expense — Interest</strong> ($60,000 building loan, 2% annual, 1 month)</p>
+<ul>
+<li>Calc: $60,000 × 2% × 1/12 = $100</li>
+<li>Adjusting (Dec 31): <code>Dr. Interest Expense 100 / Cr. Interest Payable 100</code></li>
+</ul>
+<h3>Common Mistakes</h3>
+<ul>
+<li><strong>Putting Cash in an adjusting entry.</strong> The single biggest red flag the professor names — an adjusting entry NEVER uses Cash. If Cash appears, it's a transaction entry, not an adjustment.</li>
+<li><strong>Forgetting the rate is annual.</strong> Lecture 11 calls this "one of the most common errors" — you must multiply by the fraction of the year (×1/12 for a month). Same trap with depreciation: divide the annual amount by 12 for partial-month adjustments.</li>
+<li><strong>Writing the same account name on both sides.</strong> Don't put "Insurance / Insurance" or "Supplies / Supplies." You must distinguish the <strong>expense</strong> (income statement) from the <strong>asset</strong> (balance sheet) — e.g., Insurance Expense vs. Prepaid Insurance, Supplies Expense vs. Supplies.</li>
+<li><strong>Crediting the Equipment account directly for depreciation.</strong> Wrong. Credit <strong>Accumulated Depreciation</strong> (contra-asset); the Equipment cost never changes.</li>
+<li><strong>Confusing Depreciation Base with Book Value.</strong> Depreciation Base = Cost − Salvage (the numerator). Book Value = Cost − Accumulated Depreciation. Different concepts.</li>
+<li><strong>Treating the initial cash transaction as an adjusting entry.</strong> The Dec 1 prepayment / the Oct 1 cash receipt is a <em>standard transaction</em>; the adjustment happens only at period-end (Dec 31).</li>
+<li><strong>Misjudging "what type of account."</strong> Unearned (Service) Revenue is a <em>liability</em>, not revenue, until earned. Accumulated Depreciation is a contra-asset with a <em>credit</em> normal balance.</li>
+<li><strong>Mixing up deferral vs. accrual direction.</strong> If terminology trips you up, the professor's advice: focus on the journal entry and whether the balance-sheet side is an asset or a liability, and remember "cash first (deferral)" vs. "recognize first (accrual)."</li>
+<li><strong>Wrong impact analysis when an entry is omitted.</strong> For an omitted deferred expense: assets overstated, expenses understated, net income and equity overstated — not the reverse.</li>
+</ul>
+<h3>Exam Checklist</h3>
+<p>You should be able to:</p>
+<ul>
+<li><strong>Differentiate cash-basis from accrual-basis accounting</strong> and explain why GAAP requires accrual.</li>
+<li><strong>Apply the time period concept, the revenue recognition principle (the 5 steps incl. price allocation), and the matching principle</strong>, and explain why timing matters.</li>
+<li><strong>Identify which of the four categories</strong> a situation is (deferred revenue, deferred expense, accrued revenue, accrued expense) using the cash-timing hook.</li>
+<li><strong>Journalize the adjusting entry</strong> for each type — prepaid insurance/rent, supplies (via physical count), depreciation, unearned revenue, accrued revenue, accrued salaries, and accrued interest — and verify it against the three rules (period-end, one I/S + one B/S account, no Cash).</li>
+<li><strong>Compute the amounts:</strong> months elapsed × per-month rate; Supplies Expense from beginning + purchases − ending count; straight-line depreciation (annual and partial-period); interest = principal × annual rate × fraction of year.</li>
+<li><strong>Distinguish the supplies treatment (credit the asset directly) from depreciation (credit Accumulated Depreciation, a contra-asset)</strong>, and compute Book Value = Cost − Accumulated Depreciation.</li>
+<li><strong>Prepare/interpret an adjusted trial balance</strong> and trace an account through a worksheet (unadjusted balance → adjustment → adjusted balance), confirming debits = credits.</li>
+<li><strong>Analyze the impact of recording vs. omitting an adjusting entry</strong> on assets, liabilities, equity, expenses/revenues, and net income (over/understated).</li>
+<li><em>(Lighter)</em> Recognize the <strong>alternative treatment</strong> of deferrals (Appendix 3A) — record the full payment as expense / full receipt as revenue first, then reverse the unused/unearned portion; ending balances are identical. The professor says this is <em>not</em> heavily tested.</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section><section class="review-chapter review-body"><h2 id="ch4">Chapter 4 — Completing the Accounting Cycle</h2>
+<blockquote>
+<p>Exam-prep review aid (~10–15 min). High-signal only. Closing entries are the <strong>final step</strong> that completes the accounting cycle — the professor stresses that Chapters 1–4 are the foundation for the entire course, so master this.</p>
+</blockquote>
+<h3>Key Concepts</h3>
+<p><strong>Where Ch 4 sits in the cycle.</strong> The professor walks through the whole cycle: beginning balances → analyze transactions → journalize → post to ledger → <strong>unadjusted</strong> trial balance (Ch 1–2) → adjusting entries → <strong>adjusted</strong> trial balance (Ch 3) → <strong>prepare financial statements → closing entries → post-closing trial balance (Ch 4)</strong>. Key emphasis: <em>preparing financial statements is NOT the last step</em> — you still have to close, then run a post-closing trial balance.</p>
+<p><strong>Financial statements are prepared in a fixed order</strong> (they're interrelated):
+Adjusted Trial Balance → <strong>Income Statement</strong> → <strong>Statement of Retained Earnings</strong> → <strong>Balance Sheet</strong>.</p>
+<ul>
+<li>Net Income flows from the Income Statement into the Statement of Retained Earnings.</li>
+<li>Ending Retained Earnings flows from that statement into the Balance Sheet.</li>
+<li>That's <em>why</em> this order is required — you can't do the balance sheet until R/E is finalized.</li>
+</ul>
+<p><strong>Temporary vs. Permanent accounts</strong> (the central distinction of the chapter):</p>
+<ul>
+<li><strong>Temporary</strong> = Revenues, Expenses, <strong>Dividends</strong>, and <strong>Income Summary</strong>. These get <strong>closed to zero</strong> each period. Revenues/expenses are Income Statement items; Dividends lives on the Statement of Retained Earnings. They are closed because the income statement measures <em>one specific period</em> — if balances carried over, they'd show a multi-period accumulation instead of just this period's activity.</li>
+<li><strong>Permanent</strong> = Balance Sheet accounts (Assets, Liabilities, Common Stock, <strong>Retained Earnings</strong>). Balances <strong>carry forward</strong>: ending balance of one period = beginning balance of the next. <strong>Never closed.</strong></li>
+<li>Professor's framing: "closing" = resetting a balance to zero so the account can "start fresh" next period.</li>
+</ul>
+<p><strong>Income Summary account.</strong> A temporary "holding" account used <em>only</em> during closing. Has no normal balance and appears on no financial statement. Revenue and expenses are funneled through it; its balance after Steps 1–2 = <strong>Net Income</strong> (credit) or <strong>Net Loss</strong> (debit).</p>
+<p><strong>Retained Earnings is permanent — it is NOT closed.</strong> The closing process <em>updates</em> it (adds net income, subtracts dividends) but never resets it to zero. On the <strong>adjusted</strong> trial balance, R/E still shows the <strong>beginning</strong> balance; only after closing does it show the <strong>ending</strong> balance.</p>
+<p><strong>Classified Balance Sheet.</strong> Categorizes accounts. Assets listed in order of <strong>liquidity</strong> (how fast/easily converted to cash — most liquid = Cash first); liabilities listed by <strong>maturity</strong> (current vs. long-term). No current/long-term split exists for Stockholders' Equity.</p>
+<ul>
+<li><strong>Current assets:</strong> converted to cash, sold, or used up within <strong>12 months OR the operating cycle, whichever is LONGER.</strong> (Cash, A/R, Inventory, Prepaids, Supplies.)</li>
+<li><strong>Operating cycle</strong> = "cash-to-cash" cycle: cash → buy goods/services → sell to customers → collect cash. <em>Boeing example</em> (professor's): airplanes take &gt;1 year to build but are Boeing's <strong>inventory</strong> = current asset. The "operating cycle" definition is what lets long-to-produce inventory still count as current.</li>
+<li><strong>Long-term assets:</strong> everything not current. <strong>PP&amp;E</strong> must be (1) long-lived, (2) tangible/physical substance, (3) <strong>used in operations.</strong> <em>Land example:</em> land held for speculation (buy low / sell high) is NOT PP&amp;E — it's a long-term <strong>investment</strong>. <strong>Intent</strong>, not physical nature, decides. <strong>Intangibles</strong> = no physical form, valued for special rights (patents, copyrights).</li>
+<li><strong>Current liabilities:</strong> settled with cash OR goods/services within 1 year / operating cycle. (A/P, Salaries Payable, Interest Payable, <strong>Unearned Revenue</strong> — note: Unearned Revenue is settled by <em>providing services</em>, not cash.) <strong>Long-term liabilities:</strong> not due within a year (Bonds Payable, long-term Notes Payable, Mortgage Payable).</li>
+</ul>
+<p><strong>Worksheet</strong> (optional internal tool, not a financial statement, never given to outsiders). Extends the Ch 3 worksheet. When you pull revenues/expenses into the Income Statement columns, <strong>debits and credits do NOT equal</strong> — that's expected, because you only pulled part of the trial balance. <strong>The difference = Net Income.</strong> That same difference balances the Balance Sheet columns. (Professor's simplified worksheet lumps Dividends into the balance sheet section; a fuller worksheet adds a separate Statement of Retained Earnings column.)</p>
+<p><strong>Post-Closing Trial Balance</strong> = the official <strong>last step</strong> of the cycle. Prepared <em>after</em> closing entries are journalized and posted. Contains <strong>ONLY permanent accounts</strong> (assets, liabilities, equity). NO revenues, expenses, dividends, or Income Summary appear (all closed to zero). R/E shows the <strong>ending</strong> (updated) balance.</p>
+<p><strong>Current Ratio</strong> (performance evaluation): measures ability to pay current liabilities with current assets. Prefer <strong>high</strong>; benchmark <strong>&gt; 1.0</strong>. Below 1.0 = current liabilities exceed current assets, a possible liquidity concern — but NOT automatic bankruptcy risk (strong operating cash flows can still cover obligations). Professor's contrast: unlike <strong>ROA</strong> (needs <em>average</em> total assets, because net income is earned <em>over a period</em> but assets are a <em>point in time</em>), the current ratio uses <strong>two balance-sheet figures both at the same point in time → no averaging needed.</strong></p>
+<p><strong>Reversing Entries (Appendix — professor said this WILL NOT be tested).</strong> Optional entries on day 1 of the new period that exactly reverse certain accrual adjusting entries, purely for bookkeeping convenience. Same final result either way. Skip for the exam.</p>
+<h3>Key Formulas &amp; Rules</h3>
+<ul>
+<li>
+<p><strong>Statement of Retained Earnings:</strong>
+  <code>Ending R/E = Beginning R/E + Net Income − Dividends</code>
+  (Net loss: subtract instead of add. A net loss <em>decreases</em> R/E.)</p>
+</li>
+<li>
+<p><strong>Net Income = Total Revenues − Total Expenses</strong> (= the Income Summary balance after Steps 1–2).</p>
+</li>
+<li><strong>Current Ratio = Total Current Assets ÷ Total Current Liabilities</strong> (both from the balance sheet; no average).</li>
+<li><strong>Current asset/liability threshold:</strong> 12 months <strong>OR operating cycle, whichever is longer.</strong></li>
+<li><strong>Closing direction rules (to zero out a normal balance, hit the opposite side):</strong></li>
+<li>Revenue: normal <strong>credit</strong> → <strong>debit</strong> it to close.</li>
+<li>Expense: normal <strong>debit</strong> → <strong>credit</strong> it to close.</li>
+<li>Dividends: normal <strong>debit</strong> → <strong>credit</strong> it to close.</li>
+<li><strong>Closing targets:</strong> Revenues &amp; Expenses → Income Summary. Income Summary → Retained Earnings. <strong>Dividends → Retained Earnings DIRECTLY</strong> (never through Income Summary, because dividends are not part of the income statement / not expenses).</li>
+</ul>
+<h3>Journal Entry Examples</h3>
+<p>Professor's simple worked example: Revenue = $1,000, Expenses = $300, Dividends = $30, Beginning R/E = $50.</p>
+<p><strong>Step 1 — Close Revenue → Income Summary</strong></p>
+<pre><code>Dr. Revenue              1,000
+   Cr. Income Summary           1,000
+</code></pre>
+<p><strong>Step 2 — Close Expenses → Income Summary</strong> (use one <strong>compound</strong> entry for all expense accounts rather than closing each separately)</p>
+<pre><code>Dr. Income Summary         300
+   Cr. Expenses                   300
+</code></pre>
+<p>→ Income Summary now has a <strong>$700 credit balance = Net Income</strong> ($1,000 − $300).</p>
+<p><strong>Step 3 — Close Income Summary → Retained Earnings</strong> (net income case)</p>
+<pre><code>Dr. Income Summary         700
+   Cr. Retained Earnings          700
+</code></pre>
+<p><em>If a net loss instead:</em> <code>Dr. Retained Earnings / Cr. Income Summary</code> (loss decreases R/E).</p>
+<p><strong>Step 4 — Close Dividends → Retained Earnings</strong> (direct, NOT via Income Summary)</p>
+<pre><code>Dr. Retained Earnings       30
+   Cr. Dividends                   30
+</code></pre>
+<p><strong>Resulting Retained Earnings T-account:</strong> Beg $50 + N.I. $700 − Div $30 = <strong>Ending $720</strong> — mirrors the Statement of Retained Earnings formula exactly.</p>
+<p><em>(Textbook's larger parallel example — Smart Touch Learning: Service Revenue $17,500, total expenses $8,950 → Net Income $8,550; Dividends $5,000; Beg R/E $0 → Ending R/E $3,550. Same four-step pattern; e.g. Step 2 is one compound entry crediting all 8 expense accounts and debiting Income Summary $8,950.)</em></p>
+<h3>Common Mistakes</h3>
+<ul>
+<li><strong>Thinking the financial statements are the last step.</strong> They aren't — you must still close, then prepare the post-closing trial balance. (Professor stresses this up front.)</li>
+<li><strong>Routing Dividends through Income Summary.</strong> Wrong — Dividends close <strong>directly</strong> to Retained Earnings. Putting them in Income Summary would distort net income (dividends aren't expenses).</li>
+<li><strong>Closing permanent accounts.</strong> Only temporary accounts (Rev, Exp, Dividends, Income Summary) are closed. Never close assets, liabilities, Common Stock, or Retained Earnings.</li>
+<li><strong>Treating Retained Earnings as temporary / resetting it to zero.</strong> It's permanent — closing <em>updates</em> it, never zeroes it.</li>
+<li><strong>Copying the adjusted-T/B Retained Earnings straight onto the balance sheet.</strong> That figure is the <strong>beginning</strong> balance. You must prepare the Statement of Retained Earnings first to get the <strong>ending</strong> balance.</li>
+<li><strong>Expecting the worksheet's Income Statement columns to balance.</strong> They won't — the debit/credit gap <em>is</em> the net income. Don't "fix" it.</li>
+<li><strong>Putting temporary accounts on the post-closing trial balance.</strong> It shows permanent accounts only.</li>
+<li><strong>Mixing up close directions.</strong> Revenue (credit normal) is <em>debited</em> to close; Expenses &amp; Dividends (debit normal) are <em>credited</em> to close.</li>
+<li><strong>Using the wrong "whichever":</strong> current classification uses 12 months OR operating cycle, whichever is <strong>LONGER</strong> (not shorter).</li>
+<li><strong>Misclassifying speculative land as PP&amp;E.</strong> If not used in operations, it's a long-term investment — intent governs.</li>
+<li><strong>Averaging the current ratio inputs.</strong> No averaging — both numbers are point-in-time balance-sheet figures (that's ROA, not this).</li>
+<li><strong>Reading a current ratio &lt; 1.0 as automatic bankruptcy.</strong> It's a liquidity flag, not a death sentence.</li>
+<li><strong>Studying reversing entries for the exam.</strong> Professor explicitly said the reversing-entries appendix is <strong>not tested.</strong></li>
+</ul>
+<h3>Exam Checklist</h3>
+<ul>
+<li>☐ Recite the financial-statement order: Adj. T/B → I/S → Stmt of R/E → Balance Sheet, and what flows between them (Net Income; Ending R/E).</li>
+<li>☐ List temporary vs. permanent accounts from memory; know that Income Summary is temporary and R/E is permanent.</li>
+<li>☐ Perform all <strong>four closing steps</strong> with correct Dr./Cr. directions and correct targets (Dividends → R/E directly).</li>
+<li>☐ Know that Income Summary's post-Step-2 balance = Net Income (Cr.) or Net Loss (Dr.), and the Step 3 entry flips for a net loss.</li>
+<li>☐ Compute Ending R/E = Beg + N.I. − Dividends, and tie it to the closed R/E T-account.</li>
+<li>☐ State what does/doesn't appear on a post-closing trial balance (permanent only; R/E = ending balance).</li>
+<li>☐ Classify accounts on a classified balance sheet (current vs. long-term; assets by liquidity, liabilities by maturity; no split for equity).</li>
+<li>☐ Apply the "12 months OR operating cycle, whichever is longer" rule; explain the Boeing inventory example.</li>
+<li>☐ Distinguish PP&amp;E from long-term investment by <strong>intent / use in operations</strong> (the land example).</li>
+<li>☐ Compute and interpret the <strong>Current Ratio</strong> (CA ÷ CL); know it's &gt;1.0 preferred and uses no average (vs. ROA).</li>
+<li>☐ Recall the worksheet quirk: I/S columns don't balance; the gap = Net Income.</li>
+<li>☐ Order the full 9-step accounting cycle from beginning balances to post-closing trial balance.</li>
+<li>☐ Skip reversing entries — not on the exam.</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section>
+
+  <nav class="chapter-nav">
+    <a href="index.html">&larr; Interactive Study Guide</a>
+    <a href="#top">Back to top &uarr;</a>
+  </nav>
+
+</div>
+</body>
+</html>
