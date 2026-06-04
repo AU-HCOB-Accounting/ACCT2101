@@ -29,8 +29,11 @@
     .review-chapter{margin-top:2.5rem;padding-top:0.5rem;}
     .review-body h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.55rem;font-weight:700;
       color:#fff;background:var(--primary);border-radius:var(--radius) var(--radius) 0 0;
-      padding:0.7rem 1.1rem;margin:2.5rem 0 0;scroll-margin-top:1rem;}
-    .review-body h2 + *{border-top:3px solid var(--accent-gold);padding-top:1.2rem;}
+      padding:0.7rem 1.1rem;margin:2.5rem 0 0;scroll-margin-top:1rem;
+      border-bottom:4px solid var(--accent-gold);}
+    .review-body .tb-link{background:#e8f5e9;border-left:4px solid #4caf50;border-radius:0 6px 6px 0;
+      padding:0.55rem 0.95rem;margin:0 0 1.4rem;font-size:0.86rem;color:#1b5e20;}
+    .review-body .tb-link a{color:#2e7d32;font-weight:700;}
     .review-body h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.12rem;font-weight:700;
       color:var(--primary-light);margin:1.8rem 0 0.7rem;padding-bottom:0.3rem;
       border-bottom:1px solid var(--border-light);}
@@ -93,511 +96,137 @@
 
   <div class="chapter-pills"><a href="#ch1">Ch 1</a><a href="#ch2">Ch 2</a></div>
 
-  <section class="review-chapter review-body"><h2 id="ch1">Chapter 1 — Accounting &amp; the Business Environment</h2>
-<h3>Key Concepts</h3>
-<p><strong>Accounting = "the language of business."</strong> It is an information system that <em>measures</em> business activities, <em>processes</em> them into reports, and <em>communicates</em> results to decision-makers. Because it's the language of business, every business student (marketing, strategy, finance) must learn it.</p>
-<p><strong>Two branches:</strong></p>
+  <section class="review-chapter review-body"><h2 id="ch1">Chapter 1 — Accounting &amp; the Business Environment</h2><p class="tb-link">📖 For worked examples and full detail, see the <a href="ch01.html">Study Guide — Chapter 1</a>.</p>
+<h3>Key Ideas</h3>
 <ul>
-<li><strong>Financial accounting</strong> (this course, ACCT 2101) — serves <strong>external</strong> users. The professor stresses the two most important external users are <strong>creditors</strong> and <strong>investors</strong> (taxing authorities also use it).</li>
-<li><strong>Managerial accounting</strong> (ACCT 2102) — serves <strong>internal</strong> users (managers, employees) for budgets/strategy.</li>
-</ul>
-<p><strong>Objective of financial accounting:</strong> provide <strong>useful information to external users to aid their decision-making.</strong> Creditors and investors both finance the company, but for different reasons:</p>
-<table>
-<thead>
-<tr>
-<th>User</th>
-<th>Why they provide capital</th>
-<th>What they want</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Creditors</strong></td>
-<td>Lend money</td>
-<td>Earn <strong>interest</strong> + collect <strong>principal</strong> at maturity → need assurance the firm can repay</td>
-</tr>
-<tr>
-<td><strong>Investors</strong></td>
-<td>Buy ownership (stock)</td>
-<td>Stock price growth (sell at profit) and/or <strong>dividends</strong>; want the company to grow and avoid bankruptcy. No guaranteed interest.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>The course's "ultimate goal" (professor emphasizes repeatedly):</strong> to <em>analyze</em> financial statements. But you can't analyze what you don't understand, so you first learn to <strong>prepare</strong> them. Chapters 1–4 are the <strong>foundational, sequential</strong> chapters ("like mathematics") — master each before the next.</p>
-<p><strong>What makes information "useful" — Qualitative Characteristics:</strong></p>
-<p>Two <strong>primary</strong> characteristics:</p>
-<ol>
-<li><strong>Relevance</strong> — must be capable of making a difference in a decision. Two ingredients:
-   - <strong>Predictive value</strong> (helps predict future outcomes)
-   - <strong>Confirmatory value</strong> (confirm/correct past predictions)
-   - Related: <strong>Materiality</strong> — info is material if omitting/misstating it could influence a user's decision. <em>Professor's example:</em> a $10 error in a billion-dollar company is <strong>not material</strong>.</li>
-<li><strong>Faithful Representation</strong> — must be:
-   - <strong>Complete</strong> (nothing important omitted)
-   - <strong>Neutral</strong> (not biased/manipulated to favor one group)
-   - <strong>Free from error</strong> (reasonably accurate)</li>
-</ol>
-<p>Four <strong>enhancing</strong> characteristics:</p>
-<ul>
-<li><strong>Comparability</strong> — compare Company A vs. Company B (this is <em>why GAAP exists</em>). Related: <strong>Consistency</strong> = same company applies same rules year over year.</li>
-<li><strong>Verifiability</strong> — independent auditors examining the same facts reach the same results.</li>
-<li><strong>Timeliness</strong> — delivered fast enough to be useful (10-year-old info is useless).</li>
-<li><strong>Understandability</strong> — clear enough for anyone with reasonable business knowledge ("you shouldn't need a PhD in accounting").</li>
-</ul>
-<p><strong>Governing bodies:</strong></p>
-<ul>
-<li><strong>SEC</strong> (Securities and Exchange Commission) — government agency overseeing U.S. financial markets; has legal authority to set standards but <strong>delegated</strong> rule-making.</li>
-<li><strong>FASB</strong> (Financial Accounting Standards Board) — private body that <strong>actually creates/updates GAAP</strong>.</li>
-<li><strong>GAAP</strong> = Generally Accepted Accounting Principles (U.S. rules; focus of this course).</li>
-<li><strong>IASB</strong> (International Accounting Standards Board) → publishes <strong>IFRS</strong> (used outside the U.S.).</li>
-<li>Flow: <strong>SEC → delegates → FASB → creates → GAAP</strong>.</li>
-</ul>
-<p><strong>Sarbanes-Oxley Act (SOX), 2002</strong> — passed after the <strong>Enron</strong> scandal (one of the biggest accounting frauds in history). Key points the professor highlights:</p>
-<ul>
-<li>Created the <strong>PCAOB</strong> (Public Company Accounting Oversight Board) — independent body that oversees/audits the auditors of public companies (auditors must register with it).</li>
-<li>Increased penalties for white-collar crime; strengthened <strong>auditor independence</strong>.</li>
-<li>Background: <strong>Arthur Andersen</strong> provided both auditing <em>and</em> consulting to Enron → major <strong>conflict of interest</strong>. SOX restricts firms from providing both services to the same client.</li>
-</ul>
-<p><strong>Four basic assumptions in financial reporting:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Assumption</th>
-<th>Meaning</th>
-<th>Professor's example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Monetary Unit</strong></td>
-<td>Only items measurable in money are recorded</td>
-<td>A great CEO's leadership skills can't be put on the balance sheet</td>
-</tr>
-<tr>
-<td><strong>Economic Entity</strong></td>
-<td>Business is separate from its owners/other businesses</td>
-<td>Owner's personal transactions stay out of company records</td>
-</tr>
-<tr>
-<td><strong>Periodicity</strong></td>
-<td>Economic life is divided into artificial periods</td>
-<td>Annual &amp; quarterly reporting</td>
-</tr>
-<tr>
-<td><strong>Going Concern</strong></td>
-<td>Business will continue operating for the foreseeable future</td>
-<td>Statements assume no imminent bankruptcy</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Forms of business organization (memorize the liability/tax differences — heavily emphasized):</strong></p>
-<table>
-<thead>
-<tr>
-<th>Form</th>
-<th># Owners</th>
-<th>Liability</th>
-<th>Taxation</th>
-<th>Life</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Sole Proprietorship</strong></td>
-<td>1 (proprietor)</td>
-<td><strong>Unlimited</strong> (personally liable)</td>
-<td>Pass-through (owner pays)</td>
-<td>Ends at owner's choice/death</td>
-</tr>
-<tr>
-<td><strong>Partnership</strong></td>
-<td>2+</td>
-<td><strong>Unlimited</strong> (partners personally liable)</td>
-<td>Pass-through to partners</td>
-<td>Ends at partner's choice/death</td>
-</tr>
-<tr>
-<td><strong>Corporation</strong></td>
-<td>Up to thousands (stockholders)</td>
-<td><strong>Limited</strong> (only lose your investment)</td>
-<td><strong>Double taxation</strong> (corp tax + dividend tax)</td>
-<td><strong>Indefinite</strong></td>
-</tr>
-<tr>
-<td><strong>LLC</strong></td>
-<td>1+ members</td>
-<td><strong>Limited</strong></td>
-<td>Pass-through (no double tax)</td>
-<td>(Hybrid; varies by state)</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><strong>Corporation = separate legal entity</strong> organized under state law. Key advantage: can <strong>raise huge capital</strong> (issue bonds or stock to the public). <em>Limited liability example:</em> invest $100, firm goes bankrupt → you only lose $100, even if the firm has massive debt.</li>
-<li><strong>Double taxation:</strong> corporation pays tax on income; stockholders pay personal tax again on dividends.</li>
-<li><strong>LLC = hybrid:</strong> taxed like a partnership (pass-through, no double tax) but with the <strong>limited liability</strong> of a corporation. Remember: "partnership for tax, corporation for liability."</li>
-</ul>
-<p><strong>Corporate ownership structure:</strong> buying stock makes you an <strong>owner</strong> with <strong>voting rights</strong> → stockholders elect the <strong>Board of Directors</strong> → the Board appoints <strong>CEO/CFO</strong> and top management who run the company. (Ownership ≠ direct management.)</p>
-<p><strong>Three types of business activities</strong> (seen on the balance sheet):</p>
-<ul>
-<li><strong>Operating</strong> — day-to-day: current assets (inventory, A/R) and current liabilities (wages payable).</li>
-<li><strong>Investing</strong> — buying/selling long-term assets: land, buildings, equipment (non-current assets).</li>
-<li><strong>Financing</strong> — raising capital: issuing long-term bonds (non-current liabilities) or issuing stock (equity).</li>
+<li>Accounting = the "language of business": an information system that measures, processes, and communicates business activity to decision-makers.</li>
+<li>Two branches: <strong>financial accounting</strong> (this course) serves <strong>external</strong> users — chiefly <strong>creditors</strong> and <strong>investors</strong>; <strong>managerial accounting</strong> serves <strong>internal</strong> users (managers).</li>
+<li>Creditors lend money (want interest + repayment of principal); investors buy ownership (want stock gains and/or dividends). Both finance the firm, for different reasons.</li>
+<li>"Useful" information rests on two <strong>primary</strong> qualities — <strong>Relevance</strong> (predictive + confirmatory value; tied to <strong>Materiality</strong>) and <strong>Faithful Representation</strong> (complete, neutral, free from error) — plus four <strong>enhancing</strong> ones: <strong>Comparability, Verifiability, Timeliness, Understandability</strong>.</li>
+<li>Standard-setting flow: <strong>SEC → delegates → FASB → creates → GAAP</strong> (U.S.); internationally, <strong>IASB → IFRS</strong>. Comparability is <em>why</em> GAAP exists.</li>
+<li><strong>SOX (2002)</strong>, triggered by <strong>Enron</strong>, created the <strong>PCAOB</strong>, strengthened auditor independence, and restricted firms from auditing + consulting the same client (Arthur Andersen conflict of interest).</li>
+<li>Four reporting assumptions: <strong>Monetary Unit</strong> (only money-measurable items), <strong>Economic Entity</strong> (business separate from owners), <strong>Periodicity</strong> (life split into periods), <strong>Going Concern</strong> (firm continues operating).</li>
+<li>Four business forms differ on liability and tax: sole proprietorship &amp; partnership = <strong>unlimited</strong> liability, pass-through tax; corporation = <strong>limited</strong> liability, <strong>double taxation</strong>, indefinite life; <strong>LLC</strong> = hybrid (limited liability + pass-through). Ownership flow: stockholders vote → Board of Directors → appoints CEO/CFO.</li>
+<li>Three business activities seen on the balance sheet: <strong>operating</strong> (day-to-day), <strong>investing</strong> (long-term assets), <strong>financing</strong> (bonds/stock).</li>
 </ul>
 <h3>Key Formulas &amp; Rules</h3>
-<p><strong>The Accounting Equation</strong> (the basic tool of accounting — <em>must always be in balance</em>, left = right):</p>
-<p>$$\text{Assets} = \text{Liabilities} + \text{Stockholders' Equity}$$</p>
 <ul>
-<li><strong>Left side (Assets) = how the money is <em>used</em></strong> (the resources).</li>
-<li><strong>Right side = where the money <em>came from</em></strong> (claims): <strong>Liabilities</strong> = money from <strong>creditors</strong>; <strong>Stockholders' Equity</strong> = money from <strong>investors</strong>.</li>
+<li>Accounting equation (must always balance): Assets = Liabilities + Stockholders' Equity. Left side = how money is used (resources); right side = where money came from (creditors = liabilities, investors = equity).</li>
+<li>Account-name shortcuts: "Receivable" in the name = an <strong>Asset</strong>; "Payable" = a <strong>Liability</strong>; "on account" = creates Accounts Payable (if buying) or Accounts Receivable (if selling).</li>
+<li>Stockholders' Equity = Contributed Capital (Common Stock) + Retained Earnings. Retained Earnings rises with Revenues, falls with Expenses and Dividends.</li>
+<li>Income statement: Revenues − Expenses = Net Income (or Net Loss).</li>
+<li>Retained Earnings: Ending R/E = Beginning R/E + Net Income − Dividends.</li>
+<li>ROA = Net Income ÷ Average Total Assets, where Average Total Assets = (Beginning + Ending) ÷ 2 (average matches a period measure to a point-in-time balance). Higher ROA = more efficient use of assets.</li>
+<li>Four statements, prepared in order: (1) Income Statement, (2) Statement of Retained Earnings, (3) Balance Sheet, (4) Statement of Cash Flows (operating/investing/financing). Connection: Net Income → Statement of R/E → Ending R/E → Equity on Balance Sheet.</li>
+<li>Timeframe rule: Income Statement, Statement of R/E, and Statement of Cash Flows are "for the period ended..."; only the <strong>Balance Sheet</strong> is "as of [date]."</li>
 </ul>
-<p><strong>Account-identification rules (professor's shortcuts):</strong></p>
-<ul>
-<li><strong>"Receivable"</strong> in the name → it's an <strong>Asset</strong> (right to receive money). Ex: Accounts Receivable, Notes Receivable.</li>
-<li><strong>"Payable"</strong> in the name → it's a <strong>Liability</strong> (obligation to pay). Ex: Accounts Payable, Notes Payable, Salaries Payable.</li>
-<li><strong>"On account"</strong> → creates <strong>Accounts Payable</strong> (if you buy) or <strong>Accounts Receivable</strong> (if you sell/perform).</li>
-</ul>
-<p><strong>Stockholders' Equity = two components:</strong></p>
-<ul>
-<li><strong>Contributed Capital</strong> = funds invested directly by owners when stock is issued (account: <strong>Common Stock</strong>).</li>
-<li><strong>Earned Capital = Retained Earnings</strong> = accumulated profits the company has kept over its entire life.</li>
-</ul>
-<p>Retained Earnings is affected by: <strong>Revenues</strong> (↑), <strong>Expenses</strong> (↓), <strong>Dividends</strong> (↓).</p>
-<p><strong>The Four Financial Statements &amp; how they connect</strong> (prepared in this order):</p>
-<ol>
-<li><strong>Income Statement</strong> — Revenues − Expenses = <strong>Net Income</strong> (or Net Loss). Reports results <strong>FOR a period</strong> of time. <em>Preparation always starts here.</em></li>
-<li><strong>Statement of Retained Earnings</strong> — the <strong>bridge</strong> from Income Statement to Balance Sheet. Reports <strong>FOR a period</strong>.</li>
-</ol>
-<p>$$\text{Beginning R/E} + \text{Net Income} - \text{Dividends} = \text{Ending R/E}$$</p>
-<ol start="3">
-<li><strong>Balance Sheet</strong> — Assets = Liabilities + Equity. Reports financial position <strong>AS OF a specific date</strong> (a point in time). The Ending R/E flows into the Equity section here.</li>
-<li><strong>Statement of Cash Flows</strong> — cash inflows/outflows in three categories (<strong>operating, investing, financing</strong>); ties beginning cash to ending cash. Reports <strong>FOR a period</strong>. (Detailed prep covered later.)</li>
-</ol>
-<p><strong>Connection flow:</strong> Net Income (Income Stmt) → Statement of R/E → Ending R/E → Equity on Balance Sheet.</p>
-<p><strong>Worked example — R/E flowing across years (professor's example):</strong></p>
-<ul>
-<li>Year 1 (first year of operations): Beginning R/E = $0; Net Income = $100; Dividends = $0 → <strong>Ending R/E = $100</strong> → flows to Year 1 Balance Sheet equity.</li>
-<li>Year 2: Beginning R/E = $100 (= Year 1 ending); Net Income = $150; Dividends = $0 → <strong>Ending R/E = $250</strong>.</li>
-<li>Takeaway: R/E = cumulative net income retained, minus dividends, over the company's entire life.</li>
-</ul>
-<p><strong>Timeframe rule (commonly tested):</strong> Income Statement, Statement of R/E, and Statement of Cash Flows are <strong>"for the period ended..."</strong>; only the <strong>Balance Sheet</strong> is <strong>"as of [date]"</strong>.</p>
-<p><strong>Return on Assets (ROA)</strong> — the chapter's ratio:</p>
-<p>$$\text{ROA} = \frac{\text{Net Income}}{\text{Average Total Assets}}$$</p>
-<ul>
-<li>Use <strong>average</strong> total assets (beginning + ending) ÷ 2, because Net Income is a <em>period</em> measure but Total Assets is a <em>point-in-time</em> balance — the timeframes must match.</li>
-<li>Higher ROA = more profitable/efficient use of assets.</li>
-</ul>
-<h3>Journal Entry Examples</h3>
-<p>Chapter 1 uses <strong>accounting-equation transaction analysis</strong> (not formal debits/credits yet). Worked nine-transaction example from the lecture: <strong>Smart Touch Learning</strong>, investor <strong>Sheena Bright</strong>. Each row shows the effect on <strong>A = L + SE</strong> (equation stays in balance after every transaction):</p>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>Transaction</th>
-<th>Assets</th>
-<th>=</th>
-<th>Liab.</th>
-<th>+</th>
-<th>Equity</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Owner contributes $30,000 cash for common stock</td>
-<td>Cash <strong>+30,000</strong></td>
-<td></td>
-<td>—</td>
-<td></td>
-<td>Common Stock <strong>+30,000</strong></td>
-</tr>
-<tr>
-<td>2</td>
-<td>Buy land for $20,000 cash</td>
-<td>Cash <strong>−20,000</strong>, Land <strong>+20,000</strong></td>
-<td></td>
-<td>—</td>
-<td></td>
-<td>—</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Buy $500 supplies <strong>on account</strong></td>
-<td>Supplies <strong>+500</strong></td>
-<td></td>
-<td>A/P <strong>+500</strong></td>
-<td></td>
-<td>—</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Earn $5,500 service revenue <strong>for cash</strong></td>
-<td>Cash <strong>+5,500</strong></td>
-<td></td>
-<td>—</td>
-<td></td>
-<td>Service Revenue (R/E) <strong>+5,500</strong></td>
-</tr>
-<tr>
-<td>5</td>
-<td>Earn $3,000 service revenue <strong>on account</strong></td>
-<td>A/R <strong>+3,000</strong></td>
-<td></td>
-<td>—</td>
-<td></td>
-<td>Service Revenue (R/E) <strong>+3,000</strong></td>
-</tr>
-<tr>
-<td>6</td>
-<td>Pay $3,200 cash expenses ($2,000 rent + $1,200 salaries)</td>
-<td>Cash <strong>−3,200</strong></td>
-<td></td>
-<td>—</td>
-<td></td>
-<td>Rent + Salaries Exp (R/E) <strong>−3,200</strong></td>
-</tr>
-<tr>
-<td>7</td>
-<td>Pay $300 <strong>on account</strong> (toward Txn 3)</td>
-<td>Cash <strong>−300</strong></td>
-<td></td>
-<td>A/P <strong>−300</strong></td>
-<td></td>
-<td>—</td>
-</tr>
-<tr>
-<td>8</td>
-<td>Collect $2,000 <strong>on account</strong> (from Txn 5)</td>
-<td>Cash <strong>+2,000</strong>, A/R <strong>−2,000</strong></td>
-<td></td>
-<td>—</td>
-<td></td>
-<td>— (NOT new revenue)</td>
-</tr>
-<tr>
-<td>9</td>
-<td>Pay $5,000 cash <strong>dividend</strong></td>
-<td>Cash <strong>−5,000</strong></td>
-<td></td>
-<td>—</td>
-<td></td>
-<td>Dividends (R/E) <strong>−5,000</strong></td>
-</tr>
-</tbody>
-</table>
-<p>Notes from the lecture:</p>
-<ul>
-<li><strong>Txn 2 &amp; 8</strong> are shifts <em>within</em> assets — total assets unchanged.</li>
-<li><strong>Txn 5 (revenue on account):</strong> revenue is recognized when the <strong>service is performed</strong>, not when cash is received.</li>
-<li><strong>Txn 8 (collection):</strong> cash collected from a prior receivable is <strong>not</strong> revenue — that was already recorded in Txn 5.</li>
-<li><strong>Txn 9 (dividend):</strong> reduces R/E but is <strong>not an expense</strong>.</li>
-</ul>
-<p><em>If your section uses formal entries, the equivalent debit/credit form of Txn 1 is <code>Dr. Cash 30,000 / Cr. Common Stock 30,000</code>, but Chapter 1 lectures stay at the equation level.</em></p>
 <h3>Common Mistakes</h3>
 <ul>
-<li><strong>Analyzing from the wrong perspective.</strong> Always analyze <strong>from the company's viewpoint</strong>, not your own. When Sheena Bright contributes cash, the <em>company</em> <strong>receives</strong> cash and <strong>issues</strong> stock — don't think "she lost money."</li>
-<li><strong>Confusing cash collection with revenue (the professor's #1 stressed mistake).</strong> Collecting cash on a receivable (Txn 8) is <strong>NOT</strong> new revenue — revenue was recorded when the service was performed (Txn 5). <strong>Cash ≠ Revenue.</strong></li>
-<li><strong>Treating dividends as an expense.</strong> Dividends are a <strong>distribution of earnings to owners</strong>, not an expense. They do <strong>not</strong> appear on the Income Statement — they go on the <strong>Statement of Retained Earnings</strong>.</li>
-<li><strong>Forgetting the equation must always balance.</strong> Every transaction keeps A = L + SE in balance; if it doesn't, you missed a side.</li>
-<li><strong>Mixing up "for a period" vs. "as of a date."</strong> Only the <strong>Balance Sheet</strong> is "as of"; the other three are "for the period."</li>
-<li><strong>Liability/tax confusion across business forms.</strong> Sole prop &amp; partnership = <strong>unlimited</strong> liability; corporation &amp; LLC = <strong>limited</strong>. Corporation = <strong>double taxation</strong>; LLC avoids it (pass-through). Don't swap these.</li>
-<li><strong>Using total assets instead of <em>average</em> total assets in ROA.</strong> You must average beginning and ending to match Net Income's period.</li>
-<li><strong>Recording immeasurable items.</strong> A great CEO's skills can't be an asset (Monetary Unit Assumption).</li>
-<li><strong>Mixing owner and company transactions</strong> (violates the Economic Entity Assumption).</li>
+<li>Analyzing from the wrong perspective — always analyze <strong>from the company's viewpoint</strong>, not the owner's (the company receives cash and issues stock).</li>
+<li>Confusing cash collection with revenue (the professor's #1 stressed point): collecting on a receivable is <strong>NOT</strong> new revenue — revenue was recorded when the service was performed. Cash ≠ Revenue.</li>
+<li>Treating <strong>dividends as an expense</strong> — they are a distribution to owners, appear on the Statement of R/E, and never on the Income Statement.</li>
+<li>Forgetting the equation must always balance — if A = L + SE doesn't hold, a side was missed.</li>
+<li>Mixing up "for a period" vs. "as of a date" — only the Balance Sheet is "as of."</li>
+<li>Liability/tax confusion across business forms — sole prop &amp; partnership = unlimited; corporation &amp; LLC = limited; corporation = double taxation, LLC avoids it.</li>
+<li>Using total assets instead of <strong>average</strong> total assets in ROA.</li>
+<li>Recording immeasurable items (e.g., a great CEO's skill) — violates the Monetary Unit Assumption.</li>
+<li>Mixing owner and company transactions — violates the Economic Entity Assumption.</li>
 </ul>
 <h3>Exam Checklist</h3>
 <ul>
-<li>☐ Define accounting as the "language of business"; distinguish <strong>financial</strong> (external users) vs. <strong>managerial</strong> (internal users) accounting.</li>
-<li>☐ Name the two key external users — <strong>creditors</strong> (interest + principal) and <strong>investors</strong> (ownership, stock gains, dividends) — and what each wants.</li>
-<li>☐ List the <strong>two primary</strong> qualitative characteristics (Relevance, Faithful Representation) and their sub-components; know <strong>materiality</strong> (the $10-in-a-billion example).</li>
-<li>☐ List the <strong>four enhancing</strong> characteristics (Comparability, Verifiability, Timeliness, Understandability); know Comparability ↔ GAAP and Consistency ↔ same company over time.</li>
-<li>☐ Know the <strong>SEC → FASB → GAAP</strong> chain and that <strong>IASB → IFRS</strong> (international).</li>
-<li>☐ Know <strong>SOX (2002)</strong>: triggered by <strong>Enron</strong>, created the <strong>PCAOB</strong>, strengthened auditor independence (Arthur Andersen conflict of interest).</li>
-<li>☐ State the <strong>four assumptions</strong> (Monetary Unit, Economic Entity, Periodicity, Going Concern) with an example of each.</li>
-<li>☐ Compare the <strong>four business forms</strong> on owners, <strong>liability</strong>, <strong>taxation</strong> (double taxation vs. pass-through), and life. Know LLC = hybrid.</li>
-<li>☐ Explain corporate structure: stockholders → vote → Board of Directors → appoints CEO/CFO.</li>
-<li>☐ Write the <strong>accounting equation</strong> and explain left (uses) vs. right (sources: creditors = liabilities, investors = equity).</li>
-<li>☐ Apply <strong>"receivable" = asset</strong>, <strong>"payable" = liability</strong>, <strong>"on account" = credit</strong> rules.</li>
-<li>☐ Break Equity into <strong>Contributed Capital (Common Stock)</strong> and <strong>Retained Earnings</strong>; know what raises/lowers R/E.</li>
-<li>☐ Run <strong>transaction analysis</strong> keeping A = L + SE balanced (be ready for a Smart-Touch-style set).</li>
-<li>☐ Name the <strong>four statements</strong>, their order of preparation, and <strong>how they connect</strong> (Net Income → R/E → Balance Sheet equity).</li>
-<li>☐ Apply the <strong>R/E formula</strong>: Beg R/E + Net Income − Dividends = End R/E (and the multi-year flow).</li>
-<li>☐ Distinguish <strong>"for a period"</strong> (IS, R/E, SCF) vs. <strong>"as of a date"</strong> (Balance Sheet).</li>
-<li>☐ Compute and interpret <strong>ROA = Net Income ÷ Average Total Assets</strong> (use the <em>average</em>).</li>
-</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section><section class="review-chapter review-body"><h2 id="ch2">Chapter 2 — Recording Business Transactions</h2>
-<p>A fast review for the Ch 1–2 exam. Built directly from the lecture videos (the professor's own explanations and examples), with the textbook used only to confirm terms and structure. This chapter is the foundation for everything that follows — if you can classify accounts and apply debit/credit rules quickly, the rest of the course gets much easier.</p>
-<h3>Key Concepts</h3>
-<ul>
-<li><strong>Account</strong> — a detailed record of all increases and decreases in one specific item (e.g., Cash). The accounting equation (A = L + SE) is broken down into individual accounts.</li>
-<li><strong>Chart of Accounts vs. Ledger</strong> — the professor stresses this distinction. The <strong>Chart of Accounts</strong> is just a categorized <em>list of account names</em> (a reference list). The <strong>Ledger</strong> is the actual collection of all <strong>T-accounts</strong> with their balances.</li>
-<li><strong>T-Account</strong> — a visual of one ledger account. <strong>Left = Debit (Dr.), Right = Credit (Cr.)</strong> — the professor says repeatedly: "do not overcomplicate this; left simply means debit, right simply means credit." Forget your personal bank/credit-card meaning of "credit."</li>
-<li><strong>Normal Balance</strong> — the side on which an account <em>increases</em>. Derived from where the account sits in the equation: <strong>left side of equation (Assets) → debit normal balance; right side (Liabilities + Equity) → credit normal balance.</strong></li>
-<li><strong>Double-Entry System</strong> — every transaction affects <em>at least two</em> accounts, with at least one debit and one credit. Total debits must always equal total credits.</li>
-<li><strong>Transaction analysis → journalize → post → trial balance</strong> — the chronological sequence the professor wants you to know cold. A <strong>transaction</strong> is an event that affects the company's financial position; each one starts from a <strong>source document</strong> (invoice, check, billing statement).</li>
-<li><strong>Journal</strong> — a <em>chronological</em> record of transactions.</li>
-<li><strong>Ledger / Posting</strong> — posting = transferring the dollar amounts from the journal to the matching T-accounts. Debits go to the debit side, credits go to the credit side.</li>
-<li><strong>Ending balance</strong> — found by netting total debits vs. total credits in a T-account; it sits on the side of the account's <em>normal balance</em> (larger side wins).</li>
-<li><strong>Trial Balance</strong> — a list of all accounts and their ending balances in debit/credit columns. Purpose: <strong>check the mathematical equality of total debits and total credits.</strong> It is an internal working document, <strong>NOT a Balance Sheet</strong> (it still contains revenues, expenses, and dividends). Order: <strong>Assets → Liabilities → Stockholders' Equity.</strong></li>
-<li><strong>Two key "becomes later" accounts</strong> the professor highlights:</li>
-<li><strong>Prepaid Expense</strong> = ASSET. Any item with the prefix "prepaid" (prepaid rent, prepaid insurance) is an asset — you paid cash in advance, you haven't used it yet, so you have a right to it. It becomes an expense only when consumed. (Office Supplies works the same way but gets its own Supplies account.)</li>
-<li><strong>Unearned Revenue</strong> = LIABILITY. The mirror image of a prepaid expense: cash received before the service is performed, so the company owes a future service. It becomes revenue only when the service is delivered.</li>
-<li><strong>Debt Ratio</strong> = Total Liabilities ÷ Total Assets — the chapter's featured ratio. Higher = more assets financed by debt (more interest pressure), but a high ratio isn't automatically bad if cash flow can cover it. Never judge a company on one ratio.</li>
-</ul>
-<h3>Key Formulas &amp; Rules</h3>
-<p><strong>Expanded accounting equation</strong> (how equity breaks down):</p>
-<p>Assets = Liabilities + Stockholders' Equity
-where Stockholders' Equity = Common Stock + Retained Earnings
-and Retained Earnings is affected by: + Revenues − Expenses − Dividends</p>
-<ul>
-<li><strong>Contributed Capital</strong> = Common Stock. <strong>Earned Capital</strong> = Retained Earnings.</li>
-<li><strong>Important correction the professor makes on video:</strong> Dividends are <strong>NOT</strong> part of Contributed Capital. Dividends are a <em>reduction of Retained Earnings</em> (Earned Capital).</li>
-</ul>
-<p><strong>The Golden Rule:</strong> for every journal entry, <strong>total Debits = total Credits.</strong> This holds even for compound entries (multiple debits and/or credits). If it balances, the accounting equation stays in balance.</p>
-<p><strong>Debit/Credit rules and normal balances by account type</strong> (memorize this — it was drilled on the timed Ch1–2 practice test):</p>
-<table>
-<thead>
-<tr>
-<th>Account Type</th>
-<th>Normal Balance</th>
-<th>Increase with</th>
-<th>Decrease with</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Assets</strong></td>
-<td>Debit</td>
-<td>Debit</td>
-<td>Credit</td>
-</tr>
-<tr>
-<td><strong>Liabilities</strong></td>
-<td>Credit</td>
-<td>Credit</td>
-<td>Debit</td>
-</tr>
-<tr>
-<td><strong>Common Stock</strong></td>
-<td>Credit</td>
-<td>Credit</td>
-<td>Debit</td>
-</tr>
-<tr>
-<td><strong>Retained Earnings</strong></td>
-<td>Credit</td>
-<td>Credit</td>
-<td>Debit</td>
-</tr>
-<tr>
-<td><strong>Revenues</strong></td>
-<td>Credit</td>
-<td>Credit</td>
-<td>Debit</td>
-</tr>
-<tr>
-<td><strong>Expenses</strong></td>
-<td>Debit</td>
-<td>Debit</td>
-<td>Credit</td>
-</tr>
-<tr>
-<td><strong>Dividends</strong></td>
-<td>Debit</td>
-<td>Debit</td>
-<td>Credit</td>
-</tr>
-</tbody>
-</table>
-<p><strong>DEALER memory aid</strong> — accounts with a normal <strong>DEBIT</strong> balance:</p>
-<ul>
-<li><strong>D</strong>ividends, <strong>E</strong>xpenses, <strong>A</strong>ssets → normal balance <strong>Debit</strong> (increase with a debit)</li>
-<li><strong>L</strong>iabilities, <strong>E</strong>quity (Common Stock + Retained Earnings), <strong>R</strong>evenues → normal balance <strong>Credit</strong> (increase with a credit)</li>
-</ul>
-<p><strong>The professor's logic chain</strong> (why Expenses &amp; Dividends are debits — a favorite exam trap):</p>
-<ul>
-<li>Equity has a credit normal balance → Revenue <em>increases</em> equity, so Revenue is a credit.</li>
-<li>Expenses and Dividends <em>decrease</em> Retained Earnings → a decrease to a credit-balance account is recorded on the opposite side → therefore Expenses and Dividends have <strong>debit</strong> normal balances.</li>
-</ul>
+<li>☐ You should be able to define accounting as the "language of business" and distinguish financial (external) vs. managerial (internal) accounting.</li>
+<li>☐ You should be able to name the two key external users — creditors (interest + principal) and investors (ownership, stock gains, dividends) — and what each wants.</li>
+<li>☐ You should be able to list the two primary qualitative characteristics and their sub-components, and explain materiality.</li>
+<li>☐ You should be able to list the four enhancing characteristics and link Comparability ↔ GAAP and Consistency ↔ same company over time.</li>
+<li>☐ You should be able to trace the SEC → FASB → GAAP chain and know that IASB → IFRS internationally.</li>
+<li>☐ You should be able to explain SOX (2002): triggered by Enron, created the PCAOB, strengthened auditor independence.</li>
+<li>☐ You should be able to state the four assumptions (Monetary Unit, Economic Entity, Periodicity, Going Concern) with an example of each.</li>
+<li>☐ You should be able to compare the four business forms on owners, liability, taxation, and life, and know LLC = hybrid.</li>
+<li>☐ You should be able to explain corporate structure: stockholders → vote → Board of Directors → appoints CEO/CFO.</li>
+<li>☐ You should be able to write the accounting equation and explain left (uses) vs. right (sources).</li>
+<li>☐ You should be able to apply the "receivable" = asset, "payable" = liability, "on account" = credit rules.</li>
+<li>☐ You should be able to break Equity into Contributed Capital (Common Stock) and Retained Earnings and know what raises/lowers R/E.</li>
+<li>☐ You should be able to keep A = L + SE balanced through transaction analysis.</li>
+<li>☐ You should be able to name the four statements, their order of preparation, and how they connect.</li>
+<li>☐ You should be able to apply Ending R/E = Beginning R/E + Net Income − Dividends, including across multiple years.</li>
+<li>☐ You should be able to distinguish "for a period" (IS, R/E, SCF) vs. "as of a date" (Balance Sheet).</li>
+<li>☐ You should be able to compute and interpret ROA = Net Income ÷ Average Total Assets (using the average).</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section><section class="review-chapter review-body"><h2 id="ch2">Chapter 2 — Recording Business Transactions</h2><p class="tb-link">📖 For worked examples and full detail, see the <a href="ch02.html">Study Guide — Chapter 2</a>.</p>
 <blockquote>
-<p>Tip from the videos: do <strong>not</strong> put + / − signs inside T-accounts. The side (left/right) already tells you debit vs. credit; +/− just creates confusion.</p>
+<p>Foundation chapter for the Ch 1–2 exam. If you can classify accounts and apply debit/credit rules fast, everything later gets easier.</p>
 </blockquote>
-<h3>Journal Entry Examples</h3>
-<p>These are the exact April transactions the professor journalizes on video. Format rule: <strong>date first, debit account on top, credit account indented below, debits = credits.</strong></p>
-<p><strong>Apr 2 — Borrowed $45,000 from the bank, signed a note payable</strong> (Cash↑ asset; Notes Payable↑ liability)</p>
-<pre><code>Dr. Cash                       45,000
-    Cr. Notes Payable                 45,000
-</code></pre>
-<p><strong>Apr 4 — Paid $40,000 cash to buy land</strong> (Land↑ asset; Cash↓ asset — both assets, equation stays balanced)</p>
-<pre><code>Dr. Land                       40,000
-    Cr. Cash                          40,000
-</code></pre>
-<p><strong>Apr 9 — Performed services, received $5,000 cash</strong> (Cash↑; Service Revenue↑ equity)</p>
-<pre><code>Dr. Cash                        5,000
-    Cr. Service Revenue                5,000
-</code></pre>
-<p><strong>Apr 13 — Purchased office supplies on account, $300</strong> (Supplies↑ asset; A/P↑ liability)</p>
-<pre><code>Dr. Office Supplies               300
-    Cr. Accounts Payable                 300
-</code></pre>
-<p><strong>Apr 15 — Performed services on account, $2,600</strong> (A/R↑ asset; Service Revenue↑ — revenue earned even before cash)</p>
-<pre><code>Dr. Accounts Receivable         2,600
-    Cr. Service Revenue                2,600
-</code></pre>
-<p><strong>Apr 18 — Paid $1,200 on account</strong> (A/P↓ liability → debit; Cash↓ asset → credit)</p>
-<pre><code>Dr. Accounts Payable            1,200
-    Cr. Cash                           1,200
-</code></pre>
-<p><strong>Apr 21 — Paid cash expenses: salaries $3,000, rent $1,500, interest $400</strong> (compound entry; expenses↑ debit; Cash↓ credit for the total $4,900)</p>
-<pre><code>Dr. Salaries &amp; Wages Expense    3,000
-Dr. Rent Expense                1,500
-Dr. Interest Expense              400
-    Cr. Cash                           4,900
-</code></pre>
-<p><strong>Apr 25 — Received $3,100 from a customer on account</strong> (Cash↑; A/R↓ — no revenue, it was earned earlier)</p>
-<pre><code>Dr. Cash                        3,100
-    Cr. Accounts Receivable            3,100
-</code></pre>
-<p><strong>Apr 27 — Received a $200 utility bill, to be paid next month</strong> (Utilities Expense↑; Utilities Payable↑ — no cash involved)</p>
-<pre><code>Dr. Utilities Expense             200
-    Cr. Utilities Payable                200
-</code></pre>
-<p><strong>Apr 29 — Received $1,500 for services to be performed next month</strong> (Cash↑; Unearned Service Revenue↑ liability — NOT revenue yet)</p>
-<pre><code>Dr. Cash                        1,500
-    Cr. Unearned Service Revenue       1,500
-</code></pre>
-<p><strong>Apr 30 — Paid $1,800 cash dividends to stockholders</strong> (Dividends↑ → debit; Cash↓ → credit)</p>
-<pre><code>Dr. Dividends                   1,800
-    Cr. Cash                           1,800
-</code></pre>
+<h3>Key Ideas</h3>
+<ul>
+<li><strong>Debit/Credit = left/right only.</strong> They are directional labels, not "good/bad" or "money in/out." Forget your bank/credit-card meaning of "credit."</li>
+<li><strong>Chart of Accounts vs. Ledger.</strong> Chart of Accounts is just a <em>list of account names</em>; the Ledger is the collection of actual <strong>T-accounts</strong> with balances.</li>
+<li><strong>Normal balance</strong> = the side on which an account <em>increases</em>. Assets sit on the left of the equation → debit normal balance; Liabilities + Equity on the right → credit normal balance.</li>
+<li><strong>Double-entry.</strong> Every transaction hits at least two accounts; total debits always equal total credits.</li>
+<li><strong>Process order:</strong> analyze transaction → journalize → post → trial balance. Each transaction starts from a source document (invoice, check, bill).</li>
+<li><strong>Prepaid = ASSET, Unearned Revenue = LIABILITY.</strong> Prepaid (rent/insurance) = cash paid in advance, becomes expense when used. Unearned Revenue = cash received before service, becomes revenue when service is performed.</li>
+<li><strong>Trial Balance is NOT a Balance Sheet.</strong> It is an internal check of debit = credit totals and still contains revenues, expenses, and dividends. Order: Assets → Liabilities → Equity.</li>
+<li><strong>Debt Ratio = Total Liabilities ÷ Total Assets.</strong> Higher = more assets financed by debt; not automatically bad. Never judge on one ratio.</li>
+</ul>
+<h3>Key Formulas &amp; Rules</h3>
+<p>Expanded accounting equation:
+Assets = Liabilities + Common Stock + Retained Earnings
+where Retained Earnings = + Revenues − Expenses − Dividends</p>
+<ul>
+<li>Contributed Capital = Common Stock. Earned Capital = Retained Earnings.</li>
+<li>Dividends are NOT Contributed Capital — they reduce Retained Earnings (Earned Capital).</li>
+<li>Golden Rule: in every entry, total Debits = total Credits (holds for compound entries too).</li>
+</ul>
+<p>Debit/Credit rules and normal balances:</p>
+<ul>
+<li>Assets — normal Debit; increase with Debit, decrease with Credit</li>
+<li>Liabilities — normal Credit; increase with Credit, decrease with Debit</li>
+<li>Common Stock — normal Credit; increase with Credit, decrease with Debit</li>
+<li>Retained Earnings — normal Credit; increase with Credit, decrease with Debit</li>
+<li>Revenues — normal Credit; increase with Credit, decrease with Debit</li>
+<li>Expenses — normal Debit; increase with Debit, decrease with Credit</li>
+<li>Dividends — normal Debit; increase with Debit, decrease with Credit</li>
+</ul>
+<p>DEALER memory aid (normal DEBIT balance): Dividends, Expenses, Assets = debit. Liabilities, Equity, Revenues = credit.</p>
+<p>Why Expenses &amp; Dividends are debits: Equity has a credit balance, so Revenue (which increases equity) is a credit; Expenses and Dividends <em>decrease</em> Retained Earnings, so they are recorded on the opposite (debit) side.</p>
+<h3>Must-Know Journal Entries</h3>
+<p>Format: date first, debit on top, credit indented, debits = credits.</p>
+<p>Cash sale — services performed for cash:
+Dr. Cash / Cr. Service Revenue</p>
+<p>Sale on account — revenue earned before cash received:
+Dr. Accounts Receivable / Cr. Service Revenue</p>
+<p>Collection on account — NO new revenue (already earned); just swaps assets:
+Dr. Cash / Cr. Accounts Receivable</p>
+<p>Cash received for future service — a LIABILITY, not revenue yet:
+Dr. Cash / Cr. Unearned Service Revenue</p>
 <h3>Common Mistakes</h3>
 <ul>
-<li><strong>Treating "credit" like a bank/credit-card.</strong> In accounting, debit/credit are just <em>left/right</em> directional labels — nothing to do with good/bad or money in/out.</li>
-<li><strong>Mixing up Chart of Accounts and Ledger.</strong> Chart = list of names only; Ledger = T-accounts with balances.</li>
-<li><strong>Getting Expenses/Dividends backwards.</strong> They have <strong>debit</strong> normal balances because they <em>decrease</em> equity. Students often credit them by accident.</li>
-<li><strong>Calling Dividends "Contributed Capital."</strong> The professor explicitly corrects this: Dividends reduce <strong>Earned Capital (Retained Earnings)</strong>.</li>
-<li><strong>Recording cash received for future service as Revenue.</strong> It's <strong>Unearned Service Revenue (a liability)</strong> until the service is performed.</li>
-<li><strong>Recording collection of A/R as Revenue again.</strong> (Apr 25) Revenue was already earned when the service was performed; collecting cash only swaps one asset (A/R) for another (Cash).</li>
-<li><strong>Forgetting "on account" has two directions.</strong> Owed <em>to you</em> = Accounts <strong>Receivable</strong> (asset); owed <em>by you</em> = Accounts <strong>Payable</strong> (liability).</li>
-<li><strong>Putting +/− signs inside T-accounts</strong> — leads to errors; use only Dr./Cr. position.</li>
-<li><strong>Writing the credit account first / not indenting it.</strong> Debit always on top; credit indented below.</li>
-<li><strong>Thinking a balanced trial balance = no errors.</strong> It still misses wrong-account postings or equal wrong amounts on both sides.</li>
-<li><strong>Confusing the Trial Balance with the Balance Sheet.</strong> The trial balance still lists revenues, expenses, and dividends; the Balance Sheet does not.</li>
+<li>Treating "credit" like a bank/credit-card instead of just the right side.</li>
+<li>Mixing up Chart of Accounts (names only) and Ledger (T-accounts with balances).</li>
+<li>Getting Expenses/Dividends backwards — they have <strong>debit</strong> normal balances because they decrease equity.</li>
+<li>Calling Dividends "Contributed Capital" — they reduce Retained Earnings (Earned Capital).</li>
+<li>Recording cash for future service as Revenue — it's <strong>Unearned Revenue (liability)</strong> until performed.</li>
+<li>Recording collection of A/R as Revenue again — revenue was earned at the time of service; collection only swaps A/R for Cash.</li>
+<li>Forgetting "on account" has two directions: owed to you = Receivable (asset); owed by you = Payable (liability).</li>
+<li>Putting +/− signs inside T-accounts — let the side (left/right) signal debit vs. credit.</li>
+<li>Writing the credit account first or not indenting it — debit always on top.</li>
+<li>Thinking a balanced trial balance = no errors (misses wrong-account postings and equal wrong amounts).</li>
+<li>Confusing the Trial Balance with the Balance Sheet — the TB still lists revenues, expenses, dividends.</li>
 </ul>
 <h3>Exam Checklist</h3>
 <ul>
-<li>☐ Recite the <strong>DEALER</strong> rule instantly: Dividends, Expenses, Assets = debit; Liabilities, Equity, Revenue = credit.</li>
-<li>☐ State the <strong>normal balance</strong> of any account on sight (the timed practice test demands speed).</li>
-<li>☐ Know <strong>increase/decrease → debit or credit</strong> for all 7 account types (table above).</li>
-<li>☐ Write the <strong>expanded equation</strong> and place RE = + Rev − Exp − Div.</li>
-<li>☐ Classify the tricky accounts: <strong>Prepaid = asset, Unearned Revenue = liability, Supplies = asset, Dividends reduce Retained Earnings.</strong></li>
-<li>☐ Journalize all common transaction types (cash sale, sale on account, purchase on account, payment on account, collection on account, expenses paid in cash, accrued bill, unearned revenue, dividends, borrowing, buying an asset).</li>
-<li>☐ Format every entry: date, <strong>debit on top, credit indented</strong>, debits = credits.</li>
-<li>☐ Build a <strong>compound entry</strong> (multiple debits/credits) and confirm it balances.</li>
-<li>☐ <strong>Post</strong> to T-accounts and compute an <strong>ending balance</strong> (net larger side − smaller side; result sits on normal-balance side).</li>
-<li>☐ Prepare a <strong>trial balance</strong> in order <strong>Assets → Liabilities → Equity</strong>; verify totals match.</li>
-<li>☐ Explain why the trial balance is <strong>not</strong> a Balance Sheet, and that a balanced TB ≠ error-free.</li>
-<li>☐ Know the <strong>three error-finding methods</strong>: search for missing account; <strong>÷ 2</strong> (debit/credit reversed); <strong>÷ 9</strong> (slide or transposition error).</li>
-<li>☐ State the <strong>financial-statement order</strong>: Income Statement → Statement of Retained Earnings → Balance Sheet.</li>
-<li>☐ Compute and interpret the <strong>Debt Ratio = Total Liabilities ÷ Total Assets</strong>.</li>
+<li>☐ You should be able to recite the <strong>DEALER</strong> rule instantly (Dividends, Expenses, Assets = debit; Liabilities, Equity, Revenue = credit).</li>
+<li>☐ You should be able to state the <strong>normal balance</strong> of any account on sight, fast (timed test).</li>
+<li>☐ You should be able to give <strong>increase/decrease → debit or credit</strong> for all 7 account types.</li>
+<li>☐ You should be able to write the <strong>expanded equation</strong> with RE = + Rev − Exp − Div.</li>
+<li>☐ You should be able to classify tricky accounts: Prepaid = asset, Unearned Revenue = liability, Supplies = asset, Dividends reduce Retained Earnings.</li>
+<li>☐ You should be able to journalize every common transaction type (cash sale, sale on account, purchase on account, payment on account, collection on account, expenses paid in cash, accrued bill, unearned revenue, dividends, borrowing, buying an asset).</li>
+<li>☐ You should be able to format any entry: date, debit on top, credit indented, debits = credits.</li>
+<li>☐ You should be able to build a <strong>compound entry</strong> and confirm it balances.</li>
+<li>☐ You should be able to <strong>post</strong> to T-accounts and compute an <strong>ending balance</strong> (net larger side − smaller; result on the normal-balance side).</li>
+<li>☐ You should be able to prepare a <strong>trial balance</strong> (Assets → Liabilities → Equity) and verify totals match.</li>
+<li>☐ You should be able to explain why a TB is <strong>not</strong> a Balance Sheet and why a balanced TB ≠ error-free.</li>
+<li>☐ You should be able to apply the <strong>three error-finding methods</strong>: missing account; ÷ 2 (debit/credit reversed); ÷ 9 (slide or transposition).</li>
+<li>☐ You should be able to state the <strong>financial-statement order</strong>: Income Statement → Statement of Retained Earnings → Balance Sheet.</li>
+<li>☐ You should be able to compute and interpret the <strong>Debt Ratio = Total Liabilities ÷ Total Assets</strong>.</li>
 </ul><p class="backtop"><a href="#top">↑ back to top</a></p></section>
 
   <nav class="chapter-nav">
