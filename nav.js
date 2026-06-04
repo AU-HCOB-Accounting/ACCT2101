@@ -72,18 +72,24 @@
       ul.appendChild(li);
     });
 
-    // Interactive tools (not chapters) — appears at the bottom of every page
-    var toolLi = document.createElement('li');
-    toolLi.className = 'sidebar-chapter sidebar-tool';
-    var toolA = document.createElement('a');
-    toolA.href = 'Accounting-Equation-Simulator.html';
-    toolA.target = '_blank';
-    toolA.rel = 'noopener';
-    toolA.className = 'sidebar-chapter-link';
-    toolA.innerHTML = '<span class="sidebar-ch-num">Tool</span>' +
-      '<span class="sidebar-ch-title">📊 Equation Simulator</span>';
-    toolLi.appendChild(toolA);
-    ul.appendChild(toolLi);
+    // Interactive tools (not chapters) — appear at the bottom of every page
+    var tools = [
+      { file: 'Accounting-Equation-Simulator.html', label: '📊 Equation Simulator' },
+      { file: 'Accounting-Cycle-Simulator-Ch1-4.html', label: '🔄 Cycle Simulator (Ch 1–4)' }
+    ];
+    tools.forEach(function (t) {
+      var toolLi = document.createElement('li');
+      toolLi.className = 'sidebar-chapter sidebar-tool';
+      var toolA = document.createElement('a');
+      toolA.href = t.file;
+      toolA.target = '_blank';
+      toolA.rel = 'noopener';
+      toolA.className = 'sidebar-chapter-link';
+      toolA.innerHTML = '<span class="sidebar-ch-num">Tool</span>' +
+        '<span class="sidebar-ch-title">' + t.label + '</span>';
+      toolLi.appendChild(toolA);
+      ul.appendChild(toolLi);
+    });
 
     document.body.insertBefore(sidebar, document.body.firstChild);
 
