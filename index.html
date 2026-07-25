@@ -1,11 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=intro.html">
-    <title>ACCT 2101 Study Guide</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACCT 2101 – Principles of Accounting I (Online)</title>
+  <link rel="stylesheet" href="shared.css">
+  <style>
+  :root{--sem-accent:#2b579a;}
+  .semnav{position:sticky;top:0;z-index:50;background:#1a2332;color:#c8d6e5;
+    font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.82rem;
+    display:flex;flex-wrap:wrap;align-items:center;gap:0.15rem;
+    padding:0.5rem 1rem;box-shadow:0 2px 8px rgba(0,0,0,.18);}
+  .semnav .semnav-term{font-weight:700;color:#fff;letter-spacing:.5px;margin-right:.6rem;
+    padding-right:.7rem;border-right:1px solid rgba(255,255,255,.15);}
+  .semnav a{color:#b9c7d8;text-decoration:none;padding:0.3rem 0.6rem;border-radius:5px;transition:all .15s;}
+  .semnav a:hover{background:rgba(255,255,255,.08);color:#fff;}
+  .semnav a.home{color:#7fb2ff;}
+  .semnav .spacer{flex:1;}
+
+  .tbd{background:#fff3cd;border-bottom:2px dashed #d4a84b;border-radius:3px;
+    padding:0 .25rem;white-space:nowrap;}
+  .tbd-tag{display:inline-block;font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:.6rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+    color:#8a6d1a;background:#fbe6a2;border-radius:3px;padding:.02rem .3rem;margin-left:.3rem;
+    vertical-align:middle;}
+  .proposed-banner{background:#fff3cd;border:1px solid #e6cf7a;border-left:4px solid #d4a84b;
+    border-radius:var(--radius);padding:.8rem 1.2rem;margin:0 0 1.5rem;font-size:.9rem;color:#6b5417;
+    font-family:'Helvetica Neue',Arial,sans-serif;}
+  .proposed-banner strong{color:#5a4610;}
+
+  /* term-at-a-glance */
+  .glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin:0 0 1.8rem;}
+  .glance .g-card{background:var(--bg-light);border:1px solid var(--border-section);
+    border-radius:var(--radius);padding:.9rem 1rem;}
+  .glance .g-label{font-family:'Helvetica Neue',Arial,sans-serif;font-size:.68rem;font-weight:700;
+    letter-spacing:1px;text-transform:uppercase;color:var(--primary-light);margin-bottom:.35rem;}
+  .glance .g-val{font-size:.98rem;font-weight:600;color:var(--text-primary);line-height:1.4;}
+
+  /* hub cards */
+  .hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin:1.2rem 0 2rem;}
+  .hub-card{display:block;text-decoration:none;background:var(--bg-white);border:1px solid var(--border-light);
+    border-left:4px solid var(--primary-light);border-radius:var(--radius);padding:1.1rem 1.2rem;
+    box-shadow:var(--shadow-sm);transition:transform .12s,box-shadow .12s;}
+  .hub-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+  .hub-card .hc-ic{font-size:1.5rem;}
+  .hub-card .hc-t{font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;color:var(--primary);
+    font-size:1.02rem;margin:.35rem 0 .25rem;}
+  .hub-card .hc-d{font-size:.84rem;color:var(--text-secondary);line-height:1.5;}
+  .hub-card.gold{border-left-color:var(--accent-gold);}
+  .hub-card.green{border-left-color:#4caf50;}
+  .hub-section-h{font-family:'Helvetica Neue',Arial,sans-serif;font-size:.82rem;font-weight:700;
+    letter-spacing:1.5px;text-transform:uppercase;color:var(--primary-light);margin:1.6rem 0 .2rem;}
+
+  /* schedule table */
+  .sched-table td.exam-row{background:var(--primary)!important;color:#fff;font-weight:700;
+    font-family:'Helvetica Neue',Arial,sans-serif;}
+  .sched-table td.exam-row .tbd{background:rgba(255,255,255,.16);border-bottom-color:#ffd966;color:#fff;}
+  .sched-table td.exam-row .tbd-tag{background:rgba(0,0,0,.2);color:#ffe9a8;}
+  .sched-date{white-space:normal;font-weight:600;}
+  .sched-note{background:var(--bg-key);border-left:4px solid var(--accent-gold);border-radius:var(--radius);
+    padding:1rem 1.4rem;margin:1.5rem 0;font-size:.9rem;}
+  .sched-note h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1rem;color:var(--primary);margin:.4rem 0;}
+
+  /* syllabus */
+  .syl h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.15rem;color:#fff;background:var(--primary);
+    border-radius:6px;padding:.5rem .9rem;margin:2rem 0 1rem;border-bottom:3px solid var(--accent-gold);}
+  .syl h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.02rem;color:var(--primary-light);margin:1.4rem 0 .5rem;}
+  .syl p,.syl li{text-align:left;}
+  .syl ul{padding-left:1.3rem;margin:.5rem 0 1rem;}
+  .syl .grade-table td:last-child{text-align:right;font-weight:700;white-space:nowrap;}
+  .info-line{margin:.2rem 0;}
+</style>
 </head>
 <body>
-    <p>Redirecting to <a href="intro.html">Study Guide</a>...</p>
+<div class="chapter-container" id="top">
+  <header class="chapter-header">
+    <div class="chapter-label">Augusta University · Hull College of Business</div>
+    <h1 class="chapter-title">ACCT 2101 — Principles of Accounting I</h1>
+    <p class="chapter-subtitle">Online course home · select your semester</p>
+  </header>
+
+  <p style="font-size:.98rem;color:var(--text-secondary);text-align:center;max-width:640px;margin:0 auto 1.5rem;">
+    Choose your semester below for its syllabus, schedule, and exam-review pages. The interactive textbook and
+    the practice simulators are shared across every term.</p>
+
+  <div class="hub-section-h" style="text-align:center;">Semesters</div>
+  <div class="hub-grid"><a class="hub-card " href="2026summer/index.html"><div class="hc-ic">🎓</div><div class="hc-t">Summer 2026 <span style="font-size:.7rem;color:var(--text-light);font-weight:600">(Archived)</span></div><div class="hc-d">May 18 – July 14, 2026<br>Syllabus · Schedule · Exam reviews · Study tools</div></a><a class="hub-card gold" href="2026fall/index.html"><div class="hc-ic">🎓</div><div class="hc-t">Fall 2026 <span style="font-size:.7rem;color:var(--text-light);font-weight:600">(Upcoming)</span></div><div class="hc-d"><span class="tbd">August 18 – November 24, 2026<span class="tbd-tag">proposed</span></span><br>Syllabus · Schedule · Exam reviews · Study tools</div></a><a class="hub-card gold" href="2027spring/index.html"><div class="hc-ic">🎓</div><div class="hc-t">Spring 2027 <span style="font-size:.7rem;color:var(--text-light);font-weight:600">(Upcoming)</span></div><div class="hc-d"><span class="tbd">January 13 – April 30, 2027<span class="tbd-tag">proposed</span></span><br>Syllabus · Schedule · Exam reviews · Study tools</div></a></div>
+
+  <div class="hub-section-h" style="text-align:center;">Study Tools (all terms)</div>
+  <div class="hub-grid"><a class="hub-card green" href="intro.html"><div class="hc-ic">📖</div><div class="hc-t">Interactive Textbook</div><div class="hc-d">All 13 chapters, worked examples and diagrams — shared across every term.</div></a><a class="hub-card green" href="ch1-2-practice-test.html"><div class="hc-ic">✅</div><div class="hc-t">Ch 1–2 Practice Test</div><div class="hc-d">Account-classification practice test.</div></a><a class="hub-card green" href="Accounting-Equation-Simulator.html" target="_blank" rel="noopener"><div class="hc-ic">📊</div><div class="hc-t">Equation Simulator</div><div class="hc-d">Step through transactions; watch the accounting equation update.</div></a><a class="hub-card green" href="Accounting-Cycle-Simulator-Ch1-4.html" target="_blank" rel="noopener"><div class="hc-ic">🔄</div><div class="hc-t">Cycle Simulator (Ch 1–4)</div><div class="hc-d">Follow one company through a full accounting cycle.</div></a></div>
+
+  <p style="text-align:center;font-size:.82rem;color:var(--text-light);margin-top:2rem;">
+    Simulator password: <strong>ACCT2101CO1</strong>
+  </p>
+</div>
 </body>
 </html>

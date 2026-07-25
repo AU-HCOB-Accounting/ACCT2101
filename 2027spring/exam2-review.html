@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2nd Exam Review – Spring 2027 – ACCT 2101</title>
+  <link rel="stylesheet" href="../shared.css">
+  <style>
+  :root{--sem-accent:#2b579a;}
+  .semnav{position:sticky;top:0;z-index:50;background:#1a2332;color:#c8d6e5;
+    font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.82rem;
+    display:flex;flex-wrap:wrap;align-items:center;gap:0.15rem;
+    padding:0.5rem 1rem;box-shadow:0 2px 8px rgba(0,0,0,.18);}
+  .semnav .semnav-term{font-weight:700;color:#fff;letter-spacing:.5px;margin-right:.6rem;
+    padding-right:.7rem;border-right:1px solid rgba(255,255,255,.15);}
+  .semnav a{color:#b9c7d8;text-decoration:none;padding:0.3rem 0.6rem;border-radius:5px;transition:all .15s;}
+  .semnav a:hover{background:rgba(255,255,255,.08);color:#fff;}
+  .semnav a.home{color:#7fb2ff;}
+  .semnav .spacer{flex:1;}
+
+  .tbd{background:#fff3cd;border-bottom:2px dashed #d4a84b;border-radius:3px;
+    padding:0 .25rem;white-space:nowrap;}
+  .tbd-tag{display:inline-block;font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:.6rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+    color:#8a6d1a;background:#fbe6a2;border-radius:3px;padding:.02rem .3rem;margin-left:.3rem;
+    vertical-align:middle;}
+  .proposed-banner{background:#fff3cd;border:1px solid #e6cf7a;border-left:4px solid #d4a84b;
+    border-radius:var(--radius);padding:.8rem 1.2rem;margin:0 0 1.5rem;font-size:.9rem;color:#6b5417;
+    font-family:'Helvetica Neue',Arial,sans-serif;}
+  .proposed-banner strong{color:#5a4610;}
+
+  /* term-at-a-glance */
+  .glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin:0 0 1.8rem;}
+  .glance .g-card{background:var(--bg-light);border:1px solid var(--border-section);
+    border-radius:var(--radius);padding:.9rem 1rem;}
+  .glance .g-label{font-family:'Helvetica Neue',Arial,sans-serif;font-size:.68rem;font-weight:700;
+    letter-spacing:1px;text-transform:uppercase;color:var(--primary-light);margin-bottom:.35rem;}
+  .glance .g-val{font-size:.98rem;font-weight:600;color:var(--text-primary);line-height:1.4;}
+
+  /* hub cards */
+  .hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin:1.2rem 0 2rem;}
+  .hub-card{display:block;text-decoration:none;background:var(--bg-white);border:1px solid var(--border-light);
+    border-left:4px solid var(--primary-light);border-radius:var(--radius);padding:1.1rem 1.2rem;
+    box-shadow:var(--shadow-sm);transition:transform .12s,box-shadow .12s;}
+  .hub-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+  .hub-card .hc-ic{font-size:1.5rem;}
+  .hub-card .hc-t{font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;color:var(--primary);
+    font-size:1.02rem;margin:.35rem 0 .25rem;}
+  .hub-card .hc-d{font-size:.84rem;color:var(--text-secondary);line-height:1.5;}
+  .hub-card.gold{border-left-color:var(--accent-gold);}
+  .hub-card.green{border-left-color:#4caf50;}
+  .hub-section-h{font-family:'Helvetica Neue',Arial,sans-serif;font-size:.82rem;font-weight:700;
+    letter-spacing:1.5px;text-transform:uppercase;color:var(--primary-light);margin:1.6rem 0 .2rem;}
+
+  /* schedule table */
+  .sched-table td.exam-row{background:var(--primary)!important;color:#fff;font-weight:700;
+    font-family:'Helvetica Neue',Arial,sans-serif;}
+  .sched-table td.exam-row .tbd{background:rgba(255,255,255,.16);border-bottom-color:#ffd966;color:#fff;}
+  .sched-table td.exam-row .tbd-tag{background:rgba(0,0,0,.2);color:#ffe9a8;}
+  .sched-date{white-space:normal;font-weight:600;}
+  .sched-note{background:var(--bg-key);border-left:4px solid var(--accent-gold);border-radius:var(--radius);
+    padding:1rem 1.4rem;margin:1.5rem 0;font-size:.9rem;}
+  .sched-note h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1rem;color:var(--primary);margin:.4rem 0;}
+
+  /* syllabus */
+  .syl h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.15rem;color:#fff;background:var(--primary);
+    border-radius:6px;padding:.5rem .9rem;margin:2rem 0 1rem;border-bottom:3px solid var(--accent-gold);}
+  .syl h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.02rem;color:var(--primary-light);margin:1.4rem 0 .5rem;}
+  .syl p,.syl li{text-align:left;}
+  .syl ul{padding-left:1.3rem;margin:.5rem 0 1rem;}
+  .syl .grade-table td:last-child{text-align:right;font-weight:700;white-space:nowrap;}
+  .info-line{margin:.2rem 0;}
+
+  .review-banner{background:linear-gradient(135deg,var(--primary),var(--primary-light));
+    color:#fff;border-radius:var(--radius);padding:1.5rem 1.8rem;margin-bottom:1.5rem;
+    box-shadow:var(--shadow-md);font-family:'Helvetica Neue',Arial,sans-serif;}
+  .review-banner h2{font-size:1.05rem;letter-spacing:1px;text-transform:uppercase;
+    margin-bottom:1rem;color:#fff;border:none;padding:0;}
+  .review-banner .rb-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .review-banner .rb-card{background:rgba(255,255,255,0.10);border-radius:6px;padding:0.9rem 1.1rem;}
+  .review-banner .rb-card .rb-label{font-size:0.72rem;font-weight:700;letter-spacing:1.5px;
+    text-transform:uppercase;opacity:0.85;margin-bottom:0.4rem;}
+  .review-banner .rb-card .rb-date{font-size:1.05rem;font-weight:700;margin-bottom:0.4rem;}
+  .review-banner ul{list-style:none;margin:0;padding:0;font-size:0.86rem;line-height:1.7;}
+  .review-banner .rb-exam .rb-date{color:#ffd966;}
+  .review-banner a{color:#ffd966;}
+  .review-banner .tbd{background:rgba(255,255,255,.16);border-bottom-color:#ffd966;color:#fff;}
+  .review-banner .tbd-tag{background:rgba(0,0,0,.22);color:#ffe9a8;}
+  .review-note{background:var(--bg-key);border-left:4px solid var(--accent-gold);
+    border-radius:var(--radius);padding:1rem 1.4rem;margin-bottom:1.5rem;font-size:0.92rem;}
+  .sim-box{background:#eef4fb;border:1px solid var(--border-section);border-left:4px solid var(--primary-light);
+    border-radius:var(--radius);padding:1.1rem 1.4rem;margin-bottom:1.5rem;font-size:0.92rem;}
+  .sim-box-title{font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;color:var(--primary);
+    font-size:1rem;margin-bottom:0.5rem;}
+  .sim-box ul{padding-left:1.2rem;margin:0.5rem 0;}
+  .sim-box li{margin-bottom:0.5rem;}
+  .sim-box a{color:var(--primary-light);font-weight:600;}
+  .sim-box .sim-pw{margin:0.5rem 0 0;font-size:0.86rem;color:var(--text-secondary);}
+  .chapter-pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin:0 0 2rem;}
+  .chapter-pills a{font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.82rem;font-weight:600;
+    text-decoration:none;color:var(--primary);background:var(--bg-light);
+    border:1px solid var(--border-section);border-radius:20px;padding:0.4rem 0.9rem;transition:all .15s;}
+  .chapter-pills a:hover{background:var(--primary);color:#fff;}
+  .review-chapter{margin-top:2.5rem;padding-top:0.5rem;}
+  .review-body h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.55rem;font-weight:700;
+    color:#fff;background:var(--primary);border-radius:var(--radius) var(--radius) 0 0;
+    padding:0.7rem 1.1rem;margin:2.5rem 0 0;scroll-margin-top:1rem;
+    border-bottom:4px solid var(--accent-gold);}
+  .review-body .tb-link{background:#e8f5e9;border-left:4px solid #4caf50;border-radius:0 6px 6px 0;
+    padding:0.55rem 0.95rem;margin:0 0 1.4rem;font-size:0.86rem;color:#1b5e20;}
+  .review-body .tb-link a{color:#2e7d32;font-weight:700;}
+  .review-body h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.12rem;font-weight:700;
+    color:var(--primary-light);margin:1.8rem 0 0.7rem;padding-bottom:0.3rem;
+    border-bottom:1px solid var(--border-light);}
+  .review-body h3::before{content:"\25B8  ";color:var(--accent-gold);}
+  .review-body ul,.review-body ol{padding-left:1.4rem;margin-bottom:1rem;}
+  .review-body li{margin-bottom:0.45rem;text-align:left;}
+  .review-body p{text-align:left;}
+  .review-body pre{background:#fbfbfd;border:1px solid var(--border-light);
+    border-left:4px solid var(--primary-light);border-radius:6px;padding:0.9rem 1.1rem;
+    margin:0.8rem 0;overflow-x:auto;font-family:'Courier New',monospace;font-size:0.85rem;line-height:1.55;}
+  .review-body code{font-family:'Courier New',monospace;font-size:0.85em;
+    background:#eef2f7;color:#0d47a1;padding:0.1rem 0.35rem;border-radius:4px;}
+  .review-body pre code{background:none;color:inherit;padding:0;}
+  .review-body blockquote{background:#fff3e0;border-left:4px solid #e65100;border-radius:6px;
+    padding:0.9rem 1.2rem;margin:1rem 0;font-size:0.92rem;color:#5d4037;}
+  .review-body blockquote p{margin-bottom:0.4rem;}
+  .review-body table{font-size:0.88rem;}
+  .backtop{display:block;text-align:right;font-size:0.78rem;margin-top:0.6rem;}
+  .backtop a{color:var(--text-light);text-decoration:none;}
+  @media(max-width:768px){.review-banner .rb-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav class="semnav"><span class="semnav-term">Spring 2027</span><a href="index.html" class="home">Hub</a><a href="syllabus.html" class="">Syllabus</a><a href="course-schedule.html" class="">Schedule</a><a href="instructional-method.html" class="">Instructional Method</a><a href="exam1-review.html" class="">Exam 1</a><a href="exam2-review.html" class="active" style="color:#fff;font-weight:700;">Exam 2</a><a href="exam3-review.html" class="">Exam 3</a><a href="final-review.html" class="">Final</a><span class="spacer"></span><a href="../intro.html" class="home">📖 Textbook</a></nav>
+<div class="chapter-container" id="top">
+  <header class="chapter-header">
+    <div class="chapter-label">Spring 2027 · 2nd Exam Review</div>
+    <h1 class="chapter-title">Chapters 3 &amp; 4</h1>
+    <p class="chapter-subtitle">The Adjusting Process · Completing the Accounting Cycle</p>
+  </header>
+  <div class="proposed-banner">⚠️ <strong>Proposed dates.</strong> All dates on this page are tentative and will be confirmed by the instructor. Items marked <span class="tbd">like this<span class="tbd-tag">proposed</span></span> are subject to change.</div>
+  
+  <div class="review-banner">
+    <h2>Deadlines &amp; Exam</h2>
+    <div class="rb-grid">
+      <div class="rb-card rb-due">
+        <div class="rb-label">Assignments &amp; Quizzes Due</div>
+        <div class="rb-date">Before the exam</div>
+        <ul><li>▸ Ch 3 — Graded Assignment &amp; Quiz #3 <span style="opacity:.85">(due <span class="tbd">February 10<span class="tbd-tag">proposed</span></span>)</span></li><li>▸ Ch 4 — Graded Assignment &amp; Quiz #4 <span style="opacity:.85">(due <span class="tbd">February 17<span class="tbd-tag">proposed</span></span>)</span></li></ul>
+        <div style="font-size:0.78rem;opacity:0.8;margin-top:0.5rem;">Quizzes &rarr; D2L &nbsp;|&nbsp; Assignments &rarr; MyAccountingLab. Late work is not accepted.</div>
+      </div>
+      <div class="rb-card rb-exam">
+        <div class="rb-label">Exam</div>
+        <div class="rb-date"><span class="tbd">Tuesday, February 23<span class="tbd-tag">proposed</span></span></div>
+        <ul><li>2nd Exam — Chapters 3 &amp; 4</li></ul>
+        <div style="font-size:0.78rem;opacity:0.8;margin-top:0.5rem;">Based on Video Lectures 9–13.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="review-note">These chapters are also covered on the <strong>Comprehensive Final (<span class="tbd">May 5<span class="tbd-tag">proposed</span></span>)</strong> — keep this page and use it again for your final review.</div>
+
+  <div class="sim-box"><div class="sim-box-title">🧮 Practice Tool — Step Through It Yourself</div><p>Walk through the textbook examples interactively and watch how each transaction affects the accounting equation and the journal entries, one step at a time.</p><ul><li><a href="../Accounting-Equation-Simulator.html" target="_blank" rel="noopener">Accounting Equation Simulator</a> &mdash; use the selector at the top to choose <strong>Ch 3–4</strong>, pick an example, then click through each step.</li><li><a href="../Accounting-Cycle-Simulator-Ch1-4.html" target="_blank" rel="noopener">Accounting Cycle Simulator (Ch 1–4)</a> &mdash; follow one company through a full accounting cycle, including adjusting and closing entries (toggle Service / Merchandiser).</li></ul><p class="sim-pw">Password for the simulator(s): <strong>ACCT2101CO1</strong></p></div>
+
+  <p style="font-size:0.93rem;color:var(--text-secondary);">
+    This is a <strong>transcript-based review summary</strong> built directly from the video lectures &mdash;
+    it highlights the concepts, formulas, journal entries, common mistakes, and exam checkpoints emphasized in class.
+    It is a quick-reference companion to the lectures and the full
+    <a href="../intro.html">Interactive Study Guide</a>, not a replacement for the Pearson textbook.
+  </p>
+
+  <div class="chapter-pills"><a href="#ch3">Ch 3</a><a href="#ch4">Ch 4</a></div>
+
+  <section class="review-chapter review-body"><h2 id="ch3">Chapter 3 — The Adjusting Process</h2><p class="tb-link">📖 For worked examples and full detail, see the <a href="../ch03.html">Study Guide — Chapter 3</a>.</p>
+<blockquote>
+<p>The alternative treatment of deferrals (Appendix 3A) is recognized but not heavily tested.</p>
+</blockquote>
+<h3>Key Ideas</h3>
+<ul>
+<li>Adjusting entries fall between the <strong>unadjusted</strong> and <strong>adjusted trial balance</strong> at period-end, right before the financial statements.</li>
+<li><strong>Accrual basis</strong> (GAAP) recognizes revenue when <strong>earned</strong> and expenses when <strong>incurred</strong> — cash timing does not drive recognition. Cash basis is only for small private firms.</li>
+<li>The <strong>time period concept</strong> is why adjustments exist: over an infinite horizon cash and accrual totals match; periodic reporting forces end-of-period updates for events with no daily transaction (insurance expiring, revenue earned over time).</li>
+<li><strong>Cash-timing hook: Deferrals = cash FIRST, recognize later; Accruals = recognize FIRST, cash later.</strong> Four types: deferred revenue, deferred expense, accrued revenue, accrued expense.</li>
+<li>The professor's core rule: every adjusting entry is recorded at period-end, hits <strong>exactly one income-statement account and exactly one balance-sheet account</strong>, and <strong>NEVER involves Cash</strong>.</li>
+<li><strong>Revenue Recognition (ASC 606):</strong> 5 steps — identify contract, identify performance obligations, set transaction price, allocate price, recognize as each obligation is satisfied.</li>
+<li><strong>Matching principle:</strong> match expenses to the <em>period</em> they helped earn revenue — about timing, not equal dollar amounts.</li>
+<li><strong>Depreciation:</strong> cost is allocated to expense over time via Depreciation Expense, credited to the <strong>contra-asset</strong> Accumulated Depreciation; the asset cost itself is never reduced.</li>
+</ul>
+<h3>Key Formulas &amp; Rules</h3>
+<ul>
+<li>Supplies Expense = Beginning balance + Purchases − Ending physical count</li>
+<li>Straight-line depreciation = (Cost − Residual) ÷ Useful life — numerator is the Depreciation Base (not Book Value)</li>
+<li>Book Value = Cost − Accumulated Depreciation</li>
+<li>Interest = Principal × Rate × Time — rate is always annual; multiply by the fraction of the year (× 1/12 for one month)</li>
+<li>Partial-period depreciation = annual amount ÷ 12 × months</li>
+<li>Step-4 allocation: split a lump-sum price by each item's share of total standalone value</li>
+</ul>
+<h3>Must-Know Journal Entries</h3>
+<ul>
+<li><strong>Deferred revenue:</strong> <code>Dr. Unearned Revenue / Cr. Revenue</code></li>
+<li><strong>Deferred (prepaid) expense:</strong> <code>Dr. Expense / Cr. Prepaid Asset</code> (supplies: <code>Dr. Supplies Expense / Cr. Supplies</code>)</li>
+<li><strong>Depreciation:</strong> <code>Dr. Depreciation Expense / Cr. Accumulated Depreciation</code></li>
+<li><strong>Accrued revenue:</strong> <code>Dr. Accounts Receivable / Cr. Revenue</code></li>
+<li><strong>Accrued expense:</strong> <code>Dr. Expense / Cr. Payable</code> (e.g., <code>Dr. Interest Expense / Cr. Interest Payable</code>)</li>
+</ul>
+<h3>Common Mistakes</h3>
+<ul>
+<li>Putting <strong>Cash</strong> in an adjusting entry — the biggest red flag; if Cash appears, it's a transaction, not an adjustment.</li>
+<li>Forgetting the <strong>rate is annual</strong> — multiply by the fraction of the year; likewise divide annual depreciation by 12 for partial periods.</li>
+<li>Writing the <strong>same account on both sides</strong> ("Insurance / Insurance") — separate the expense (I/S) from the asset (B/S).</li>
+<li>Crediting the <strong>Equipment account directly</strong> for depreciation — credit Accumulated Depreciation instead.</li>
+<li>Confusing <strong>Depreciation Base</strong> (Cost − Salvage) with <strong>Book Value</strong> (Cost − Accumulated Depreciation).</li>
+<li>Treating the <strong>initial cash transaction</strong> as the adjustment — the adjustment happens only at period-end.</li>
+<li>Misclassifying accounts — <strong>Unearned Revenue is a liability</strong>; <strong>Accumulated Depreciation is a contra-asset</strong> with a credit balance.</li>
+<li>Mixing up <strong>deferral vs. accrual direction</strong> — check whether cash came first (deferral) or recognition first (accrual).</li>
+<li>Wrong <strong>omission impact</strong> — omitting a deferred expense overstates assets, understates expenses, and overstates net income/equity.</li>
+</ul>
+<h3>Exam Checklist</h3>
+<ul>
+<li>☐ You should be able to differentiate cash-basis from accrual-basis and explain why GAAP requires accrual.</li>
+<li>☐ You should be able to apply the time period concept, the 5-step revenue recognition principle (incl. price allocation), and the matching principle.</li>
+<li>☐ You should be able to classify a situation into one of the four categories using the cash-timing hook.</li>
+<li>☐ You should be able to journalize the adjusting entry for each type and verify it against the three rules (period-end, one I/S + one B/S account, no Cash).</li>
+<li>☐ You should be able to compute amounts: months elapsed × per-month rate; supplies from beginning + purchases − ending count; straight-line depreciation (annual and partial-period); interest = principal × annual rate × fraction of year.</li>
+<li>☐ You should be able to distinguish supplies (credit the asset directly) from depreciation (credit Accumulated Depreciation) and compute Book Value.</li>
+<li>☐ You should be able to prepare/interpret an adjusted trial balance and trace an account from unadjusted → adjustment → adjusted, confirming debits = credits.</li>
+<li>☐ You should be able to analyze the impact of recording vs. omitting an adjusting entry on assets, liabilities, equity, revenues/expenses, and net income.</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section><section class="review-chapter review-body"><h2 id="ch4">Chapter 4 — Completing the Accounting Cycle</h2><p class="tb-link">📖 For worked examples and full detail, see the <a href="../ch04.html">Study Guide — Chapter 4</a>.</p>
+<blockquote>
+<p>Reversing entries (appendix) WILL NOT be tested — skip them.</p>
+</blockquote>
+<h3>Key Ideas</h3>
+<ul>
+<li><strong>Temporary accounts</strong> (Revenues, Expenses, Dividends, Income Summary) are closed to zero each period so the income statement measures only one period's activity. <strong>Permanent accounts</strong> (Assets, Liabilities, Common Stock, Retained Earnings) carry forward and are never closed.</li>
+<li><strong>Income Summary</strong> is a temporary holding account used only during closing; it has no normal balance, appears on no statement, and its balance after closing revenues/expenses equals Net Income (credit) or Net Loss (debit).</li>
+<li>The <strong>four closing steps</strong>: (1) close revenues to Income Summary, (2) close expenses to Income Summary, (3) close Income Summary to Retained Earnings, (4) close <strong>Dividends directly to Retained Earnings</strong> — never through Income Summary (dividends aren't expenses).</li>
+<li><strong>Retained Earnings is permanent</strong> — closing <em>updates</em> it (adds net income, subtracts dividends) but never resets it to zero. The adjusted trial balance shows <em>beginning</em> R/E; only after closing does it show <em>ending</em> R/E.</li>
+<li>The <strong>post-closing trial balance</strong> is the final step of the cycle: prepared after closing, it contains <strong>only permanent accounts</strong> (no revenues, expenses, dividends, or Income Summary).</li>
+<li><strong>Classified balance sheet</strong>: assets listed by liquidity, liabilities by maturity. Current vs. long-term split applies to assets and liabilities but <strong>not</strong> to equity.</li>
+<li><strong>Current</strong> = realized/settled within 12 months OR the operating cycle, whichever is longer. PP&amp;E must be long-lived, tangible, and used in operations (intent governs — speculative land is a long-term investment, not PP&amp;E).</li>
+<li><strong>Financial-statement order</strong> (interrelated): Adjusted Trial Balance → Income Statement → Statement of Retained Earnings → Balance Sheet. Preparing statements is NOT the last step — you still close and run the post-closing trial balance.</li>
+</ul>
+<h3>Key Formulas &amp; Rules</h3>
+<ul>
+<li>Ending R/E = Beginning R/E + Net Income − Dividends (subtract a net loss)</li>
+<li>Net Income = Total Revenues − Total Expenses (= Income Summary balance after Steps 1–2)</li>
+<li>Current Ratio = Current Assets ÷ Current Liabilities (both point-in-time; no averaging, unlike ROA). Prefer &gt; 1.0.</li>
+<li>Current classification threshold = 12 months OR operating cycle, whichever is <strong>longer</strong>.</li>
+<li>Closing-direction rules (hit the opposite of the normal balance to zero it out):</li>
+<li>Revenue: normal credit → <strong>debit</strong> to close</li>
+<li>Expense: normal debit → <strong>credit</strong> to close</li>
+<li>Dividends: normal debit → <strong>credit</strong> to close</li>
+<li>Closing targets: Revenues &amp; Expenses → Income Summary; Income Summary → Retained Earnings; Dividends → Retained Earnings <strong>directly</strong>.</li>
+</ul>
+<h3>Must-Know Journal Entries</h3>
+<p>Four closing entries (generic pattern):</p>
+<ol>
+<li>Close revenues: <code>Dr. Revenue / Cr. Income Summary</code></li>
+<li>Close expenses (one compound entry for all): <code>Dr. Income Summary / Cr. Expenses</code></li>
+<li>Close Income Summary: <code>Dr. Income Summary / Cr. Retained Earnings</code> (net income) — flip for a net loss: <code>Dr. Retained Earnings / Cr. Income Summary</code></li>
+<li>Close dividends (direct): <code>Dr. Retained Earnings / Cr. Dividends</code></li>
+</ol>
+<h3>Common Mistakes</h3>
+<ul>
+<li>Thinking the financial statements are the last step — you must still close and prepare the post-closing trial balance.</li>
+<li>Routing Dividends through Income Summary — they close <strong>directly</strong> to R/E (they're not expenses).</li>
+<li>Closing permanent accounts — only Rev, Exp, Dividends, and Income Summary are closed; never assets, liabilities, Common Stock, or R/E.</li>
+<li>Treating Retained Earnings as temporary / resetting it to zero — it's permanent; closing only updates it.</li>
+<li>Copying adjusted-T/B Retained Earnings straight onto the balance sheet — that's the <em>beginning</em> balance; prepare the Statement of R/E first to get the <em>ending</em> balance.</li>
+<li>Expecting the worksheet's Income Statement columns to balance — the debit/credit gap <em>is</em> net income; don't "fix" it.</li>
+<li>Putting temporary accounts on the post-closing trial balance — permanent accounts only.</li>
+<li>Mixing up close directions — Revenue (credit normal) is debited; Expenses &amp; Dividends (debit normal) are credited.</li>
+<li>Using "whichever is shorter" — current classification uses 12 months OR operating cycle, whichever is <strong>longer</strong>.</li>
+<li>Misclassifying speculative land as PP&amp;E — if not used in operations, it's a long-term investment (intent governs).</li>
+<li>Averaging current-ratio inputs — both are point-in-time figures (averaging belongs to ROA).</li>
+<li>Reading a current ratio &lt; 1.0 as automatic bankruptcy — it's a liquidity flag, not a death sentence.</li>
+<li>Studying reversing entries — explicitly not tested.</li>
+</ul>
+<h3>Exam Checklist</h3>
+<ul>
+<li>☐ You should be able to recite the financial-statement order (Adj. T/B → I/S → Stmt of R/E → Balance Sheet) and what flows between them (Net Income; Ending R/E).</li>
+<li>☐ You should be able to list temporary vs. permanent accounts from memory (Income Summary = temporary; R/E = permanent).</li>
+<li>☐ You should be able to perform all four closing steps with correct Dr./Cr. directions and targets (Dividends → R/E directly).</li>
+<li>☐ You should be able to identify Income Summary's post-Step-2 balance as Net Income (Cr.) or Net Loss (Dr.), and flip Step 3 for a net loss.</li>
+<li>☐ You should be able to compute Ending R/E = Beg + N.I. − Dividends and tie it to the closed R/E T-account.</li>
+<li>☐ You should be able to state what does/doesn't appear on a post-closing trial balance (permanent only; R/E = ending).</li>
+<li>☐ You should be able to classify accounts on a classified balance sheet (current vs. long-term; assets by liquidity, liabilities by maturity; no split for equity).</li>
+<li>☐ You should be able to apply the "12 months OR operating cycle, whichever is longer" rule.</li>
+<li>☐ You should be able to distinguish PP&amp;E from a long-term investment by intent / use in operations.</li>
+<li>☐ You should be able to compute and interpret the Current Ratio (CA ÷ CL; &gt; 1.0 preferred; no average).</li>
+<li>☐ You should be able to recall the worksheet quirk: I/S columns don't balance; the gap = Net Income.</li>
+<li>☐ You should be able to order the full accounting cycle from beginning balances to post-closing trial balance.</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section>
+
+  <nav class="chapter-nav">
+    <a href="index.html">&larr; Spring 2027 Hub</a>
+    <a href="#top">Back to top &uarr;</a>
+  </nav>
+</div>
+</body>
+</html>

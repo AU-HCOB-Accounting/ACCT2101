@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1st Exam Review – Fall 2026 – ACCT 2101</title>
+  <link rel="stylesheet" href="../shared.css">
+  <style>
+  :root{--sem-accent:#2b579a;}
+  .semnav{position:sticky;top:0;z-index:50;background:#1a2332;color:#c8d6e5;
+    font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.82rem;
+    display:flex;flex-wrap:wrap;align-items:center;gap:0.15rem;
+    padding:0.5rem 1rem;box-shadow:0 2px 8px rgba(0,0,0,.18);}
+  .semnav .semnav-term{font-weight:700;color:#fff;letter-spacing:.5px;margin-right:.6rem;
+    padding-right:.7rem;border-right:1px solid rgba(255,255,255,.15);}
+  .semnav a{color:#b9c7d8;text-decoration:none;padding:0.3rem 0.6rem;border-radius:5px;transition:all .15s;}
+  .semnav a:hover{background:rgba(255,255,255,.08);color:#fff;}
+  .semnav a.home{color:#7fb2ff;}
+  .semnav .spacer{flex:1;}
+
+  .tbd{background:#fff3cd;border-bottom:2px dashed #d4a84b;border-radius:3px;
+    padding:0 .25rem;white-space:nowrap;}
+  .tbd-tag{display:inline-block;font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:.6rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+    color:#8a6d1a;background:#fbe6a2;border-radius:3px;padding:.02rem .3rem;margin-left:.3rem;
+    vertical-align:middle;}
+  .proposed-banner{background:#fff3cd;border:1px solid #e6cf7a;border-left:4px solid #d4a84b;
+    border-radius:var(--radius);padding:.8rem 1.2rem;margin:0 0 1.5rem;font-size:.9rem;color:#6b5417;
+    font-family:'Helvetica Neue',Arial,sans-serif;}
+  .proposed-banner strong{color:#5a4610;}
+
+  /* term-at-a-glance */
+  .glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin:0 0 1.8rem;}
+  .glance .g-card{background:var(--bg-light);border:1px solid var(--border-section);
+    border-radius:var(--radius);padding:.9rem 1rem;}
+  .glance .g-label{font-family:'Helvetica Neue',Arial,sans-serif;font-size:.68rem;font-weight:700;
+    letter-spacing:1px;text-transform:uppercase;color:var(--primary-light);margin-bottom:.35rem;}
+  .glance .g-val{font-size:.98rem;font-weight:600;color:var(--text-primary);line-height:1.4;}
+
+  /* hub cards */
+  .hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin:1.2rem 0 2rem;}
+  .hub-card{display:block;text-decoration:none;background:var(--bg-white);border:1px solid var(--border-light);
+    border-left:4px solid var(--primary-light);border-radius:var(--radius);padding:1.1rem 1.2rem;
+    box-shadow:var(--shadow-sm);transition:transform .12s,box-shadow .12s;}
+  .hub-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+  .hub-card .hc-ic{font-size:1.5rem;}
+  .hub-card .hc-t{font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;color:var(--primary);
+    font-size:1.02rem;margin:.35rem 0 .25rem;}
+  .hub-card .hc-d{font-size:.84rem;color:var(--text-secondary);line-height:1.5;}
+  .hub-card.gold{border-left-color:var(--accent-gold);}
+  .hub-card.green{border-left-color:#4caf50;}
+  .hub-section-h{font-family:'Helvetica Neue',Arial,sans-serif;font-size:.82rem;font-weight:700;
+    letter-spacing:1.5px;text-transform:uppercase;color:var(--primary-light);margin:1.6rem 0 .2rem;}
+
+  /* schedule table */
+  .sched-table td.exam-row{background:var(--primary)!important;color:#fff;font-weight:700;
+    font-family:'Helvetica Neue',Arial,sans-serif;}
+  .sched-table td.exam-row .tbd{background:rgba(255,255,255,.16);border-bottom-color:#ffd966;color:#fff;}
+  .sched-table td.exam-row .tbd-tag{background:rgba(0,0,0,.2);color:#ffe9a8;}
+  .sched-date{white-space:normal;font-weight:600;}
+  .sched-note{background:var(--bg-key);border-left:4px solid var(--accent-gold);border-radius:var(--radius);
+    padding:1rem 1.4rem;margin:1.5rem 0;font-size:.9rem;}
+  .sched-note h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1rem;color:var(--primary);margin:.4rem 0;}
+
+  /* syllabus */
+  .syl h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.15rem;color:#fff;background:var(--primary);
+    border-radius:6px;padding:.5rem .9rem;margin:2rem 0 1rem;border-bottom:3px solid var(--accent-gold);}
+  .syl h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.02rem;color:var(--primary-light);margin:1.4rem 0 .5rem;}
+  .syl p,.syl li{text-align:left;}
+  .syl ul{padding-left:1.3rem;margin:.5rem 0 1rem;}
+  .syl .grade-table td:last-child{text-align:right;font-weight:700;white-space:nowrap;}
+  .info-line{margin:.2rem 0;}
+
+  .review-banner{background:linear-gradient(135deg,var(--primary),var(--primary-light));
+    color:#fff;border-radius:var(--radius);padding:1.5rem 1.8rem;margin-bottom:1.5rem;
+    box-shadow:var(--shadow-md);font-family:'Helvetica Neue',Arial,sans-serif;}
+  .review-banner h2{font-size:1.05rem;letter-spacing:1px;text-transform:uppercase;
+    margin-bottom:1rem;color:#fff;border:none;padding:0;}
+  .review-banner .rb-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .review-banner .rb-card{background:rgba(255,255,255,0.10);border-radius:6px;padding:0.9rem 1.1rem;}
+  .review-banner .rb-card .rb-label{font-size:0.72rem;font-weight:700;letter-spacing:1.5px;
+    text-transform:uppercase;opacity:0.85;margin-bottom:0.4rem;}
+  .review-banner .rb-card .rb-date{font-size:1.05rem;font-weight:700;margin-bottom:0.4rem;}
+  .review-banner ul{list-style:none;margin:0;padding:0;font-size:0.86rem;line-height:1.7;}
+  .review-banner .rb-exam .rb-date{color:#ffd966;}
+  .review-banner a{color:#ffd966;}
+  .review-banner .tbd{background:rgba(255,255,255,.16);border-bottom-color:#ffd966;color:#fff;}
+  .review-banner .tbd-tag{background:rgba(0,0,0,.22);color:#ffe9a8;}
+  .review-note{background:var(--bg-key);border-left:4px solid var(--accent-gold);
+    border-radius:var(--radius);padding:1rem 1.4rem;margin-bottom:1.5rem;font-size:0.92rem;}
+  .sim-box{background:#eef4fb;border:1px solid var(--border-section);border-left:4px solid var(--primary-light);
+    border-radius:var(--radius);padding:1.1rem 1.4rem;margin-bottom:1.5rem;font-size:0.92rem;}
+  .sim-box-title{font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;color:var(--primary);
+    font-size:1rem;margin-bottom:0.5rem;}
+  .sim-box ul{padding-left:1.2rem;margin:0.5rem 0;}
+  .sim-box li{margin-bottom:0.5rem;}
+  .sim-box a{color:var(--primary-light);font-weight:600;}
+  .sim-box .sim-pw{margin:0.5rem 0 0;font-size:0.86rem;color:var(--text-secondary);}
+  .chapter-pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin:0 0 2rem;}
+  .chapter-pills a{font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.82rem;font-weight:600;
+    text-decoration:none;color:var(--primary);background:var(--bg-light);
+    border:1px solid var(--border-section);border-radius:20px;padding:0.4rem 0.9rem;transition:all .15s;}
+  .chapter-pills a:hover{background:var(--primary);color:#fff;}
+  .review-chapter{margin-top:2.5rem;padding-top:0.5rem;}
+  .review-body h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.55rem;font-weight:700;
+    color:#fff;background:var(--primary);border-radius:var(--radius) var(--radius) 0 0;
+    padding:0.7rem 1.1rem;margin:2.5rem 0 0;scroll-margin-top:1rem;
+    border-bottom:4px solid var(--accent-gold);}
+  .review-body .tb-link{background:#e8f5e9;border-left:4px solid #4caf50;border-radius:0 6px 6px 0;
+    padding:0.55rem 0.95rem;margin:0 0 1.4rem;font-size:0.86rem;color:#1b5e20;}
+  .review-body .tb-link a{color:#2e7d32;font-weight:700;}
+  .review-body h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.12rem;font-weight:700;
+    color:var(--primary-light);margin:1.8rem 0 0.7rem;padding-bottom:0.3rem;
+    border-bottom:1px solid var(--border-light);}
+  .review-body h3::before{content:"\25B8  ";color:var(--accent-gold);}
+  .review-body ul,.review-body ol{padding-left:1.4rem;margin-bottom:1rem;}
+  .review-body li{margin-bottom:0.45rem;text-align:left;}
+  .review-body p{text-align:left;}
+  .review-body pre{background:#fbfbfd;border:1px solid var(--border-light);
+    border-left:4px solid var(--primary-light);border-radius:6px;padding:0.9rem 1.1rem;
+    margin:0.8rem 0;overflow-x:auto;font-family:'Courier New',monospace;font-size:0.85rem;line-height:1.55;}
+  .review-body code{font-family:'Courier New',monospace;font-size:0.85em;
+    background:#eef2f7;color:#0d47a1;padding:0.1rem 0.35rem;border-radius:4px;}
+  .review-body pre code{background:none;color:inherit;padding:0;}
+  .review-body blockquote{background:#fff3e0;border-left:4px solid #e65100;border-radius:6px;
+    padding:0.9rem 1.2rem;margin:1rem 0;font-size:0.92rem;color:#5d4037;}
+  .review-body blockquote p{margin-bottom:0.4rem;}
+  .review-body table{font-size:0.88rem;}
+  .backtop{display:block;text-align:right;font-size:0.78rem;margin-top:0.6rem;}
+  .backtop a{color:var(--text-light);text-decoration:none;}
+  @media(max-width:768px){.review-banner .rb-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav class="semnav"><span class="semnav-term">Fall 2026</span><a href="index.html" class="home">Hub</a><a href="syllabus.html" class="">Syllabus</a><a href="course-schedule.html" class="">Schedule</a><a href="instructional-method.html" class="">Instructional Method</a><a href="exam1-review.html" class="active" style="color:#fff;font-weight:700;">Exam 1</a><a href="exam2-review.html" class="">Exam 2</a><a href="exam3-review.html" class="">Exam 3</a><a href="final-review.html" class="">Final</a><span class="spacer"></span><a href="../intro.html" class="home">📖 Textbook</a></nav>
+<div class="chapter-container" id="top">
+  <header class="chapter-header">
+    <div class="chapter-label">Fall 2026 · 1st Exam Review</div>
+    <h1 class="chapter-title">Chapters 1 &amp; 2</h1>
+    <p class="chapter-subtitle">Accounting &amp; the Business Environment · Recording Business Transactions</p>
+  </header>
+  <div class="proposed-banner">⚠️ <strong>Proposed dates.</strong> All dates on this page are tentative and will be confirmed by the instructor. Items marked <span class="tbd">like this<span class="tbd-tag">proposed</span></span> are subject to change.</div>
+  
+  <div class="review-banner">
+    <h2>Deadlines &amp; Exam</h2>
+    <div class="rb-grid">
+      <div class="rb-card rb-due">
+        <div class="rb-label">Assignments &amp; Quizzes Due</div>
+        <div class="rb-date">Before the exam</div>
+        <ul><li>▸ Ch 1 — Graded Assignment &amp; Quiz #1 <span style="opacity:.85">(due <span class="tbd">August 26<span class="tbd-tag">proposed</span></span>)</span></li><li>▸ Ch 2 — Graded Assignment &amp; Quiz #2 <span style="opacity:.85">(due <span class="tbd">September 2<span class="tbd-tag">proposed</span></span>)</span></li></ul>
+        <div style="font-size:0.78rem;opacity:0.8;margin-top:0.5rem;">Quizzes &rarr; D2L &nbsp;|&nbsp; Assignments &rarr; MyAccountingLab. Late work is not accepted.</div>
+      </div>
+      <div class="rb-card rb-exam">
+        <div class="rb-label">Exam</div>
+        <div class="rb-date"><span class="tbd">Tuesday, September 8<span class="tbd-tag">proposed</span></span></div>
+        <ul><li>1st Exam — Ch 1 &amp; 2 + the <strong>Ch 1–2 Practice Test</strong></li></ul>
+        <div style="font-size:0.78rem;opacity:0.8;margin-top:0.5rem;">Based on Video Lectures 1–8.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="review-note">Chapters 1 &amp; 2 are the <strong>foundation of the entire course</strong> and are also covered on the <strong>Comprehensive Final (<span class="tbd">December 2<span class="tbd-tag">proposed</span></span>)</strong> — keep this page. See also the <a href="../ch1-2-practice-test.html">Ch 1–2 Practice Test</a>.</div>
+
+  <div class="sim-box"><div class="sim-box-title">🧮 Practice Tool — Step Through It Yourself</div><p>Walk through the textbook examples interactively and watch how each transaction affects the accounting equation and the journal entries, one step at a time.</p><ul><li><a href="../Accounting-Equation-Simulator.html" target="_blank" rel="noopener">Accounting Equation Simulator</a> &mdash; use the selector at the top to choose <strong>Ch 1–2</strong>, pick an example, then click through each step.</li><li><a href="../Accounting-Cycle-Simulator-Ch1-4.html" target="_blank" rel="noopener">Accounting Cycle Simulator (Ch 1–4)</a> &mdash; follow one company through a full accounting cycle, including adjusting and closing entries (toggle Service / Merchandiser).</li></ul><p class="sim-pw">Password for the simulator(s): <strong>ACCT2101CO1</strong></p></div>
+
+  <p style="font-size:0.93rem;color:var(--text-secondary);">
+    This is a <strong>transcript-based review summary</strong> built directly from the video lectures &mdash;
+    it highlights the concepts, formulas, journal entries, common mistakes, and exam checkpoints emphasized in class.
+    It is a quick-reference companion to the lectures and the full
+    <a href="../intro.html">Interactive Study Guide</a>, not a replacement for the Pearson textbook.
+  </p>
+
+  <div class="chapter-pills"><a href="#ch1">Ch 1</a><a href="#ch2">Ch 2</a></div>
+
+  <section class="review-chapter review-body"><h2 id="ch1">Chapter 1 — Accounting &amp; the Business Environment</h2><p class="tb-link">📖 For worked examples and full detail, see the <a href="../ch01.html">Study Guide — Chapter 1</a>.</p>
+<h3>Key Ideas</h3>
+<ul>
+<li>Accounting = the "language of business": an information system that measures, processes, and communicates business activity to decision-makers.</li>
+<li>Two branches: <strong>financial accounting</strong> (this course) serves <strong>external</strong> users — chiefly <strong>creditors</strong> and <strong>investors</strong>; <strong>managerial accounting</strong> serves <strong>internal</strong> users (managers).</li>
+<li>Creditors lend money (want interest + repayment of principal); investors buy ownership (want stock gains and/or dividends). Both finance the firm, for different reasons.</li>
+<li>"Useful" information rests on two <strong>primary</strong> qualities — <strong>Relevance</strong> (predictive + confirmatory value; tied to <strong>Materiality</strong>) and <strong>Faithful Representation</strong> (complete, neutral, free from error) — plus four <strong>enhancing</strong> ones: <strong>Comparability, Verifiability, Timeliness, Understandability</strong>.</li>
+<li>Standard-setting flow: <strong>SEC → delegates → FASB → creates → GAAP</strong> (U.S.); internationally, <strong>IASB → IFRS</strong>. Comparability is <em>why</em> GAAP exists.</li>
+<li><strong>SOX (2002)</strong>, triggered by <strong>Enron</strong>, created the <strong>PCAOB</strong>, strengthened auditor independence, and restricted firms from auditing + consulting the same client (Arthur Andersen conflict of interest).</li>
+<li>Four reporting assumptions: <strong>Monetary Unit</strong> (only money-measurable items), <strong>Economic Entity</strong> (business separate from owners), <strong>Periodicity</strong> (life split into periods), <strong>Going Concern</strong> (firm continues operating).</li>
+<li>Four business forms differ on liability and tax: sole proprietorship &amp; partnership = <strong>unlimited</strong> liability, pass-through tax; corporation = <strong>limited</strong> liability, <strong>double taxation</strong>, indefinite life; <strong>LLC</strong> = hybrid (limited liability + pass-through). Ownership flow: stockholders vote → Board of Directors → appoints CEO/CFO.</li>
+<li>Three business activities seen on the balance sheet: <strong>operating</strong> (day-to-day), <strong>investing</strong> (long-term assets), <strong>financing</strong> (bonds/stock).</li>
+</ul>
+<h3>Key Formulas &amp; Rules</h3>
+<ul>
+<li>Accounting equation (must always balance): Assets = Liabilities + Stockholders' Equity. Left side = how money is used (resources); right side = where money came from (creditors = liabilities, investors = equity).</li>
+<li>Account-name shortcuts: "Receivable" in the name = an <strong>Asset</strong>; "Payable" = a <strong>Liability</strong>; "on account" = creates Accounts Payable (if buying) or Accounts Receivable (if selling).</li>
+<li>Stockholders' Equity = Contributed Capital (Common Stock) + Retained Earnings. Retained Earnings rises with Revenues, falls with Expenses and Dividends.</li>
+<li>Income statement: Revenues − Expenses = Net Income (or Net Loss).</li>
+<li>Retained Earnings: Ending R/E = Beginning R/E + Net Income − Dividends.</li>
+<li>ROA = Net Income ÷ Average Total Assets, where Average Total Assets = (Beginning + Ending) ÷ 2 (average matches a period measure to a point-in-time balance). Higher ROA = more efficient use of assets.</li>
+<li>Four statements, prepared in order: (1) Income Statement, (2) Statement of Retained Earnings, (3) Balance Sheet, (4) Statement of Cash Flows (operating/investing/financing). Connection: Net Income → Statement of R/E → Ending R/E → Equity on Balance Sheet.</li>
+<li>Timeframe rule: Income Statement, Statement of R/E, and Statement of Cash Flows are "for the period ended..."; only the <strong>Balance Sheet</strong> is "as of [date]."</li>
+</ul>
+<h3>Common Mistakes</h3>
+<ul>
+<li>Analyzing from the wrong perspective — always analyze <strong>from the company's viewpoint</strong>, not the owner's (the company receives cash and issues stock).</li>
+<li>Confusing cash collection with revenue (the professor's #1 stressed point): collecting on a receivable is <strong>NOT</strong> new revenue — revenue was recorded when the service was performed. Cash ≠ Revenue.</li>
+<li>Treating <strong>dividends as an expense</strong> — they are a distribution to owners, appear on the Statement of R/E, and never on the Income Statement.</li>
+<li>Forgetting the equation must always balance — if A = L + SE doesn't hold, a side was missed.</li>
+<li>Mixing up "for a period" vs. "as of a date" — only the Balance Sheet is "as of."</li>
+<li>Liability/tax confusion across business forms — sole prop &amp; partnership = unlimited; corporation &amp; LLC = limited; corporation = double taxation, LLC avoids it.</li>
+<li>Using total assets instead of <strong>average</strong> total assets in ROA.</li>
+<li>Recording immeasurable items (e.g., a great CEO's skill) — violates the Monetary Unit Assumption.</li>
+<li>Mixing owner and company transactions — violates the Economic Entity Assumption.</li>
+</ul>
+<h3>Exam Checklist</h3>
+<ul>
+<li>☐ You should be able to define accounting as the "language of business" and distinguish financial (external) vs. managerial (internal) accounting.</li>
+<li>☐ You should be able to name the two key external users — creditors (interest + principal) and investors (ownership, stock gains, dividends) — and what each wants.</li>
+<li>☐ You should be able to list the two primary qualitative characteristics and their sub-components, and explain materiality.</li>
+<li>☐ You should be able to list the four enhancing characteristics and link Comparability ↔ GAAP and Consistency ↔ same company over time.</li>
+<li>☐ You should be able to trace the SEC → FASB → GAAP chain and know that IASB → IFRS internationally.</li>
+<li>☐ You should be able to explain SOX (2002): triggered by Enron, created the PCAOB, strengthened auditor independence.</li>
+<li>☐ You should be able to state the four assumptions (Monetary Unit, Economic Entity, Periodicity, Going Concern) with an example of each.</li>
+<li>☐ You should be able to compare the four business forms on owners, liability, taxation, and life, and know LLC = hybrid.</li>
+<li>☐ You should be able to explain corporate structure: stockholders → vote → Board of Directors → appoints CEO/CFO.</li>
+<li>☐ You should be able to write the accounting equation and explain left (uses) vs. right (sources).</li>
+<li>☐ You should be able to apply the "receivable" = asset, "payable" = liability, "on account" = credit rules.</li>
+<li>☐ You should be able to break Equity into Contributed Capital (Common Stock) and Retained Earnings and know what raises/lowers R/E.</li>
+<li>☐ You should be able to keep A = L + SE balanced through transaction analysis.</li>
+<li>☐ You should be able to name the four statements, their order of preparation, and how they connect.</li>
+<li>☐ You should be able to apply Ending R/E = Beginning R/E + Net Income − Dividends, including across multiple years.</li>
+<li>☐ You should be able to distinguish "for a period" (IS, R/E, SCF) vs. "as of a date" (Balance Sheet).</li>
+<li>☐ You should be able to compute and interpret ROA = Net Income ÷ Average Total Assets (using the average).</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section><section class="review-chapter review-body"><h2 id="ch2">Chapter 2 — Recording Business Transactions</h2><p class="tb-link">📖 For worked examples and full detail, see the <a href="../ch02.html">Study Guide — Chapter 2</a>.</p>
+<blockquote>
+<p>Foundation chapter for the Ch 1–2 exam. If you can classify accounts and apply debit/credit rules fast, everything later gets easier.</p>
+</blockquote>
+<h3>Key Ideas</h3>
+<ul>
+<li><strong>Debit/Credit = left/right only.</strong> They are directional labels, not "good/bad" or "money in/out." Forget your bank/credit-card meaning of "credit."</li>
+<li><strong>Chart of Accounts vs. Ledger.</strong> Chart of Accounts is just a <em>list of account names</em>; the Ledger is the collection of actual <strong>T-accounts</strong> with balances.</li>
+<li><strong>Normal balance</strong> = the side on which an account <em>increases</em>. Assets sit on the left of the equation → debit normal balance; Liabilities + Equity on the right → credit normal balance.</li>
+<li><strong>Double-entry.</strong> Every transaction hits at least two accounts; total debits always equal total credits.</li>
+<li><strong>Process order:</strong> analyze transaction → journalize → post → trial balance. Each transaction starts from a source document (invoice, check, bill).</li>
+<li><strong>Prepaid = ASSET, Unearned Revenue = LIABILITY.</strong> Prepaid (rent/insurance) = cash paid in advance, becomes expense when used. Unearned Revenue = cash received before service, becomes revenue when service is performed.</li>
+<li><strong>Trial Balance is NOT a Balance Sheet.</strong> It is an internal check of debit = credit totals and still contains revenues, expenses, and dividends. Order: Assets → Liabilities → Equity.</li>
+<li><strong>Debt Ratio = Total Liabilities ÷ Total Assets.</strong> Higher = more assets financed by debt; not automatically bad. Never judge on one ratio.</li>
+</ul>
+<h3>Key Formulas &amp; Rules</h3>
+<p>Expanded accounting equation:
+Assets = Liabilities + Common Stock + Retained Earnings
+where Retained Earnings = + Revenues − Expenses − Dividends</p>
+<ul>
+<li>Contributed Capital = Common Stock. Earned Capital = Retained Earnings.</li>
+<li>Dividends are NOT Contributed Capital — they reduce Retained Earnings (Earned Capital).</li>
+<li>Golden Rule: in every entry, total Debits = total Credits (holds for compound entries too).</li>
+</ul>
+<p>Debit/Credit rules and normal balances:</p>
+<ul>
+<li>Assets — normal Debit; increase with Debit, decrease with Credit</li>
+<li>Liabilities — normal Credit; increase with Credit, decrease with Debit</li>
+<li>Common Stock — normal Credit; increase with Credit, decrease with Debit</li>
+<li>Retained Earnings — normal Credit; increase with Credit, decrease with Debit</li>
+<li>Revenues — normal Credit; increase with Credit, decrease with Debit</li>
+<li>Expenses — normal Debit; increase with Debit, decrease with Credit</li>
+<li>Dividends — normal Debit; increase with Debit, decrease with Credit</li>
+</ul>
+<p>DEALER memory aid (normal DEBIT balance): Dividends, Expenses, Assets = debit. Liabilities, Equity, Revenues = credit.</p>
+<p>Why Expenses &amp; Dividends are debits: Equity has a credit balance, so Revenue (which increases equity) is a credit; Expenses and Dividends <em>decrease</em> Retained Earnings, so they are recorded on the opposite (debit) side.</p>
+<h3>Must-Know Journal Entries</h3>
+<p>Format: date first, debit on top, credit indented, debits = credits.</p>
+<p>Cash sale — services performed for cash:
+Dr. Cash / Cr. Service Revenue</p>
+<p>Sale on account — revenue earned before cash received:
+Dr. Accounts Receivable / Cr. Service Revenue</p>
+<p>Collection on account — NO new revenue (already earned); just swaps assets:
+Dr. Cash / Cr. Accounts Receivable</p>
+<p>Cash received for future service — a LIABILITY, not revenue yet:
+Dr. Cash / Cr. Unearned Service Revenue</p>
+<h3>Common Mistakes</h3>
+<ul>
+<li>Treating "credit" like a bank/credit-card instead of just the right side.</li>
+<li>Mixing up Chart of Accounts (names only) and Ledger (T-accounts with balances).</li>
+<li>Getting Expenses/Dividends backwards — they have <strong>debit</strong> normal balances because they decrease equity.</li>
+<li>Calling Dividends "Contributed Capital" — they reduce Retained Earnings (Earned Capital).</li>
+<li>Recording cash for future service as Revenue — it's <strong>Unearned Revenue (liability)</strong> until performed.</li>
+<li>Recording collection of A/R as Revenue again — revenue was earned at the time of service; collection only swaps A/R for Cash.</li>
+<li>Forgetting "on account" has two directions: owed to you = Receivable (asset); owed by you = Payable (liability).</li>
+<li>Putting +/− signs inside T-accounts — let the side (left/right) signal debit vs. credit.</li>
+<li>Writing the credit account first or not indenting it — debit always on top.</li>
+<li>Thinking a balanced trial balance = no errors (misses wrong-account postings and equal wrong amounts).</li>
+<li>Confusing the Trial Balance with the Balance Sheet — the TB still lists revenues, expenses, dividends.</li>
+</ul>
+<h3>Exam Checklist</h3>
+<ul>
+<li>☐ You should be able to recite the <strong>DEALER</strong> rule instantly (Dividends, Expenses, Assets = debit; Liabilities, Equity, Revenue = credit).</li>
+<li>☐ You should be able to state the <strong>normal balance</strong> of any account on sight, fast (timed test).</li>
+<li>☐ You should be able to give <strong>increase/decrease → debit or credit</strong> for all 7 account types.</li>
+<li>☐ You should be able to write the <strong>expanded equation</strong> with RE = + Rev − Exp − Div.</li>
+<li>☐ You should be able to classify tricky accounts: Prepaid = asset, Unearned Revenue = liability, Supplies = asset, Dividends reduce Retained Earnings.</li>
+<li>☐ You should be able to journalize every common transaction type (cash sale, sale on account, purchase on account, payment on account, collection on account, expenses paid in cash, accrued bill, unearned revenue, dividends, borrowing, buying an asset).</li>
+<li>☐ You should be able to format any entry: date, debit on top, credit indented, debits = credits.</li>
+<li>☐ You should be able to build a <strong>compound entry</strong> and confirm it balances.</li>
+<li>☐ You should be able to <strong>post</strong> to T-accounts and compute an <strong>ending balance</strong> (net larger side − smaller; result on the normal-balance side).</li>
+<li>☐ You should be able to prepare a <strong>trial balance</strong> (Assets → Liabilities → Equity) and verify totals match.</li>
+<li>☐ You should be able to explain why a TB is <strong>not</strong> a Balance Sheet and why a balanced TB ≠ error-free.</li>
+<li>☐ You should be able to apply the <strong>three error-finding methods</strong>: missing account; ÷ 2 (debit/credit reversed); ÷ 9 (slide or transposition).</li>
+<li>☐ You should be able to state the <strong>financial-statement order</strong>: Income Statement → Statement of Retained Earnings → Balance Sheet.</li>
+<li>☐ You should be able to compute and interpret the <strong>Debt Ratio = Total Liabilities ÷ Total Assets</strong>.</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section>
+
+  <nav class="chapter-nav">
+    <a href="index.html">&larr; Fall 2026 Hub</a>
+    <a href="#top">Back to top &uarr;</a>
+  </nav>
+</div>
+</body>
+</html>

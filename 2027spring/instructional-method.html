@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instructional Method – Spring 2027 – ACCT 2101</title>
+  <link rel="stylesheet" href="../shared.css">
+  <style>
+  :root{--sem-accent:#2b579a;}
+  .semnav{position:sticky;top:0;z-index:50;background:#1a2332;color:#c8d6e5;
+    font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.82rem;
+    display:flex;flex-wrap:wrap;align-items:center;gap:0.15rem;
+    padding:0.5rem 1rem;box-shadow:0 2px 8px rgba(0,0,0,.18);}
+  .semnav .semnav-term{font-weight:700;color:#fff;letter-spacing:.5px;margin-right:.6rem;
+    padding-right:.7rem;border-right:1px solid rgba(255,255,255,.15);}
+  .semnav a{color:#b9c7d8;text-decoration:none;padding:0.3rem 0.6rem;border-radius:5px;transition:all .15s;}
+  .semnav a:hover{background:rgba(255,255,255,.08);color:#fff;}
+  .semnav a.home{color:#7fb2ff;}
+  .semnav .spacer{flex:1;}
+
+  .tbd{background:#fff3cd;border-bottom:2px dashed #d4a84b;border-radius:3px;
+    padding:0 .25rem;white-space:nowrap;}
+  .tbd-tag{display:inline-block;font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:.6rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+    color:#8a6d1a;background:#fbe6a2;border-radius:3px;padding:.02rem .3rem;margin-left:.3rem;
+    vertical-align:middle;}
+  .proposed-banner{background:#fff3cd;border:1px solid #e6cf7a;border-left:4px solid #d4a84b;
+    border-radius:var(--radius);padding:.8rem 1.2rem;margin:0 0 1.5rem;font-size:.9rem;color:#6b5417;
+    font-family:'Helvetica Neue',Arial,sans-serif;}
+  .proposed-banner strong{color:#5a4610;}
+
+  /* term-at-a-glance */
+  .glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin:0 0 1.8rem;}
+  .glance .g-card{background:var(--bg-light);border:1px solid var(--border-section);
+    border-radius:var(--radius);padding:.9rem 1rem;}
+  .glance .g-label{font-family:'Helvetica Neue',Arial,sans-serif;font-size:.68rem;font-weight:700;
+    letter-spacing:1px;text-transform:uppercase;color:var(--primary-light);margin-bottom:.35rem;}
+  .glance .g-val{font-size:.98rem;font-weight:600;color:var(--text-primary);line-height:1.4;}
+
+  /* hub cards */
+  .hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin:1.2rem 0 2rem;}
+  .hub-card{display:block;text-decoration:none;background:var(--bg-white);border:1px solid var(--border-light);
+    border-left:4px solid var(--primary-light);border-radius:var(--radius);padding:1.1rem 1.2rem;
+    box-shadow:var(--shadow-sm);transition:transform .12s,box-shadow .12s;}
+  .hub-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+  .hub-card .hc-ic{font-size:1.5rem;}
+  .hub-card .hc-t{font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;color:var(--primary);
+    font-size:1.02rem;margin:.35rem 0 .25rem;}
+  .hub-card .hc-d{font-size:.84rem;color:var(--text-secondary);line-height:1.5;}
+  .hub-card.gold{border-left-color:var(--accent-gold);}
+  .hub-card.green{border-left-color:#4caf50;}
+  .hub-section-h{font-family:'Helvetica Neue',Arial,sans-serif;font-size:.82rem;font-weight:700;
+    letter-spacing:1.5px;text-transform:uppercase;color:var(--primary-light);margin:1.6rem 0 .2rem;}
+
+  /* schedule table */
+  .sched-table td.exam-row{background:var(--primary)!important;color:#fff;font-weight:700;
+    font-family:'Helvetica Neue',Arial,sans-serif;}
+  .sched-table td.exam-row .tbd{background:rgba(255,255,255,.16);border-bottom-color:#ffd966;color:#fff;}
+  .sched-table td.exam-row .tbd-tag{background:rgba(0,0,0,.2);color:#ffe9a8;}
+  .sched-date{white-space:normal;font-weight:600;}
+  .sched-note{background:var(--bg-key);border-left:4px solid var(--accent-gold);border-radius:var(--radius);
+    padding:1rem 1.4rem;margin:1.5rem 0;font-size:.9rem;}
+  .sched-note h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1rem;color:var(--primary);margin:.4rem 0;}
+
+  /* syllabus */
+  .syl h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.15rem;color:#fff;background:var(--primary);
+    border-radius:6px;padding:.5rem .9rem;margin:2rem 0 1rem;border-bottom:3px solid var(--accent-gold);}
+  .syl h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.02rem;color:var(--primary-light);margin:1.4rem 0 .5rem;}
+  .syl p,.syl li{text-align:left;}
+  .syl ul{padding-left:1.3rem;margin:.5rem 0 1rem;}
+  .syl .grade-table td:last-child{text-align:right;font-weight:700;white-space:nowrap;}
+  .info-line{margin:.2rem 0;}
+</style>
+</head>
+<body>
+<nav class="semnav"><span class="semnav-term">Spring 2027</span><a href="index.html" class="home">Hub</a><a href="syllabus.html" class="">Syllabus</a><a href="course-schedule.html" class="">Schedule</a><a href="instructional-method.html" class="active" style="color:#fff;font-weight:700;">Instructional Method</a><a href="exam1-review.html" class="">Exam 1</a><a href="exam2-review.html" class="">Exam 2</a><a href="exam3-review.html" class="">Exam 3</a><a href="final-review.html" class="">Final</a><span class="spacer"></span><a href="../intro.html" class="home">📖 Textbook</a></nav>
+<div class="chapter-container" id="top">
+  <header class="chapter-header">
+    <div class="chapter-label">Instructional Method</div>
+    <h1 class="chapter-title">Spring 2027 Instructional Method</h1>
+    <p class="chapter-subtitle">Principles of Accounting I · Online</p>
+  </header>
+  <div class="proposed-banner">⚠️ <strong>Proposed dates.</strong> All dates on this page are tentative and will be confirmed by the instructor. Items marked <span class="tbd">like this<span class="tbd-tag">proposed</span></span> are subject to change.</div>
+  
+  <div class="syl">
+    <p class="info-line"><strong>ACCT2101: Principles of Accounting I</strong> · Spring 2027</p>
+
+    <h2>D2L (https://lms.augusta.edu/)</h2>
+    <p>You will access D2L to download Lecture PPTs and watch the video lectures, found under the
+    "Online Lectures with Lecture PPT" tab. Each chapter is a submodule containing the Lecture Video and the
+    corresponding PPT slides. The video lectures were recorded using a previous edition of the textbook, but the
+    posted lecture PPT slides reflect the current edition. All quizzes, exams, and assignments are based on topics
+    covered in the <strong>Lecture Videos</strong>, so watching the Lecture Videos first is highly recommended.</p>
+    <p>(Optional) Lectures from the previous in-person class are also uploaded
+    (D2L &rarr; Content &rarr; Table of Contents &rarr; (Optional) Lectures From the Previous In-Person Class).
+    Each begins by summarizing the important topics in the chapter and then shows how to solve some exercise problems.</p>
+    <p>Quizzes are administered online via D2L, each with a strict 10-minute time limit (see the
+    <a href="course-schedule.html">Course Schedule</a> for quiz due dates). Each chapter quiz consists of five
+    multiple-choice questions worth two points each. Twelve chapters are covered, for a maximum of 120 possible
+    quiz points; however, your two lowest quiz scores are dropped, making the quiz total counted toward your final
+    grade 100 points.</p>
+
+    <h2>MyAccountingLab</h2>
+    <p><strong>Graded Assignments:</strong> Complete each chapter's assignment in MyAccountingLab
+    (Assignment &rarr; Do Homework). Graded assignments consist of "Quick Check," "Short Exercises," and
+    "Exercises" problems from the end of each chapter. You have unlimited attempts on each problem. Late
+    submissions receive a 50% penalty. (Late submissions are <strong>not allowed</strong> for the Ch 9, 11, 12,
+    and 13 graded assignments — see the Course Schedule.)</p>
+    <p><strong>Exams:</strong> Exam dates are listed in the Course Schedule. If you miss a test or the final exam,
+    you receive a zero for that exam (except for documented emergencies: serious illness, family medical emergency,
+    or a university-sponsored activity). Documentation must be provided before the test or as soon as possible;
+    non-emergency excused cases must be communicated ahead of time. Job-related activities, travel plans, lack of a
+    vehicle or child care, and non-university activities are not acceptable excuses. A make-up test taken after the
+    scheduled time will be more difficult and will not be curved, to be fair to students who took it on time.</p>
+    <ul>
+      <li>Instructions for the "Ch1-2-practice-test" are provided by email.</li>
+      <li>Exams #1 and #2 consist of 60 multiple-choice questions.</li>
+      <li>Exam #3 and the Comprehensive Final Exam consist of problems from the MyAccountingLab Chapter Graded Assignments.</li>
+      <li>All exams (including quizzes) are timed. You may start any time during the designated exam date but must
+      finish within the time limit. Stay in the session until you finish and do not close the window. If you
+      experience technical difficulties, take a screenshot or video and email the instructor immediately.</li>
+    </ul>
+    <p><strong>Other study materials on MyAccountingLab</strong> (sample quizzes/tests, the Study Plan, Dynamic
+    Study Modules) are provided by the publisher and may include topics not covered in class. Use them only after
+    fully reviewing the lecture materials and completing your required assignments.</p>
+
+    <h2>Communication Rule</h2>
+    <p>The instructor communicates via email and D2L discussion boards. Email first; if you post on the discussion
+    boards, also notify the instructor by email. You are encouraged to post questions so other students can see the
+    responses. <strong>Before asking any question by email, students must first have watched either (1) the chapter
+    video lectures or (2) the optional in-person recordings.</strong> The instructor can verify viewing activity
+    through the system's access records and will respond to students who have reviewed the relevant lecture content.
+    Confirmed viewers who still have questions may request a 1-on-1 MS Teams meeting.</p>
+
+    <p style="margin-top:2rem;font-size:.86rem;color:var(--text-light);">See also the
+    <a href="syllabus.html">Syllabus</a> and <a href="course-schedule.html">Course Schedule</a> for Spring 2027.</p>
+  </div>
+
+  <nav class="chapter-nav">
+    <a href="index.html">&larr; Spring 2027 Hub</a>
+    <a href="#top">Back to top &uarr;</a>
+  </nav>
+</div>
+</body>
+</html>

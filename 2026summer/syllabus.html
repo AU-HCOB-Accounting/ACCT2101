@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syllabus – Summer 2026 – ACCT 2101</title>
+  <link rel="stylesheet" href="../shared.css">
+  <style>
+  :root{--sem-accent:#2b579a;}
+  .semnav{position:sticky;top:0;z-index:50;background:#1a2332;color:#c8d6e5;
+    font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.82rem;
+    display:flex;flex-wrap:wrap;align-items:center;gap:0.15rem;
+    padding:0.5rem 1rem;box-shadow:0 2px 8px rgba(0,0,0,.18);}
+  .semnav .semnav-term{font-weight:700;color:#fff;letter-spacing:.5px;margin-right:.6rem;
+    padding-right:.7rem;border-right:1px solid rgba(255,255,255,.15);}
+  .semnav a{color:#b9c7d8;text-decoration:none;padding:0.3rem 0.6rem;border-radius:5px;transition:all .15s;}
+  .semnav a:hover{background:rgba(255,255,255,.08);color:#fff;}
+  .semnav a.home{color:#7fb2ff;}
+  .semnav .spacer{flex:1;}
+
+  .tbd{background:#fff3cd;border-bottom:2px dashed #d4a84b;border-radius:3px;
+    padding:0 .25rem;white-space:nowrap;}
+  .tbd-tag{display:inline-block;font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:.6rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+    color:#8a6d1a;background:#fbe6a2;border-radius:3px;padding:.02rem .3rem;margin-left:.3rem;
+    vertical-align:middle;}
+  .proposed-banner{background:#fff3cd;border:1px solid #e6cf7a;border-left:4px solid #d4a84b;
+    border-radius:var(--radius);padding:.8rem 1.2rem;margin:0 0 1.5rem;font-size:.9rem;color:#6b5417;
+    font-family:'Helvetica Neue',Arial,sans-serif;}
+  .proposed-banner strong{color:#5a4610;}
+
+  /* term-at-a-glance */
+  .glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin:0 0 1.8rem;}
+  .glance .g-card{background:var(--bg-light);border:1px solid var(--border-section);
+    border-radius:var(--radius);padding:.9rem 1rem;}
+  .glance .g-label{font-family:'Helvetica Neue',Arial,sans-serif;font-size:.68rem;font-weight:700;
+    letter-spacing:1px;text-transform:uppercase;color:var(--primary-light);margin-bottom:.35rem;}
+  .glance .g-val{font-size:.98rem;font-weight:600;color:var(--text-primary);line-height:1.4;}
+
+  /* hub cards */
+  .hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin:1.2rem 0 2rem;}
+  .hub-card{display:block;text-decoration:none;background:var(--bg-white);border:1px solid var(--border-light);
+    border-left:4px solid var(--primary-light);border-radius:var(--radius);padding:1.1rem 1.2rem;
+    box-shadow:var(--shadow-sm);transition:transform .12s,box-shadow .12s;}
+  .hub-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+  .hub-card .hc-ic{font-size:1.5rem;}
+  .hub-card .hc-t{font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;color:var(--primary);
+    font-size:1.02rem;margin:.35rem 0 .25rem;}
+  .hub-card .hc-d{font-size:.84rem;color:var(--text-secondary);line-height:1.5;}
+  .hub-card.gold{border-left-color:var(--accent-gold);}
+  .hub-card.green{border-left-color:#4caf50;}
+  .hub-section-h{font-family:'Helvetica Neue',Arial,sans-serif;font-size:.82rem;font-weight:700;
+    letter-spacing:1.5px;text-transform:uppercase;color:var(--primary-light);margin:1.6rem 0 .2rem;}
+
+  /* schedule table */
+  .sched-table td.exam-row{background:var(--primary)!important;color:#fff;font-weight:700;
+    font-family:'Helvetica Neue',Arial,sans-serif;}
+  .sched-table td.exam-row .tbd{background:rgba(255,255,255,.16);border-bottom-color:#ffd966;color:#fff;}
+  .sched-table td.exam-row .tbd-tag{background:rgba(0,0,0,.2);color:#ffe9a8;}
+  .sched-date{white-space:normal;font-weight:600;}
+  .sched-note{background:var(--bg-key);border-left:4px solid var(--accent-gold);border-radius:var(--radius);
+    padding:1rem 1.4rem;margin:1.5rem 0;font-size:.9rem;}
+  .sched-note h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1rem;color:var(--primary);margin:.4rem 0;}
+
+  /* syllabus */
+  .syl h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.15rem;color:#fff;background:var(--primary);
+    border-radius:6px;padding:.5rem .9rem;margin:2rem 0 1rem;border-bottom:3px solid var(--accent-gold);}
+  .syl h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.02rem;color:var(--primary-light);margin:1.4rem 0 .5rem;}
+  .syl p,.syl li{text-align:left;}
+  .syl ul{padding-left:1.3rem;margin:.5rem 0 1rem;}
+  .syl .grade-table td:last-child{text-align:right;font-weight:700;white-space:nowrap;}
+  .info-line{margin:.2rem 0;}
+</style>
+</head>
+<body>
+<nav class="semnav"><span class="semnav-term">Summer 2026</span><a href="index.html" class="home">Hub</a><a href="syllabus.html" class="active" style="color:#fff;font-weight:700;">Syllabus</a><a href="course-schedule.html" class="">Schedule</a><a href="instructional-method.html" class="">Instructional Method</a><a href="exam1-review.html" class="">Exam 1</a><a href="exam2-review.html" class="">Exam 2</a><a href="exam3-review.html" class="">Exam 3</a><a href="final-review.html" class="">Final</a><span class="spacer"></span><a href="../intro.html" class="home">📖 Textbook</a></nav>
+<div class="chapter-container" id="top">
+  <header class="chapter-header">
+    <div class="chapter-label">Syllabus</div>
+    <h1 class="chapter-title">Summer 2026 Syllabus</h1>
+    <p class="chapter-subtitle">Principles of Accounting I · Online</p>
+  </header>
+  
+  
+  <div class="syl">
+    <p class="info-line"><strong>ACCT2101CO1: Principles of Accounting I</strong><br>Summer 2026 · Online (through D2L &amp; MyAccountingLab)</p>
+
+    <h2>Instructor Information</h2>
+    <p class="info-line"><strong>Instructor:</strong> Sang Hyun (Sam) Park, Ph.D.<br>
+    <strong>Office hours:</strong> This is an online course through D2L &amp; MyAccountingLab<br>
+    <strong>Email:</strong> sapark@augusta.edu</p>
+
+    <h2>Course Description</h2>
+    <p>This is an introductory course in financial accounting. The focus is on accounting as a system for
+    reporting business activity. It includes the study of the accounting cycle, the preparation and
+    interpretation of basic financial statements, and the study of fundamental accounting principles.</p>
+
+    <h2>Course Prerequisites</h2>
+    <p>MATH 1101 or MATH 1111 with a grade of C or better.</p>
+
+    <h2>Required Text and Other Materials</h2>
+    <ul>
+      <li>Horngren's Financial &amp; Managerial Accounting, 8th Edition.</li>
+      <li>MyAccountingLab access is required in order to complete assignments, quizzes, and exams for this course.</li>
+      <li>This course uses Augusta University's Inclusive Access program. If you are enrolled in this course and
+      have not opted out of Inclusive Access, you do not need to purchase a separate MyAccountingLab access code.
+      Your access to the required digital course materials, including MyAccountingLab, should be available through
+      D2L, and the cost will be charged to your student account.</li>
+      <li>Please access MyAccountingLab through D2L and follow the registration instructions provided in the
+      "MyAccountingLab_Registration_Handout" on D2L.</li>
+      <li>If you choose to opt out of Inclusive Access, you will lose access to the course materials through D2L
+      and will be responsible for obtaining the required MyAccountingLab access on your own. In that case only,
+      you may purchase access directly through Pearson:
+      <a href="https://www.pearson.com/en-us/subject-catalog/p/horngrens-financial--managerial-accounting/P200000009827/9780137858644">Pearson catalog link</a>.</li>
+      <li>If you already have an access code, you don't need to purchase it again. Make sure you purchase an access
+      code before your temporary access expires.</li>
+      <li>Refer to the "MyAccountingLab_Registration_Handout" on D2L to enroll. <strong>You must enroll before
+      Monday, June 1, 2026.</strong></li>
+    </ul>
+
+    <h2>Required Performance</h2>
+    <p>Accounting majors, accounting minors, and students planning to take other upper-level accounting courses
+    must earn a grade of "B" or better. Other business majors must make a grade of "C" or better.</p>
+
+    <h2>Student Learning Outcomes</h2>
+    <p>Mastery of the material covered in this course is essential for all students, regardless of specialization.
+    The principal learning outcomes are to have each student develop and demonstrate knowledge and basic skills
+    related to:</p>
+    <ul>
+      <li>Understanding the information system used by accountants, including the process and steps in the accounting cycle.</li>
+      <li>Identifying the effect of business transactions on the financial statements.</li>
+      <li>Understanding the conventions used by accountants to record transactions and the resultant limitations of accounting data.</li>
+      <li>Preparing and interpreting basic financial statements.</li>
+      <li>Identifying the characteristics of a good accounting system, including appropriate internal controls for a business.</li>
+    </ul>
+    <p>Using the knowledge and skills listed above, students will be able to:</p>
+    <ul>
+      <li>Construct solutions for problems in business, guided by ethical principles.</li>
+      <li>Integrate appropriate principles and concepts to inform business decision-making.</li>
+      <li>Apply appropriate knowledge of technical accounting skills.</li>
+      <li>Integrate current technologies in summarizing and communicating accounting information.</li>
+    </ul>
+
+    <h2>Grading Policy</h2>
+    <table class="grade-table"><tr><td>Day-One Quiz Bonus Points <span style="color:var(--text-secondary)">(Due June 1, 2026)</span></td><td>20 Maximum</td></tr><tr><td>Graded Assignments</td><td>200</td></tr><tr><td>Quizzes</td><td>100</td></tr><tr><td>Ch1-2-practice-test</td><td>200</td></tr><tr><td>1st Exam</td><td>100</td></tr><tr><td>2nd Exam</td><td>100</td></tr><tr><td>3rd Exam</td><td>100</td></tr><tr><td>Comprehensive Final Exam</td><td>200</td></tr><tr><td><strong>Total</strong></td><td><strong>1000</strong></td></tr></table>
+    <table class="grade-table" style="max-width:320px;margin-top:1rem;"><tr><td>A</td><td>= 900 and above</td></tr><tr><td>B</td><td>= 800 and above</td></tr><tr><td>C</td><td>= 700 and above</td></tr><tr><td>D</td><td>= 600 and above</td></tr><tr><td>F</td><td>= Less than 600</td></tr></table>
+    <ul>
+      <li>Graded Assignments = (Total Points Earned &divide; Total Points Assigned) &times; 100.</li>
+      <li>Students have the opportunity to earn up to 20 bonus points by completing the Day-One Quiz, which is due
+      Monday, June 1, 2026. These bonus points are added to your total score.</li>
+    </ul>
+    <p>Your total score determines your grade. There is no grading on a "curve" and there is no "rounding up" of
+    grades. Accounting majors must earn at least a C in this course. If your major is outside the Hull College of
+    Business, consult your advisor about the minimum grade you need to achieve.</p>
+
+    <h2>Withdrawal</h2>
+    <p>It is the student's responsibility to understand when they need to consider withdrawing from a course.
+    <strong>Monday, June 15, 2026</strong> is the last date that you can
+    withdraw from the course with a "W". It is your responsibility to formally withdraw from the course by the
+    midterm date to receive a "W". The only exceptions to this policy are outlined in the AU Withdrawal Policy.</p>
+
+    <h2>Incomplete</h2>
+    <p>Under emergency/special circumstances, students may petition for an incomplete grade. An incomplete will
+    only be assigned if a student is doing satisfactory work but, for non-academic reasons beyond their control,
+    is unable to meet the full requirements of the course. A student has one additional semester to complete the
+    required work and to receive a final grade. Any incomplete grade not removed after the next semester will be
+    converted to an "F" grade.</p>
+
+    <p style="margin-top:2rem;font-size:.86rem;color:var(--text-light);">See also the
+    <a href="course-schedule.html">Course Schedule</a> and
+    <a href="instructional-method.html">Instructional Method</a> for Summer 2026.</p>
+  </div>
+
+  <nav class="chapter-nav">
+    <a href="index.html">&larr; Summer 2026 Hub</a>
+    <a href="#top">Back to top &uarr;</a>
+  </nav>
+</div>
+</body>
+</html>

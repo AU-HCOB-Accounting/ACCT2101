@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprehensive Final Review – Spring 2027 – ACCT 2101</title>
+  <link rel="stylesheet" href="../shared.css">
+  <style>
+  :root{--sem-accent:#2b579a;}
+  .semnav{position:sticky;top:0;z-index:50;background:#1a2332;color:#c8d6e5;
+    font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.82rem;
+    display:flex;flex-wrap:wrap;align-items:center;gap:0.15rem;
+    padding:0.5rem 1rem;box-shadow:0 2px 8px rgba(0,0,0,.18);}
+  .semnav .semnav-term{font-weight:700;color:#fff;letter-spacing:.5px;margin-right:.6rem;
+    padding-right:.7rem;border-right:1px solid rgba(255,255,255,.15);}
+  .semnav a{color:#b9c7d8;text-decoration:none;padding:0.3rem 0.6rem;border-radius:5px;transition:all .15s;}
+  .semnav a:hover{background:rgba(255,255,255,.08);color:#fff;}
+  .semnav a.home{color:#7fb2ff;}
+  .semnav .spacer{flex:1;}
+
+  .tbd{background:#fff3cd;border-bottom:2px dashed #d4a84b;border-radius:3px;
+    padding:0 .25rem;white-space:nowrap;}
+  .tbd-tag{display:inline-block;font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:.6rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+    color:#8a6d1a;background:#fbe6a2;border-radius:3px;padding:.02rem .3rem;margin-left:.3rem;
+    vertical-align:middle;}
+  .proposed-banner{background:#fff3cd;border:1px solid #e6cf7a;border-left:4px solid #d4a84b;
+    border-radius:var(--radius);padding:.8rem 1.2rem;margin:0 0 1.5rem;font-size:.9rem;color:#6b5417;
+    font-family:'Helvetica Neue',Arial,sans-serif;}
+  .proposed-banner strong{color:#5a4610;}
+
+  /* term-at-a-glance */
+  .glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin:0 0 1.8rem;}
+  .glance .g-card{background:var(--bg-light);border:1px solid var(--border-section);
+    border-radius:var(--radius);padding:.9rem 1rem;}
+  .glance .g-label{font-family:'Helvetica Neue',Arial,sans-serif;font-size:.68rem;font-weight:700;
+    letter-spacing:1px;text-transform:uppercase;color:var(--primary-light);margin-bottom:.35rem;}
+  .glance .g-val{font-size:.98rem;font-weight:600;color:var(--text-primary);line-height:1.4;}
+
+  /* hub cards */
+  .hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;margin:1.2rem 0 2rem;}
+  .hub-card{display:block;text-decoration:none;background:var(--bg-white);border:1px solid var(--border-light);
+    border-left:4px solid var(--primary-light);border-radius:var(--radius);padding:1.1rem 1.2rem;
+    box-shadow:var(--shadow-sm);transition:transform .12s,box-shadow .12s;}
+  .hub-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+  .hub-card .hc-ic{font-size:1.5rem;}
+  .hub-card .hc-t{font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;color:var(--primary);
+    font-size:1.02rem;margin:.35rem 0 .25rem;}
+  .hub-card .hc-d{font-size:.84rem;color:var(--text-secondary);line-height:1.5;}
+  .hub-card.gold{border-left-color:var(--accent-gold);}
+  .hub-card.green{border-left-color:#4caf50;}
+  .hub-section-h{font-family:'Helvetica Neue',Arial,sans-serif;font-size:.82rem;font-weight:700;
+    letter-spacing:1.5px;text-transform:uppercase;color:var(--primary-light);margin:1.6rem 0 .2rem;}
+
+  /* schedule table */
+  .sched-table td.exam-row{background:var(--primary)!important;color:#fff;font-weight:700;
+    font-family:'Helvetica Neue',Arial,sans-serif;}
+  .sched-table td.exam-row .tbd{background:rgba(255,255,255,.16);border-bottom-color:#ffd966;color:#fff;}
+  .sched-table td.exam-row .tbd-tag{background:rgba(0,0,0,.2);color:#ffe9a8;}
+  .sched-date{white-space:normal;font-weight:600;}
+  .sched-note{background:var(--bg-key);border-left:4px solid var(--accent-gold);border-radius:var(--radius);
+    padding:1rem 1.4rem;margin:1.5rem 0;font-size:.9rem;}
+  .sched-note h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1rem;color:var(--primary);margin:.4rem 0;}
+
+  /* syllabus */
+  .syl h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.15rem;color:#fff;background:var(--primary);
+    border-radius:6px;padding:.5rem .9rem;margin:2rem 0 1rem;border-bottom:3px solid var(--accent-gold);}
+  .syl h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.02rem;color:var(--primary-light);margin:1.4rem 0 .5rem;}
+  .syl p,.syl li{text-align:left;}
+  .syl ul{padding-left:1.3rem;margin:.5rem 0 1rem;}
+  .syl .grade-table td:last-child{text-align:right;font-weight:700;white-space:nowrap;}
+  .info-line{margin:.2rem 0;}
+
+  .review-banner{background:linear-gradient(135deg,var(--primary),var(--primary-light));
+    color:#fff;border-radius:var(--radius);padding:1.5rem 1.8rem;margin-bottom:1.5rem;
+    box-shadow:var(--shadow-md);font-family:'Helvetica Neue',Arial,sans-serif;}
+  .review-banner h2{font-size:1.05rem;letter-spacing:1px;text-transform:uppercase;
+    margin-bottom:1rem;color:#fff;border:none;padding:0;}
+  .review-banner .rb-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .review-banner .rb-card{background:rgba(255,255,255,0.10);border-radius:6px;padding:0.9rem 1.1rem;}
+  .review-banner .rb-card .rb-label{font-size:0.72rem;font-weight:700;letter-spacing:1.5px;
+    text-transform:uppercase;opacity:0.85;margin-bottom:0.4rem;}
+  .review-banner .rb-card .rb-date{font-size:1.05rem;font-weight:700;margin-bottom:0.4rem;}
+  .review-banner ul{list-style:none;margin:0;padding:0;font-size:0.86rem;line-height:1.7;}
+  .review-banner .rb-exam .rb-date{color:#ffd966;}
+  .review-banner a{color:#ffd966;}
+  .review-banner .tbd{background:rgba(255,255,255,.16);border-bottom-color:#ffd966;color:#fff;}
+  .review-banner .tbd-tag{background:rgba(0,0,0,.22);color:#ffe9a8;}
+  .review-note{background:var(--bg-key);border-left:4px solid var(--accent-gold);
+    border-radius:var(--radius);padding:1rem 1.4rem;margin-bottom:1.5rem;font-size:0.92rem;}
+  .sim-box{background:#eef4fb;border:1px solid var(--border-section);border-left:4px solid var(--primary-light);
+    border-radius:var(--radius);padding:1.1rem 1.4rem;margin-bottom:1.5rem;font-size:0.92rem;}
+  .sim-box-title{font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;color:var(--primary);
+    font-size:1rem;margin-bottom:0.5rem;}
+  .sim-box ul{padding-left:1.2rem;margin:0.5rem 0;}
+  .sim-box li{margin-bottom:0.5rem;}
+  .sim-box a{color:var(--primary-light);font-weight:600;}
+  .sim-box .sim-pw{margin:0.5rem 0 0;font-size:0.86rem;color:var(--text-secondary);}
+  .chapter-pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin:0 0 2rem;}
+  .chapter-pills a{font-family:'Helvetica Neue',Arial,sans-serif;font-size:0.82rem;font-weight:600;
+    text-decoration:none;color:var(--primary);background:var(--bg-light);
+    border:1px solid var(--border-section);border-radius:20px;padding:0.4rem 0.9rem;transition:all .15s;}
+  .chapter-pills a:hover{background:var(--primary);color:#fff;}
+  .review-chapter{margin-top:2.5rem;padding-top:0.5rem;}
+  .review-body h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.55rem;font-weight:700;
+    color:#fff;background:var(--primary);border-radius:var(--radius) var(--radius) 0 0;
+    padding:0.7rem 1.1rem;margin:2.5rem 0 0;scroll-margin-top:1rem;
+    border-bottom:4px solid var(--accent-gold);}
+  .review-body .tb-link{background:#e8f5e9;border-left:4px solid #4caf50;border-radius:0 6px 6px 0;
+    padding:0.55rem 0.95rem;margin:0 0 1.4rem;font-size:0.86rem;color:#1b5e20;}
+  .review-body .tb-link a{color:#2e7d32;font-weight:700;}
+  .review-body h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.12rem;font-weight:700;
+    color:var(--primary-light);margin:1.8rem 0 0.7rem;padding-bottom:0.3rem;
+    border-bottom:1px solid var(--border-light);}
+  .review-body h3::before{content:"\25B8  ";color:var(--accent-gold);}
+  .review-body ul,.review-body ol{padding-left:1.4rem;margin-bottom:1rem;}
+  .review-body li{margin-bottom:0.45rem;text-align:left;}
+  .review-body p{text-align:left;}
+  .review-body pre{background:#fbfbfd;border:1px solid var(--border-light);
+    border-left:4px solid var(--primary-light);border-radius:6px;padding:0.9rem 1.1rem;
+    margin:0.8rem 0;overflow-x:auto;font-family:'Courier New',monospace;font-size:0.85rem;line-height:1.55;}
+  .review-body code{font-family:'Courier New',monospace;font-size:0.85em;
+    background:#eef2f7;color:#0d47a1;padding:0.1rem 0.35rem;border-radius:4px;}
+  .review-body pre code{background:none;color:inherit;padding:0;}
+  .review-body blockquote{background:#fff3e0;border-left:4px solid #e65100;border-radius:6px;
+    padding:0.9rem 1.2rem;margin:1rem 0;font-size:0.92rem;color:#5d4037;}
+  .review-body blockquote p{margin-bottom:0.4rem;}
+  .review-body table{font-size:0.88rem;}
+  .backtop{display:block;text-align:right;font-size:0.78rem;margin-top:0.6rem;}
+  .backtop a{color:var(--text-light);text-decoration:none;}
+  @media(max-width:768px){.review-banner .rb-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav class="semnav"><span class="semnav-term">Spring 2027</span><a href="index.html" class="home">Hub</a><a href="syllabus.html" class="">Syllabus</a><a href="course-schedule.html" class="">Schedule</a><a href="instructional-method.html" class="">Instructional Method</a><a href="exam1-review.html" class="">Exam 1</a><a href="exam2-review.html" class="">Exam 2</a><a href="exam3-review.html" class="">Exam 3</a><a href="final-review.html" class="active" style="color:#fff;font-weight:700;">Final</a><span class="spacer"></span><a href="../intro.html" class="home">📖 Textbook</a></nav>
+<div class="chapter-container" id="top">
+  <header class="chapter-header">
+    <div class="chapter-label">Spring 2027 · Comprehensive Final Review</div>
+    <h1 class="chapter-title">Chapters 9, 11, 12 &amp; 13</h1>
+    <p class="chapter-subtitle">Plant Assets · Current Liabilities · Long-Term Liabilities · Stockholders' Equity</p>
+  </header>
+  <div class="proposed-banner">⚠️ <strong>Proposed dates.</strong> All dates on this page are tentative and will be confirmed by the instructor. Items marked <span class="tbd">like this<span class="tbd-tag">proposed</span></span> are subject to change.</div>
+  
+  <div class="review-banner">
+    <h2>Deadlines &amp; Exam</h2>
+    <div class="rb-grid">
+      <div class="rb-card rb-due">
+        <div class="rb-label">Assignments &amp; Quizzes Due</div>
+        <div class="rb-date">Before the exam</div>
+        <ul><li>▸ Ch 9 — Graded Assignment &amp; Quiz #9 <span style="opacity:.85">(due <span class="tbd">April 14<span class="tbd-tag">proposed</span></span>)</span></li><li>▸ Ch 11 — Graded Assignment &amp; Quiz #10 <span style="opacity:.85">(due <span class="tbd">April 21<span class="tbd-tag">proposed</span></span>)</span></li><li>▸ Ch 12 — Graded Assignment &amp; Quiz #11 <span style="opacity:.85">(due <span class="tbd">April 28<span class="tbd-tag">proposed</span></span>)</span></li><li>▸ Ch 13 — Graded Assignment &amp; Quiz #12 <span style="opacity:.85">(due <span class="tbd">April 30<span class="tbd-tag">proposed</span></span>)</span></li></ul>
+        <div style="font-size:0.78rem;opacity:0.8;margin-top:0.5rem;">Quizzes &rarr; D2L &nbsp;|&nbsp; Assignments &rarr; MyAccountingLab. Late work is not accepted.</div>
+      </div>
+      <div class="rb-card rb-exam">
+        <div class="rb-label">Exam</div>
+        <div class="rb-date"><span class="tbd">Wednesday, May 5<span class="tbd-tag">proposed</span></span></div>
+        <ul><li>Comprehensive Final Exam — Ch. 1–9, 11, 12 &amp; 13</li></ul>
+        <div style="font-size:0.78rem;opacity:0.8;margin-top:0.5rem;">Based on Video Lectures 23–26.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="review-note">This page covers the new material (Chapters 9, 11, 12, 13). The Final is <strong>comprehensive</strong> — also review the <a href="exam1-review.html">Exam&nbsp;1</a>, <a href="exam2-review.html">Exam&nbsp;2</a>, and <a href="exam3-review.html">Exam&nbsp;3</a> pages and the full <a href="index.html">Spring 2027 Hub</a> for Chapters 1–8.</div>
+
+  <div class="sim-box"><div class="sim-box-title">🧮 Practice Tool — Step Through It Yourself</div><p>Walk through the textbook examples interactively and watch how each transaction affects the accounting equation and the journal entries, one step at a time.</p><ul><li><a href="../Accounting-Equation-Simulator.html" target="_blank" rel="noopener">Accounting Equation Simulator</a> &mdash; use the selector at the top to choose <strong>Ch 9–13</strong>, pick an example, then click through each step.</li></ul><p class="sim-pw">Password for the simulator(s): <strong>ACCT2101CO1</strong></p></div>
+
+  <p style="font-size:0.93rem;color:var(--text-secondary);">
+    This is a <strong>transcript-based review summary</strong> built directly from the video lectures &mdash;
+    it highlights the concepts, formulas, journal entries, common mistakes, and exam checkpoints emphasized in class.
+    It is a quick-reference companion to the lectures and the full
+    <a href="../intro.html">Interactive Study Guide</a>, not a replacement for the Pearson textbook.
+  </p>
+
+  <div class="chapter-pills"><a href="#ch9">Ch 9</a><a href="#ch11">Ch 11</a><a href="#ch12">Ch 12</a><a href="#ch13">Ch 13</a></div>
+
+  <section class="review-chapter review-body"><h2 id="ch9">Chapter 9 — Plant Assets, Natural Resources, and Intangibles</h2><p class="tb-link">📖 For worked examples and full detail, see the <a href="../ch09.html">Study Guide — Chapter 9</a>.</p>
+<blockquote>
+<p><strong>Scope note (from the professor):</strong> For ACCT 2101 we focus on <strong>LO 1, 2, and 6 only</strong>: (1) the <strong>cost of PP&amp;E</strong>, (2) <strong>depreciation</strong> by all three methods (plus partial-year) and <strong>disposal</strong>, and (6) the <strong>asset turnover ratio</strong>. The professor <strong>skipped natural resources/depletion and intangibles/amortization/goodwill</strong> — they are not testable from lecture.</p>
+</blockquote>
+<h3>Key Ideas</h3>
+<ul>
+<li><strong>Three tests for PP&amp;E</strong> (must meet all): long-term (non-current), tangible (physical substance), and used in operations. A long-term tangible asset <em>not</em> used in operations is an investment, not PP&amp;E.</li>
+<li><strong>Capitalize all costs to get the asset ready for its intended use</strong> (cost principle). Examples: land — commissions, legal/survey fees, delinquent taxes, clearing an old building; equipment — freight, insurance in transit, installation, testing. Understand the concept, don't memorize lists.</li>
+<li><strong>Land</strong> = infinite life → <strong>NEVER depreciated</strong>. <strong>Land Improvements</strong> (fences, paving, lights) = limited life → <strong>ARE depreciated</strong>, in a separate account.</li>
+<li><strong>Lump-sum (basket) purchase:</strong> split one price across assets by the <strong>relative-market-value method</strong> (each asset's % of total appraised FMV). Total debits = price actually paid, not total appraised value.</li>
+<li><strong>Capital vs. revenue expenditures:</strong> capital (extends useful life / boosts capacity) → <strong>capitalize</strong>; revenue (routine repair/maintenance) → <strong>expense now</strong>.</li>
+<li><strong>Depreciation = allocation, not valuation.</strong> A systematic process driven by the matching principle; nothing to do with fair market value or cash. All plant assets except land are depreciated.</li>
+<li><strong>Depreciable Cost = Cost − Residual</strong> (max total depreciation, fixed) vs. <strong>Book Value = Cost − Accumulated Depreciation</strong> (falls each year, ending at residual value).</li>
+<li><strong>Disposal:</strong> (1) update depreciation to the disposal date, (2) remove the asset's cost and its accumulated depreciation, (3) plug the difference with a Gain or Loss.</li>
+</ul>
+<h3>Key Formulas &amp; Rules</h3>
+<ul>
+<li>Straight-line = (Cost − Residual) ÷ Useful life</li>
+<li>Units-of-production = (Cost − Residual) ÷ Total units, then × units used this year</li>
+<li>Double-declining-balance = Beginning Book Value × (2 ÷ Useful life). Residual is NOT subtracted; in the final year, plug down to residual (Final-year dep. = Beginning Book Value − Residual).</li>
+<li>Partial-year dep. = Annual dep. × (Months in service ÷ 12). Purchased on/before the 15th = count the whole month; after the 15th = start next month.</li>
+<li>Book Value = Cost − Accumulated Depreciation</li>
+<li>Asset Turnover = Net Sales ÷ Average Total Assets, where Average Total Assets = (Beginning + Ending) ÷ 2</li>
+</ul>
+<blockquote>
+<p>All three depreciation methods produce the <strong>same total</strong> depreciation over the asset's life — only the timing differs.</p>
+</blockquote>
+<h3>Must-Know Journal Entries</h3>
+<p><strong>Depreciation (each period):</strong>
+Dr. Depreciation Expense / Cr. Accumulated Depreciation.</p>
+<p><strong>Disposal (pattern — plug to balance):</strong>
+Dr. Cash (amount received), Dr. Accumulated Depreciation (full balance), Cr. Asset (at cost), then Dr. <strong>Loss</strong> (if cash &lt; book value) or Cr. <strong>Gain</strong> (if cash &gt; book value) to balance.</p>
+<h3>Common Mistakes</h3>
+<ul>
+<li><strong>Expensing capitalizable costs</strong> — freight, installation, testing, clearing, survey fees, etc. are part of the asset's cost; capitalize them.</li>
+<li><strong>Depreciating land</strong> — land is never depreciated. Watch for <strong>Land Improvements</strong> hidden in a problem; those ARE depreciated.</li>
+<li><strong>Recording basket assets at appraised value</strong> — FMV is only used for the allocation ratio. Total debits = price actually paid.</li>
+<li><strong>Capital vs. revenue mix-up</strong> — wrong classification misstates both net income and assets. Ask: "Does it extend life or boost capacity?" Yes → capitalize; No → expense.</li>
+<li><strong>DDB: subtracting residual in the formula</strong> — DDB ignores residual up front; multiply full book value × (2 ÷ life) in year 1.</li>
+<li><strong>DDB: missing the final-year plug</strong> — applying the rate mechanically in the last year drops book value below residual. Use Beginning BV − Residual instead. (Professor: the most common mistake.)</li>
+<li><strong>Computing book value off last year's BV</strong> — always BV = original Cost − total Accumulated Depreciation.</li>
+<li><strong>Forgetting to update depreciation before disposal</strong> — catch up to the disposal date first, or the gain/loss is wrong.</li>
+<li><strong>Gain/loss direction</strong> — compare cash to <strong>book value</strong> (not cost): cash &gt; BV = Gain (credit); cash &lt; BV = Loss (debit).</li>
+<li><strong>Asset turnover using ending (not average) assets</strong>, or forgetting to divide by 2.</li>
+</ul>
+<h3>Exam Checklist</h3>
+<ul>
+<li>☐ You should be able to state the <strong>3 tests</strong> for PP&amp;E and classify land "bought but unused" as an investment, not PP&amp;E.</li>
+<li>☐ You should be able to build an asset's <strong>capitalized cost</strong> from a list of charges (what's in vs. out).</li>
+<li>☐ You should be able to distinguish <strong>Land vs. Land Improvements</strong> — which depreciates, which doesn't.</li>
+<li>☐ You should be able to do a <strong>lump-sum allocation</strong> by relative market value and debit each asset its share of the price paid.</li>
+<li>☐ You should be able to classify and journalize <strong>capital vs. revenue expenditures</strong>.</li>
+<li>☐ You should be able to compute and explain <strong>Depreciable Cost vs. Book Value</strong>.</li>
+<li>☐ You should be able to compute <strong>Straight-Line</strong> depreciation and build a schedule that ends at residual.</li>
+<li>☐ You should be able to compute <strong>Units-of-Production</strong>: per-unit rate × actual units.</li>
+<li>☐ You should be able to compute <strong>DDB</strong>: rate = 2 ÷ life, no residual up front, with the <strong>final-year plug</strong> to residual.</li>
+<li>☐ You should be able to explain that all three methods give the <strong>same total</strong> depreciation — only timing differs.</li>
+<li>☐ You should be able to prorate <strong>partial-year</strong> depreciation (× months/12; half-month rule).</li>
+<li>☐ You should be able to record <strong>disposal</strong> at a gain AND at a loss (update dep. → remove cost &amp; accum. dep. → plug).</li>
+<li>☐ You should be able to compute and interpret the <strong>Asset Turnover Ratio</strong> (higher = better).</li>
+<li>☐ You should remember land is reported at full cost with no accumulated depreciation.</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section><section class="review-chapter review-body"><h2 id="ch11">Chapter 11 — Current Liabilities</h2><p class="tb-link">📖 For worked examples and full detail, see the <a href="../ch11.html">Study Guide — Chapter 11</a>.</p>
+<p><em>Exam-review summary. Note: the professor dropped the payroll-transactions learning objective (LO 2) as too complicated, so detailed payroll journal entries are not tested. Everything else in the chapter is fair game.</em></p>
+<h3>Key Ideas</h3>
+<ul>
+<li><strong>Liability</strong> = a present obligation from a past event, settled by paying cash or providing a service.</li>
+<li><strong>Current vs. long-term:</strong> current liabilities are due within <strong>one year or the operating cycle, whichever is longer</strong>; everything else is long-term (Ch. 12).</li>
+<li><strong>Three categories:</strong> <strong>known</strong> amount (accounts payable, sales tax, unearned revenue, notes payable), <strong>estimated</strong> (warranties, bonuses, vacation pay), and <strong>contingent</strong> (depends on a future event, e.g. lawsuits).</li>
+<li><strong>Sales tax is a liability, NOT an expense</strong> — the company is just a collection agent remitting to the government. <strong>Income tax IS a true expense</strong> because it's levied on the company's own income.</li>
+<li><strong>Notes payable:</strong> the <strong>maker/issuer</strong> borrows and records Notes Payable (this chapter); the payee records Notes Receivable. Principal stays in Notes Payable at <strong>face value</strong>; accrued interest goes in a <strong>separate Interest Payable</strong> account.</li>
+<li><strong>Unearned revenue</strong> is settled by <strong>performing the service</strong>, never by refunding cash; recognize revenue as the obligation is satisfied.</li>
+<li><strong>Warranties</strong> follow the matching principle: record Warranty Expense (an estimate) in the <strong>same period as the sale</strong>, not when claims arrive.</li>
+<li><strong>Contingent liabilities</strong> are recognized based on <strong>likelihood</strong> (remote / reasonably possible / probable).</li>
+</ul>
+<h3>Key Formulas &amp; Rules</h3>
+<ul>
+<li><strong>Interest = Principal × Annual Rate × Time</strong> — the rate is almost always ANNUAL, so time is a fraction of a year: days ÷ 365, or months ÷ 12.</li>
+<li><strong>Bonus (on income after the bonus) = (Net Income Before Bonus × Bonus %) ÷ (1 + Bonus %)</strong></li>
+<li><strong>Warranty Expense = Warranty % × Sales</strong></li>
+<li><strong>Times-Interest-Earned = (Net Income + Income Tax Expense + Interest Expense) ÷ Interest Expense</strong> — numerator is EBIT (operating income); above 1 = healthy ability to cover interest.</li>
+</ul>
+<p>Contingent-liability recognition:</p>
+<table>
+<thead>
+<tr>
+<th>Likelihood</th>
+<th>Accrue (record)?</th>
+<th>Disclose in notes?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Remote</strong></td>
+<td>No</td>
+<td>No (do nothing)</td>
+</tr>
+<tr>
+<td><strong>Reasonably possible</strong></td>
+<td>No</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td><strong>Probable, amount NOT estimable</strong></td>
+<td>No</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td><strong>Probable AND estimable</strong></td>
+<td><strong>Yes</strong></td>
+<td><strong>Yes</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Rule of thumb: accrue <strong>only</strong> when <strong>both probable and reasonably estimable</strong>.</p>
+<h3>Must-Know Journal Entries</h3>
+<ul>
+<li><strong>Sales tax</strong> (at sale): <code>Dr. Cash / Cr. Sales Revenue / Cr. Sales Tax Payable</code>. Remit later: <code>Dr. Sales Tax Payable / Cr. Cash</code>.</li>
+<li><strong>Note payable — issuance:</strong> <code>Dr. Cash (or Inventory) / Cr. Notes Payable</code>.</li>
+<li><strong>Note payable — year-end interest accrual:</strong> <code>Dr. Interest Expense / Cr. Interest Payable</code>.</li>
+<li><strong>Note payable — payment at maturity:</strong> <code>Dr. Notes Payable / Dr. Interest Payable (prior accrual) / Dr. Interest Expense (current) / Cr. Cash</code>.</li>
+<li><strong>Unearned revenue:</strong> receive cash <code>Dr. Cash / Cr. Unearned Revenue</code>; earn it <code>Dr. Unearned Revenue / Cr. Service Revenue</code>.</li>
+<li><strong>Warranty — estimate at sale:</strong> <code>Dr. Warranty Expense / Cr. Estimated Warranty Payable</code>.</li>
+<li><strong>Warranty — honoring a claim</strong> (no new expense): <code>Dr. Estimated Warranty Payable / Cr. Merchandise Inventory (or Cash)</code>.</li>
+</ul>
+<p><em>(Payroll JEs are NOT tested — LO 2 was dropped by the professor.)</em></p>
+<h3>Common Mistakes</h3>
+<ul>
+<li><strong>Treating sales tax as revenue or as an expense.</strong> It is neither — only the sale price is revenue; the tax collected is a <strong>liability</strong>.</li>
+<li><strong>Confusing sales tax with income tax.</strong> Income tax IS an expense; sales tax is not.</li>
+<li><strong>Using the stated rate as the period rate.</strong> A "10% note" is 10% <strong>per year</strong>, not over 90 days — always multiply by the time fraction.</li>
+<li><strong>Wrong denominator for time.</strong> Days → ÷365, months → ÷12. Mixing these up is a classic error.</li>
+<li><strong>Recording interest inside Notes Payable.</strong> Principal stays in Notes Payable at face value; accrued interest goes to <strong>Interest Payable</strong>, separately.</li>
+<li><strong>Forgetting the year-end interest accrual</strong> on a note spanning two periods — the matching principle requires it even though no cash moves yet.</li>
+<li><strong>Double-counting warranty expense.</strong> Expense is recorded at the <strong>sale</strong>. When a claim is honored, only reduce the liability — <strong>no second expense</strong>.</li>
+<li><strong>Settling unearned revenue with cash.</strong> It is settled by <strong>performing the service</strong>.</li>
+<li><strong>Bonus formula:</strong> when the bonus is "% of income AFTER the bonus," divide by <strong>(1 + bonus %)</strong> — don't just take the % of net income.</li>
+<li><strong>Contingent liabilities:</strong> accruing when only "reasonably possible," or accruing "probable" cases that can't be estimated. Accrue <strong>only when probable AND estimable</strong>.</li>
+<li><strong>TIE ratio:</strong> forgetting to <strong>add back</strong> income tax and interest to net income.</li>
+</ul>
+<h3>Exam Checklist</h3>
+<ul>
+<li>☐ You should be able to define a liability and apply the current-vs-long-term cutoff (1 year <strong>or</strong> operating cycle, whichever is longer).</li>
+<li>☐ You should be able to classify a liability as known / estimated / contingent.</li>
+<li>☐ You should be able to record sales tax (sale + remittance) and know it's a liability, not an expense.</li>
+<li>☐ You should be able to record income tax payable and explain why it IS an expense (contrast with sales tax).</li>
+<li>☐ You should be able to record unearned revenue and recognize it as the service is performed.</li>
+<li>☐ You should be able to compute note interest with <strong>P × R × T</strong>, choosing the right time fraction (÷365 vs ÷12).</li>
+<li>☐ You should be able to journalize a note across two periods: issuance, year-end accrual (Interest Payable), and payment at maturity.</li>
+<li>☐ You should be able to distinguish maker (Notes Payable) from payee (Notes Receivable) and record principal at face value.</li>
+<li>☐ You should be able to identify and reclassify the <strong>current portion of long-term debt</strong>.</li>
+<li>☐ You should be able to apply the <strong>bonus formula</strong> (÷ (1 + bonus %)) and record the bonus.</li>
+<li>☐ You should be able to accrue vacation/benefits when numbers are given.</li>
+<li>☐ You should be able to do the warranty two-step: estimate/expense at sale, reduce liability at claim (no new expense).</li>
+<li>☐ You should be able to apply the contingent-liability table (remote / reasonably possible / probable / probable &amp; estimable).</li>
+<li>☐ You should be able to compute and interpret the <strong>times-interest-earned ratio</strong> (EBIT ÷ interest expense); above 1 = healthy.</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section><section class="review-chapter review-body"><h2 id="ch12">Chapter 12 — Long-Term Liabilities</h2><p class="tb-link">📖 For worked examples and full detail, see the <a href="../ch12.html">Study Guide — Chapter 12</a>.</p>
+<blockquote>
+<p><strong>Scope note:</strong> The professor covers bonds only at <strong>PAR</strong> and does <strong>NOT</strong> do premium/discount amortization (upper-level topic). Exam weight is on <strong>long-term NOTES PAYABLE and MORTGAGES</strong> — building and reading amortization schedules and journalizing installment payments. Study time goes there.</p>
+</blockquote>
+<h3>Key Ideas</h3>
+<ul>
+<li><strong>Long-term liabilities</strong> = obligations not due within one year. Three types: <strong>bonds payable, long-term notes payable, mortgages payable.</strong></li>
+<li>A <strong>bond</strong> is a large promissory note with a <strong>par (face) value</strong> repaid at maturity and a <strong>coupon (stated) rate</strong> for periodic interest.</li>
+<li><strong>Stated vs. market rate</strong> sets the issue price (concept only): coupon <strong>=</strong> market → par; coupon <strong>&lt;</strong> market → discount; coupon <strong>&gt;</strong> market → premium.</li>
+<li>An <strong>amortization schedule</strong> splits each payment into <strong>interest</strong> (cost of borrowing, computed on the BEGINNING balance) and <strong>principal</strong> (debt reduction), tracking beginning and ending balances.</li>
+<li><strong>Note example = fixed principal:</strong> equal principal each period, so the <strong>total payment falls</strong> as interest shrinks.</li>
+<li><strong>Mortgage = secured + fixed total payment:</strong> backed by a specific asset; total payment is constant, so <strong>interest falls and principal rises</strong> over time (early payments mostly interest).</li>
+<li><strong>Debt-to-equity</strong> measures financial <strong>leverage</strong> — debt vs. equity financing; &gt; 1 = debt-heavy / higher risk.</li>
+</ul>
+<h3>Key Formulas &amp; Rules</h3>
+<ul>
+<li>Bond interest (at par) = Par × Coupon rate.</li>
+<li>Issue price rule: coupon = market → par; coupon &lt; market → discount; coupon &gt; market → premium.</li>
+<li>Interest Expense = Beginning Balance × Rate × Time (monthly mortgage: Annual Rate ÷ 12).</li>
+<li>Note (fixed principal): Total Payment = Fixed Principal + Interest on beginning balance.</li>
+<li>Mortgage (fixed total payment): Principal portion = Fixed Payment − Interest.</li>
+<li>Ending Balance = Beginning Balance − Principal portion only (interest does NOT reduce the balance).</li>
+<li>Debt to Equity = Total Liabilities ÷ Total Equity (&gt; 1 = leveraged).</li>
+</ul>
+<h3>Must-Know Journal Entries</h3>
+<ul>
+<li><strong>Bond issued at par:</strong> Dr. Cash / Cr. Bonds Payable.</li>
+<li><strong>Bond interest payment:</strong> Dr. Interest Expense / Cr. Cash.</li>
+<li><strong>Bond at maturity:</strong> Dr. Interest Expense, Dr. Bonds Payable / Cr. Cash.</li>
+<li><strong>Note or mortgage installment payment</strong> (identical structure): Dr. Interest Expense, Dr. Note/Mortgage Payable / Cr. Cash.</li>
+<li><strong>Mortgage at purchase:</strong> Dr. Building / Cr. Cash (down payment) / Cr. Mortgage Payable.</li>
+</ul>
+<h3>Common Mistakes</h3>
+<ul>
+<li><strong>Computing interest on the wrong balance.</strong> Always Beginning Balance × rate × time — not on the original loan amount each year, and not on the ending balance.</li>
+<li><strong>Subtracting the whole payment from the balance.</strong> Only the <strong>principal portion</strong> reduces the balance, never the total payment.</li>
+<li><strong>Mixing up beginning vs. ending balance.</strong> One year's ending balance = next year's beginning balance.</li>
+<li><strong>Forgetting the monthly rate on mortgages.</strong> Use Annual Rate ÷ 12, not the full annual rate.</li>
+<li><strong>Confusing the two structures:</strong> note = fixed principal (total payment falls); mortgage = fixed total payment (interest falls, principal rises).</li>
+<li><strong>Over-studying premium/discount bonds.</strong> The professor skips those amortization entries.</li>
+<li><strong>Debt-to-equity errors:</strong> it's ÷ total <strong>Equity</strong> (not total assets), and &gt; 1 means debt-financed, not automatically "bad."</li>
+</ul>
+<h3>Exam Checklist</h3>
+<ul>
+<li>☐ You should be able to journalize a bond <strong>at par</strong>: issuance, periodic interest (par × coupon), and maturity (interest + repay principal).</li>
+<li>☐ You should be able to apply the <strong>stated vs. market</strong> rule: = par, &lt; discount, &gt; premium (concept only).</li>
+<li>☐ You should be able to <strong>build and read a note amortization schedule:</strong> interest on beginning balance, fixed principal, total payment falling each year.</li>
+<li>☐ You should be able to <strong>build and read a mortgage amortization schedule:</strong> fixed total payment, monthly rate = annual ÷ 12, interest falling and principal rising.</li>
+<li>☐ You should be able to journalize a <strong>note installment</strong> (Dr. Interest Expense, Dr. Notes Payable, Cr. Cash).</li>
+<li>☐ You should be able to journalize a <strong>mortgage purchase</strong> (Dr. Building / Cr. Cash / Cr. Mortgage Payable) and <strong>payment</strong> (Dr. Interest Expense, Dr. Mortgage Payable, Cr. Cash).</li>
+<li>☐ You should be able to explain the note vs. mortgage difference: mortgage is <strong>secured</strong> and has a <strong>fixed total payment.</strong></li>
+<li>☐ You should be able to compute and interpret <strong>Debt to Equity = Total Liabilities ÷ Total Equity</strong> (&gt; 1 vs. &lt; 1, leverage/risk).</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section><section class="review-chapter review-body"><h2 id="ch13">Chapter 13 — Stockholders' Equity</h2><p class="tb-link">📖 For worked examples and full detail, see the <a href="../ch13.html">Study Guide — Chapter 13</a>.</p>
+<blockquote>
+<p><strong>Scope note (from the lecture):</strong> This course focuses <strong>exclusively on cash dividends</strong>. Stock dividends and stock splits are <strong>not covered/tested</strong>. Treasury stock and cumulative preferred / dividends-in-arrears appear at a <strong>terminology level only</strong> in the lecture — confirm with your professor before relying on them.</p>
+</blockquote>
+<h3>Key Ideas</h3>
+<ul>
+<li><strong>Two sources of equity:</strong> <strong>Paid-in Capital</strong> (invested by stockholders: Common Stock + Paid-in Capital in Excess of Par) and <strong>Retained Earnings</strong> (accumulated net income not paid out).</li>
+<li><strong>Corporation traits:</strong> separate legal entity, <strong>limited liability</strong>, indefinite life, lack of mutual agency, and <strong>double taxation</strong> (corp taxed on earnings, owners taxed again on dividends). Main advantage = raise large capital + limited liability; main drawback = double taxation.</li>
+<li><strong>Share categories:</strong> Authorized (charter max) ≥ Issued (sold) ≥ Outstanding (held by investors). Treasury = repurchased shares, <em>issued but not outstanding</em>. <strong>Outstanding = Issued − Treasury.</strong></li>
+<li><strong>Common vs. Preferred:</strong> Common votes and gets dividends <em>after</em> preferred. Preferred has dividend/liquidation priority, a stated rate, usually no vote. Preferred is listed before common on the balance sheet.</li>
+<li><strong>Par / no-par / stated value:</strong> Par is an arbitrary per-share amount unrelated to market value; stated value is treated exactly like par; no-par has none assigned.</li>
+<li><strong>Golden rule:</strong> Stock is <strong>always credited at par</strong> (or stated value); any excess goes to <strong>Paid-in Capital in Excess of Par</strong>. Later market price swings are never recorded.</li>
+<li><strong>Cash dividends</strong> are paid from <strong>retained earnings only</strong>, only on <strong>outstanding</strong> shares, and only when <strong>declared by the board</strong>. Three dates: <strong>declaration</strong> (entry), <strong>record</strong> (no entry), <strong>payment</strong> (entry).</li>
+<li><strong>EPS</strong> is the most-watched profitability metric, reported at the bottom of the income statement.</li>
+</ul>
+<h3>Key Formulas &amp; Rules</h3>
+<ul>
+<li>Outstanding shares = Issued − Treasury</li>
+<li>Stock credited at par; excess (Issue price − Par) × shares → Paid-in Capital in Excess of Par</li>
+<li>No-par stock: entire cash received → Common Stock (no excess account)</li>
+<li>Stock for non-cash asset: record at market value of stock or asset, whichever is more clearly determinable</li>
+<li>Preferred dividend = Par × Stated rate × # preferred shares</li>
+<li>EPS = (Net Income − Preferred Dividends) ÷ Average Common Shares Outstanding</li>
+</ul>
+<h3>Must-Know Journal Entries</h3>
+<p><strong>Issue stock above par</strong></p>
+<pre><code>Dr. Cash                                  (shares × issue price)
+   Cr. Common Stock                              (shares × par)
+   Cr. Paid-in Capital in Excess of Par          (excess)
+</code></pre>
+<p><strong>Cash dividend — declaration</strong></p>
+<pre><code>Dr. Cash Dividends                        xxx
+   Cr. Dividends Payable                        xxx
+</code></pre>
+<p><strong>Date of record — NO ENTRY.</strong></p>
+<p><strong>Cash dividend — payment</strong></p>
+<pre><code>Dr. Dividends Payable                     xxx
+   Cr. Cash                                     xxx
+</code></pre>
+<h3>Common Mistakes</h3>
+<ul>
+<li>Crediting Common Stock at the <strong>issue price instead of par</strong> — it's always at par, excess to Paid-in Capital in Excess of Par.</li>
+<li>Thinking the excess over par is a <strong>gain/revenue</strong> — it's paid-in capital, never income.</li>
+<li>Recording an entry on the <strong>date of record</strong> — there is none.</li>
+<li>Forgetting dividends are paid only on <strong>outstanding</strong> shares (not issued or authorized).</li>
+<li>Treating dividends as automatic — they require <strong>board declaration</strong>.</li>
+<li>Paying dividends from <strong>paid-in capital</strong> — they come from retained earnings.</li>
+<li>In EPS: forgetting to <strong>subtract preferred dividends</strong>, or using <strong>ending</strong> instead of <strong>average</strong> common shares.</li>
+<li>Mixing up equity effects: at <strong>declaration</strong> equity ↓ / liabilities ↑; at <strong>payment</strong> assets ↓ / liabilities ↓.</li>
+<li>Balance-sheet order: <strong>preferred before common</strong>.</li>
+</ul>
+<h3>Exam Checklist</h3>
+<ul>
+<li>☐ You should be able to list corporation characteristics and explain <strong>double taxation</strong> and <strong>limited liability</strong>.</li>
+<li>☐ You should be able to distinguish <strong>authorized / issued / outstanding / treasury</strong> and compute Outstanding = Issued − Treasury.</li>
+<li>☐ You should be able to journalize <strong>issuing stock above par</strong> — stock at par, excess to Paid-in Capital in Excess of Par.</li>
+<li>☐ You should be able to identify the <strong>two sources of equity</strong> (paid-in capital vs. retained earnings) and order the equity section (preferred before common).</li>
+<li>☐ You should be able to compute a <strong>preferred dividend</strong> = Par × Stated rate × # preferred shares.</li>
+<li>☐ You should be able to record a <strong>cash dividend</strong> at declaration and payment, with <strong>no entry on the date of record</strong>, and know each step's accounting-equation effect.</li>
+<li>☐ You should be able to compute <strong>EPS</strong> = (Net Income − Preferred Dividends) ÷ Average Common Shares, and explain <em>why</em> (isolate common's share; average for fluctuating share counts).</li>
+<li>☐ You should remember the scope: <strong>cash dividends only</strong>; stock dividends/splits not tested.</li>
+</ul><p class="backtop"><a href="#top">↑ back to top</a></p></section>
+
+  <nav class="chapter-nav">
+    <a href="index.html">&larr; Spring 2027 Hub</a>
+    <a href="#top">Back to top &uarr;</a>
+  </nav>
+</div>
+</body>
+</html>
