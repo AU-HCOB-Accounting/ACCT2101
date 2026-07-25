@@ -62,6 +62,32 @@
     padding:1rem 1.4rem;margin:1.5rem 0;font-size:.9rem;}
   .sched-note h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1rem;color:var(--primary);margin:.4rem 0;}
 
+  /* in-person meeting box */
+  .ip-box{background:#fdf2f2;border:1px solid #e6b8b8;border-left:5px solid var(--accent);
+    border-radius:var(--radius);padding:1.2rem 1.5rem;margin:1.5rem 0;}
+  .ip-title{font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;color:var(--accent);
+    font-size:1.05rem;margin-bottom:.6rem;}
+  .ip-box p{font-size:.9rem;margin-bottom:.7rem;text-align:left;}
+  .ip-table{width:auto;min-width:60%;margin:.6rem 0;box-shadow:none;font-size:.92rem;}
+  .ip-table td{padding:.45rem .9rem;border-bottom:1px solid #edd;}
+  .ip-table td.ip-date{font-weight:700;color:var(--accent);white-space:normal;}
+  .ip-note{font-size:.84rem;color:var(--text-secondary);margin:0;}
+
+  /* session table */
+  .sched-h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.3rem;color:var(--primary);
+    margin:2.5rem 0 .6rem;padding-bottom:.35rem;border-bottom:2px solid var(--border-light);}
+  .sess-table{font-size:.88rem;}
+  .sess-table td{padding:.5rem .8rem;border-bottom:1px solid var(--border-light);vertical-align:top;}
+  .sess-table td.sess-date{white-space:normal;font-weight:600;}
+  .sess-table tr.exam-session td{background:#fdecea;font-weight:700;}
+  .sess-table tr.ip-session td{background:#fff6e5;}
+  .sess-table tr.nc-row td{background:#f2f2f2;color:var(--text-light);font-style:italic;}
+  .mode-pill{display:inline-block;font-family:'Helvetica Neue',Arial,sans-serif;font-size:.68rem;
+    font-weight:700;letter-spacing:.5px;padding:.15rem .5rem;border-radius:20px;white-space:nowrap;}
+  .mode-pill.m-online{background:#e8f0fb;color:#2b579a;}
+  .mode-pill.m-inperson{background:#ffe0b2;color:#8a5000;}
+  .mode-pill.m-exam{background:var(--accent);color:#fff;}
+
   /* syllabus */
   .syl h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.15rem;color:#fff;background:var(--primary);
     border-radius:6px;padding:.5rem .9rem;margin:2rem 0 1rem;border-bottom:3px solid var(--accent-gold);}
@@ -78,11 +104,11 @@
   <header class="chapter-header">
     <div class="chapter-label">ACCT 2101 · ONLINE</div>
     <h1 class="chapter-title">Fall 2026</h1>
-    <p class="chapter-subtitle">Principles of Accounting I · Online</p>
+    <p class="chapter-subtitle">Principles of Accounting I · Partially at a Distance</p>
   </header>
   <div class="proposed-banner">⚠️ <strong>Proposed dates.</strong> All dates on this page are tentative and will be confirmed by the instructor. Items marked <span class="tbd">like this<span class="tbd-tag">proposed</span></span> are subject to change.</div>
   
-  <div class="glance"><div class="g-card"><div class="g-label">First Day of Class</div><div class="g-val"><span class="tbd">Tuesday, August 18, 2026<span class="tbd-tag">proposed</span></span></div></div><div class="g-card"><div class="g-label">Last Day of Class</div><div class="g-val"><span class="tbd">Tuesday, November 24, 2026<span class="tbd-tag">proposed</span></span></div></div><div class="g-card"><div class="g-label">1st Exam</div><div class="g-val"><span class="tbd">September 8, 2026<span class="tbd-tag">proposed</span></span></div></div><div class="g-card"><div class="g-label">2nd Exam</div><div class="g-val"><span class="tbd">September 29, 2026<span class="tbd-tag">proposed</span></span></div></div><div class="g-card"><div class="g-label">3rd Exam</div><div class="g-val"><span class="tbd">November 3, 2026<span class="tbd-tag">proposed</span></span></div></div><div class="g-card"><div class="g-label">Comprehensive Final</div><div class="g-val"><span class="tbd">December 2, 2026<span class="tbd-tag">proposed</span></span></div></div><div class="g-card"><div class="g-label">Last Day to Withdraw (“W”)</div><div class="g-val"><span class="tbd">October 21, 2026<span class="tbd-tag">proposed</span></span></div></div><div class="g-card"><div class="g-label">Day-One Quiz Due</div><div class="g-val"><span class="tbd">August 24, 2026<span class="tbd-tag">proposed</span></span></div></div></div>
+  <div class="glance"><div class="g-card"><div class="g-label">First Day of Class</div><div class="g-val"><span class="tbd">Tuesday, August 18, 2026<span class="tbd-tag">proposed</span></span></div></div><div class="g-card"><div class="g-label">Last Day of Class</div><div class="g-val"><span class="tbd">Tuesday, November 24, 2026<span class="tbd-tag">proposed</span></span></div></div><div class="g-card"><div class="g-label">1st Exam</div><div class="g-val"><span class="tbd">September 15, 2026<span class="tbd-tag">proposed</span></span></div></div><div class="g-card"><div class="g-label">2nd Exam</div><div class="g-val"><span class="tbd">October 8, 2026<span class="tbd-tag">proposed</span></span></div></div><div class="g-card"><div class="g-label">3rd Exam</div><div class="g-val"><span class="tbd">November 10, 2026<span class="tbd-tag">proposed</span></span></div></div><div class="g-card"><div class="g-label">Comprehensive Final</div><div class="g-val"><span class="tbd">December 3, 2026<span class="tbd-tag">proposed</span></span></div></div><div class="g-card"><div class="g-label">Last Day to Withdraw (“W”)</div><div class="g-val"><span class="tbd">October 21, 2026<span class="tbd-tag">proposed</span></span></div></div><div class="g-card"><div class="g-label">Day-One Quiz Due</div><div class="g-val"><span class="tbd">August 24, 2026<span class="tbd-tag">proposed</span></span></div></div></div>
 
   <p style="font-size:.95rem;color:var(--text-secondary);">
     Welcome to <strong>ACCT2101 — Fall 2026</strong>. This hub links everything for the term:

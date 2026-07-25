@@ -62,6 +62,32 @@
     padding:1rem 1.4rem;margin:1.5rem 0;font-size:.9rem;}
   .sched-note h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1rem;color:var(--primary);margin:.4rem 0;}
 
+  /* in-person meeting box */
+  .ip-box{background:#fdf2f2;border:1px solid #e6b8b8;border-left:5px solid var(--accent);
+    border-radius:var(--radius);padding:1.2rem 1.5rem;margin:1.5rem 0;}
+  .ip-title{font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;color:var(--accent);
+    font-size:1.05rem;margin-bottom:.6rem;}
+  .ip-box p{font-size:.9rem;margin-bottom:.7rem;text-align:left;}
+  .ip-table{width:auto;min-width:60%;margin:.6rem 0;box-shadow:none;font-size:.92rem;}
+  .ip-table td{padding:.45rem .9rem;border-bottom:1px solid #edd;}
+  .ip-table td.ip-date{font-weight:700;color:var(--accent);white-space:normal;}
+  .ip-note{font-size:.84rem;color:var(--text-secondary);margin:0;}
+
+  /* session table */
+  .sched-h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.3rem;color:var(--primary);
+    margin:2.5rem 0 .6rem;padding-bottom:.35rem;border-bottom:2px solid var(--border-light);}
+  .sess-table{font-size:.88rem;}
+  .sess-table td{padding:.5rem .8rem;border-bottom:1px solid var(--border-light);vertical-align:top;}
+  .sess-table td.sess-date{white-space:normal;font-weight:600;}
+  .sess-table tr.exam-session td{background:#fdecea;font-weight:700;}
+  .sess-table tr.ip-session td{background:#fff6e5;}
+  .sess-table tr.nc-row td{background:#f2f2f2;color:var(--text-light);font-style:italic;}
+  .mode-pill{display:inline-block;font-family:'Helvetica Neue',Arial,sans-serif;font-size:.68rem;
+    font-weight:700;letter-spacing:.5px;padding:.15rem .5rem;border-radius:20px;white-space:nowrap;}
+  .mode-pill.m-online{background:#e8f0fb;color:#2b579a;}
+  .mode-pill.m-inperson{background:#ffe0b2;color:#8a5000;}
+  .mode-pill.m-exam{background:var(--accent);color:#fff;}
+
   /* syllabus */
   .syl h2{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.15rem;color:#fff;background:var(--primary);
     border-radius:6px;padding:.5rem .9rem;margin:2rem 0 1rem;border-bottom:3px solid var(--accent-gold);}
@@ -78,12 +104,14 @@
   <header class="chapter-header">
     <div class="chapter-label">Instructional Method</div>
     <h1 class="chapter-title">Summer 2026 Instructional Method</h1>
-    <p class="chapter-subtitle">Principles of Accounting I · Online</p>
+    <p class="chapter-subtitle">Principles of Accounting I · Fully Online</p>
   </header>
   
   
   <div class="syl">
     <p class="info-line"><strong>ACCT2101CO1: Principles of Accounting I</strong> · Summer 2026</p>
+
+    
 
     <h2>D2L (https://lms.augusta.edu/)</h2>
     <p>You will access D2L to download Lecture PPTs and watch the video lectures, found under the
@@ -106,7 +134,7 @@
     "Exercises" problems from the end of each chapter. You have unlimited attempts on each problem. Late
     submissions receive a 50% penalty. (Late submissions are <strong>not allowed</strong> for the Ch 9, 11, 12,
     and 13 graded assignments — see the Course Schedule.)</p>
-    <p><strong>Exams:</strong> Exam dates are listed in the Course Schedule. If you miss a test or the final exam,
+    <p><strong>Exams:</strong> Exams are taken online through MyAccountingLab on the dates listed in the Course Schedule. If you miss a test or the final exam,
     you receive a zero for that exam (except for documented emergencies: serious illness, family medical emergency,
     or a university-sponsored activity). Documentation must be provided before the test or as soon as possible;
     non-emergency excused cases must be communicated ahead of time. Job-related activities, travel plans, lack of a
@@ -116,9 +144,9 @@
       <li>Instructions for the "Ch1-2-practice-test" are provided by email.</li>
       <li>Exams #1 and #2 consist of 60 multiple-choice questions.</li>
       <li>Exam #3 and the Comprehensive Final Exam consist of problems from the MyAccountingLab Chapter Graded Assignments.</li>
-      <li>All exams (including quizzes) are timed. You may start any time during the designated exam date but must
-      finish within the time limit. Stay in the session until you finish and do not close the window. If you
-      experience technical difficulties, take a screenshot or video and email the instructor immediately.</li>
+      <li>All exams (including quizzes) are timed. Bring your laptop and your student ID to each in-person exam,
+      and arrive on time — the time limit runs during the scheduled class period. If you experience technical
+      difficulties, notify the instructor immediately.</li>
     </ul>
     <p><strong>Other study materials on MyAccountingLab</strong> (sample quizzes/tests, the Study Plan, Dynamic
     Study Modules) are provided by the publisher and may include topics not covered in class. Use them only after
