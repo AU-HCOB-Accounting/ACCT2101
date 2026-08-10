@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Accounting Practice &amp; Test (Extended Time)</title>
+<title>Ch 1-2 Test (Extended Time)</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -193,8 +193,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 <!-- ===== SCREEN: LOGIN ===== -->
 <div id="screen-login" class="screen active">
   <div class="login-card">
-    <h1>Accounting Practice &amp; Test</h1>
-    <p style="color:var(--m2);font-weight:600;font-size:.85rem;margin-bottom:4px">Extended Time Version (1.5x)</p>
+    <h1>Chapters 1 &amp; 2 Test</h1>
     <p class="subtitle">Account Classification, Transaction Effects &amp; Normal Balances</p>
     <input type="text" id="inp-name" placeholder="Full Name (e.g., John Smith)" autocomplete="off">
     <input type="text" id="inp-id" placeholder="Student ID (9 digits, e.g., 912345678)" autocomplete="off" maxlength="9">
@@ -206,15 +205,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
       Switching devices will reset your practice time.
     </div>
     <div class="info-box">
-      <strong>How it works:</strong> 3 modules — practice as much as you want (unlimited), then take each test ONCE.
-      Your total practice time is tracked and included in your submission.
-      <strong>More practice = better results!</strong>
-    </div>
-    <div class="deadline-box">
-      <strong>Deadline:</strong> Complete all 3 tests and email your encrypted result to
-      <strong>sapark@augusta.edu</strong> by <strong>May 28, 2026 midnight</strong> (before Exam #1).
-      Only ONE submission per student will be accepted.
-    </div>
+      <strong>How it works:</strong> 3 modules, <strong>one timed attempt each</strong>. This is the graded test — you are scored on how many you get right. Practise first in the separate <em>Ch 1-2 Practice</em> tool; every question here also appears there.</div>
+    <div class="deadline-box"><strong>Deadline:</strong> Submit your result code on D2L by <strong>Monday, September 14, 2026, 11:59 PM</strong> (the night before Exam #1). Only ONE submission per student will be accepted.</div>
   </div>
 </div>
 
@@ -240,18 +232,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
     </div>
   </div>
 
-  <div class="mode-bar" id="mode-bar">
-    <div class="mode-btn active-mode" data-mode="practice" onclick="selectMode('practice')">
-      Practice<small>No timer</small>
-    </div>
-    <div class="mode-btn" data-mode="practice-timer" onclick="selectMode('practice-timer')">
-      Practice + Timer<small id="timer-label">6 sec</small>
-    </div>
-    <div class="mode-btn" data-mode="test" id="btn-mode-test" onclick="selectMode('test')">
-      Test<small>One attempt only</small>
-    </div>
-  </div>
-
+  <div class="mode-bar" id="mode-bar" style="display:none"></div>
   <div id="mod-desc" class="mod-desc"></div>
 
   <div id="content-area">
@@ -298,15 +279,14 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
       <tbody id="results-tbody"></tbody>
     </table>
     <div class="total-time-display" id="results-time"></div>
-    <p style="font-size:.9rem;color:var(--text2);margin-bottom:12px">Copy the encrypted text below and email it to your professor:</p>
+    <p style="font-size:.9rem;color:var(--text2);margin-bottom:12px">Copy the code below and submit it on D2L:</p>
     <textarea class="encrypted-area" id="encrypted-text" readonly></textarea>
-    <button class="btn-copy" id="btn-copy" onclick="copyResult()">Copy to Clipboard</button>
-    <div class="email-info">
-      <strong>Email to:</strong> sapark@augusta.edu<br>
-      <strong>Subject:</strong> Accounting Practice Test - [Your Name]<br>
-      <strong>Deadline:</strong> May 28, 2026 midnight (before Exam #1)<br>
-      <strong>Only ONE submission per student will be accepted.</strong>
+    <div id="regen-wrap" style="display:none;margin-bottom:12px">
+      <p style="color:#c0392b;font-size:.9rem;margin:0 0 8px">⚠ Encrypted code was not generated. Click below to retry.</p>
+      <button style="background:#e67e22;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:1rem;cursor:pointer" onclick="regenerateEncrypted()">Regenerate Encrypted Code</button>
     </div>
+    <button class="btn-copy" id="btn-copy" onclick="copyResult()">Copy to Clipboard</button>
+    <div class="email-info"><strong>Submit on D2L:</strong> Assessments &rarr; Assignments &rarr; <strong>&ldquo;Ch 1-2 Test &mdash; Result Code&rdquo;</strong><br>Paste the code into the text box and click Submit.<br><strong>Deadline:</strong> Monday, September 14, 2026, 11:59 PM<br><em>Trouble with D2L? Email the code to sapark@augusta.edu before the deadline instead.</em><br><strong>Only ONE submission per student will be accepted.</strong></div>
   </div>
 </div>
 
@@ -418,7 +398,7 @@ const TRANSACTIONS = [
 // ====================== STATE ======================
 const S = {
   name:'', id:'',
-  mod:1, mode:'practice',
+  mod:1, mode:'test',
   qi:0, questions:[], score:0, total:0,
   timerInterval:null, timerRemaining:0, timerDuration:0,
   answered:false,
@@ -534,7 +514,7 @@ function selectModule(m){
   document.querySelectorAll('.tab').forEach(t=>{
     t.classList.toggle('active-tab',parseInt(t.dataset.mod)===m);
   });
-  const timerSec=m===2?24:6;
+  const timerSec=m===2?23:5;
   $('timer-label').textContent=timerSec+' sec';
   const testBtn=$('btn-mode-test');
   if(S.testResults[m]){
@@ -550,11 +530,11 @@ function selectModule(m){
     3:{title:"Module 3: Normal Balance (Debit / Credit)",text:"Select the <strong>normal balance</strong> (Debit or Credit) for each account.<br><em>Rule:</em> LEFT side of equation (Assets) → Debit &nbsp;|&nbsp; RIGHT side (Liabilities, SE) → Credit<br><em>Exception:</em> Expenses &amp; Dividends are contra-equity → Debit normal balance."}
   };
   $('mod-desc').innerHTML='<h3>'+descs[m].title+'</h3><p>'+descs[m].text+'</p>';
-  selectMode(S.mode);
+  S.mode='test';
   showStartScreen();
 }
 
-function selectMode(mode){
+function selectMode(mode){ mode='test';
   S.mode=mode;
   document.querySelectorAll('.mode-btn').forEach(b=>{
     b.classList.toggle('active-mode',b.dataset.mode===mode);
@@ -627,7 +607,7 @@ function showQuestion(){
   if(S.mod===1)renderMod1(q,body);
   else if(S.mod===2)renderMod2(q,body);
   else renderMod3(q,body);
-  if(hasTimer)startTimer(S.mod===2?24:6);
+  if(hasTimer)startTimer(S.mod===2?23:5);
 }
 
 function renderMod1(q,body){
@@ -880,7 +860,8 @@ async function generateAndShowResults(){
   saveTime();
   const totalMin=Math.round(getTotalTime()/60000);
   const data={
-    version:1,
+    version:2,
+    kind:'test',
     studentName:S.name,
     studentId:S.id,
     module1:S.testResults[1],
@@ -914,6 +895,33 @@ function showResultsScreen(){
   const totalMin=Math.round(getTotalTime()/60000);
   $('results-time').textContent='Total Practice Time: '+fmtTime(getTotalTime())+' ('+totalMin+' min)';
   $('encrypted-text').value=S.encryptedResult||'';
+  $('regen-wrap').style.display=S.encryptedResult?'none':'block';
+  $('btn-copy').style.display=S.encryptedResult?'':'none';
+}
+
+async function regenerateEncrypted(){
+  const totalMin=Math.round(getTotalTime()/60000);
+  const data={
+    version:2,
+    kind:'test',
+    studentName:S.name,
+    studentId:S.id,
+    module1:S.testResults[1],
+    module2:S.testResults[2],
+    module3:S.testResults[3],
+    totalPracticeMinutes:totalMin,
+    submittedAt:new Date().toISOString()
+  };
+  try{
+    const encrypted=await encryptData(JSON.stringify(data));
+    S.encryptedResult=encrypted;
+    localStorage.setItem(lsKey('encrypted'),encrypted);
+    $('encrypted-text').value=encrypted;
+    $('regen-wrap').style.display='none';
+    $('btn-copy').style.display='';
+  }catch(e){
+    alert('Encryption failed. Please try Chrome or Edge browser.\n'+e.message);
+  }
 }
 
 function copyResult(){
