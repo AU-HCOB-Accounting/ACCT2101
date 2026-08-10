@@ -212,7 +212,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
     </div>
     <div class="deadline-box">
       <strong>Deadline:</strong> Complete all 3 tests and email your encrypted result to
-      <strong>sapark@augusta.edu</strong> by <strong>May 28, 2026 midnight</strong> (before Exam #1).
+      <strong>sapark@augusta.edu</strong> by <strong>Monday, September 14, 2026, 11:59 PM</strong> (the night before Exam #1).
       Only ONE submission per student will be accepted.
     </div>
   </div>
@@ -245,7 +245,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
       Practice<small>No timer</small>
     </div>
     <div class="mode-btn" data-mode="practice-timer" onclick="selectMode('practice-timer')">
-      Practice + Timer<small id="timer-label">6 sec</small>
+      Practice + Timer<small id="timer-label">5 sec</small>
     </div>
     <div class="mode-btn" data-mode="test" id="btn-mode-test" onclick="selectMode('test')">
       Test<small>One attempt only</small>
@@ -304,7 +304,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
     <div class="email-info">
       <strong>Email to:</strong> sapark@augusta.edu<br>
       <strong>Subject:</strong> Accounting Practice Test - [Your Name]<br>
-      <strong>Deadline:</strong> May 28, 2026 midnight (before Exam #1)<br>
+      <strong>Deadline:</strong> Monday, September 14, 2026, 11:59 PM (the night before Exam #1)<br>
       <strong>Only ONE submission per student will be accepted.</strong>
     </div>
   </div>
@@ -534,7 +534,7 @@ function selectModule(m){
   document.querySelectorAll('.tab').forEach(t=>{
     t.classList.toggle('active-tab',parseInt(t.dataset.mod)===m);
   });
-  const timerSec=m===2?24:6;
+  const timerSec=m===2?23:5;
   $('timer-label').textContent=timerSec+' sec';
   const testBtn=$('btn-mode-test');
   if(S.testResults[m]){
@@ -627,7 +627,7 @@ function showQuestion(){
   if(S.mod===1)renderMod1(q,body);
   else if(S.mod===2)renderMod2(q,body);
   else renderMod3(q,body);
-  if(hasTimer)startTimer(S.mod===2?24:6);
+  if(hasTimer)startTimer(S.mod===2?23:5);
 }
 
 function renderMod1(q,body){
