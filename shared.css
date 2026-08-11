@@ -555,10 +555,26 @@ body.has-sidebar .chapter-container {
   text-decoration: none;
   transition: color .15s, background .15s, border-color .15s;
 }
+.vlinks {
+  display: inline-flex;
+  gap: .35em;
+  vertical-align: middle;
+  margin-left: .5em;
+  white-space: nowrap;
+}
+.vlinks .vlink { margin-left: 0; }
 .vlink:hover, .vlink:focus {
   color: var(--bg-white);
   background: var(--primary-light);
   border-color: var(--primary-light);
+}
+/* The slides badge is the same size and weight — just tinted, so the pair reads as two
+   options rather than one important link and one afterthought. */
+.vlink-ppt { background: var(--bg-key); border-color: var(--accent-gold); }
+.vlink-ppt:hover, .vlink-ppt:focus {
+  color: var(--bg-white);
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
 }
 .vmap {
   margin: 1.5rem 0 2rem;
@@ -618,5 +634,6 @@ body.has-sidebar .chapter-container {
   border-radius: 999px;
   padding: .1em .6em;
 }
+.vlink-demo-ppt { background: var(--bg-key); border-color: var(--accent-gold); }
 @media print { .vlink, .vmap, .vintro { display: none; } }
 /* video-links:end */

@@ -22,7 +22,7 @@
   // labels and out of the generated anchor ids.
   function headingText(el) {
     var clone = el.cloneNode(true);
-    clone.querySelectorAll('.vlink').forEach(function (n) { n.remove(); });
+    clone.querySelectorAll('.vlinks, .vlink').forEach(function (n) { n.remove(); });
     return clone.textContent.trim();
   }
 
