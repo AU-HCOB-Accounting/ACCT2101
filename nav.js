@@ -17,6 +17,15 @@
 
   var currentFile = location.pathname.split('/').pop() || 'index.html';
 
+  // A heading may carry a "▶ Watch this topic" badge. It is part of the heading so that it
+  // sits on the same line, but it is not part of the title — keep it out of the sidebar
+  // labels and out of the generated anchor ids.
+  function headingText(el) {
+    var clone = el.cloneNode(true);
+    clone.querySelectorAll('.vlink').forEach(function (n) { n.remove(); });
+    return clone.textContent.trim();
+  }
+
   function buildSidebar() {
     var sidebar = document.createElement('nav');
     sidebar.id = 'sidebar';
@@ -47,15 +56,16 @@
           var subUl = document.createElement('ul');
           subUl.className = 'sidebar-sections';
           sections.forEach(function (h2) {
+            var label = headingText(h2);
             if (!h2.id) {
-              h2.id = 'sec-' + h2.textContent.trim().toLowerCase()
+              h2.id = 'sec-' + label.toLowerCase()
                 .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').substring(0, 40);
             }
             var subLi = document.createElement('li');
             var subA = document.createElement('a');
             subA.href = '#' + h2.id;
             subA.className = 'sidebar-section-link';
-            subA.textContent = h2.textContent.trim();
+            subA.textContent = label;
             subA.addEventListener('click', function (e) {
               e.preventDefault();
               h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
