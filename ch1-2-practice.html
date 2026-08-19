@@ -56,8 +56,12 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 .mode-bar{display:flex;gap:8px;margin-bottom:16px}
 .mode-btn{flex:1;padding:10px;border:2px solid var(--border);border-radius:8px;background:var(--card);cursor:pointer;text-align:center;font-size:.85rem;font-weight:500;transition:all .2s}
 .mode-btn:hover{border-color:#cbd5e1}
-.mode-btn.active-mode{color:#fff}
+/* The selected mode is WHITE text, so it MUST also get a filled background --
+   an unmatched data-mode used to leave white-on-white and the label vanished.
+   The base rule below is the safety net; the per-mode rules only recolour it. */
+.mode-btn.active-mode{color:#fff;background:var(--m1);border-color:var(--m1)}
 .mode-btn.active-mode[data-mode="practice"]{background:var(--correct);border-color:var(--correct)}
+.mode-btn.active-mode[data-mode="timed"],
 .mode-btn.active-mode[data-mode="practice-timer"]{background:var(--m3);border-color:var(--m3)}
 .mode-btn.active-mode[data-mode="test"]{background:var(--wrong);border-color:var(--wrong)}
 .mode-btn.disabled{opacity:.45;cursor:not-allowed;pointer-events:none}
