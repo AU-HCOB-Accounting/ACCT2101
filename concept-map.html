@@ -3068,6 +3068,7 @@ li.lg-off .lg-go{color:var(--ink-3);text-decoration:line-through}
     // last-drawn one wins, so a tap on one dot could open the next. Pick the visible node whose
     // centre is closest to the pointer instead.
     function nearestTo(ev, fallback) {
+      if (ev.detail === 0) return fallback;  // keyboard or assistive-technology activation: no pointer position
       var p = d3.pointer(ev, svg.node()), best = fallback, bestD = Infinity;
       nodes.forEach(function (m) {
         if (S.hidden.has(m.ch)) return;
